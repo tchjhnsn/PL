@@ -10,7 +10,7 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 
 | Path | Holds |
 |---|---|
-| `schema/` | Five JSON Schemas: `catalog`, `projects`, `pattern-instance`, `check-report`, `step`. |
+| `schema/` | Five catalog-gate schemas plus `spatial-structure.schema.json` (demo mid-layer; not scanned by the gate). |
 | `catalog/` | Twelve seed pattern records, `<number>-<slug>.json`. |
 | `projects/` | `seed-house.json`, the twelve-pattern language. Empty in U1. |
 | `fixtures/` | `pass-house.ifc`, `fail-house.ifc`, and a sibling `.expected.json` for each. Generated. Not scanned by the gate. |
@@ -27,12 +27,22 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `src/pattern_language/step.py` | `preserving`, `Step`, `build_step`, and `step_json`. |
 | `src/pattern_language/cli.py` | `pl check`, `pl sequence`, and `pl step`. |
 | `src/pattern_language/runs.py` | `record_run`, `record_step`, `latest_report`, and `report_lines`. Calls `pl step` and `pl check`. |
+| `src/pattern_language/spatial_structure.py` | Load/query SpatialStructure plan-models (places, measures, network). Not IFC. |
+| `src/pattern_language/conditions/plan_clearance.py` | Unregistered plan helper `meets_clear_width`. Not in `CHECKS`. |
 | `scripts/validate_catalog.py` | Gate command. Prints back-edges, then `ok: N records`. Exit 0 when the scan has no errors and every link target exists. |
 | `scripts/make_fixtures.py` | Writes the two houses and their expected JSON. `--check` compares graphs, not STEP bytes, and does not write into `fixtures/` on failure. |
 | `scripts/drive_run.py` | Writes one run under `runs/<stamp>/`, or `--check` in a temporary directory. |
 | `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, the two houses, and the stdio MCP client. |
 | `lean/` | Lake package `PatternLanguage`. `Language`, `Sequence`, `Preservation`, and generated `Instantiations/Buildings.lean`. |
 | `docs/design/DESIGN.md` | Gate contract and unit boundary. |
+| `docs/design/ONTOLOGY-PLACEMENT.md` | Where PL sits among CityJSON/IFC/BOT. |
+| `docs/design/VISUAL-LANGUAGE.md` | Owned plan-symbology layer (productizable); glance-readable glyphs. |
+| `docs/design/SPATIAL-CONCEPTS.md` | Geometry, spacing, circulation, interaction — concepts to codify. |
+| `docs/design/U8-SPATIAL-STRUCTURE.md` | Next unit: SpatialStructure mid-layer contract. |
+| `docs/design/U9-MEASURE-CONDITIONS.md` | Follow-on: predicates over plan measures (not in `CHECKS`). |
+| `docs/design/spatial-concept-graph.json` | Exhaustive concept graph (deps/siblings/maps). Built by `scripts/build_spatial_graph.py`. |
+| `docs/design/research/` | Ontology research notes (CityGML transport, BOT/IFC, urban morphology). |
+| `demo/` | Seed-district SVG plan + concept browser (`plan-model.json`, `plan.js`, `concepts.html`). |
 
 ## U1
 
