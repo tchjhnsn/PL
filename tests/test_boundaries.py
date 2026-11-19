@@ -10,7 +10,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-FORBIDDEN_IMPORTS = frozenset({"ifcopenshell", "bpy"})
+WATCHED_IMPORTS = frozenset({"ifcopenshell", "bpy", "bonsai"})
 
 SCHEMA_FILES = (
     "schema/catalog.schema.json",
@@ -62,7 +62,7 @@ def _forbidden_import_sites(tree: ast.AST) -> list[tuple[str, str]]:
 
         def _record(self, module: str) -> None:
             root = module.split(".", 1)[0]
-            if root not in FORBIDDEN_IMPORTS:
+            if root not in WATCHED_IMPORTS:
                 return
             allowed = {"read_ifc", "write_ifc"} & set(self.stack)
             where = next(iter(allowed)) if allowed else (self.stack[-1] if self.stack else "<module>")
@@ -86,10 +86,18 @@ def test_import_boundary_forbids_ifcopenshell_and_bpy(repo_root: Path) -> None:
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         relative = path.relative_to(repo_root).as_posix()
         for where, root in _forbidden_import_sites(tree):
-            if root == "bpy" or relative != "src/pattern_language/topology.py" or where not in {
-                "read_ifc",
-                "write_ifc",
-            }:
+            if root == "ifcopenshell":
+                allowed = relative == "src/pattern_language/topology.py" and where in {
+                    "read_ifc",
+                    "write_ifc",
+                }
+            elif root == "bpy":
+                allowed = relative.startswith("adapters/blender/")
+            elif root == "bonsai":
+                allowed = relative == "adapters/blender/bridge.py"
+            else:
+                allowed = False
+            if not allowed:
                 offenders.append(f"{relative} imports {root} in {where}")
     assert offenders == []
 
@@ -169,6 +177,7 @@ def test_ci_workflow_covers_gate_and_lean(repo_root: Path) -> None:
         in workflow
     )
     assert "uv run pl sequence projects/seed-house.json" in workflow
+    assert "uv run python scripts/drive_run.py --check" in workflow
     assert "leanprover/lean-action@v1" in workflow
     assert "lake-package-directory: lean" in workflow
 
@@ -180,6 +189,50 @@ def test_importing_sequence_does_not_load_checker_or_ifcopenshell() -> None:
         "assert 'pattern_language.checker' not in sys.modules\n"
         "assert 'ifcopenshell' not in sys.modules\n"
         "assert 'bpy' not in sys.modules\n"
+    )
+    completed = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+
+
+def test_runs_does_not_reimplement_preserving(repo_root: Path) -> None:
+    path = repo_root / "src" / "pattern_language" / "runs.py"
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    banned = {"preserving", "build_step", "CHECKS", "evaluate"}
+    found: list[str] = []
+    constants: list[str] = []
+    modules: list[str] = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call):
+            func = node.func
+            name = func.id if isinstance(func, ast.Name) else None
+            if isinstance(func, ast.Attribute):
+                name = func.attr
+            if name in banned:
+                found.append(name)
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            constants.append(node.value)
+        if isinstance(node, ast.Import):
+            modules.extend(alias.name for alias in node.names)
+        if isinstance(node, ast.ImportFrom) and node.module:
+            modules.append(node.module)
+    assert found == []
+    assert "step" in constants
+    assert "check" in constants
+    assert "pattern_language.checker" not in modules
+    assert "pattern_language.step" not in modules
+
+
+def test_importing_runs_leaves_blender_and_ifcopenshell_unloaded() -> None:
+    script = (
+        "import sys\n"
+        "import pattern_language.runs\n"
+        "for name in ('bpy', 'bonsai', 'ifcopenshell'):\n"
+        "    assert name not in sys.modules, name\n"
     )
     completed = subprocess.run(
         [sys.executable, "-c", script],

@@ -4,7 +4,7 @@ Map for agents working in this repository. U0 is the empty-catalog scaffold. U1 
 
 ## What this is
 
-A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation. U3 adds two generated IFC houses and `read_topology`. U4 adds `pl check`, one module per computed check, and `projects/seed-house.json`. U5 adds `pl sequence` and `pl step`. U6 adds a stdio MCP server with five tools over that core.
+A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation. U3 adds two generated IFC houses and `read_topology`. U4 adds `pl check`, one module per computed check, and `projects/seed-house.json`. U5 adds `pl sequence` and `pl step`. U6 adds a stdio MCP server with five tools over that core. U7 records a twelve-step seed-house run and a Blender add-on skeleton.
 
 ## Where things are
 
@@ -14,8 +14,9 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `catalog/` | Twelve seed pattern records, `<number>-<slug>.json`. |
 | `projects/` | `seed-house.json`, the twelve-pattern language. Empty in U1. |
 | `fixtures/` | `pass-house.ifc`, `fail-house.ifc`, and a sibling `.expected.json` for each. Generated. Not scanned by the gate. |
+| `runs/` | Timestamped run directories. Empty apart from `.gitkeep` until `drive_run.py` writes one. Not scanned by the gate. |
 | `mcp/` | `server.py`, a stdio MCP server. No `__init__.py`. The SDK owns the `mcp` import. |
-| `adapters/blender/` | Blender adapter. Empty in U1. |
+| `adapters/blender/` | Blender add-on: panel, `Session`, and `export_ifc`. `bpy` stays in this directory. |
 | `src/pattern_language/gate.py` | `DirectorySchemaMap`, frozen `CatalogScan`, and `scan(root)`. |
 | `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |
@@ -25,8 +26,10 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `src/pattern_language/sequence.py` | `index_before`, `order_ok`, `smaller_edges`, and `sequence`. Does not import the checker. |
 | `src/pattern_language/step.py` | `preserving`, `Step`, `build_step`, and `step_json`. |
 | `src/pattern_language/cli.py` | `pl check`, `pl sequence`, and `pl step`. |
+| `src/pattern_language/runs.py` | `record_run`, `record_step`, `latest_report`, and `report_lines`. Calls `pl step` and `pl check`. |
 | `scripts/validate_catalog.py` | Gate command. Prints back-edges, then `ok: N records`. Exit 0 when the scan has no errors and every link target exists. |
 | `scripts/make_fixtures.py` | Writes the two houses and their expected JSON. `--check` compares graphs, not STEP bytes, and does not write into `fixtures/` on failure. |
+| `scripts/drive_run.py` | Writes one run under `runs/<stamp>/`, or `--check` in a temporary directory. |
 | `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, the two houses, and the stdio MCP client. |
 | `lean/` | Lake package `PatternLanguage`. `Language`, `Sequence`, `Preservation`, and generated `Instantiations/Buildings.lean`. |
 | `docs/design/DESIGN.md` | Gate contract and unit boundary. |
@@ -61,6 +64,17 @@ uv run python mcp/server.py
 
 That process reads stdin until the client closes it. `uv run pytest` is the client check. CI does not launch the server, because the process would block.
 
+## U7
+
+`prefix` copies named spaces and openings out of the pass-house tables. `_pass_house` is `prefix` of every name. `record_run` checks that `sequence` on the seed project is `105, 106, 107, 110, 112, 127, 128, 130, 159, 167, 180, 190`, writes `model-00.ifc` through `model-12.ifc`, and calls `record_step` twelve times. Each step is `python -m pattern_language.cli step` with `--out`. Exit 1 raises `RunError` and the driver deletes the directory. `report.json` is `pl check` on `model-12.ifc`. The ten computed patterns are `satisfied`. 110 Main Entrance and 180 Window Place are `needs_judgment` and stay out of `satisfied`. Every logged step has `preserved` true. `model-12.ifc` reads back as the pass house.
+
+`adapters/blender/` holds the add-on. The panel draws `report_lines` from the newest `report.json`, or `report unavailable`. `Session.act` is the transition table. `export_ifc` raises. `bridge.py` is the only file that imports `bonsai`. The live path is `adapters/blender/README.md`. CI runs `drive_run.py --check` and does not launch Blender. U7 adds no schema, no Lean file, and no `pl` command.
+
+```bash
+uv run python scripts/drive_run.py --check
+uv run python scripts/drive_run.py
+```
+
 ## Commands
 
 ```bash
@@ -72,18 +86,19 @@ uv run python scripts/make_fixtures.py --check
 uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json
 uv run pl check fixtures/fail-house.ifc --language projects/seed-house.json
 uv run pl sequence projects/seed-house.json
+uv run python scripts/drive_run.py --check
 uv run pl step fixtures/pass-house.ifc fixtures/fail-house.ifc --language projects/seed-house.json --pattern 112
 uv run pl step fixtures/pass-house.ifc fixtures/pass-house.ifc --language projects/seed-house.json --pattern 105
 cd lean && lake build
 ```
 
-CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_catalog.py`, `uv run python scripts/catalog_to_lean.py --check`, `uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json`, `uv run pl sequence projects/seed-house.json`, and `leanprover/lean-action` with `lake-package-directory: lean`. `uv sync --frozen` installs the IfcOpenShell wheel. Pytest runs `make_fixtures.py --check`. The gate prints `back-edges: 0` and `ok: 13 records`.
+CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_catalog.py`, `uv run python scripts/catalog_to_lean.py --check`, `uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json`, `uv run pl sequence projects/seed-house.json`, `uv run python scripts/drive_run.py --check`, and `leanprover/lean-action` with `lake-package-directory: lean`. `uv sync --frozen` installs the IfcOpenShell wheel. Pytest runs `make_fixtures.py --check`. The gate prints `back-edges: 0` and `ok: 13 records`. CI does not launch Blender.
 
 ## Rules
 
 - Cite pattern numbers and names only. Never copy book text.
-- Core Python must not import `bpy`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
+- Core Python must not import `bpy`. `bpy` may be imported only under `adapters/blender/`. `bonsai` may be imported only in `adapters/blender/bridge.py`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`.
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool.
 - Agents open draft pull requests and do not merge.
