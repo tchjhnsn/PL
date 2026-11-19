@@ -1,0 +1,41 @@
+{
+  "number": 159,
+  "name": "Light on Two Sides of Every Room",
+  "scale": "building",
+  "confidence": 2,
+  "larger": [
+    107,
+    128
+  ],
+  "smaller": [
+    180
+  ],
+  "summary": {
+    "text": "Each occupied room has windows in two walls of different orientation.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "a room wants light from two directions",
+      "draft": true
+    },
+    {
+      "name": "one window wall leaves it flat",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "light-on-two-sides",
+      "kind": "computed",
+      "check": "light-on-two-sides",
+      "params": {
+        "min_orientations": 2
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 159
+  }
+}

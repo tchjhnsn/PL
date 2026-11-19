@@ -1,0 +1,36 @@
+{
+  "number": 110,
+  "name": "Main Entrance",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [],
+  "smaller": [
+    112,
+    130
+  ],
+  "summary": {
+    "text": "The entrance is visible from the approach.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "arrival wants a visible door",
+      "draft": true
+    },
+    {
+      "name": "the door can sit out of sight of the approach",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "main-entrance",
+      "kind": "judged",
+      "question": "Is the entrance seen from the approach?"
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 110
+  }
+}

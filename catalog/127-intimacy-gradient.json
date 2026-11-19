@@ -1,0 +1,36 @@
+{
+  "number": 127,
+  "name": "Intimacy Gradient",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [],
+  "smaller": [
+    130
+  ],
+  "summary": {
+    "text": "From the entrance, public rooms come before semi-private rooms, then private rooms.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "a house holds public and private rooms",
+      "draft": true
+    },
+    {
+      "name": "a door can open into the most private room",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "intimacy-gradient",
+      "kind": "computed",
+      "check": "intimacy-gradient",
+      "params": {}
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 127
+  }
+}

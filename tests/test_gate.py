@@ -25,10 +25,11 @@ def test_empty_catalog_and_projects_pass(tmp_path: Path) -> None:
     assert result.records == ()
 
 
-def test_workspace_catalog_is_empty(repo_root: Path) -> None:
+def test_workspace_catalog_has_twelve_records(repo_root: Path) -> None:
     result = scan(repo_root)
     assert result.ok
-    assert result.records == ()
+    assert len(result.records) == 12
+    assert all(record.parent.name == "catalog" for record in result.records)
 
 
 def test_record_without_schema_fails(tmp_path: Path) -> None:

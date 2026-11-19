@@ -1,0 +1,38 @@
+{
+  "number": 112,
+  "name": "Entrance Transition",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    110
+  ],
+  "smaller": [
+    130
+  ],
+  "summary": {
+    "text": "The path from the street to the main door passes through a transition zone.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "the street is public",
+      "draft": true
+    },
+    {
+      "name": "the interior is private",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "entrance-transition",
+      "kind": "computed",
+      "check": "entrance-transition",
+      "params": {}
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 112
+  }
+}

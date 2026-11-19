@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["model", "project", "instances", "satisfied"],
+  "properties": {
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "project": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "instances": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/patternInstance" }
+    },
+    "satisfied": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/patternNumber" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "patternNumber": { "type": "integer", "minimum": 1, "maximum": 253 },
+    "patternInstance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pattern", "centers", "status", "evidence"],
+      "properties": {
+        "pattern": { "$ref": "#/$defs/patternNumber" },
+        "centers": {
+          "type": "array",
+          "minItems": 0,
+          "items": { "type": "string" }
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "not_applicable",
+            "checking",
+            "satisfied",
+            "violated",
+            "needs_judgment"
+          ]
+        },
+        "evidence": {
+          "oneOf": [
+            { "$ref": "#/$defs/checkEvidence" },
+            { "$ref": "#/$defs/judgmentEvidence" }
+          ]
+        }
+      }
+    },
+    "checkEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "check", "passed"],
+      "properties": {
+        "kind": { "const": "check" },
+        "check": { "type": "string" },
+        "passed": { "type": "boolean" }
+      }
+    },
+    "judgmentEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "answer", "reason", "judged_by"],
+      "properties": {
+        "kind": { "const": "judgment" },
+        "answer": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "judged_by": { "type": "string", "minLength": 1, "maxLength": 80 }
+      }
+    }
+  }
+}

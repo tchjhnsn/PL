@@ -1,4 +1,4 @@
-"""Import and Lean dependency boundaries for the U0 scaffold."""
+"""Import, Lean, and ship boundaries for the catalog."""
 
 from __future__ import annotations
 
@@ -8,7 +8,32 @@ import subprocess
 import sys
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+
 FORBIDDEN_IMPORTS = frozenset({"ifcopenshell", "bpy"})
+
+SCHEMA_FILES = (
+    "schema/catalog.schema.json",
+    "schema/check-report.schema.json",
+    "schema/pattern-instance.schema.json",
+    "schema/projects.schema.json",
+    "schema/step.schema.json",
+)
+
+CATALOG_FILES = (
+    "catalog/105-south-facing-outdoors.json",
+    "catalog/106-positive-outdoor-space.json",
+    "catalog/107-wings-of-light.json",
+    "catalog/110-main-entrance.json",
+    "catalog/112-entrance-transition.json",
+    "catalog/127-intimacy-gradient.json",
+    "catalog/128-indoor-sunlight.json",
+    "catalog/130-entrance-room.json",
+    "catalog/159-light-on-two-sides-of-every-room.json",
+    "catalog/167-six-foot-balcony.json",
+    "catalog/180-window-place.json",
+    "catalog/190-ceiling-height-variety.json",
+)
 
 
 def _python_files(root: Path) -> list[Path]:
@@ -60,10 +85,21 @@ def test_lean_has_no_mathlib(repo_root: Path) -> None:
     assert manifest["packages"] == []
 
 
-def test_u0_ships_no_records_or_schemas(repo_root: Path) -> None:
-    assert list((repo_root / "schema").rglob("*.json")) == []
-    assert list((repo_root / "catalog").rglob("*.json")) == []
+def test_u1_ships_five_schemas_and_twelve_records(repo_root: Path) -> None:
+    schemas = sorted(
+        path.relative_to(repo_root).as_posix()
+        for path in (repo_root / "schema").rglob("*.json")
+    )
+    catalog = sorted(
+        path.relative_to(repo_root).as_posix()
+        for path in (repo_root / "catalog").rglob("*.json")
+    )
+    assert schemas == sorted(SCHEMA_FILES)
+    assert catalog == sorted(CATALOG_FILES)
     assert list((repo_root / "projects").rglob("*.json")) == []
+    for relative in SCHEMA_FILES:
+        schema = json.loads((repo_root / relative).read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(schema)
 
 
 def test_u0_has_no_pl_command(repo_root: Path) -> None:
@@ -81,7 +117,7 @@ def test_ci_workflow_covers_gate_and_lean(repo_root: Path) -> None:
     assert "lake-package-directory: lean" in workflow
 
 
-def test_validate_catalog_cli_accepts_empty_workspace(repo_root: Path) -> None:
+def test_validate_catalog_cli_accepts_seed_catalog(repo_root: Path) -> None:
     completed = subprocess.run(
         [sys.executable, str(repo_root / "scripts" / "validate_catalog.py")],
         check=False,
@@ -89,7 +125,22 @@ def test_validate_catalog_cli_accepts_empty_workspace(repo_root: Path) -> None:
         text=True,
     )
     assert completed.returncode == 0
-    assert "ok: 0 records" in completed.stdout
+    assert completed.stdout == "back-edges: 0\nok: 12 records\n"
+    assert completed.stderr == ""
+
+
+def test_validate_catalog_cli_accepts_empty_tree(tmp_path: Path, repo_root: Path) -> None:
+    for name in ("schema", "catalog", "projects"):
+        (tmp_path / name).mkdir()
+    completed = subprocess.run(
+        [sys.executable, str(repo_root / "scripts" / "validate_catalog.py"), str(tmp_path)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0
+    assert completed.stdout == "back-edges: 0\nok: 0 records\n"
+    assert completed.stderr == ""
 
 
 def test_validate_catalog_cli_rejects_record_without_schema(tmp_path: Path, repo_root: Path) -> None:
@@ -103,4 +154,5 @@ def test_validate_catalog_cli_rejects_record_without_schema(tmp_path: Path, repo
         text=True,
     )
     assert completed.returncode == 1
+    assert completed.stdout == ""
     assert "record without schema: catalog/orphan.json" in completed.stderr
