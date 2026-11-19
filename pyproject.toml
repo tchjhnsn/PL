@@ -5,6 +5,7 @@ description = "Schema gate for a pattern-language catalog."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+  "ifcopenshell>=0.9.0.post1",
   "jsonschema>=4.23",
 ]
 

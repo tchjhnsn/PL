@@ -27,6 +27,17 @@ cd lean && lake build
 
 `--check` exits 0 when the committed file matches the render, and exits 1 without writing when the file is stale.
 
+## U3
+
+`scripts/make_fixtures.py` writes `fixtures/pass-house.ifc` and `fixtures/fail-house.ifc`, each with a sibling `.expected.json`. `read_topology` reads a house into zones, adjacency, window orientations, and heights. The ten computed patterns each have a pass witness on one house and a fail witness on the other. 110 Main Entrance and 180 Window Place have no house.
+
+```bash
+uv run python scripts/make_fixtures.py
+uv run python scripts/make_fixtures.py --check
+```
+
+`--check` exits 0 when the committed graphs match a fresh write, and exits 1 without writing into `fixtures/` when a file is missing or stale. It compares graphs, not STEP bytes.
+
 ## Commands
 
 ```bash
@@ -34,6 +45,7 @@ uv sync
 uv run pytest
 uv run python scripts/validate_catalog.py
 uv run python scripts/catalog_to_lean.py --check
+uv run python scripts/make_fixtures.py --check
 cd lean && lake build
 ```
 
