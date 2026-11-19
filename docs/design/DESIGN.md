@@ -28,7 +28,11 @@ U4 evaluates conditions. `CHECKS` maps each catalog `condition.check` id to one 
 
 `pl check <model.ifc> --language <project.json>` reads the model with `read_topology`, writes one check-report to stdout, and validates it against `schema/check-report.schema.json`. `projects/seed-house.json` selects all twelve patterns and sets `latitude_deg` to 40. The catalog default remains 0. On `fixtures/pass-house.ifc` the ten computed instances are `satisfied` and the command exits 0. On `fixtures/fail-house.ifc` they are `violated` and the command exits 1. 110 Main Entrance and 180 Window Place are `needs_judgment` with unanswered evidence, and they are absent from `satisfied`. The two instance schemas accept that evidence object.
 
-Checks do not read files and do not use IFC types. `ifcopenshell` stays inside `read_ifc` and `write_ifc`. `sequence` and `step` are not commands yet.
+Checks do not read files and do not use IFC types. `ifcopenshell` stays inside `read_ifc` and `write_ifc`. U4 does not add `sequence` or `step`.
+
+## U5
+
+U5 orders a project and records one step. `sequence.py` follows `Sequence.lean`: ascending numbers are valid when `order_ok` holds on the induced smaller-edges. `pl sequence projects/seed-house.json` prints that list. It is `numericOrder` in `Buildings.lean`, the list `numericOrder_valid` proves. `step.py` follows `Preserving`. `pl step` runs the checker on two models and writes one step record. From `fixtures/pass-house.ifc` to `fixtures/fail-house.ifc` the record has `preserved` false and the command exits 1, because 105 South Facing Outdoors was satisfied and is gone. The same house twice has `preserved` true and exits 0. 110 Main Entrance and 180 Window Place stay out of `satisfied`. No new IFC file, no Lean edit, and no sixth schema.
 
 ## Gate
 

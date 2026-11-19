@@ -47,6 +47,16 @@ uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json
 uv run pl check fixtures/fail-house.ifc --language projects/seed-house.json
 ```
 
+## U5
+
+`pl sequence` prints the seed project in ascending pattern number. That list is `numericOrder` in `Buildings.lean`. `pl step` writes one step from two check-reports. The pass house then the fail house reports `preserved: false` and exits 1, because 105 South Facing Outdoors was satisfied and is gone. The pass house twice reports `preserved: true` and exits 0. 110 Main Entrance and 180 Window Place stay out of `satisfied`.
+
+```bash
+uv run pl sequence projects/seed-house.json
+uv run pl step fixtures/pass-house.ifc fixtures/fail-house.ifc --language projects/seed-house.json --pattern 112
+uv run pl step fixtures/pass-house.ifc fixtures/pass-house.ifc --language projects/seed-house.json --pattern 105
+```
+
 ## Commands
 
 ```bash
@@ -56,6 +66,7 @@ uv run python scripts/validate_catalog.py
 uv run python scripts/catalog_to_lean.py --check
 uv run python scripts/make_fixtures.py --check
 uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json
+uv run pl sequence projects/seed-house.json
 cd lean && lake build
 ```
 

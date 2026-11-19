@@ -168,8 +168,42 @@ def test_ci_workflow_covers_gate_and_lean(repo_root: Path) -> None:
         "uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json"
         in workflow
     )
+    assert "uv run pl sequence projects/seed-house.json" in workflow
     assert "leanprover/lean-action@v1" in workflow
     assert "lake-package-directory: lean" in workflow
+
+
+def test_importing_sequence_does_not_load_checker_or_ifcopenshell() -> None:
+    script = (
+        "import sys\n"
+        "import pattern_language.sequence\n"
+        "assert 'pattern_language.checker' not in sys.modules\n"
+        "assert 'ifcopenshell' not in sys.modules\n"
+        "assert 'bpy' not in sys.modules\n"
+    )
+    completed = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+
+
+def test_importing_step_does_not_load_ifcopenshell() -> None:
+    script = (
+        "import sys\n"
+        "import pattern_language.step\n"
+        "assert 'ifcopenshell' not in sys.modules\n"
+        "assert 'bpy' not in sys.modules\n"
+    )
+    completed = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
 
 
 def test_validate_catalog_cli_accepts_seed_catalog(repo_root: Path) -> None:
