@@ -1,0 +1,3 @@
+namespace PatternLanguage
+
+end PatternLanguage
