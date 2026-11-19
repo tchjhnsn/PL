@@ -67,6 +67,17 @@ uv run python mcp/server.py
 
 That process reads stdin until the client closes it. `uv run pytest` runs the client against the two houses.
 
+## U7
+
+`scripts/drive_run.py` records one seed-house run under `runs/<YYYYMMDDTHHMMSSZ>/`. It writes `model-00.ifc` through `model-12.ifc` as prefixes of the pass house, then twelve `pl step` files and `report.json` from `pl check` on `model-12.ifc`. Every step has `preserved` true. The final `satisfied` list is the ten computed patterns. 110 Main Entrance and 180 Window Place are `needs_judgment` and are absent from `satisfied`.
+
+```bash
+uv run python scripts/drive_run.py --check
+uv run python scripts/drive_run.py
+```
+
+`--check` writes that run in a temporary directory, asserts the contract, and removes the directory. The default command creates `runs/<stamp>/` in the current directory. `adapters/blender/` is the add-on. Live Blender and Bonsai are the path in `adapters/blender/README.md`. CI does not launch Blender.
+
 ## Commands
 
 ```bash
@@ -77,6 +88,7 @@ uv run python scripts/catalog_to_lean.py --check
 uv run python scripts/make_fixtures.py --check
 uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json
 uv run pl sequence projects/seed-house.json
+uv run python scripts/drive_run.py --check
 cd lean && lake build
 ```
 

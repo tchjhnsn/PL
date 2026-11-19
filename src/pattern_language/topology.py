@@ -196,34 +196,55 @@ def from_json(text: str) -> Topology:
     return Topology(north, zones, adjacencies, boundaries, openings)
 
 
+_PASS_SPACES = (
+    _Space("street", frozenset({"street"}), ((0, -2), (8, -2), (8, 0), (0, 0)), 3.0),
+    _Space("court", frozenset({"outdoor", "transition"}), ((0, 0), (8, 0), (8, 4), (0, 4)), 3.0),
+    _Space("hall", frozenset({"room", "public", "occupied"}), ((0, 4), (4, 4), (4, 8), (0, 8)), 2.4),
+    _Space(
+        "living",
+        frozenset({"living", "semi-private", "daytime", "occupied"}),
+        ((4, 4), (8, 4), (8, 8), (4, 8)),
+        3.0,
+    ),
+    _Space("bedroom", frozenset({"room", "private", "occupied"}), ((4, 8), (8, 8), (8, 12), (4, 12)), 2.7),
+    _Space("balcony", frozenset({"balcony", "outdoor"}), ((8, 8), (10, 8), (10, 12), (8, 12)), 3.0),
+)
+
+_PASS_HOLES = (
+    _Hole("approach-door", "door", "court", (4, 0)),
+    _Hole("main-door", "door", "hall", (3, 4)),
+    _Hole("hall-living", "door", "hall", (4, 6)),
+    _Hole("living-bedroom", "door", "living", (6, 8)),
+    _Hole("bedroom-balcony", "door", "bedroom", (8, 10)),
+    _Hole("hall-south", "window", "hall", (1, 4)),
+    _Hole("hall-west", "window", "hall", (0, 6)),
+    _Hole("living-south", "window", "living", (6, 4)),
+    _Hole("living-east", "window", "living", (8, 6)),
+    _Hole("bedroom-north", "window", "bedroom", (6, 12)),
+    _Hole("bedroom-west", "window", "bedroom", (4, 10)),
+)
+
+
+def prefix(space_names: frozenset[str], opening_names: frozenset[str]) -> Topology:
+    """Pass-house spaces and openings restricted to these names.
+
+    Raise TopologyError when a name is not in the pass-house tables.
+    ``_pass_house`` is this function on the full name sets.
+    """
+    known_spaces = {space.name for space in _PASS_SPACES}
+    known_openings = {hole.name for hole in _PASS_HOLES}
+    unknown = sorted((set(space_names) - known_spaces) | (set(opening_names) - known_openings))
+    if unknown:
+        raise TopologyError(f"unknown name: {unknown[0]}")
+    spaces = tuple(space for space in _PASS_SPACES if space.name in space_names)
+    holes = tuple(hole for hole in _PASS_HOLES if hole.name in opening_names)
+    return _assemble(spaces, holes)
+
+
 def _pass_house() -> Topology:
-    return _assemble(
-        (
-            _Space("street", frozenset({"street"}), ((0, -2), (8, -2), (8, 0), (0, 0)), 3.0),
-            _Space("court", frozenset({"outdoor", "transition"}), ((0, 0), (8, 0), (8, 4), (0, 4)), 3.0),
-            _Space("hall", frozenset({"room", "public", "occupied"}), ((0, 4), (4, 4), (4, 8), (0, 8)), 2.4),
-            _Space(
-                "living",
-                frozenset({"living", "semi-private", "daytime", "occupied"}),
-                ((4, 4), (8, 4), (8, 8), (4, 8)),
-                3.0,
-            ),
-            _Space("bedroom", frozenset({"room", "private", "occupied"}), ((4, 8), (8, 8), (8, 12), (4, 12)), 2.7),
-            _Space("balcony", frozenset({"balcony", "outdoor"}), ((8, 8), (10, 8), (10, 12), (8, 12)), 3.0),
-        ),
-        (
-            _Hole("approach-door", "door", "court", (4, 0)),
-            _Hole("main-door", "door", "hall", (3, 4)),
-            _Hole("hall-living", "door", "hall", (4, 6)),
-            _Hole("living-bedroom", "door", "living", (6, 8)),
-            _Hole("bedroom-balcony", "door", "bedroom", (8, 10)),
-            _Hole("hall-south", "window", "hall", (1, 4)),
-            _Hole("hall-west", "window", "hall", (0, 6)),
-            _Hole("living-south", "window", "living", (6, 4)),
-            _Hole("living-east", "window", "living", (8, 6)),
-            _Hole("bedroom-north", "window", "bedroom", (6, 12)),
-            _Hole("bedroom-west", "window", "bedroom", (4, 10)),
-        ),
+    return prefix(
+        frozenset(space.name for space in _PASS_SPACES),
+        frozenset(hole.name for hole in _PASS_HOLES),
     )
 
 

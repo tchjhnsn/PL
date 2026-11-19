@@ -38,6 +38,12 @@ U5 orders a project and records one step. `sequence.py` follows `Sequence.lean`:
 
 U6 serves that core on stdio. `mcp/server.py` is one MCP server with five tools: `patterns_search`, `pattern_get`, `language_sequence`, `model_check`, and `model_step`. Search and lookup call `search`, `get`, and `pattern_record`. Sequence, check, and step call `sequence`, `run`, and `build_step` and return those functions' JSON. Tool arguments and results are validated against the schema documents already in `schema/`. The directory has no `__init__.py`, so the `mcp` import name stays the SDK. No new schema file, no Lean edit, and no `pl` command. A report that fails the gate, and a step with `preserved` false, are successful tool results. `tests/test_mcp.py` calls each tool on the two houses and `projects/seed-house.json`.
 
+## U7
+
+U7 records one building run. `prefix` selects pass-house spaces and openings, and `_pass_house` calls it with every name. `runs.py` walks the seed sequence, writes `model-00.ifc` through `model-12.ifc`, and logs each pair by running `pl step`. `pl step` remains the writer of step JSON and the judge of `preserved`. `report.json` is `pl check` on `model-12.ifc`. The ten computed patterns are satisfied. 110 Main Entrance and 180 Window Place stay `needs_judgment` and stay out of `satisfied`. `scripts/drive_run.py --check` is the merge witness. It writes a temporary run and removes it.
+
+`adapters/blender/` is the add-on: a sidebar panel, a `Session` transition table, and `export_ifc`, which raises. The panel draws `report_lines` from the newest `report.json`, or `report unavailable`. Live Blender and Bonsai are the path in `adapters/blender/README.md`. CI does not launch Blender. No new schema, no Lean edit, no `pl` command, and no MCP tool.
+
 ## Gate
 
 `scan(root)` reads JSON files under `catalog/` and `projects/`. Other directories, including `fixtures/`, are ignored. A file is a record when its name ends in `.json` and does not start with a dot.
@@ -56,7 +62,7 @@ An empty `catalog/` and `projects/` is valid, including trees that contain only 
 
 ## Adapters
 
-`adapters/blender/` is reserved for the Blender adapter. `mcp/server.py` is the stdio server, and `mcp/` has no `__init__.py`. `topology.py` imports `ifcopenshell` only inside `read_ifc` and `write_ifc`. Nothing in this repository imports `bpy`. Adapter code stays outside `src/pattern_language/`.
+`adapters/blender/` is the Blender add-on. `bpy` imports live only under that directory. `bonsai` is imported only in `adapters/blender/bridge.py`. `mcp/server.py` is the stdio server, and `mcp/` has no `__init__.py`. `topology.py` imports `ifcopenshell` only inside `read_ifc` and `write_ifc`. Adapter code stays outside `src/pattern_language/`.
 
 ## Copyright
 
