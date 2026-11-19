@@ -16,6 +16,12 @@ Confidence is 2 on 105 South Facing Outdoors, 159 Light on Two Sides of Every Ro
 
 The language laws live in `lean/PatternLanguage/`: `Language`, `Sequence`, and `Preservation`. `scripts/catalog_to_lean.py` generates `lean/PatternLanguage/Instantiations/Buildings.lean` from the seed catalog. `decide` proves that numeric order is a valid sequence for the twelve patterns. CI runs `catalog_to_lean.py --check` before `lake build` and fails when the generated file is stale.
 
+## U3
+
+U3 writes two IFC houses, `fixtures/pass-house.ifc` and `fixtures/fail-house.ifc`, and reads each one back into a frozen `Topology` of zones, adjacencies, boundaries, and openings. Each of the ten computed patterns has a pass witness on one house and a fail witness on the other. 110 Main Entrance and 180 Window Place are judged and have no house. Tests read zones, adjacency, window orientations, and heights. `make_fixtures.py --check` compares those graphs and the sibling `.expected.json` files. It does not compare STEP bytes. U3 does not evaluate a condition.
+
+A window or door stores its host space in `ObjectType`. Facing is the outward normal of that host's footprint edge. `ifcopenshell` is imported only inside `read_ifc` and `write_ifc`.
+
 ## Gate
 
 `scan(root)` reads JSON files under `catalog/` and `projects/`. Other directories, including `fixtures/`, are ignored. A file is a record when its name ends in `.json` and does not start with a dot.
@@ -34,7 +40,7 @@ An empty `catalog/` and `projects/` is valid, including trees that contain only 
 
 ## Adapters
 
-`adapters/blender/` and `mcp/` are reserved directories. The core package does not import `ifcopenshell` or `bpy`. Adapter code stays outside `src/pattern_language/`.
+`adapters/blender/` and `mcp/` are reserved directories. `topology.py` imports `ifcopenshell` only inside `read_ifc` and `write_ifc`. Nothing in this repository imports `bpy`. Adapter code stays outside `src/pattern_language/`.
 
 ## Copyright
 

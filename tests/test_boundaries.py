@@ -46,29 +46,71 @@ def _python_files(root: Path) -> list[Path]:
     return files
 
 
-def _imported_roots(path: Path) -> set[str]:
-    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-    found: set[str] = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            found.update(alias.name.split(".", 1)[0] for alias in node.names)
-        elif isinstance(node, ast.ImportFrom) and node.module:
-            found.add(node.module.split(".", 1)[0])
+def _forbidden_import_sites(tree: ast.AST) -> list[tuple[str, str]]:
+    found: list[tuple[str, str]] = []
+
+    class Visitor(ast.NodeVisitor):
+        def __init__(self) -> None:
+            self.stack: list[str] = []
+
+        def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+            self.stack.append(node.name)
+            self.generic_visit(node)
+            self.stack.pop()
+
+        visit_AsyncFunctionDef = visit_FunctionDef
+
+        def _record(self, module: str) -> None:
+            root = module.split(".", 1)[0]
+            if root not in FORBIDDEN_IMPORTS:
+                return
+            allowed = {"read_ifc", "write_ifc"} & set(self.stack)
+            where = next(iter(allowed)) if allowed else (self.stack[-1] if self.stack else "<module>")
+            found.append((where, root))
+
+        def visit_Import(self, node: ast.Import) -> None:
+            for alias in node.names:
+                self._record(alias.name)
+
+        def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+            if node.module:
+                self._record(node.module)
+
+    Visitor().visit(tree)
     return found
 
 
 def test_import_boundary_forbids_ifcopenshell_and_bpy(repo_root: Path) -> None:
     offenders: list[str] = []
     for path in _python_files(repo_root):
-        imported = _imported_roots(path) & FORBIDDEN_IMPORTS
-        offenders.extend(f"{path.relative_to(repo_root)} imports {name}" for name in sorted(imported))
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        relative = path.relative_to(repo_root).as_posix()
+        for where, root in _forbidden_import_sites(tree):
+            if root == "bpy" or relative != "src/pattern_language/topology.py" or where not in {
+                "read_ifc",
+                "write_ifc",
+            }:
+                offenders.append(f"{relative} imports {root} in {where}")
     assert offenders == []
 
 
 def test_importing_gate_does_not_load_forbidden_modules() -> None:
-    import pattern_language.gate  # noqa: F401
-
-    assert FORBIDDEN_IMPORTS.isdisjoint(sys.modules)
+    script = (
+        "import sys\n"
+        "import pattern_language\n"
+        "import pattern_language.gate\n"
+        "import pattern_language.topology\n"
+        "forbidden = {'ifcopenshell', 'bpy'}\n"
+        "loaded = sorted(forbidden & sys.modules.keys())\n"
+        "assert not loaded, loaded\n"
+    )
+    completed = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
 
 
 def test_lean_has_no_mathlib(repo_root: Path) -> None:
