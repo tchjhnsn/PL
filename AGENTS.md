@@ -4,7 +4,7 @@ Map for agents working in this repository. U0 is the empty-catalog scaffold. U1 
 
 ## What this is
 
-A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U1 adds five schemas, twelve seed records, and `load_catalog`.
+A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation.
 
 ## Where things are
 
@@ -20,12 +20,16 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `src/pattern_language/catalog.py` | `load_catalog`, `Catalog`, and `CatalogLoadError`. |
 | `scripts/validate_catalog.py` | Gate command. Prints back-edges, then `ok: N records`. Exit 0 when the scan has no errors and every link target exists. |
 | `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, and Lean manifest. |
-| `lean/` | Lake package `PatternLanguage`. Module `PatternLanguage.Language` is an empty namespace. |
+| `lean/` | Lake package `PatternLanguage`. `Language`, `Sequence`, `Preservation`, and generated `Instantiations/Buildings.lean`. |
 | `docs/design/DESIGN.md` | Gate contract and unit boundary. |
 
 ## U1
 
 `schema/` holds the five documents. `catalog/` holds the twelve records. Summaries and forces are our wording and carry `"draft": true`. `load_catalog` reports missing targets and back-edges after `scan` accepts the files. `projects/` has no JSON records.
+
+## U2
+
+`lean/PatternLanguage/` holds `Language`, `Sequence`, and `Preservation`. `scripts/catalog_to_lean.py` writes `lean/PatternLanguage/Instantiations/Buildings.lean` from `load_catalog`. `decide` proves that numeric order is a valid sequence for the twelve seed patterns. `--check` exits 1 when that file is stale. CI runs `--check` before `lake build`.
 
 ## Commands
 
@@ -33,10 +37,11 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 uv sync
 uv run pytest
 uv run python scripts/validate_catalog.py
+uv run python scripts/catalog_to_lean.py --check
 cd lean && lake build
 ```
 
-CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_catalog.py`, and `leanprover/lean-action` with `lake-package-directory: lean`.
+CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_catalog.py`, `uv run python scripts/catalog_to_lean.py --check`, and `leanprover/lean-action` with `lake-package-directory: lean`.
 
 ## Rules
 

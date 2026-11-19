@@ -113,6 +113,7 @@ def test_ci_workflow_covers_gate_and_lean(repo_root: Path) -> None:
     assert "uv sync --frozen" in workflow
     assert "uv run pytest" in workflow
     assert "uv run python scripts/validate_catalog.py" in workflow
+    assert "uv run python scripts/catalog_to_lean.py --check" in workflow
     assert "leanprover/lean-action@v1" in workflow
     assert "lake-package-directory: lean" in workflow
 

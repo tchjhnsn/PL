@@ -22,6 +22,7 @@ jobs:
       - run: uv sync --frozen
       - run: uv run pytest
       - run: uv run python scripts/validate_catalog.py
+      - run: uv run python scripts/catalog_to_lean.py --check
 
       - uses: leanprover/lean-action@v1
         with:

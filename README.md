@@ -15,12 +15,25 @@ ok: 12 records
 
 The Lean library is `PatternLanguage` on toolchain `leanprover/lean4:v4.33.1`. It has no dependencies.
 
+## U2
+
+`scripts/catalog_to_lean.py` renders `lean/PatternLanguage/Instantiations/Buildings.lean` from the seed catalog. The laws live in `lean/PatternLanguage/`. `decide` proves that numeric order is a valid sequence for the twelve patterns. `lake build` checks that proof.
+
+```bash
+uv run python scripts/catalog_to_lean.py
+uv run python scripts/catalog_to_lean.py --check
+cd lean && lake build
+```
+
+`--check` exits 0 when the committed file matches the render, and exits 1 without writing when the file is stale.
+
 ## Commands
 
 ```bash
 uv sync
 uv run pytest
 uv run python scripts/validate_catalog.py
+uv run python scripts/catalog_to_lean.py --check
 cd lean && lake build
 ```
 
