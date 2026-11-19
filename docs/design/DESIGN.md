@@ -34,6 +34,10 @@ Checks do not read files and do not use IFC types. `ifcopenshell` stays inside `
 
 U5 orders a project and records one step. `sequence.py` follows `Sequence.lean`: ascending numbers are valid when `order_ok` holds on the induced smaller-edges. `pl sequence projects/seed-house.json` prints that list. It is `numericOrder` in `Buildings.lean`, the list `numericOrder_valid` proves. `step.py` follows `Preserving`. `pl step` runs the checker on two models and writes one step record. From `fixtures/pass-house.ifc` to `fixtures/fail-house.ifc` the record has `preserved` false and the command exits 1, because 105 South Facing Outdoors was satisfied and is gone. The same house twice has `preserved` true and exits 0. 110 Main Entrance and 180 Window Place stay out of `satisfied`. No new IFC file, no Lean edit, and no sixth schema.
 
+## U6
+
+U6 serves that core on stdio. `mcp/server.py` is one MCP server with five tools: `patterns_search`, `pattern_get`, `language_sequence`, `model_check`, and `model_step`. Search and lookup call `search`, `get`, and `pattern_record`. Sequence, check, and step call `sequence`, `run`, and `build_step` and return those functions' JSON. Tool arguments and results are validated against the schema documents already in `schema/`. The directory has no `__init__.py`, so the `mcp` import name stays the SDK. No new schema file, no Lean edit, and no `pl` command. A report that fails the gate, and a step with `preserved` false, are successful tool results. `tests/test_mcp.py` calls each tool on the two houses and `projects/seed-house.json`.
+
 ## Gate
 
 `scan(root)` reads JSON files under `catalog/` and `projects/`. Other directories, including `fixtures/`, are ignored. A file is a record when its name ends in `.json` and does not start with a dot.
@@ -52,7 +56,7 @@ An empty `catalog/` and `projects/` is valid, including trees that contain only 
 
 ## Adapters
 
-`adapters/blender/` and `mcp/` are reserved directories. `topology.py` imports `ifcopenshell` only inside `read_ifc` and `write_ifc`. Nothing in this repository imports `bpy`. Adapter code stays outside `src/pattern_language/`.
+`adapters/blender/` is reserved for the Blender adapter. `mcp/server.py` is the stdio server, and `mcp/` has no `__init__.py`. `topology.py` imports `ifcopenshell` only inside `read_ifc` and `write_ifc`. Nothing in this repository imports `bpy`. Adapter code stays outside `src/pattern_language/`.
 
 ## Copyright
 

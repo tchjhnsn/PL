@@ -4,7 +4,7 @@ Map for agents working in this repository. U0 is the empty-catalog scaffold. U1 
 
 ## What this is
 
-A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation. U3 adds two generated IFC houses and `read_topology`. U4 adds `pl check`, one module per computed check, and `projects/seed-house.json`. U5 adds `pl sequence` and `pl step`.
+A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation. U3 adds two generated IFC houses and `read_topology`. U4 adds `pl check`, one module per computed check, and `projects/seed-house.json`. U5 adds `pl sequence` and `pl step`. U6 adds a stdio MCP server with five tools over that core.
 
 ## Where things are
 
@@ -14,10 +14,10 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `catalog/` | Twelve seed pattern records, `<number>-<slug>.json`. |
 | `projects/` | `seed-house.json`, the twelve-pattern language. Empty in U1. |
 | `fixtures/` | `pass-house.ifc`, `fail-house.ifc`, and a sibling `.expected.json` for each. Generated. Not scanned by the gate. |
-| `mcp/` | MCP surface. Empty in U1. |
+| `mcp/` | `server.py`, a stdio MCP server. No `__init__.py`. The SDK owns the `mcp` import. |
 | `adapters/blender/` | Blender adapter. Empty in U1. |
 | `src/pattern_language/gate.py` | `DirectorySchemaMap`, frozen `CatalogScan`, and `scan(root)`. |
-| `src/pattern_language/catalog.py` | `load_catalog`, `Catalog`, and `CatalogLoadError`. |
+| `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |
 | `src/pattern_language/conditions/` | `CHECKS` and one module per computed check id. Pure: no file I/O and no IFC types. |
 | `src/pattern_language/parameters.py` | `load_project` and `params_for`. |
@@ -27,7 +27,7 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `src/pattern_language/cli.py` | `pl check`, `pl sequence`, and `pl step`. |
 | `scripts/validate_catalog.py` | Gate command. Prints back-edges, then `ok: N records`. Exit 0 when the scan has no errors and every link target exists. |
 | `scripts/make_fixtures.py` | Writes the two houses and their expected JSON. `--check` compares graphs, not STEP bytes, and does not write into `fixtures/` on failure. |
-| `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, and the two houses. |
+| `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, the two houses, and the stdio MCP client. |
 | `lean/` | Lake package `PatternLanguage`. `Language`, `Sequence`, `Preservation`, and generated `Instantiations/Buildings.lean`. |
 | `docs/design/DESIGN.md` | Gate contract and unit boundary. |
 
@@ -50,6 +50,16 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 ## U5
 
 `sequence.py` is the Python twin of `Sequence.lean`. `order_ok` accepts ascending numbers on the induced smaller-edges. `pl sequence projects/seed-house.json` prints that list, which is `numericOrder` in `Buildings.lean`. `step.py` is the Python twin of `Preserving`. `pl step` runs the checker on two models and writes one step. Pass house then fail house has `preserved` false and exits 1, because 105 South Facing Outdoors leaves `satisfied`. The same house twice has `preserved` true and exits 0. 110 Main Entrance and 180 Window Place stay out of `satisfied`. CI runs `pl sequence` on the seed project. The pass-then-fail step stays in pytest.
+
+## U6
+
+`mcp/server.py` speaks MCP on stdio. The tools are `patterns_search`, `pattern_get`, `language_sequence`, `model_check`, and `model_step`. Search and lookup call `search`, `get`, and `pattern_record`. The other three call `sequence`, `run`, and `build_step` and return that JSON. Arguments and results are checked against the schema documents already in `schema/`. A violated check-report, and a step whose `preserved` is false, are successful tool results. 110 Main Entrance and 180 Window Place stay `needs_judgment` and stay out of `satisfied`. `tests/test_mcp.py` spawns `python mcp/server.py` and calls each tool on `fixtures/pass-house.ifc`, `fixtures/fail-house.ifc`, and `projects/seed-house.json`. Pass house then fail house, pattern 112, returns `preserved` false. There is no `mcp/__init__.py` and no new `pl` command.
+
+```bash
+uv run python mcp/server.py
+```
+
+That process reads stdin until the client closes it. `uv run pytest` is the client check. CI does not launch the server, because the process would block.
 
 ## Commands
 
@@ -75,5 +85,5 @@ CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_cat
 - Core Python must not import `bpy`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`.
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`.
 - Agents open draft pull requests and do not merge.

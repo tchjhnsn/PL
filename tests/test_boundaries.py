@@ -206,6 +206,59 @@ def test_importing_step_does_not_load_ifcopenshell() -> None:
     assert completed.returncode == 0, completed.stderr
 
 
+_SERVER_CALLS = frozenset(
+    {
+        "read_ifc",
+        "write_ifc",
+        "read_topology",
+        "CHECKS",
+        "order_ok",
+        "smaller_edges",
+        "preserving",
+        "fails_gate",
+        "main",
+    }
+)
+
+
+def _call_name(node: ast.AST) -> str | None:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        return node.attr
+    return None
+
+
+def _main_guard(node: ast.AST) -> bool:
+    if not isinstance(node, ast.If) or not isinstance(node.test, ast.Compare):
+        return False
+    test = node.test
+    if not isinstance(test.left, ast.Name) or test.left.id != "__name__":
+        return False
+    if len(test.ops) != 1 or not isinstance(test.ops[0], ast.Eq):
+        return False
+    if len(test.comparators) != 1 or not isinstance(test.comparators[0], ast.Constant):
+        return False
+    return test.comparators[0].value == "__main__"
+
+
+def test_mcp_server_is_a_file_not_a_package(repo_root: Path) -> None:
+    assert not (repo_root / "mcp" / "__init__.py").exists()
+    path = repo_root / "mcp" / "server.py"
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    guard: list[str] = []
+    other: list[str] = []
+    for node in tree.body:
+        bucket = guard if _main_guard(node) else other
+        for child in ast.walk(node):
+            if isinstance(child, ast.Call):
+                name = _call_name(child.func)
+                if name in _SERVER_CALLS:
+                    bucket.append(name)
+    assert other == []
+    assert guard == ["main"]
+
+
 def test_validate_catalog_cli_accepts_seed_catalog(repo_root: Path) -> None:
     completed = subprocess.run(
         [sys.executable, str(repo_root / "scripts" / "validate_catalog.py")],
