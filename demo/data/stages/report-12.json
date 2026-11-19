@@ -1,0 +1,163 @@
+{
+  "instances": [
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "south-facing-outdoors",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 105,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "positive-outdoor-space",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 106,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "wings-of-light",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 107,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "kind": "unanswered",
+        "question": "Is the entrance seen from the approach?"
+      },
+      "pattern": 110,
+      "status": "needs_judgment"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "entrance-transition",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 112,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "intimacy-gradient",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 127,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "indoor-sunlight",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 128,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "entrance-room",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 130,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "light-on-two-sides",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 159,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "six-foot-balcony",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 167,
+      "status": "satisfied"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "kind": "unanswered",
+        "question": "Does the main room have a window with a place to sit?"
+      },
+      "pattern": 180,
+      "status": "needs_judgment"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "ceiling-height-variety",
+        "kind": "check",
+        "passed": true
+      },
+      "pattern": 190,
+      "status": "satisfied"
+    }
+  ],
+  "model": {
+    "file": "model-12.ifc",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "project": "seed-house",
+  "satisfied": [
+    105,
+    106,
+    107,
+    112,
+    127,
+    128,
+    130,
+    159,
+    167,
+    190
+  ]
+}

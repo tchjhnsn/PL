@@ -1,0 +1,572 @@
+{
+  "adjacencies": [
+    {
+      "a": "bedroom",
+      "b": "living",
+      "kind": "door",
+      "opening_id": "living-bedroom"
+    },
+    {
+      "a": "court",
+      "b": "hall",
+      "kind": "door",
+      "opening_id": "main-door"
+    },
+    {
+      "a": "court",
+      "b": "living",
+      "kind": "wall",
+      "opening_id": null
+    },
+    {
+      "a": "court",
+      "b": "street",
+      "kind": "door",
+      "opening_id": "approach-door"
+    },
+    {
+      "a": "hall",
+      "b": "living",
+      "kind": "door",
+      "opening_id": "hall-living"
+    }
+  ],
+  "boundaries": [
+    {
+      "end": [
+        8.0,
+        8.0
+      ],
+      "external": false,
+      "other": "living",
+      "space": "bedroom",
+      "start": [
+        4.0,
+        8.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        8.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "bedroom",
+      "start": [
+        4.0,
+        12.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        12.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "bedroom",
+      "start": [
+        8.0,
+        8.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        12.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "bedroom",
+      "start": [
+        8.0,
+        12.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        0.0
+      ],
+      "external": false,
+      "other": "street",
+      "space": "court",
+      "start": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        0.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "court",
+      "start": [
+        0.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        4.0
+      ],
+      "external": false,
+      "other": "hall",
+      "space": "court",
+      "start": [
+        4.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        4.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "court",
+      "start": [
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        4.0
+      ],
+      "external": false,
+      "other": "living",
+      "space": "court",
+      "start": [
+        8.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        4.0
+      ],
+      "external": false,
+      "other": "court",
+      "space": "hall",
+      "start": [
+        0.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        4.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "hall",
+      "start": [
+        0.0,
+        8.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        8.0
+      ],
+      "external": false,
+      "other": "living",
+      "space": "hall",
+      "start": [
+        4.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        8.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "hall",
+      "start": [
+        4.0,
+        8.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        4.0
+      ],
+      "external": false,
+      "other": "court",
+      "space": "living",
+      "start": [
+        4.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        4.0
+      ],
+      "external": false,
+      "other": "hall",
+      "space": "living",
+      "start": [
+        4.0,
+        8.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        8.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "living",
+      "start": [
+        8.0,
+        4.0
+      ]
+    },
+    {
+      "end": [
+        4.0,
+        8.0
+      ],
+      "external": false,
+      "other": "bedroom",
+      "space": "living",
+      "start": [
+        8.0,
+        8.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        -2.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        0.0,
+        -2.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        -2.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        0.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        8.0,
+        -2.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        0.0
+      ],
+      "external": false,
+      "other": "court",
+      "space": "street",
+      "start": [
+        8.0,
+        0.0
+      ]
+    }
+  ],
+  "north": [
+    0.0,
+    1.0
+  ],
+  "openings": [
+    {
+      "at_m": [
+        4.0,
+        0.0
+      ],
+      "kind": "door",
+      "name": "approach-door",
+      "orientation": "south",
+      "spaces": [
+        "court",
+        "street"
+      ]
+    },
+    {
+      "at_m": [
+        4.0,
+        6.0
+      ],
+      "kind": "door",
+      "name": "hall-living",
+      "orientation": "east",
+      "spaces": [
+        "hall",
+        "living"
+      ]
+    },
+    {
+      "at_m": [
+        1.0,
+        4.0
+      ],
+      "kind": "window",
+      "name": "hall-south",
+      "orientation": "south",
+      "spaces": [
+        "hall"
+      ]
+    },
+    {
+      "at_m": [
+        6.0,
+        8.0
+      ],
+      "kind": "door",
+      "name": "living-bedroom",
+      "orientation": "north",
+      "spaces": [
+        "bedroom",
+        "living"
+      ]
+    },
+    {
+      "at_m": [
+        8.0,
+        6.0
+      ],
+      "kind": "window",
+      "name": "living-east",
+      "orientation": "east",
+      "spaces": [
+        "living"
+      ]
+    },
+    {
+      "at_m": [
+        6.0,
+        4.0
+      ],
+      "kind": "window",
+      "name": "living-south",
+      "orientation": "south",
+      "spaces": [
+        "living"
+      ]
+    },
+    {
+      "at_m": [
+        3.0,
+        4.0
+      ],
+      "kind": "door",
+      "name": "main-door",
+      "orientation": "south",
+      "spaces": [
+        "court",
+        "hall"
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "footprint": [
+        [
+          4.0,
+          8.0
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          8.0,
+          12.0
+        ],
+        [
+          4.0,
+          12.0
+        ]
+      ],
+      "height_m": 2.7,
+      "kind": "Space",
+      "name": "bedroom",
+      "parent": "ground",
+      "tags": [
+        "occupied",
+        "private",
+        "room"
+      ]
+    },
+    {
+      "footprint": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          8.0,
+          0.0
+        ],
+        [
+          8.0,
+          4.0
+        ],
+        [
+          0.0,
+          4.0
+        ]
+      ],
+      "height_m": 3.0,
+      "kind": "Space",
+      "name": "court",
+      "parent": "ground",
+      "tags": [
+        "outdoor",
+        "transition"
+      ]
+    },
+    {
+      "footprint": [],
+      "height_m": null,
+      "kind": "Storey",
+      "name": "ground",
+      "parent": "house",
+      "tags": []
+    },
+    {
+      "footprint": [
+        [
+          0.0,
+          4.0
+        ],
+        [
+          4.0,
+          4.0
+        ],
+        [
+          4.0,
+          8.0
+        ],
+        [
+          0.0,
+          8.0
+        ]
+      ],
+      "height_m": 2.4,
+      "kind": "Space",
+      "name": "hall",
+      "parent": "ground",
+      "tags": [
+        "occupied",
+        "public",
+        "room"
+      ]
+    },
+    {
+      "footprint": [],
+      "height_m": null,
+      "kind": "Building",
+      "name": "house",
+      "parent": "site",
+      "tags": []
+    },
+    {
+      "footprint": [
+        [
+          4.0,
+          4.0
+        ],
+        [
+          8.0,
+          4.0
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          4.0,
+          8.0
+        ]
+      ],
+      "height_m": 3.0,
+      "kind": "Space",
+      "name": "living",
+      "parent": "ground",
+      "tags": [
+        "daytime",
+        "living",
+        "occupied",
+        "semi-private"
+      ]
+    },
+    {
+      "footprint": [],
+      "height_m": null,
+      "kind": "Site",
+      "name": "site",
+      "parent": null,
+      "tags": []
+    },
+    {
+      "footprint": [
+        [
+          0.0,
+          -2.0
+        ],
+        [
+          8.0,
+          -2.0
+        ],
+        [
+          8.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "height_m": 3.0,
+      "kind": "Space",
+      "name": "street",
+      "parent": "ground",
+      "tags": [
+        "street"
+      ]
+    }
+  ]
+}
