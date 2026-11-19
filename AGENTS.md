@@ -18,6 +18,7 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `mcp/` | `server.py`, a stdio MCP server. No `__init__.py`. The SDK owns the `mcp` import. |
 | `adapters/blender/` | Blender add-on: panel, `Session`, and `export_ifc` (Bonsai save-as via `bpy.ops.bim`). `bpy` stays in this directory. |
 | `tools/e2e-effect/` | Effect-TS CLI wrapping `pl` / `drive_run` (headless + live). See `docs/design/E2E-BONSAI-EFFECT.md`. |
+| `demo/` | Seed-district SVG plan + concept browser (`python3 demo/serve.py` → http://127.0.0.1:8765/). |
 | `src/pattern_language/gate.py` | `DirectorySchemaMap`, frozen `CatalogScan`, and `scan(root)`. |
 | `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |

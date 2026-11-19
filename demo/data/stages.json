@@ -1,0 +1,982 @@
+[
+  {
+    "index": 0,
+    "pattern": null,
+    "spaces": [
+      "street"
+    ],
+    "openings": [],
+    "satisfied": [],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 106,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 107,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 127,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 128,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 130,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 159,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "pattern": 105,
+    "spaces": [
+      "court",
+      "hall",
+      "street"
+    ],
+    "openings": [],
+    "satisfied": [
+      105,
+      106,
+      107
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 127,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 128,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 130,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "pattern": 106,
+    "spaces": [
+      "court",
+      "hall",
+      "street"
+    ],
+    "openings": [
+      "approach-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 127,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 128,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 130,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "pattern": 107,
+    "spaces": [
+      "court",
+      "hall",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "hall-south"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 127,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 128,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 130,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "pattern": 110,
+    "spaces": [
+      "court",
+      "hall",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "hall-south"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 127,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 128,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 130,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "pattern": 112,
+    "spaces": [
+      "court",
+      "hall",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "hall-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      130
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "violated"
+      },
+      {
+        "pattern": 128,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "not_applicable"
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "pattern": 127,
+    "spaces": [
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "hall-living",
+      "hall-south",
+      "living-bedroom",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  },
+  {
+    "index": 7,
+    "pattern": 128,
+    "spaces": [
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "hall-living",
+      "hall-south",
+      "living-bedroom",
+      "living-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  },
+  {
+    "index": 8,
+    "pattern": 130,
+    "spaces": [
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "hall-living",
+      "hall-south",
+      "living-bedroom",
+      "living-east",
+      "living-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "violated"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  },
+  {
+    "index": 9,
+    "pattern": 159,
+    "spaces": [
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "bedroom-north",
+      "bedroom-west",
+      "hall-living",
+      "hall-south",
+      "hall-west",
+      "living-bedroom",
+      "living-east",
+      "living-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      159,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 167,
+        "status": "not_applicable"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "pattern": 167,
+    "spaces": [
+      "balcony",
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "bedroom-balcony",
+      "bedroom-north",
+      "bedroom-west",
+      "hall-living",
+      "hall-south",
+      "hall-west",
+      "living-bedroom",
+      "living-east",
+      "living-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      159,
+      167,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 167,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  },
+  {
+    "index": 11,
+    "pattern": 180,
+    "spaces": [
+      "balcony",
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "bedroom-balcony",
+      "bedroom-north",
+      "bedroom-west",
+      "hall-living",
+      "hall-south",
+      "hall-west",
+      "living-bedroom",
+      "living-east",
+      "living-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      159,
+      167,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 167,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  },
+  {
+    "index": 12,
+    "pattern": 190,
+    "spaces": [
+      "balcony",
+      "bedroom",
+      "court",
+      "hall",
+      "living",
+      "street"
+    ],
+    "openings": [
+      "approach-door",
+      "bedroom-balcony",
+      "bedroom-north",
+      "bedroom-west",
+      "hall-living",
+      "hall-south",
+      "hall-west",
+      "living-bedroom",
+      "living-east",
+      "living-south",
+      "main-door"
+    ],
+    "satisfied": [
+      105,
+      106,
+      107,
+      112,
+      127,
+      128,
+      130,
+      159,
+      167,
+      190
+    ],
+    "instances": [
+      {
+        "pattern": 105,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 106,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 107,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 110,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 112,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 127,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 128,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 130,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 159,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 167,
+        "status": "satisfied"
+      },
+      {
+        "pattern": 180,
+        "status": "needs_judgment"
+      },
+      {
+        "pattern": 190,
+        "status": "satisfied"
+      }
+    ]
+  }
+]
