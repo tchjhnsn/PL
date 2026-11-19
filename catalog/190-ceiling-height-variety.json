@@ -1,0 +1,38 @@
+{
+  "number": 190,
+  "name": "Ceiling Height Variety",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    107
+  ],
+  "smaller": [],
+  "summary": {
+    "text": "Ceiling heights across occupied rooms vary by at least a set amount.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "rooms want heights that match their use",
+      "draft": true
+    },
+    {
+      "name": "one ceiling height makes them feel alike",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "ceiling-height-variety",
+      "kind": "computed",
+      "check": "ceiling-height-variety",
+      "params": {
+        "min_height_difference_m": 0.3
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 190
+  }
+}

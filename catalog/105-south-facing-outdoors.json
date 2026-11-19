@@ -1,0 +1,40 @@
+{
+  "number": 105,
+  "name": "South Facing Outdoors",
+  "scale": "building",
+  "confidence": 2,
+  "larger": [],
+  "smaller": [
+    106,
+    107,
+    128
+  ],
+  "summary": {
+    "text": "The main outdoor zone lies on the equator-facing side of the building.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "winter sun on outdoor ground",
+      "draft": true
+    },
+    {
+      "name": "building mass shading that ground",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "south-facing-outdoors",
+      "kind": "computed",
+      "check": "south-facing-outdoors",
+      "params": {
+        "latitude_deg": 0
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 105
+  }
+}

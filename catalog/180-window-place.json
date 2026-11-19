@@ -1,0 +1,35 @@
+{
+  "number": 180,
+  "name": "Window Place",
+  "scale": "building",
+  "confidence": 2,
+  "larger": [
+    159
+  ],
+  "smaller": [],
+  "summary": {
+    "text": "The main room has a window with a place to sit.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "a window wants a place beside it",
+      "draft": true
+    },
+    {
+      "name": "the glass can have nowhere to sit",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "window-place",
+      "kind": "judged",
+      "question": "Does the main room have a window with a place to sit?"
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 180
+  }
+}

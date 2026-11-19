@@ -1,0 +1,42 @@
+{
+  "number": 107,
+  "name": "Wings of Light",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    105
+  ],
+  "smaller": [
+    128,
+    159,
+    190
+  ],
+  "summary": {
+    "text": "No occupied space sits deeper than a set depth from an exterior wall.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "occupied rooms want daylight",
+      "draft": true
+    },
+    {
+      "name": "a deep plan leaves an interior dark",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "wings-of-light",
+      "kind": "computed",
+      "check": "wings-of-light",
+      "params": {
+        "max_depth_m": 8
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 107
+  }
+}
