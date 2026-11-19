@@ -12,6 +12,10 @@ U1 adds five schema documents and twelve seed records. Pattern records live in `
 
 Confidence is 2 on 105 South Facing Outdoors, 159 Light on Two Sides of Every Room, and 180 Window Place. The other nine records store 1 as a placeholder until each heading's asterisk count replaces it. Summaries and forces are our wording, with `draft` true.
 
+## U2
+
+The language laws live in `lean/PatternLanguage/`: `Language`, `Sequence`, and `Preservation`. `scripts/catalog_to_lean.py` generates `lean/PatternLanguage/Instantiations/Buildings.lean` from the seed catalog. `decide` proves that numeric order is a valid sequence for the twelve patterns. CI runs `catalog_to_lean.py --check` before `lake build` and fails when the generated file is stale.
+
 ## Gate
 
 `scan(root)` reads JSON files under `catalog/` and `projects/`. Other directories, including `fixtures/`, are ignored. A file is a record when its name ends in `.json` and does not start with a dot.
@@ -26,7 +30,7 @@ An empty `catalog/` and `projects/` is valid, including trees that contain only 
 
 ## Lean
 
-`lean/` is a Lake package named `PatternLanguage` pinned by `lean-toolchain` to `leanprover/lean4:v4.33.1`. The library glob is `.submodules PatternLanguage`, so Lake builds `PatternLanguage/Language.lean` without a root `PatternLanguage.lean` module. That module is an empty `PatternLanguage` namespace. `lake-manifest.json` lists no packages.
+`lean/` is a Lake package named `PatternLanguage` pinned by `lean-toolchain` to `leanprover/lean4:v4.33.1`. The library glob is `.submodules PatternLanguage`, so Lake builds `PatternLanguage/Language.lean` without a root `PatternLanguage.lean` module. U0 left that module as an empty namespace. `lake-manifest.json` lists no packages.
 
 ## Adapters
 
