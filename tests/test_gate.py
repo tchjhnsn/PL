@@ -25,11 +25,14 @@ def test_empty_catalog_and_projects_pass(tmp_path: Path) -> None:
     assert result.records == ()
 
 
-def test_workspace_catalog_has_twelve_records(repo_root: Path) -> None:
+def test_workspace_scan_counts_catalog_and_seed_project(repo_root: Path) -> None:
     result = scan(repo_root)
     assert result.ok
-    assert len(result.records) == 12
-    assert all(record.parent.name == "catalog" for record in result.records)
+    assert len(result.records) == 13
+    catalog = [record for record in result.records if record.parent.name == "catalog"]
+    projects = [record for record in result.records if record.parent.name == "projects"]
+    assert len(catalog) == 12
+    assert [record.name for record in projects] == ["seed-house.json"]
 
 
 def test_record_without_schema_fails(tmp_path: Path) -> None:

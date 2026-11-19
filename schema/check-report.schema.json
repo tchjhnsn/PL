@@ -53,7 +53,8 @@
         "evidence": {
           "oneOf": [
             { "$ref": "#/$defs/checkEvidence" },
-            { "$ref": "#/$defs/judgmentEvidence" }
+            { "$ref": "#/$defs/judgmentEvidence" },
+            { "$ref": "#/$defs/unansweredEvidence" }
           ]
         }
       }
@@ -77,6 +78,15 @@
         "answer": { "type": "boolean" },
         "reason": { "type": "string", "minLength": 1, "maxLength": 240 },
         "judged_by": { "type": "string", "minLength": 1, "maxLength": 80 }
+      }
+    },
+    "unansweredEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "question"],
+      "properties": {
+        "kind": { "const": "unanswered" },
+        "question": { "type": "string", "minLength": 1, "maxLength": 240 }
       }
     }
   }

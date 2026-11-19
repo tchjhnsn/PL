@@ -100,6 +100,8 @@ def test_importing_gate_does_not_load_forbidden_modules() -> None:
         "import pattern_language\n"
         "import pattern_language.gate\n"
         "import pattern_language.topology\n"
+        "import pattern_language.checker\n"
+        "import pattern_language.conditions.registry\n"
         "forbidden = {'ifcopenshell', 'bpy'}\n"
         "loaded = sorted(forbidden & sys.modules.keys())\n"
         "assert not loaded, loaded\n"
@@ -138,15 +140,21 @@ def test_u1_ships_five_schemas_and_twelve_records(repo_root: Path) -> None:
     )
     assert schemas == sorted(SCHEMA_FILES)
     assert catalog == sorted(CATALOG_FILES)
-    assert list((repo_root / "projects").rglob("*.json")) == []
+    projects = sorted(
+        path.relative_to(repo_root).as_posix()
+        for path in (repo_root / "projects").rglob("*.json")
+    )
+    assert projects == ["projects/seed-house.json"]
     for relative in SCHEMA_FILES:
         schema = json.loads((repo_root / relative).read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(schema)
 
 
-def test_u0_has_no_pl_command(repo_root: Path) -> None:
+def test_u4_pl_check_is_the_only_command(repo_root: Path) -> None:
     pyproject = (repo_root / "pyproject.toml").read_text(encoding="utf-8")
-    assert "[project.scripts]" not in pyproject
+    section = pyproject.split("[project.scripts]", 1)[1].split("[", 1)[0]
+    entries = [line.strip() for line in section.splitlines() if line.strip()]
+    assert entries == ['pl = "pattern_language.cli:main"']
     assert not list(repo_root.glob("scripts/pl*"))
 
 
@@ -156,6 +164,10 @@ def test_ci_workflow_covers_gate_and_lean(repo_root: Path) -> None:
     assert "uv run pytest" in workflow
     assert "uv run python scripts/validate_catalog.py" in workflow
     assert "uv run python scripts/catalog_to_lean.py --check" in workflow
+    assert (
+        "uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json"
+        in workflow
+    )
     assert "leanprover/lean-action@v1" in workflow
     assert "lake-package-directory: lean" in workflow
 
@@ -168,7 +180,7 @@ def test_validate_catalog_cli_accepts_seed_catalog(repo_root: Path) -> None:
         text=True,
     )
     assert completed.returncode == 0
-    assert completed.stdout == "back-edges: 0\nok: 12 records\n"
+    assert completed.stdout == "back-edges: 0\nok: 13 records\n"
     assert completed.stderr == ""
 
 

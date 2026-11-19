@@ -1,0 +1,9 @@
+{
+  "id": "seed-house",
+  "patterns": [105, 106, 107, 110, 112, 127, 128, 130, 159, 167, 180, 190],
+  "start": 105,
+  "parameters": {
+    "units": "si",
+    "latitude_deg": 40
+  }
+}
