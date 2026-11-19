@@ -7,3 +7,8 @@ dist/
 build/
 
 lean/.lake/
+
+# Generated run ledgers and live exports (keep directory placeholders)
+runs/*/
+exports/*.ifc
+tools/e2e-effect/node_modules/

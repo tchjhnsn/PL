@@ -281,3 +281,38 @@ Also out of this contract: a new `pl` subcommand, a new schema document, a new M
 ## 10. Citation
 
 Cite pattern numbers and names only. Do not copy book text into this contract, the CLI, the catalog, or the add-on.
+
+## 11. Evidence (executed)
+
+Recorded on the cloud agent host after implementing `tools/e2e-effect` and wiring `export_ifc`.
+
+### Headless
+
+```bash
+cd tools/e2e-effect && bun run e2e:headless
+```
+
+Exit 0. Stdout included `ok: true`, seed sequence `105…190`, and pass `satisfied` `[105, 106, 107, 112, 127, 128, 130, 159, 167, 190]`.
+
+Direct Python witnesses also held: `pl sequence`, pass check exit 0, fail check exit 1, `drive_run.py --check` → `fresh: 12 steps`, and a written run under `runs/` with all twelve steps `preserved` true.
+
+### Live
+
+Installed Blender 4.2.9 LTS (portable) and Bonsai `0.9.1-alpha` (py311 linux zip + wheels). Wired `adapters/blender/export_ifc.py` to `bpy.ops.bim.save_project(..., should_save_as=True)`.
+
+```bash
+cd tools/e2e-effect && bun run e2e:live
+```
+
+Exit 0. Example result:
+
+```json
+{
+  "ok": true,
+  "stamp": "20261119T225612Z",
+  "exportPath": "exports/seed-house.ifc",
+  "reportPath": "/agent/repos/pl/runs/20261119T225612Z/report.json"
+}
+```
+
+`pl check exports/seed-house.ifc --language projects/seed-house.json` exit 0 with the same pass `satisfied` list; 110 Main Entrance and 180 Window Place stay `needs_judgment`.
