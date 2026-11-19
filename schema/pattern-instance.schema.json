@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["pattern", "centers", "status", "evidence"],
+  "properties": {
+    "pattern": { "$ref": "#/$defs/patternNumber" },
+    "centers": {
+      "type": "array",
+      "minItems": 0,
+      "items": { "type": "string" }
+    },
+    "status": { "$ref": "#/$defs/status" },
+    "evidence": {
+      "oneOf": [
+        { "$ref": "#/$defs/checkEvidence" },
+        { "$ref": "#/$defs/judgmentEvidence" }
+      ]
+    }
+  },
+  "$defs": {
+    "patternNumber": { "type": "integer", "minimum": 1, "maximum": 253 },
+    "status": {
+      "enum": [
+        "proposed",
+        "not_applicable",
+        "checking",
+        "satisfied",
+        "violated",
+        "needs_judgment"
+      ]
+    },
+    "checkEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "check", "passed"],
+      "properties": {
+        "kind": { "const": "check" },
+        "check": { "type": "string" },
+        "passed": { "type": "boolean" }
+      }
+    },
+    "judgmentEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "answer", "reason", "judged_by"],
+      "properties": {
+        "kind": { "const": "judgment" },
+        "answer": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "judged_by": { "type": "string", "minLength": 1, "maxLength": 80 }
+      }
+    }
+  }
+}

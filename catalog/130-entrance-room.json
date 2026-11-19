@@ -1,0 +1,38 @@
+{
+  "number": 130,
+  "name": "Entrance Room",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    110,
+    112,
+    127
+  ],
+  "smaller": [],
+  "summary": {
+    "text": "The main door opens into a room.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "arrival wants a room",
+      "draft": true
+    },
+    {
+      "name": "the door can open into a corridor",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "entrance-room",
+      "kind": "computed",
+      "check": "entrance-room",
+      "params": {}
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 130
+  }
+}

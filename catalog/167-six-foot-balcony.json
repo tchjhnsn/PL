@@ -1,0 +1,38 @@
+{
+  "number": 167,
+  "name": "Six-Foot Balcony",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    106
+  ],
+  "smaller": [],
+  "summary": {
+    "text": "Every balcony is at least 1.83 m deep.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "a balcony wants room to sit",
+      "draft": true
+    },
+    {
+      "name": "a narrow ledge is only a step",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "six-foot-balcony",
+      "kind": "computed",
+      "check": "six-foot-balcony",
+      "params": {
+        "min_depth_m": 1.83
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 167
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "number": 128,
+  "name": "Indoor Sunlight",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    105,
+    107
+  ],
+  "smaller": [
+    159
+  ],
+  "summary": {
+    "text": "Daytime rooms sit on the equator-facing side.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "daytime rooms want sun",
+      "draft": true
+    },
+    {
+      "name": "those rooms can sit on the shaded side",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "indoor-sunlight",
+      "kind": "computed",
+      "check": "indoor-sunlight",
+      "params": {
+        "latitude_deg": 0
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 128
+  }
+}

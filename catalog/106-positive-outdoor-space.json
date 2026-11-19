@@ -1,0 +1,40 @@
+{
+  "number": 106,
+  "name": "Positive Outdoor Space",
+  "scale": "building",
+  "confidence": 1,
+  "larger": [
+    105
+  ],
+  "smaller": [
+    167
+  ],
+  "summary": {
+    "text": "Each outdoor zone is mostly enclosed.",
+    "draft": true
+  },
+  "forces": [
+    {
+      "name": "an outdoor room wants enclosure",
+      "draft": true
+    },
+    {
+      "name": "enclosure can cut off sun",
+      "draft": true
+    }
+  ],
+  "conditions": [
+    {
+      "id": "positive-outdoor-space",
+      "kind": "computed",
+      "check": "positive-outdoor-space",
+      "params": {
+        "min_convexity_ratio": 0.75
+      }
+    }
+  ],
+  "source": {
+    "book": "A Pattern Language",
+    "number": 106
+  }
+}

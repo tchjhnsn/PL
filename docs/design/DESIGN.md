@@ -4,6 +4,14 @@
 
 U0 is a scaffold. The catalog builds, tests, and validates while `catalog/`, `projects/`, and `schema/` have no content beyond directory placeholders. There is no `pl` command, no pattern record, no schema document, no Mathlib dependency, and no Blender import.
 
+## U1
+
+U1 adds five schema documents and twelve seed records. Pattern records live in `catalog/`. Project records live in `projects/`. U1 ships `schema/projects.schema.json` and leaves `projects/` empty. Schemas for `pattern-instance`, `check-report`, and `step` sit in the directory map for a later unit that adds those directories to the record roots. Field lists follow `DESIGN.full.md` §1.4. The twelve numbers and names are the seed in §1.5. Pattern-instance status names are the states in §2.4. The unit check is the U1 row of §3.3.
+
+`scan` checks JSON Schema. An empty `catalog/` and `projects/` tree stays valid. Link existence and back-edges come from `load_catalog`. A missing target fails `scripts/validate_catalog.py`. A back-edge is printed on a successful load. Each stored smaller target in this seed is one of the twelve and greater than its source, so the command prints `back-edges: 0` and `ok: 12 records`.
+
+Confidence is 2 on 105 South Facing Outdoors, 159 Light on Two Sides of Every Room, and 180 Window Place. The other nine records store 1 as a placeholder until each heading's asterisk count replaces it. Summaries and forces are our wording, with `draft` true.
+
 ## Gate
 
 `scan(root)` reads JSON files under `catalog/` and `projects/`. Other directories, including `fixtures/`, are ignored. A file is a record when its name ends in `.json` and does not start with a dot.
