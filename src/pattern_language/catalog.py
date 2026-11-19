@@ -2,6 +2,7 @@
 
 ``load_catalog`` runs ``scan`` and parses catalog records the gate accepted.
 Project records stay in the scan and stay out of ``Catalog``.
+``search``, ``get``, and ``pattern_record`` read that catalog.
 """
 
 from __future__ import annotations
@@ -134,6 +135,74 @@ def load_catalog(root: Path) -> Catalog:
         missing_targets=_missing_targets(ordered, by_number),
         back_edges=_back_edges(ordered, by_number),
     )
+
+
+def search(
+    catalog: Catalog,
+    *,
+    number: int | None = None,
+    name: str | None = None,
+    scale: str | None = None,
+) -> tuple[Pattern, ...]:
+    """Patterns whose fields match every provided filter.
+
+    number and scale are exact. name is a case-insensitive substring
+    of Pattern.name. An empty filter returns catalog.patterns.
+    """
+    needle = None if name is None else name.lower()
+    found: list[Pattern] = []
+    for pattern in catalog.patterns:
+        if number is not None and pattern.number != number:
+            continue
+        if scale is not None and pattern.scale != scale:
+            continue
+        if needle is not None and needle not in pattern.name.lower():
+            continue
+        found.append(pattern)
+    return tuple(found)
+
+
+def get(catalog: Catalog, number: int) -> Pattern:
+    """Return the pattern with this number.
+
+    Raise CatalogLoadError with ``missing pattern: N`` when the number
+    is absent.
+    """
+    pattern = catalog.by_number.get(number)
+    if pattern is None:
+        raise CatalogLoadError(f"missing pattern: {number}")
+    return pattern
+
+
+def pattern_record(pattern: Pattern) -> dict[str, Any]:
+    """The catalog schema object for this pattern.
+
+    Omits path. A condition omits check, params, and question when
+    the value is None.
+    """
+    return {
+        "number": pattern.number,
+        "name": pattern.name,
+        "scale": pattern.scale,
+        "confidence": pattern.confidence,
+        "larger": list(pattern.larger),
+        "smaller": list(pattern.smaller),
+        "summary": {"text": pattern.summary.text, "draft": pattern.summary.draft},
+        "forces": [{"name": force.name, "draft": force.draft} for force in pattern.forces],
+        "conditions": [_condition_record(condition) for condition in pattern.conditions],
+        "source": {"book": pattern.source.book, "number": pattern.source.number},
+    }
+
+
+def _condition_record(condition: Condition) -> dict[str, Any]:
+    record: dict[str, Any] = {"id": condition.id, "kind": condition.kind}
+    if condition.check is not None:
+        record["check"] = condition.check
+    if condition.params is not None:
+        record["params"] = dict(condition.params)
+    if condition.question is not None:
+        record["question"] = condition.question
+    return record
 
 
 def _pattern_from_object(payload: dict[str, Any], path: str) -> Pattern:

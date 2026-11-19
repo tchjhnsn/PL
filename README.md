@@ -57,6 +57,16 @@ uv run pl step fixtures/pass-house.ifc fixtures/fail-house.ifc --language projec
 uv run pl step fixtures/pass-house.ifc fixtures/pass-house.ifc --language projects/seed-house.json --pattern 105
 ```
 
+## U6
+
+`mcp/server.py` serves five tools on stdio: `patterns_search`, `pattern_get`, `language_sequence`, `model_check`, and `model_step`. They call the catalog, `sequence`, `run`, and `build_step`. A check-report that fails the gate, and a step with `preserved` false, still come back as tool results. 110 Main Entrance and 180 Window Place stay out of `satisfied`. The client check is pytest, against `fixtures/pass-house.ifc`, `fixtures/fail-house.ifc`, and `projects/seed-house.json`.
+
+```bash
+uv run python mcp/server.py
+```
+
+That process reads stdin until the client closes it. `uv run pytest` runs the client against the two houses.
+
 ## Commands
 
 ```bash

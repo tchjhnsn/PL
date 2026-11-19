@@ -10,9 +10,10 @@ from pathlib import Path
 from types import MappingProxyType
 
 import pytest
+from jsonschema import Draft202012Validator
 
 from pattern_language import CatalogLoadError, load_catalog
-from pattern_language.catalog import BackEdge, LinkRef
+from pattern_language.catalog import BackEdge, LinkRef, get, pattern_record, search
 
 pytestmark = pytest.mark.filterwarnings("ignore::DeprecationWarning")
 
@@ -275,6 +276,46 @@ def test_seed_catalog(repo_root: Path) -> None:
             assert pattern.number in catalog.by_number[target].smaller
     for number in (105, 159, 180):
         assert catalog.by_number[number].confidence == 2
+
+
+def test_pattern_record_matches_the_catalog_file(repo_root: Path) -> None:
+    catalog = load_catalog(repo_root)
+    schema = json.loads((repo_root / "schema" / "catalog.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    south = pattern_record(get(catalog, 105))
+    judged = pattern_record(get(catalog, 110))
+    assert south == json.loads(
+        (repo_root / "catalog" / "105-south-facing-outdoors.json").read_text(encoding="utf-8")
+    )
+    assert judged == json.loads(
+        (repo_root / "catalog" / "110-main-entrance.json").read_text(encoding="utf-8")
+    )
+    assert south["name"] == "South Facing Outdoors"
+    assert south["conditions"][0]["check"] == "south-facing-outdoors"
+    assert "params" in south["conditions"][0]
+    assert "question" not in south["conditions"][0]
+    assert judged["conditions"][0]["question"] == "Is the entrance seen from the approach?"
+    assert "check" not in judged["conditions"][0]
+    assert "params" not in judged["conditions"][0]
+    validator.validate(south)
+    validator.validate(judged)
+
+
+def test_search_filters_number_name_and_scale(repo_root: Path) -> None:
+    catalog = load_catalog(repo_root)
+    assert [item.number for item in search(catalog, name="Entrance")] == [110, 112, 130]
+    assert [item.number for item in search(catalog, name="entrance")] == [110, 112, 130]
+    assert search(catalog, number=105, name="Entrance") == ()
+    assert search(catalog, scale="town") == ()
+    assert [item.number for item in search(catalog, scale="building")] == sorted(NUMBERS)
+    assert [item.number for item in search(catalog)] == sorted(NUMBERS)
+
+
+def test_get_missing_pattern_names_the_number(repo_root: Path) -> None:
+    catalog = load_catalog(repo_root)
+    with pytest.raises(CatalogLoadError) as caught:
+        get(catalog, 200)
+    assert str(caught.value) == "missing pattern: 200"
 
 
 def test_downward_smaller_link_is_a_back_edge(tmp_path: Path, repo_root: Path) -> None:
