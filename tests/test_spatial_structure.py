@@ -23,14 +23,18 @@ def test_load_and_widths() -> None:
     assert clear_width(plan, "a-balcony") == 6.0
     assert clear_width(plan, "carriageway-main") == 5.5
     assert measure_value(plan, "m-sidewalk-width") == 2.5
+    assert measure_value(plan, "m-balcony-depth") == 6.0
     assert edge_width(plan, "e-main-1") == 5.5
     assert edge_width(plan, "e-sidewalk-1") == 2.5
+    assert len(plan["network"]["edges"]) >= 10
 
 
 def test_roles() -> None:
     plan = load_spatial(PLAN, validate=False)
     sidewalks = places_with_role(plan, "sidewalk")
     assert any(p["id"] == "sidewalk-main-n" for p in sidewalks)
+    assert any(p["id"] == "carriageway-main" for p in places_with_role(plan, "carriageway"))
+    assert any("row" in (p.get("roles") or []) for p in plan["places"])
 
 
 def test_balcony_clear_width_meets_threshold() -> None:

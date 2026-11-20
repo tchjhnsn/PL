@@ -4,13 +4,13 @@ Map for agents working in this repository. U0 is the empty-catalog scaffold. U1 
 
 ## What this is
 
-A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation. U3 adds two generated IFC houses and `read_topology`. U4 adds `pl check`, one module per computed check, and `projects/seed-house.json`. U5 adds `pl sequence` and `pl step`. U6 adds a stdio MCP server with five tools over that core. U7 records a twelve-step seed-house run and a Blender add-on skeleton.
+A pattern-language catalog with a schema gate and a Lean library. U0 proves the repository builds and checks an empty catalog. It does not contain pattern records, schema documents, or a `pl` command. U0 left `PatternLanguage.Language` as an empty namespace. U1 adds five schemas, twelve seed records, and `load_catalog`. U2 adds the language laws and a generated building instantiation. U3 adds two generated IFC houses and `read_topology`. U4 adds `pl check`, one module per computed check, and `projects/seed-house.json`. U5 adds `pl sequence` and `pl step`. U6 adds a stdio MCP server with five tools over that core. U7 records a twelve-step seed-house run and a Blender add-on skeleton. U8 promotes SpatialStructure (`load_spatial`) as the validated plan mid-layer for the demo and future measure conditions.
 
 ## Where things are
 
 | Path | Holds |
 |---|---|
-| `schema/` | Five JSON Schemas: `catalog`, `projects`, `pattern-instance`, `check-report`, `step`. |
+| `schema/` | Gate schemas: `catalog`, `projects`, `pattern-instance`, `check-report`, `step`. Also SpatialStructure, process-stage, survey, orientation-frame (not scanned by the catalog gate). |
 | `catalog/` | Twelve seed pattern records, `<number>-<slug>.json`. |
 | `projects/` | `seed-house.json`, the twelve-pattern language. Empty in U1. |
 | `fixtures/` | `pass-house.ifc`, `fail-house.ifc`, and a sibling `.expected.json` for each. Generated. Not scanned by the gate. |
@@ -18,13 +18,15 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `mcp/` | `server.py`, a stdio MCP server. No `__init__.py`. The SDK owns the `mcp` import. |
 | `adapters/blender/` | Blender add-on: panel, `Session`, and `export_ifc` (Bonsai save-as via `bpy.ops.bim`). `bpy` stays in this directory. |
 | `tools/e2e-effect/` | Effect-TS CLI wrapping `pl` / `drive_run` (headless + live). See `docs/design/E2E-BONSAI-EFFECT.md`. |
-| `demo/` | WebGL entry (Three.js SpatialStructure) + SVG plan + concept browser (`python3 demo/serve.py` → http://127.0.0.1:8765/). Blender is optional; see `docs/design/WEBGL-ENTRY.md`. |
+| `demo/` | WebGL Decided stage viewer + SVG plan + concept browser (`python3 demo/serve.py` → http://127.0.0.1:8765/). Blender is optional; see `docs/design/WEBGL-ENTRY.md`. |
 | `schema/ontology/` | Shared term definitions (`term.*`) linked from catalog `uses`. |
 | `docs/design/SATISFACTION.md` | When `satisfied` is legal: orientation frame, tags, elevation. |
 | `docs/design/DECIDED.md` | Survey → land → foundation → frame → openings; sync/async unlocks. |
+| `docs/design/U8-SPATIAL-STRUCTURE.md` | U8 contract: SpatialStructure mid-layer acceptance. |
 | `src/pattern_language/gate.py` | `DirectorySchemaMap`, frozen `CatalogScan`, and `scan(root)`. |
 | `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |
+| `src/pattern_language/spatial_structure.py` | `load_spatial` (schema-validated), `places_with_role`, `measure_of` / `clear_width`, network edge helpers. No IFC / bpy. |
 | `src/pattern_language/conditions/` | `CHECKS` and one module per computed check id. Pure: no file I/O and no IFC types. |
 | `src/pattern_language/parameters.py` | `load_project` and `params_for`. |
 | `src/pattern_language/checker.py` | `run` writes a check-report and validates it against `schema/check-report.schema.json`. |
@@ -35,7 +37,9 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `scripts/validate_catalog.py` | Gate command. Prints back-edges, then `ok: N records`. Exit 0 when the scan has no errors and every link target exists. |
 | `scripts/make_fixtures.py` | Writes the two houses and their expected JSON. `--check` compares graphs, not STEP bytes, and does not write into `fixtures/` on failure. |
 | `scripts/drive_run.py` | Writes one run under `runs/<stamp>/`, or `--check` in a temporary directory. |
-| `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, the two houses, and the stdio MCP client. |
+| `scripts/build_spatial_graph.py` | Regenerates `docs/design/spatial-concept-graph.json`. |
+| `scripts/check_spatial_graph.py` | Integrity check for that concept graph. |
+| `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, the two houses, SpatialStructure, and the stdio MCP client. |
 | `lean/` | Lake package `PatternLanguage`. `Language`, `Sequence`, `Preservation`, and generated `Instantiations/Buildings.lean`. |
 | `docs/design/DESIGN.md` | Gate contract and unit boundary. |
 
@@ -80,6 +84,16 @@ uv run python scripts/drive_run.py --check
 uv run python scripts/drive_run.py
 ```
 
+## U8
+
+`schema/spatial-structure.schema.json` validates plan mid-layer documents. It is **not** in the catalog gate scan. `load_spatial` is the only library entrypoint name. The seed district (`demo/data/plan-model.json`, rebuilt by `demo/build_district.py`) holds ROW + sidewalk + carriageway, at least ten network edges, and named measures including balcony depth and sidewalk clear width. Concept graph scripts rebuild and check `docs/design/spatial-concept-graph.json`. Demo serves WebGL (`/`), plan symbology (`/plan.html`), and concepts (`/concepts.html`). U8 adds no `pl` command, no MCP tool, no Lean edit, and no Blender change. Follow-on: U9 measure conditions over the plan (`docs/design/U9-MEASURE-CONDITIONS.md`).
+
+```bash
+uv run pytest tests/test_spatial_graph.py tests/test_spatial_structure.py
+uv run python demo/build_district.py
+python3 scripts/build_spatial_graph.py && python3 scripts/check_spatial_graph.py
+```
+
 ## Commands
 
 ```bash
@@ -105,5 +119,5 @@ CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_cat
 - Core Python must not import `bpy`. `bpy` may be imported only under `adapters/blender/`. `bonsai` may be imported only in `adapters/blender/bridge.py`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool.
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool.
 - Agents open draft pull requests and do not merge.
