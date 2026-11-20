@@ -117,6 +117,23 @@ uv run pytest tests/test_mcp.py tests/test_spatial_lint.py
 uv run python scripts/lint_spatial.py
 ```
 
+## U11
+
+`demo/build_district.py` exports CityJSON 2.0 with LoD0 footprints, `Road` → child `TrafficArea` (carriageway / sidewalk), `LandUse` lots, `WaterBody` pond, and `SolitaryVegetationObject` trees. Contract: `docs/design/U11-CITYJSON-LOD0.md`.
+
+```bash
+uv run python demo/build_district.py
+uv run pytest tests/test_cityjson_export.py
+```
+
+## U12
+
+Plan sheet judgment UI for 110 Main Entrance and 180 Window Place: evidence question plus Yes/No/Clear in `sessionStorage`. Does not change `pl check`. Contract: `docs/design/U12-JUDGMENT-UI.md`.
+
+```bash
+python3 demo/serve.py   # → /plan.html — answer 110 / 180
+```
+
 ## Commands
 
 ```bash
@@ -142,5 +159,5 @@ CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_cat
 - Core Python must not import `bpy`. `bpy` may be imported only under `adapters/blender/`. `bonsai` may be imported only in `adapters/blender/bridge.py`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only. U10 adds `spatial_get` / `model_measures` MCP tools and CI spatial lint.
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only. U10 adds `spatial_get` / `model_measures` MCP tools and CI spatial lint. U11 expands CityJSON LoD0 + TrafficArea export. U12 adds plan-sheet judgment answers for 110 / 180.
 - Agents open draft pull requests and do not merge.

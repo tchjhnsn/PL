@@ -982,17 +982,19 @@ def export_geojson(plan: dict) -> dict:
 
 
 def export_cityjson(plan: dict) -> dict:
+    """CityJSON 2.0 export: LoD0 footprints + Road/TrafficArea children (U11)."""
     scale = 0.01
     vertices: list[list[int]] = []
     objects: dict = {}
+    by_id = {p["id"]: p for p in plan["places"]}
 
     def add_solid(ring: list, h: float) -> list:
         base, top = [], []
         for x, y in ring:
             base.append(len(vertices))
-            vertices.append([int(x / scale), int(y / scale), 0])
+            vertices.append([int(round(x / scale)), int(round(y / scale)), 0])
             top.append(len(vertices))
-            vertices.append([int(x / scale), int(y / scale), int(h / scale)])
+            vertices.append([int(round(x / scale)), int(round(y / scale)), int(round(h / scale))])
         faces = [[base + [base[0]]], [list(reversed(top + [top[0]]))]]
         n = len(base)
         for i in range(n):
@@ -1004,38 +1006,140 @@ def export_cityjson(plan: dict) -> dict:
         idxs = []
         for x, y in list(ring) + [ring[0]]:
             idxs.append(len(vertices))
-            vertices.append([int(x / scale), int(y / scale), 0])
+            vertices.append([int(round(x / scale)), int(round(y / scale)), 0])
         return [[idxs]]
 
+    def lod0_surface(ring: list) -> dict:
+        return {"type": "MultiSurface", "lod": "0", "boundaries": add_surface(ring)}
+
+    def lod1_surface(ring: list) -> dict:
+        return {"type": "MultiSurface", "lod": "1", "boundaries": add_surface(ring)}
+
+    # House A composite footprint (court + rooms) as Building with LoD0 + LoD1.
+    house_a_ring = [(18, 14), (42, 14), (42, 36), (18, 36)]
     objects["house-a"] = {
         "type": "Building",
         "attributes": {"name": "House A", "floorPlan": "plan-model"},
-        "geometry": [{"type": "Solid", "lod": 1, "boundaries": add_solid([(18, 12), (42, 12), (42, 36), (18, 36)], 7.2)}],
+        "geometry": [
+            lod0_surface(house_a_ring),
+            {"type": "Solid", "lod": "1", "boundaries": add_solid(house_a_ring, 7.2)},
+        ],
     }
     for p in plan["places"]:
         if p["kind"] != "solid":
             continue
         objects[p["id"]] = {
             "type": "Building",
-            "attributes": {"name": p["label"]},
-            "geometry": [{"type": "Solid", "lod": 1, "boundaries": add_solid(p["ring"], p.get("height_m") or 6.0)}],
+            "attributes": {"name": p["label"], "massing": True},
+            "geometry": [
+                lod0_surface(p["ring"]),
+                {"type": "Solid", "lod": "1", "boundaries": add_solid(p["ring"], p.get("height_m") or 6.0)},
+            ],
         }
+
+    # Main street Road with TrafficArea children (granularity way).
+    street = by_id["street-main"]
+    carriageway = by_id["carriageway-main"]
+    sidewalk = by_id["sidewalk-main-n"]
     objects["street-main"] = {
         "type": "Road",
-        "attributes": {"name": "Main Street", "trafficDirection": "positive"},
-        "geometry": [{"type": "MultiSurface", "lod": 1, "boundaries": add_surface([(0, 0), (90, 0), (90, 8), (0, 8)])}],
+        "attributes": {
+            "name": street["label"],
+            "trafficDirection": "both",
+            "class": "section",
+            "granularity": "way",
+        },
+        "children": ["carriageway-main", "sidewalk-main-n"],
+        "geometry": [lod0_surface(street["ring"]), lod1_surface(street["ring"])],
     }
-    green = next(p for p in plan["places"] if p["id"] == "green-shared")
-    objects["green-shared"] = {
-        "type": "PlantCover",
-        "attributes": {"name": "Shared Green", "cover": "grass"},
-        "geometry": [{"type": "MultiSurface", "lod": 1, "boundaries": add_surface(green["ring"])}],
+    objects["carriageway-main"] = {
+        "type": "TrafficArea",
+        "parents": ["street-main"],
+        "attributes": {
+            "name": carriageway["label"],
+            "function": "drivingLane",
+            "granularity": "way",
+            "surfaceMaterial": "asphalt",
+        },
+        "geometry": [lod0_surface(carriageway["ring"])],
     }
+    objects["sidewalk-main-n"] = {
+        "type": "TrafficArea",
+        "parents": ["street-main"],
+        "attributes": {
+            "name": sidewalk["label"],
+            "function": "footpath",
+            "granularity": "way",
+            "surfaceMaterial": "concrete",
+        },
+        "geometry": [lod0_surface(sidewalk["ring"])],
+    }
+
+    lane = by_id.get("street-lane")
+    if lane:
+        objects["street-lane"] = {
+            "type": "Road",
+            "attributes": {
+                "name": lane["label"],
+                "trafficDirection": "both",
+                "class": "section",
+                "hierarchy": "lane",
+            },
+            "geometry": [lod0_surface(lane["ring"])],
+        }
+
+    for p in plan["places"]:
+        roles = set(p.get("roles") or [])
+        if "lot" in roles or "parcel" in roles:
+            objects[p["id"]] = {
+                "type": "LandUse",
+                "attributes": {"name": p["label"], "class": "parcel"},
+                "geometry": [lod0_surface(p["ring"])],
+            }
+        elif p["id"] == "green-shared" or "green" in roles:
+            objects[p["id"]] = {
+                "type": "PlantCover",
+                "attributes": {"name": p["label"], "cover": "grass"},
+                "geometry": [lod0_surface(p["ring"]), lod1_surface(p["ring"])],
+            }
+        elif "pond" in roles or p.get("component") == "pond":
+            objects[p["id"]] = {
+                "type": "WaterBody",
+                "attributes": {"name": p["label"], "class": "pond", "authored": True},
+                "geometry": [lod0_surface(p["ring"])],
+            }
+        elif "gravel" in roles:
+            objects[p["id"]] = {
+                "type": "LandUse",
+                "attributes": {"name": p["label"], "class": "gravel"},
+                "geometry": [lod0_surface(p["ring"])],
+            }
+
+    for t in plan.get("trees") or []:
+        # Point footprint as tiny LoD0 square around trunk.
+        half = max(0.15, float(t.get("trunk") or 0.25))
+        x, y = float(t["x"]), float(t["y"])
+        ring = [(x - half, y - half), (x + half, y - half), (x + half, y + half), (x - half, y + half)]
+        objects[t["id"]] = {
+            "type": "SolitaryVegetationObject",
+            "attributes": {
+                "name": t.get("label") or t["id"],
+                "species": t.get("species"),
+                "form": t.get("form"),
+                "canopy_m": t.get("canopy"),
+            },
+            "geometry": [lod0_surface(ring)],
+        }
+
     return {
         "type": "CityJSON",
         "version": "2.0",
         "transform": {"scale": [scale, scale, scale], "translate": [0.0, 0.0, 0.0]},
-        "metadata": {"title": "Seed District", "spatialStructure": "plan-model"},
+        "metadata": {
+            "title": "Seed District",
+            "spatialStructure": "plan-model",
+            "referenceSystem": "local-metres",
+        },
         "CityObjects": objects,
         "vertices": vertices,
     }
