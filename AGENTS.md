@@ -21,6 +21,7 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `demo/` | WebGL entry (Three.js SpatialStructure) + SVG plan + concept browser (`python3 demo/serve.py` → http://127.0.0.1:8765/). Blender is optional; see `docs/design/WEBGL-ENTRY.md`. |
 | `schema/ontology/` | Shared term definitions (`term.*`) linked from catalog `uses`. |
 | `docs/design/SATISFACTION.md` | When `satisfied` is legal: orientation frame, tags, elevation. |
+| `docs/design/DECIDED.md` | Survey → land → foundation → frame → openings; sync/async unlocks. |
 | `src/pattern_language/gate.py` | `DirectorySchemaMap`, frozen `CatalogScan`, and `scan(root)`. |
 | `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |

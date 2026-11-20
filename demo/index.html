@@ -94,13 +94,19 @@
       <header class="rail-head">
         <p class="brand">Seed District</p>
         <p class="lede">
-          Entry-level WebGL view of SpatialStructure: extruded places,
-          flow network, pattern focus, and check status from the seed house.
+          Decided stage viewer: survey and land first, then foundations,
+          frames, openings, and patterns. Semantic WebGL — not finished houses.
         </p>
         <p class="owned">
-          Entry surface: <code>WebGL</code> · Advanced: Blender + Bonsai (optional)
+          Process: <code>Decided</code> · Entry: <code>WebGL</code> · Advanced: Blender optional
         </p>
       </header>
+
+      <section class="rail-section">
+        <h2>Decided stages</h2>
+        <p class="soft" id="stage-note">Survey unlocks land; foundations unlock frames.</p>
+        <div class="view-toggle" id="stage-list"></div>
+      </section>
 
       <section class="rail-section">
         <h2>Modes</h2>
@@ -114,16 +120,16 @@
         <h2>Kinds</h2>
         <ul class="kind-legend">
           <li><span class="status-dot kind-void"></span>Void</li>
-          <li><span class="status-dot kind-path"></span>Path</li>
-          <li><span class="status-dot kind-room"></span>Room</li>
-          <li><span class="status-dot kind-solid"></span>Solid</li>
+          <li><span class="status-dot kind-path"></span>Path / land</li>
+          <li><span class="status-dot kind-room"></span>Room / pad</li>
+          <li><span class="status-dot kind-solid"></span>Massing</li>
           <li><span class="status-dot kind-focus"></span>Focus</li>
         </ul>
       </section>
 
-      <section class="rail-section">
+      <section class="rail-section" id="patterns-section">
         <h2>Patterns</h2>
-        <p class="soft">Focus a pattern; related places light up. Status from pass-house check.</p>
+        <p class="soft">Unlocked at the Patterns stage. Focus lights related places.</p>
         <div id="pattern-list" class="pattern-list"></div>
       </section>
 

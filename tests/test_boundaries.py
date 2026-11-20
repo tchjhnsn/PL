@@ -19,9 +19,11 @@ SCHEMA_FILES = (
     "schema/ontology/terms.schema.json",
     "schema/orientation-frame.schema.json",
     "schema/pattern-instance.schema.json",
+    "schema/process-stage.schema.json",
     "schema/projects.schema.json",
     "schema/spatial-structure.schema.json",  # mid-layer; not a catalog-gate directory
     "schema/step.schema.json",
+    "schema/survey.schema.json",
 )
 
 CATALOG_FILES = (

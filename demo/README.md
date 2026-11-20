@@ -1,10 +1,11 @@
 # Seed district — WebGL entry + plan symbology
 
-**Entry level:** Three.js WebGL over SpatialStructure (`index.html` / `webgl.js`).  
+**Entry level:** Decided WebGL stage viewer (`index.html` / `webgl.js`) — survey/land first.  
 **Optional advanced:** Blender + Bonsai IFC path (`adapters/blender/`, `docs/design/E2E-BONSAI-EFFECT.md`).  
 **2D companion:** SVG plan symbology at `plan.html`.
 
-Naive marketing dogfood is **deferred**. See `docs/design/WEBGL-ENTRY.md`.
+Process rules: `docs/design/DECIDED.md`. Viewer contract: `docs/design/WEBGL-ENTRY.md`.  
+Naive marketing dogfood is **deferred**.
 
 ## Owned layer
 

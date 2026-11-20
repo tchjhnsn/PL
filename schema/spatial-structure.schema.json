@@ -65,6 +65,11 @@
       "type": "array",
       "items": { "$ref": "#/$defs/interface" }
     },
+    "interactions": {
+      "type": "array",
+      "description": "Geometry relations: sit-on, clearance, shared-wall, outdoor-adjacency",
+      "items": { "$ref": "#/$defs/interaction" }
+    },
     "patterns": {
       "type": "array",
       "items": { "type": "object" }
@@ -75,6 +80,21 @@
     }
   },
   "$defs": {
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "a", "b"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": {
+          "enum": ["sit-on", "clearance", "shared-wall", "outdoor-adjacency"]
+        },
+        "a": { "type": "string" },
+        "b": { "type": "string" },
+        "min_m": { "type": "number" },
+        "note": { "type": "string" }
+      }
+    },
     "ring": {
       "type": "array",
       "minItems": 3,
@@ -95,7 +115,12 @@
         "component": { "type": "string" },
         "kind": {
           "type": "string",
-          "enum": ["solid", "void", "room", "path"]
+          "enum": ["solid", "void", "room", "path", "land", "foundation"]
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["survey", "land", "foundation", "frame", "openings", "patterns"],
+          "description": "Earliest Decided stage that reveals this place"
         },
         "ring": { "$ref": "#/$defs/ring" },
         "roles": {

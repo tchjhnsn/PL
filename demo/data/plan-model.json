@@ -51,7 +51,8 @@
       ],
       "role": "Right-of-way: carriageway + north sidewalk (CityGML Section stand-in).",
       "parent": null,
-      "enclosure_hw": 0.35
+      "enclosure_hw": 0.35,
+      "stage": "land"
     },
     {
       "id": "carriageway-main",
@@ -86,7 +87,8 @@
       ],
       "role": "TrafficArea driving surface \u2014 5.5 m clear (granularity way).",
       "parent": "street-main",
-      "enclosure_hw": 0.4
+      "enclosure_hw": 0.4,
+      "stage": "land"
     },
     {
       "id": "sidewalk-main-n",
@@ -122,7 +124,8 @@
         112
       ],
       "role": "North footway against the block \u2014 2.5 m clear width.",
-      "parent": "street-main"
+      "parent": "street-main",
+      "stage": "land"
     },
     {
       "id": "street-lane",
@@ -155,7 +158,8 @@
       ],
       "role": "North\u2013south service lane; quieter hierarchy than Main Street.",
       "parent": null,
-      "enclosure_hw": 0.5
+      "enclosure_hw": 0.5,
+      "stage": "land"
     },
     {
       "id": "green-shared",
@@ -190,7 +194,334 @@
       ],
       "role": "Block outdoor room \u2014 convex void several houses address.",
       "parent": null,
-      "enclosure_hw": 0.4
+      "enclosure_hw": 0.4,
+      "stage": "land"
+    },
+    {
+      "id": "lot-a",
+      "label": "Lot A",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          16,
+          10
+        ],
+        [
+          46,
+          10
+        ],
+        [
+          46,
+          40
+        ],
+        [
+          16,
+          40
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel"
+      ],
+      "patterns": [],
+      "role": "Surveyed parcel for House A \u2014 land before footprint.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "lot-b",
+      "label": "Lot B",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          48,
+          10
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          74,
+          32
+        ],
+        [
+          48,
+          32
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel"
+      ],
+      "patterns": [],
+      "role": "Surveyed parcel east of the green.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "lot-c",
+      "label": "Lot C",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          16,
+          46
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          42,
+          68
+        ],
+        [
+          16,
+          68
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel"
+      ],
+      "patterns": [],
+      "role": "Surveyed parcel north of the green.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "lot-d",
+      "label": "Lot D",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          46,
+          48
+        ],
+        [
+          74,
+          48
+        ],
+        [
+          74,
+          70
+        ],
+        [
+          46,
+          70
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel"
+      ],
+      "patterns": [],
+      "role": "Surveyed NE corner parcel.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "lot-workshop",
+      "label": "Workshop Lot",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          6,
+          38
+        ],
+        [
+          20,
+          38
+        ],
+        [
+          20,
+          54
+        ],
+        [
+          6,
+          54
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel"
+      ],
+      "patterns": [],
+      "role": "Surveyed lane-side workshop parcel.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "found-a",
+      "label": "Foundation A",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          18,
+          14
+        ],
+        [
+          42,
+          14
+        ],
+        [
+          42,
+          36
+        ],
+        [
+          18,
+          36
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for House A \u2014 sits on Lot A.",
+      "parent": "lot-a",
+      "height_m": 0.35,
+      "floor_elevation_m": 0,
+      "stage": "foundation"
+    },
+    {
+      "id": "found-b",
+      "label": "Foundation B",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          50,
+          12
+        ],
+        [
+          72,
+          12
+        ],
+        [
+          72,
+          30
+        ],
+        [
+          50,
+          30
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for neighbor massing B.",
+      "parent": "lot-b",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "found-c",
+      "label": "Foundation C",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          18,
+          48
+        ],
+        [
+          40,
+          48
+        ],
+        [
+          40,
+          66
+        ],
+        [
+          18,
+          66
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for neighbor massing C.",
+      "parent": "lot-c",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "found-d",
+      "label": "Foundation D",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          48,
+          50
+        ],
+        [
+          72,
+          50
+        ],
+        [
+          72,
+          68
+        ],
+        [
+          48,
+          68
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for neighbor massing D.",
+      "parent": "lot-d",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "found-workshop",
+      "label": "Foundation Workshop",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          8,
+          40
+        ],
+        [
+          18,
+          40
+        ],
+        [
+          18,
+          52
+        ],
+        [
+          8,
+          52
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for workshop massing.",
+      "parent": "lot-workshop",
+      "height_m": 0.35,
+      "stage": "foundation"
     },
     {
       "id": "a-court",
@@ -226,7 +557,8 @@
       ],
       "role": "Transition void between street and main door (8 m deep).",
       "parent": "house-a",
-      "enclosure_hw": 0.45
+      "enclosure_hw": 0.45,
+      "stage": "frame"
     },
     {
       "id": "path-approach",
@@ -259,7 +591,8 @@
         112
       ],
       "role": "Pedestrian approach: street \u2192 court (2 m clear width).",
-      "parent": null
+      "parent": null,
+      "stage": "land"
     },
     {
       "id": "a-hall",
@@ -298,7 +631,8 @@
       ],
       "role": "Entrance room \u2014 shallow wing.",
       "parent": "house-a",
-      "height_m": 2.4
+      "height_m": 2.4,
+      "stage": "frame"
     },
     {
       "id": "a-living",
@@ -337,7 +671,8 @@
       ],
       "role": "Day room; taller ceiling.",
       "parent": "house-a",
-      "height_m": 3.0
+      "height_m": 3.0,
+      "stage": "frame"
     },
     {
       "id": "a-bedroom",
@@ -375,7 +710,8 @@
       "role": "Private end of the intimacy gradient (upper storey).",
       "parent": "house-a",
       "height_m": 2.7,
-      "floor_elevation_m": 3.0
+      "floor_elevation_m": 3.0,
+      "stage": "frame"
     },
     {
       "id": "a-balcony",
@@ -410,12 +746,13 @@
       "role": "Elevated outdoor edge \u22651.83 m deep (upper storey).",
       "parent": "house-a",
       "height_m": 3.0,
-      "floor_elevation_m": 3.0
+      "floor_elevation_m": 3.0,
+      "stage": "frame"
     },
     {
       "id": "house-b",
-      "label": "House B",
-      "component": "building",
+      "label": "Massing B",
+      "component": "massing",
       "kind": "solid",
       "ring": [
         [
@@ -436,20 +773,22 @@
         ]
       ],
       "roles": [
-        "building"
+        "building",
+        "massing"
       ],
       "patterns": [
         105,
         106
       ],
-      "role": "Neighbor massing east of the green.",
-      "parent": null,
-      "height_m": 6.5
+      "role": "Frame-stage massing on Foundation B \u2014 not a finished house.",
+      "parent": "found-b",
+      "height_m": 6.5,
+      "stage": "frame"
     },
     {
       "id": "house-c",
-      "label": "House C",
-      "component": "building",
+      "label": "Massing C",
+      "component": "massing",
       "kind": "solid",
       "ring": [
         [
@@ -470,20 +809,22 @@
         ]
       ],
       "roles": [
-        "building"
+        "building",
+        "massing"
       ],
       "patterns": [
         105,
         106
       ],
-      "role": "North-lot house closing the green.",
-      "parent": null,
-      "height_m": 6.0
+      "role": "Frame-stage massing on Foundation C.",
+      "parent": "found-c",
+      "height_m": 6.0,
+      "stage": "frame"
     },
     {
       "id": "house-d",
-      "label": "House D",
-      "component": "building",
+      "label": "Massing D",
+      "component": "massing",
       "kind": "solid",
       "ring": [
         [
@@ -504,20 +845,22 @@
         ]
       ],
       "roles": [
-        "building"
+        "building",
+        "massing"
       ],
       "patterns": [
         105,
         106
       ],
-      "role": "Corner massing.",
-      "parent": null,
-      "height_m": 5.5
+      "role": "Frame-stage massing on Foundation D.",
+      "parent": "found-d",
+      "height_m": 5.5,
+      "stage": "frame"
     },
     {
       "id": "workshop",
-      "label": "Workshop",
-      "component": "building",
+      "label": "Workshop Massing",
+      "component": "massing",
       "kind": "solid",
       "ring": [
         [
@@ -538,15 +881,17 @@
         ]
       ],
       "roles": [
-        "building"
+        "building",
+        "massing"
       ],
       "patterns": [
         105,
         106
       ],
-      "role": "Work building on the lane.",
-      "parent": null,
-      "height_m": 4.0
+      "role": "Frame-stage workshop massing.",
+      "parent": "found-workshop",
+      "height_m": 4.0,
+      "stage": "frame"
     }
   ],
   "walls": [
@@ -1639,6 +1984,101 @@
         "a-court"
       ],
       "opening": "a-win-liv-s"
+    }
+  ],
+  "interactions": [
+    {
+      "id": "ix-found-a-lot",
+      "kind": "sit-on",
+      "a": "found-a",
+      "b": "lot-a",
+      "note": "Pad sits on surveyed Lot A"
+    },
+    {
+      "id": "ix-found-b-lot",
+      "kind": "sit-on",
+      "a": "found-b",
+      "b": "lot-b"
+    },
+    {
+      "id": "ix-found-c-lot",
+      "kind": "sit-on",
+      "a": "found-c",
+      "b": "lot-c"
+    },
+    {
+      "id": "ix-found-d-lot",
+      "kind": "sit-on",
+      "a": "found-d",
+      "b": "lot-d"
+    },
+    {
+      "id": "ix-found-w-lot",
+      "kind": "sit-on",
+      "a": "found-workshop",
+      "b": "lot-workshop"
+    },
+    {
+      "id": "ix-hall-found",
+      "kind": "sit-on",
+      "a": "a-hall",
+      "b": "found-a"
+    },
+    {
+      "id": "ix-liv-found",
+      "kind": "sit-on",
+      "a": "a-living",
+      "b": "found-a"
+    },
+    {
+      "id": "ix-bed-found",
+      "kind": "sit-on",
+      "a": "a-bedroom",
+      "b": "found-a"
+    },
+    {
+      "id": "ix-mass-b",
+      "kind": "sit-on",
+      "a": "house-b",
+      "b": "found-b"
+    },
+    {
+      "id": "ix-mass-c",
+      "kind": "sit-on",
+      "a": "house-c",
+      "b": "found-c"
+    },
+    {
+      "id": "ix-mass-d",
+      "kind": "sit-on",
+      "a": "house-d",
+      "b": "found-d"
+    },
+    {
+      "id": "ix-mass-w",
+      "kind": "sit-on",
+      "a": "workshop",
+      "b": "found-workshop"
+    },
+    {
+      "id": "ix-clear-ab",
+      "kind": "clearance",
+      "a": "found-a",
+      "b": "found-b",
+      "min_m": 4.0,
+      "note": "Lot side clearance"
+    },
+    {
+      "id": "ix-court-outdoor",
+      "kind": "outdoor-adjacency",
+      "a": "a-court",
+      "b": "a-living"
+    },
+    {
+      "id": "ix-wall-hall-liv",
+      "kind": "shared-wall",
+      "a": "a-hall",
+      "b": "a-living"
     }
   ],
   "patterns": [

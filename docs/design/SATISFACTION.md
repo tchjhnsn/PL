@@ -2,6 +2,8 @@
 
 A pattern instance may be `satisfied` only when every predicate the check names is defined in the model and the measured values pass. Status chips without those predicates are not evidence.
 
+**Decided** (`docs/design/DECIDED.md`) adds process unlocks: a survey frame must complete before orientation checks are treated as legally satisfiable in the WebGL stage viewer. Language `pl sequence` remains a separate order from construction stages.
+
 ## Shared frame
 
 Orientation checks need an **OrientationFrame** (`schema/orientation-frame.schema.json`):

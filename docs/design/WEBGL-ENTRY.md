@@ -4,14 +4,14 @@ Blender + Bonsai remains a **complete** professional path for IFC authoring and 
 
 ## Entry surface
 
-`demo/` serves a **Three.js** viewer as `http://127.0.0.1:8765/`:
+`demo/` serves a **Three.js** Decided stage viewer as `http://127.0.0.1:8765/`:
 
-- Loads `data/plan-model.json` (SpatialStructure rings → extruded volumes at `floor_elevation_m`).
-- North indicator from `frame.north`; pattern focus dims unrelated volumes.
-- Overlays check status and **measured** evidence from `data/pass-report.json`.
-- District and House A modes; click a mesh for inspector detail (elevation + height).
+- Stage strip: Survey → Land → Foundations → Frames → Openings → Patterns (default **Land**).
+- Loads `data/seed-district-survey.json`, `data/process-stages.json`, and `data/plan-model.json`.
+- Survey/land first: grade plane, contours, north rose, sun sector, lots; then pads; then frames/openings.
+- Pattern focus and **measured** evidence only at the Patterns stage.
 - SVG plan stays at `/plan.html`. Concept graph at `/concepts.html`.
-- Satisfaction rules: `docs/design/SATISFACTION.md`.
+- Process rules: `docs/design/DECIDED.md`. Satisfaction: `docs/design/SATISFACTION.md`.
 
 ```bash
 python3 demo/serve.py
