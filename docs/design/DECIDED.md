@@ -2,6 +2,8 @@
 
 Decided is the **process layer**: what must exist before the next authoring or check step is legal. It is orthogonal to the **language sequence** (`pl sequence`, Lean `Sequence`) and to **preservation** (`pl step`).
 
+**Survey inventory** is more than lots and north: ground cover (grass, gravel, …), plantings (pines, shade trees), and water (authored ponds OK on a greenfield). Geometry must pass `scripts/lint_spatial.py` (no illegal lot/pad/shell overlap; `sit-on` containment; clearance gaps).
+
 | Order | Question | Owner |
 |---|---|---|
 | Survey / site | What is the land, north, sun, grade? | Decided Stage 0 |

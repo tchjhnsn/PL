@@ -94,6 +94,85 @@
         "prevailing_wind_from_deg": { "type": "number" },
         "note": { "type": "string", "maxLength": 240 }
       }
+    },
+    "ground_cover": {
+      "type": "array",
+      "description": "Site inventory: grass, gravel, mulch, bare soil, pavement",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "material", "ring"],
+        "properties": {
+          "id": { "type": "string" },
+          "material": {
+            "type": "string",
+            "enum": ["grass", "gravel", "mulch", "bare-soil", "pavement", "water"]
+          },
+          "label": { "type": "string" },
+          "ring": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number" }
+            }
+          },
+          "note": { "type": "string", "maxLength": 240 }
+        }
+      }
+    },
+    "plantings": {
+      "type": "array",
+      "description": "Trees and large shrubs (authored or existing)",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "x", "y", "form"],
+        "properties": {
+          "id": { "type": "string" },
+          "x": { "type": "number" },
+          "y": { "type": "number" },
+          "form": {
+            "type": "string",
+            "enum": ["evergreen", "deciduous", "ornamental", "shrub"]
+          },
+          "species": { "type": "string" },
+          "canopy_m": { "type": "number" },
+          "label": { "type": "string" },
+          "authored": {
+            "type": "boolean",
+            "description": "true when planted as design (greenfield)"
+          }
+        }
+      }
+    },
+    "water_features": {
+      "type": "array",
+      "description": "Ponds, rills, wetlands — natural or authored",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "ring"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string", "enum": ["pond", "rill", "wetland"] },
+          "label": { "type": "string" },
+          "ring": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number" }
+            }
+          },
+          "authored": { "type": "boolean" },
+          "note": { "type": "string", "maxLength": 240 }
+        }
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import sys
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
@@ -101,20 +102,45 @@ def build_plan() -> dict:
             "label": "Shared Green",
             "component": "court",
             "kind": "void",
-            "ring": [(28, 28), (62, 28), (62, 48), (28, 48)],
-            "roles": ["outdoor", "public"],
+            "ring": [(28, 38), (58, 38), (58, 48), (28, 48)],
+            "roles": ["outdoor", "public", "green", "grass"],
             "patterns": [105, 106],
-            "role": "Block outdoor room — convex void several houses address.",
+            "role": "Block outdoor room — turf grass court between parcels (no lot overlap).",
             "parent": None,
             "enclosure_hw": 0.4,
             "stage": "land",
+        },
+        {
+            "id": "cover-gravel",
+            "label": "Gravel court edge",
+            "component": "ground-cover",
+            "kind": "land",
+            "ring": [(26, 36), (60, 36), (60, 38), (26, 38)],
+            "roles": ["ground-cover", "gravel"],
+            "patterns": [106],
+            "role": "Gravel strip south of the green.",
+            "parent": None,
+            "stage": "survey",
+        },
+        {
+            "id": "pond-a",
+            "label": "Garden pond",
+            "component": "pond",
+            "kind": "void",
+            "ring": [(34, 40), (44, 40), (44, 46), (34, 46)],
+            "roles": ["water", "pond", "outdoor"],
+            "patterns": [105, 106],
+            "role": "Authored garden pond on the green (greenfield design).",
+            "parent": "green-shared",
+            "height_m": 0.15,
+            "stage": "survey",
         },
         {
             "id": "lot-a",
             "label": "Lot A",
             "component": "parcel",
             "kind": "land",
-            "ring": [(16, 10), (46, 10), (46, 40), (16, 40)],
+            "ring": [(16, 10), (46, 10), (46, 36), (16, 36)],
             "roles": ["lot", "parcel"],
             "patterns": [],
             "role": "Surveyed parcel for House A — land before footprint.",
@@ -126,7 +152,7 @@ def build_plan() -> dict:
             "label": "Lot B",
             "component": "parcel",
             "kind": "land",
-            "ring": [(48, 10), (74, 10), (74, 32), (48, 32)],
+            "ring": [(50, 10), (74, 10), (74, 32), (50, 32)],
             "roles": ["lot", "parcel"],
             "patterns": [],
             "role": "Surveyed parcel east of the green.",
@@ -138,7 +164,7 @@ def build_plan() -> dict:
             "label": "Lot C",
             "component": "parcel",
             "kind": "land",
-            "ring": [(16, 46), (42, 46), (42, 68), (16, 68)],
+            "ring": [(16, 50), (42, 50), (42, 68), (16, 68)],
             "roles": ["lot", "parcel"],
             "patterns": [],
             "role": "Surveyed parcel north of the green.",
@@ -150,7 +176,7 @@ def build_plan() -> dict:
             "label": "Lot D",
             "component": "parcel",
             "kind": "land",
-            "ring": [(46, 48), (74, 48), (74, 70), (46, 70)],
+            "ring": [(48, 52), (74, 52), (74, 70), (48, 70)],
             "roles": ["lot", "parcel"],
             "patterns": [],
             "role": "Surveyed NE corner parcel.",
@@ -162,7 +188,7 @@ def build_plan() -> dict:
             "label": "Workshop Lot",
             "component": "parcel",
             "kind": "land",
-            "ring": [(6, 38), (20, 38), (20, 54), (6, 54)],
+            "ring": [(8, 38), (20, 38), (20, 50), (8, 50)],
             "roles": ["lot", "parcel"],
             "patterns": [],
             "role": "Surveyed lane-side workshop parcel.",
@@ -188,7 +214,7 @@ def build_plan() -> dict:
             "label": "Foundation B",
             "component": "pad",
             "kind": "foundation",
-            "ring": [(50, 12), (72, 12), (72, 30), (50, 30)],
+            "ring": [(52, 12), (72, 12), (72, 30), (52, 30)],
             "roles": ["foundation", "pad"],
             "patterns": [],
             "role": "Pad for neighbor massing B.",
@@ -201,7 +227,7 @@ def build_plan() -> dict:
             "label": "Foundation C",
             "component": "pad",
             "kind": "foundation",
-            "ring": [(18, 48), (40, 48), (40, 66), (18, 66)],
+            "ring": [(18, 52), (40, 52), (40, 66), (18, 66)],
             "roles": ["foundation", "pad"],
             "patterns": [],
             "role": "Pad for neighbor massing C.",
@@ -214,7 +240,7 @@ def build_plan() -> dict:
             "label": "Foundation D",
             "component": "pad",
             "kind": "foundation",
-            "ring": [(48, 50), (72, 50), (72, 68), (48, 68)],
+            "ring": [(50, 54), (72, 54), (72, 68), (50, 68)],
             "roles": ["foundation", "pad"],
             "patterns": [],
             "role": "Pad for neighbor massing D.",
@@ -227,7 +253,7 @@ def build_plan() -> dict:
             "label": "Foundation Workshop",
             "component": "pad",
             "kind": "foundation",
-            "ring": [(8, 40), (18, 40), (18, 52), (8, 52)],
+            "ring": [(10, 40), (18, 40), (18, 50), (10, 50)],
             "roles": ["foundation", "pad"],
             "patterns": [],
             "role": "Pad for workshop massing.",
@@ -319,7 +345,7 @@ def build_plan() -> dict:
             "label": "Massing B",
             "component": "massing",
             "kind": "solid",
-            "ring": [(50, 12), (72, 12), (72, 30), (50, 30)],
+            "ring": [(52, 12), (72, 12), (72, 30), (52, 30)],
             "roles": ["building", "massing"],
             "patterns": [105, 106],
             "role": "Frame-stage massing on Foundation B — not a finished house.",
@@ -332,7 +358,7 @@ def build_plan() -> dict:
             "label": "Massing C",
             "component": "massing",
             "kind": "solid",
-            "ring": [(18, 48), (40, 48), (40, 66), (18, 66)],
+            "ring": [(18, 52), (40, 52), (40, 66), (18, 66)],
             "roles": ["building", "massing"],
             "patterns": [105, 106],
             "role": "Frame-stage massing on Foundation C.",
@@ -345,7 +371,7 @@ def build_plan() -> dict:
             "label": "Massing D",
             "component": "massing",
             "kind": "solid",
-            "ring": [(48, 50), (72, 50), (72, 68), (48, 68)],
+            "ring": [(50, 54), (72, 54), (72, 68), (50, 68)],
             "roles": ["building", "massing"],
             "patterns": [105, 106],
             "role": "Frame-stage massing on Foundation D.",
@@ -358,7 +384,7 @@ def build_plan() -> dict:
             "label": "Workshop Massing",
             "component": "massing",
             "kind": "solid",
-            "ring": [(8, 40), (18, 40), (18, 52), (8, 52)],
+            "ring": [(10, 40), (18, 40), (18, 50), (10, 50)],
             "roles": ["building", "massing"],
             "patterns": [105, 106],
             "role": "Frame-stage workshop massing.",
@@ -539,11 +565,12 @@ def build_plan() -> dict:
     ]
 
     trees = [
-        {"id": "tree-1", "label": "Tree", "component": "tree", "x": 24, "y": 40, "canopy": 3.5, "trunk": 0.35, "patterns": [105, 106], "role": "Living edge of the green."},
-        {"id": "tree-2", "label": "Tree", "component": "tree", "x": 34, "y": 44, "canopy": 4.0, "trunk": 0.4, "patterns": [105, 106], "role": "Living edge of the green."},
-        {"id": "tree-3", "label": "Tree", "component": "tree", "x": 44, "y": 40, "canopy": 3.2, "trunk": 0.3, "patterns": [105, 106], "role": "Living edge of the green."},
-        {"id": "tree-4", "label": "Tree", "component": "tree", "x": 55, "y": 36, "canopy": 3.8, "trunk": 0.35, "patterns": [105, 106], "role": "Living edge of the green."},
-        {"id": "tree-5", "label": "Tree", "component": "tree", "x": 12, "y": 24, "canopy": 2.8, "trunk": 0.28, "patterns": [105, 106], "role": "Lane shade."},
+        {"id": "tree-1", "label": "White pine", "component": "tree", "x": 30, "y": 42, "canopy": 3.5, "trunk": 0.35, "form": "evergreen", "species": "Pinus strobus", "patterns": [105, 106], "role": "Authored pine on the green."},
+        {"id": "tree-2", "label": "White pine", "component": "tree", "x": 50, "y": 44, "canopy": 4.0, "trunk": 0.4, "form": "evergreen", "species": "Pinus strobus", "patterns": [105, 106], "role": "Authored pine on the green."},
+        {"id": "tree-3", "label": "Oak", "component": "tree", "x": 40, "y": 47, "canopy": 4.5, "trunk": 0.45, "form": "deciduous", "species": "Quercus alba", "patterns": [105, 106], "role": "Shade tree north edge of green."},
+        {"id": "tree-4", "label": "Maple", "component": "tree", "x": 22, "y": 20, "canopy": 3.2, "trunk": 0.3, "form": "deciduous", "species": "Acer rubrum", "patterns": [105, 106], "role": "Lot A yard tree."},
+        {"id": "tree-5", "label": "White pine", "component": "tree", "x": 12, "y": 28, "canopy": 2.8, "trunk": 0.28, "form": "evergreen", "species": "Pinus strobus", "patterns": [105, 106], "role": "Lane shade pine."},
+        {"id": "tree-6", "label": "Willow", "component": "tree", "x": 46, "y": 42, "canopy": 3.0, "trunk": 0.3, "form": "deciduous", "species": "Salix babylonica", "patterns": [105, 106], "role": "Pond-edge willow."},
     ]
 
     # Circulation network — makes street FLOW and approach sequence first-class
@@ -562,7 +589,7 @@ def build_plan() -> dict:
         {"id": "n-hall", "x": 23, "y": 26, "kind": "place", "place": "a-hall", "label": "Hall"},
         {"id": "n-liv", "x": 35, "y": 26, "kind": "place", "place": "a-living", "label": "Living"},
         {"id": "n-bed", "x": 35, "y": 33, "kind": "place", "place": "a-bedroom", "label": "Bedroom"},
-        {"id": "n-green", "x": 45, "y": 38, "kind": "place", "place": "green-shared", "label": "Green"},
+        {"id": "n-green", "x": 43, "y": 43, "kind": "place", "place": "green-shared", "label": "Green"},
     ]
 
     edges = [
@@ -785,8 +812,8 @@ def build_plan() -> dict:
             "id": "m-gap-ab",
             "label": "Gap A–B",
             "a": [42, 21],
-            "b": [50, 21],
-            "value_m": dist((42, 21), (50, 21)),
+            "b": [52, 21],
+            "value_m": dist((42, 21), (52, 21)),
             "kind": "spacing",
             "of": "house-b",
             "patterns": [105],
@@ -794,9 +821,9 @@ def build_plan() -> dict:
         {
             "id": "m-green-frontage",
             "label": "Green S frontage",
-            "a": [28, 28],
-            "b": [62, 28],
-            "value_m": 34.0,
+            "a": [28, 38],
+            "b": [58, 38],
+            "value_m": 30.0,
             "kind": "frontage",
             "of": "green-shared",
             "patterns": [106],
@@ -847,6 +874,7 @@ def build_plan() -> dict:
         {"id": "ix-mass-d", "kind": "sit-on", "a": "house-d", "b": "found-d"},
         {"id": "ix-mass-w", "kind": "sit-on", "a": "workshop", "b": "found-workshop"},
         {"id": "ix-clear-ab", "kind": "clearance", "a": "found-a", "b": "found-b", "min_m": 4.0, "note": "Lot side clearance"},
+        {"id": "ix-pond-green", "kind": "sit-on", "a": "pond-a", "b": "green-shared", "note": "Pond sits on shared green"},
         {"id": "ix-court-outdoor", "kind": "outdoor-adjacency", "a": "a-court", "b": "a-living"},
         {"id": "ix-wall-hall-liv", "kind": "shared-wall", "a": "a-hall", "b": "a-living"},
     ]
@@ -997,10 +1025,11 @@ def export_cityjson(plan: dict) -> dict:
         "attributes": {"name": "Main Street", "trafficDirection": "positive"},
         "geometry": [{"type": "MultiSurface", "lod": 1, "boundaries": add_surface([(0, 0), (90, 0), (90, 8), (0, 8)])}],
     }
+    green = next(p for p in plan["places"] if p["id"] == "green-shared")
     objects["green-shared"] = {
         "type": "PlantCover",
-        "attributes": {"name": "Shared Green"},
-        "geometry": [{"type": "MultiSurface", "lod": 1, "boundaries": add_surface([(28, 28), (62, 28), (62, 48), (28, 48)])}],
+        "attributes": {"name": "Shared Green", "cover": "grass"},
+        "geometry": [{"type": "MultiSurface", "lod": 1, "boundaries": add_surface(green["ring"])}],
     }
     return {
         "type": "CityJSON",
@@ -1013,10 +1042,17 @@ def export_cityjson(plan: dict) -> dict:
 
 
 def main() -> int:
+    from pattern_language.spatial_lint import lint_plan
+
     OUT.mkdir(parents=True, exist_ok=True)
     plan = build_plan()
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
     Draft202012Validator(schema).validate(plan)
+    lint_errors = lint_plan(plan)
+    if lint_errors:
+        for line in lint_errors:
+            print(line, file=sys.stderr)
+        raise SystemExit(f"spatial lint failed: {len(lint_errors)} errors")
     (OUT / "plan-model.json").write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8")
     (OUT / "district.geojson").write_text(json.dumps(export_geojson(plan), indent=2) + "\n", encoding="utf-8")
     (OUT / "district.city.json").write_text(json.dumps(export_cityjson(plan), indent=2) + "\n", encoding="utf-8")

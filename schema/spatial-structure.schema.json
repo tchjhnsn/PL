@@ -184,6 +184,7 @@
     },
     "tree": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["id", "x", "y", "canopy", "trunk"],
       "properties": {
         "id": { "type": "string" },
@@ -193,6 +194,15 @@
         "y": { "type": "number" },
         "canopy": { "type": "number" },
         "trunk": { "type": "number" },
+        "form": {
+          "type": "string",
+          "enum": ["evergreen", "deciduous", "ornamental"],
+          "description": "Canopy symbology class"
+        },
+        "species": {
+          "type": "string",
+          "description": "Botanical or common name for inventory"
+        },
         "patterns": { "type": "array", "items": { "type": "integer" } },
         "role": { "type": "string" }
       }
