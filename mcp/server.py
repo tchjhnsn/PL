@@ -1,4 +1,4 @@
-"""Stdio MCP server. Five tools call the catalog, sequence, checker, and step."""
+"""Stdio MCP server. Tools over catalog, sequence, checker, step, and SpatialStructure."""
 
 from __future__ import annotations
 
@@ -32,6 +32,12 @@ from pattern_language.checker import report_json, run
 from pattern_language.conditions.evidence import CheckError
 from pattern_language.parameters import load_project
 from pattern_language.sequence import SequenceError, sequence
+from pattern_language.spatial_structure import (
+    clear_width,
+    load_spatial,
+    measure_of,
+    place_by_id,
+)
 from pattern_language.step import build_step, step_json
 from pattern_language.topology import TopologyError
 
@@ -39,12 +45,13 @@ _SCHEMA_FILES = (
     "catalog.schema.json",
     "check-report.schema.json",
     "step.schema.json",
+    "spatial-structure.schema.json",
 )
-_CAUGHT = (CatalogLoadError, SequenceError, CheckError, TopologyError, OSError)
+_CAUGHT = (CatalogLoadError, SequenceError, CheckError, TopologyError, OSError, ValueError)
 
 
 def main() -> None:
-    """Serve the five tools on stdio until the client closes stdin."""
+    """Serve MCP tools on stdio until the client closes stdin."""
     schemas = _read_schemas()
     if schemas is None:
         sys.stderr.write("schema is missing\n")
@@ -94,14 +101,32 @@ def _tools(schemas: Mapping[str, dict[str, Any]]) -> list[Tool]:
     catalog = schemas["catalog.schema.json"]
     report = schemas["check-report.schema.json"]
     step = schemas["step.schema.json"]
+    spatial = schemas["spatial-structure.schema.json"]
     number = dict(catalog["$defs"]["patternNumber"])
     file_name = dict(report["properties"]["model"]["properties"]["file"])
     model_file = dict(step["$defs"]["modelRef"]["properties"]["file"])
     path_string = {"type": "string"}
+    place_id = {"type": "string", "minLength": 1}
     sequence_output = {
         "$schema": catalog["$schema"],
         "type": "array",
         "items": dict(catalog["$defs"]["patternNumber"]),
+    }
+    measures_output = {
+        "$schema": spatial.get("$schema", "https://json-schema.org/draft/2020-12/schema"),
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["plan", "measures"],
+        "properties": {
+            "plan": {"type": "string"},
+            "place": {"type": "string"},
+            "clear_width_m": {"type": ["number", "null"]},
+            "measures": {
+                "type": "array",
+                "items": dict(spatial["$defs"]["measure"]),
+            },
+        },
+        "$defs": {"measure": spatial["$defs"]["measure"]},
     }
     return [
         Tool(
@@ -168,6 +193,33 @@ def _tools(schemas: Mapping[str, dict[str, Any]]) -> list[Tool]:
             },
             output_schema=step,
         ),
+        Tool(
+            name="spatial_get",
+            description="Return a SpatialStructure plan, or one place when place is set.",
+            input_schema={
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["plan"],
+                "properties": {"plan": path_string, "place": place_id},
+            },
+            # Full plan uses the SpatialStructure schema; single-place uses a wrapper.
+            output_schema=spatial,
+        ),
+        Tool(
+            name="model_measures",
+            description="Return named measures on a SpatialStructure plan (optional place filter).",
+            input_schema={
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["plan"],
+                "properties": {
+                    "plan": path_string,
+                    "place": place_id,
+                    "kind": {"type": "string", "minLength": 1},
+                },
+            },
+            output_schema=measures_output,
+        ),
     ]
 
 
@@ -216,6 +268,10 @@ def _dispatch(name: str, arguments: dict[str, Any]) -> str:
         return _model_check(arguments)
     if name == "model_step":
         return _model_step(arguments)
+    if name == "spatial_get":
+        return _spatial_get(arguments)
+    if name == "model_measures":
+        return _model_measures(arguments)
     return ""
 
 
@@ -272,6 +328,57 @@ def _model_step(arguments: dict[str, Any]) -> str:
         schema_path=root / "schema" / "step.schema.json",
     )
     return step_json(step)
+
+
+def _spatial_get(arguments: dict[str, Any]) -> str:
+    plan_path = _path(arguments["plan"])
+    plan = load_spatial(plan_path)
+    place_id = arguments.get("place")
+    if place_id is None:
+        return _canonical(plan)
+    place = place_by_id(plan, place_id)
+    if place is None:
+        raise ValueError(f"unknown place: {place_id}")
+    # Return the place embedded in a minimal plan-shaped document so the
+    # SpatialStructure output_schema still validates (required: id, frame, …).
+    slim = {
+        "id": plan["id"],
+        "frame": plan["frame"],
+        "places": [place],
+        "network": {"nodes": [], "edges": []},
+        "measures": measure_of(plan, place_id),
+    }
+    if "extent" in plan:
+        slim["extent"] = plan["extent"]
+    if "owned_layer" in plan:
+        slim["owned_layer"] = plan["owned_layer"]
+    return _canonical(slim)
+
+
+def _model_measures(arguments: dict[str, Any]) -> str:
+    plan_path = _path(arguments["plan"])
+    plan = load_spatial(plan_path)
+    place_id = arguments.get("place")
+    kind = arguments.get("kind")
+    if place_id is not None:
+        if place_by_id(plan, place_id) is None:
+            raise ValueError(f"unknown place: {place_id}")
+        measures = measure_of(plan, place_id, kind=kind)
+        payload = {
+            "plan": str(arguments["plan"]).replace("\\", "/"),
+            "place": place_id,
+            "clear_width_m": clear_width(plan, place_id),
+            "measures": measures,
+        }
+    else:
+        measures = list(plan.get("measures") or [])
+        if kind is not None:
+            measures = [m for m in measures if m.get("kind") == kind]
+        payload = {
+            "plan": str(arguments["plan"]).replace("\\", "/"),
+            "measures": measures,
+        }
+    return _canonical(payload)
 
 
 def _root() -> Path:
