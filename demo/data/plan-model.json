@@ -372,9 +372,10 @@
         159,
         167
       ],
-      "role": "Private end of the intimacy gradient.",
+      "role": "Private end of the intimacy gradient (upper storey).",
       "parent": "house-a",
-      "height_m": 2.7
+      "height_m": 2.7,
+      "floor_elevation_m": 3.0
     },
     {
       "id": "a-balcony",
@@ -406,9 +407,10 @@
       "patterns": [
         167
       ],
-      "role": "Six-foot outdoor edge (1.83 m+ depth).",
+      "role": "Elevated outdoor edge \u22651.83 m deep (upper storey).",
       "parent": "house-a",
-      "height_m": 3.0
+      "height_m": 3.0,
+      "floor_elevation_m": 3.0
     },
     {
       "id": "house-b",

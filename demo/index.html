@@ -3,85 +3,159 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Seed District — plan symbology</title>
+  <title>Seed District — WebGL</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .webgl-app {
+      display: grid;
+      grid-template-columns: minmax(16rem, 20rem) 1fr;
+      height: 100%;
+    }
+    .webgl-app > .rail {
+      min-height: 0;
+      overflow: auto;
+    }
+    @media (max-width: 900px) {
+      .webgl-app { grid-template-columns: 1fr; grid-template-rows: minmax(0, auto) minmax(50vh, 1fr); }
+      .webgl-app > .rail { min-height: 0; overflow: auto; }
+    }
+    #view {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      display: block;
+      background: #1a1f1c;
+      cursor: grab;
+    }
+    #view:active { cursor: grabbing; }
+    .webgl-stage {
+      position: relative;
+      min-height: 0;
+      background: #121612;
+    }
+    .webgl-hud {
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #c8d4cc;
+      background: rgba(18, 22, 18, 0.72);
+      border: 1px solid #3a463e;
+      padding: 0.35rem 0.55rem;
+      pointer-events: none;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+    }
+    .status-dot.satisfied { background: #3d8f5f; }
+    .status-dot.violated { background: #b84a3a; }
+    .status-dot.needs_judgment { background: #c49a2a; }
+    .status-dot.neutral { background: #6a756e; }
+    .pattern-list button .status {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--muted);
+    }
+    .kind-legend {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.75rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .kind-legend li { display: inline-flex; align-items: center; }
+    .kind-legend .status-dot { box-shadow: inset 0 0 0 1px rgba(17, 24, 20, 0.55); }
+    .status-dot.kind-void { background: #3a4a42; }
+    .status-dot.kind-path { background: #8a7d68; }
+    .status-dot.kind-room { background: #d4c4a8; }
+    .status-dot.kind-solid { background: #2a2e2c; }
+    .status-dot.kind-focus { background: #c9a227; }
+    .chip:focus-visible,
+    .pattern-card:focus-visible,
+    .rail a:focus-visible {
+      outline: 2px solid #c9a227;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px #111814;
+    }
+  </style>
 </head>
 <body>
-  <div class="app">
+  <div class="webgl-app">
     <aside class="rail">
       <header class="rail-head">
         <p class="brand">Seed District</p>
         <p class="lede">
-          Geometry-aware plan: places, directed flow network, dimensioned measures,
-          door/window symbology. Patterns overlay that structure.
+          Entry-level WebGL view of SpatialStructure: extruded places,
+          flow network, pattern focus, and check status from the seed house.
         </p>
         <p class="owned">
-          Rendering profile we own:
-          <code>pattern-language.plan-symbology</code>
+          Entry surface: <code>WebGL</code> · Advanced: Blender + Bonsai (optional)
         </p>
       </header>
 
       <section class="rail-section">
-        <h2>View</h2>
+        <h2>Modes</h2>
         <div class="view-toggle">
-          <button type="button" class="chip is-active" data-view="district">District</button>
-          <button type="button" class="chip" data-view="house">House A plan</button>
-          <button type="button" class="chip" data-view="figure">Figure–ground</button>
+          <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">District</button>
+          <button type="button" class="chip" data-mode="house" aria-pressed="false">House A</button>
         </div>
       </section>
 
       <section class="rail-section">
-        <h2>Flow network</h2>
-        <p class="soft">Centerlines. Arrowheads are directed flow. Thickness follows hierarchy.</p>
-        <ul id="flow-list" class="side-list"></ul>
-      </section>
-
-      <section class="rail-section">
-        <h2>Measures</h2>
-        <p class="soft">Named distances. The plan labels each one as a dimension string.</p>
-        <ul id="measure-list" class="side-list"></ul>
+        <h2>Kinds</h2>
+        <ul class="kind-legend">
+          <li><span class="status-dot kind-void"></span>Void</li>
+          <li><span class="status-dot kind-path"></span>Path</li>
+          <li><span class="status-dot kind-room"></span>Room</li>
+          <li><span class="status-dot kind-solid"></span>Solid</li>
+          <li><span class="status-dot kind-focus"></span>Focus</li>
+        </ul>
       </section>
 
       <section class="rail-section">
         <h2>Patterns</h2>
-        <p class="soft">Select a pattern to draw its diagram on the plan.</p>
+        <p class="soft">Focus a pattern; related places light up. Status from pass-house check.</p>
         <div id="pattern-list" class="pattern-list"></div>
       </section>
 
       <section class="rail-section">
         <h2>Selected</h2>
         <div id="inspector" class="inspector">
-          <p class="soft">Click a place, opening, flow edge, or dimension.</p>
+          <p class="soft">Click a place in the 3D view.</p>
         </div>
       </section>
 
       <section class="rail-section">
-        <h2>Concept graph</h2>
-        <p class="soft"><a href="concepts.html">Browse dependencies &amp; siblings</a></p>
+        <h2>Also</h2>
+        <p class="soft">
+          <a href="plan.html">2D plan (SVG)</a> ·
+          <a href="concepts.html">Concept graph</a>
+        </p>
       </section>
     </aside>
 
-    <main class="stage">
-      <div class="sheet">
-        <div class="sheet-meta">
-          <span>Plan · metres · N ↑ · SpatialStructure</span>
-          <span id="sheet-title">Seed District</span>
-          <span class="scale">1 : <span id="scale-label">250</span></span>
-        </div>
-        <svg id="plan" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architectural plan of the seed district"></svg>
-        <div class="legend" aria-label="Symbol legend">
-          <div><svg width="28" height="14"><rect x="1" y="4" width="26" height="6" class="leg-street"/></svg> Street</div>
-          <div><svg width="28" height="14"><rect x="1" y="2" width="26" height="10" class="leg-green"/></svg> Outdoor</div>
-          <div><svg width="28" height="14"><rect x="2" y="2" width="24" height="10" class="leg-mass"/></svg> Building mass</div>
-          <div><svg width="28" height="14"><path d="M4 12 L4 4 A8 8 0 0 1 12 12 Z" class="leg-door"/><line x1="4" y1="4" x2="4" y2="12" class="leg-door"/></svg> Door</div>
-          <div><svg width="28" height="14"><line x1="2" y1="7" x2="26" y2="7" class="leg-wall"/><line x1="10" y1="3" x2="10" y2="11" class="leg-win"/><line x1="18" y1="3" x2="18" y2="11" class="leg-win"/></svg> Window</div>
-          <div><svg width="28" height="14"><circle cx="14" cy="7" r="5.5" class="leg-canopy"/><circle cx="14" cy="7" r="1.2" class="leg-trunk"/></svg> Tree</div>
-          <div><svg width="36" height="14" viewBox="0 0 36 14"><line x1="1" y1="7" x2="24" y2="7" class="leg-flow"/><path d="M22 3.2 L34 7 L22 10.8 Z" class="leg-flow-head"/></svg> Street flow</div>
-          <div><svg width="36" height="14" viewBox="0 0 36 14"><line x1="4" y1="2" x2="4" y2="12" class="leg-dim"/><line x1="32" y1="2" x2="32" y2="12" class="leg-dim"/><line x1="4" y1="7" x2="32" y2="7" class="leg-dim"/><line x1="4" y1="4.2" x2="8" y2="9.8" class="leg-dim"/><line x1="28" y1="4.2" x2="32" y2="9.8" class="leg-dim"/></svg> Dimension</div>
-        </div>
-      </div>
+    <main class="webgl-stage">
+      <canvas id="view" aria-label="WebGL seed district"></canvas>
+      <div class="webgl-hud" id="hud">drag to orbit · scroll to zoom</div>
     </main>
   </div>
-  <script src="plan.js" type="module"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="webgl.js"></script>
 </body>
 </html>

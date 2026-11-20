@@ -37,5 +37,24 @@
   "source": {
     "book": "A Pattern Language",
     "number": 128
-  }
+  },
+  "uses": [
+    "term.orientation-frame",
+    "term.daytime",
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://architectureau.com/articles/Courtyard-House-by-Clare-Cousins-Architects/",
+      "title": "Courtyard House by Clare Cousins Architects",
+      "note": "Day rooms opened to the sunlit outdoor edge.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://luxesource.com/home-tours/a-coastal-orange-county-residence-maximizes-outdoo/",
+      "title": "Coastal Orange County Residence \u2014 Luxe",
+      "note": "Southern courtyard used as the outdoor dining center of daily rooms.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

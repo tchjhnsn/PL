@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pattern-language.local/schema/orientation-frame.schema.json",
+  "title": "OrientationFrame",
+  "description": "Project-level north and latitude. Cardinals on openings are derived from host-edge outward normals relative to north. Equator-ward is -north when latitude_deg > 0, +north when latitude_deg < 0, and undefined when latitude_deg is 0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["north", "latitude_deg", "cardinals"],
+  "properties": {
+    "north": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      },
+      "description": "Plan-plane unit vector toward geographic north (TrueNorth)."
+    },
+    "latitude_deg": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Site latitude. Zero makes equator-ward undefined."
+    },
+    "cardinals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["derivation"],
+      "properties": {
+        "derivation": {
+          "const": "outward-normal-vs-north",
+          "description": "Opening orientation is the axis-aligned cardinal of the host footprint edge outward normal, classified against north."
+        },
+        "values": {
+          "type": "array",
+          "items": { "enum": ["north", "south", "east", "west"] }
+        }
+      }
+    }
+  }
+}

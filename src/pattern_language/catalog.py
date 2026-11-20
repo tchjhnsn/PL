@@ -60,6 +60,14 @@ class Source:
 
 
 @dataclass(frozen=True)
+class Reference:
+    url: str
+    title: str
+    retrieved: str
+    note: str
+
+
+@dataclass(frozen=True)
 class Pattern:
     number: int
     name: str
@@ -72,6 +80,8 @@ class Pattern:
     conditions: tuple[Condition, ...]
     source: Source
     path: str
+    uses: tuple[str, ...] = ()
+    references: tuple[Reference, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -178,9 +188,9 @@ def pattern_record(pattern: Pattern) -> dict[str, Any]:
     """The catalog schema object for this pattern.
 
     Omits path. A condition omits check, params, and question when
-    the value is None.
+    the value is None. Optional uses and references are omitted when empty.
     """
-    return {
+    record: dict[str, Any] = {
         "number": pattern.number,
         "name": pattern.name,
         "scale": pattern.scale,
@@ -192,6 +202,20 @@ def pattern_record(pattern: Pattern) -> dict[str, Any]:
         "conditions": [_condition_record(condition) for condition in pattern.conditions],
         "source": {"book": pattern.source.book, "number": pattern.source.number},
     }
+    if pattern.uses:
+        record["uses"] = list(pattern.uses)
+    if pattern.references:
+        record["references"] = [
+            {
+                "url": item.url,
+                "title": item.title,
+                "retrieved": item.retrieved,
+                "note": item.note,
+            }
+            for item in pattern.references
+        ]
+    return record
+
 
 
 def _condition_record(condition: Condition) -> dict[str, Any]:
@@ -208,6 +232,15 @@ def _condition_record(condition: Condition) -> dict[str, Any]:
 def _pattern_from_object(payload: dict[str, Any], path: str) -> Pattern:
     summary = payload["summary"]
     source = payload["source"]
+    references = tuple(
+        Reference(
+            url=item["url"],
+            title=item["title"],
+            retrieved=item["retrieved"],
+            note=item["note"],
+        )
+        for item in payload.get("references", [])
+    )
     return Pattern(
         number=payload["number"],
         name=payload["name"],
@@ -222,6 +255,8 @@ def _pattern_from_object(payload: dict[str, Any], path: str) -> Pattern:
         conditions=tuple(_condition(item) for item in payload["conditions"]),
         source=Source(book=source["book"], number=source["number"]),
         path=path,
+        uses=tuple(payload.get("uses", [])),
+        references=references,
     )
 
 

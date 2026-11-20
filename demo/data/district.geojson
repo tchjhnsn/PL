@@ -394,7 +394,7 @@
         "label": "Bedroom",
         "component": "room",
         "kind": "room",
-        "role": "Private end of the intimacy gradient.",
+        "role": "Private end of the intimacy gradient (upper storey).",
         "patterns": [
           127,
           159,
@@ -437,7 +437,7 @@
         "label": "Balcony",
         "component": "balcony",
         "kind": "void",
-        "role": "Six-foot outdoor edge (1.83 m+ depth).",
+        "role": "Elevated outdoor edge \u22651.83 m deep (upper storey).",
         "patterns": [
           167
         ]

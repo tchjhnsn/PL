@@ -34,5 +34,23 @@
   "source": {
     "book": "A Pattern Language",
     "number": 130
-  }
+  },
+  "uses": [
+    "term.occupied",
+    "term.transition"
+  ],
+  "references": [
+    {
+      "url": "https://www.aadityainterior.com/blog/zoning-a-home-public-private-and-service-areas",
+      "title": "Zoning a Home: Public, Private and Service Areas",
+      "note": "Main door into a foyer/room, not directly into a corridor of bedrooms.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.mfm.sk/en/glossary/threshold-architecture",
+      "title": "Threshold (Architecture) \u2014 mfm architects",
+      "note": "Vestibule and porch as entrance rooms that complete arrival.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

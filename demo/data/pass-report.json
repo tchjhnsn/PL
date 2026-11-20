@@ -7,6 +7,24 @@
       "evidence": {
         "check": "south-facing-outdoors",
         "kind": "check",
+        "measured": [
+          {
+            "name": "dot",
+            "value": "5.333"
+          },
+          {
+            "name": "latitude_deg",
+            "value": "40.000"
+          },
+          {
+            "name": "north_x",
+            "value": "0.000"
+          },
+          {
+            "name": "north_y",
+            "value": "1.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 105,
@@ -19,6 +37,12 @@
       "evidence": {
         "check": "positive-outdoor-space",
         "kind": "check",
+        "measured": [
+          {
+            "name": "min_ratio",
+            "value": "1.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 106,
@@ -31,6 +55,12 @@
       "evidence": {
         "check": "wings-of-light",
         "kind": "check",
+        "measured": [
+          {
+            "name": "max_depth_m",
+            "value": "4.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 107,
@@ -54,6 +84,12 @@
       "evidence": {
         "check": "entrance-transition",
         "kind": "check",
+        "measured": [
+          {
+            "name": "transition",
+            "value": "1.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 112,
@@ -66,6 +102,12 @@
       "evidence": {
         "check": "intimacy-gradient",
         "kind": "check",
+        "measured": [
+          {
+            "name": "ordered",
+            "value": "1.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 127,
@@ -78,6 +120,24 @@
       "evidence": {
         "check": "indoor-sunlight",
         "kind": "check",
+        "measured": [
+          {
+            "name": "dot",
+            "value": "2.000"
+          },
+          {
+            "name": "latitude_deg",
+            "value": "40.000"
+          },
+          {
+            "name": "north_x",
+            "value": "0.000"
+          },
+          {
+            "name": "north_y",
+            "value": "1.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 128,
@@ -90,6 +150,12 @@
       "evidence": {
         "check": "entrance-room",
         "kind": "check",
+        "measured": [
+          {
+            "name": "room",
+            "value": "1.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 130,
@@ -102,6 +168,12 @@
       "evidence": {
         "check": "light-on-two-sides",
         "kind": "check",
+        "measured": [
+          {
+            "name": "min_orientations",
+            "value": "2.000"
+          }
+        ],
         "passed": true
       },
       "pattern": 159,
@@ -114,6 +186,20 @@
       "evidence": {
         "check": "six-foot-balcony",
         "kind": "check",
+        "measured": [
+          {
+            "name": "floor_elevation_m",
+            "value": "3.000"
+          },
+          {
+            "name": "min_depth_m",
+            "value": "2.000"
+          },
+          {
+            "name": "min_elevation_m",
+            "value": "2.400"
+          }
+        ],
         "passed": true
       },
       "pattern": 167,
@@ -137,6 +223,12 @@
       "evidence": {
         "check": "ceiling-height-variety",
         "kind": "check",
+        "measured": [
+          {
+            "name": "difference_m",
+            "value": "0.600"
+          }
+        ],
         "passed": true
       },
       "pattern": 190,
@@ -145,7 +237,7 @@
   ],
   "model": {
     "file": "fixtures/pass-house.ifc",
-    "sha256": "ed0e561bfd5fecafcc0d31eb7fbf6ed7a09cfb1067acb461ce7a15c6e3006b4d"
+    "sha256": "2d59034e4e869775eeee51da7d9a0c871c01998a0797215af1f97e6e81af7bba"
   },
   "project": "seed-house",
   "satisfied": [

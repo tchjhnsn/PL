@@ -1,0 +1,49 @@
+{
+  "terms": [
+    {
+      "id": "term.orientation-frame",
+      "name": "Orientation frame",
+      "kind": "frame",
+      "definition": "Site north vector and latitude_deg. Cardinals on openings come from host-edge outward normals vs north. Equator-ward is -north when latitude_deg > 0.",
+      "see": ["schema/orientation-frame.schema.json", "docs/design/SATISFACTION.md"]
+    },
+    {
+      "id": "term.floor-elevation",
+      "name": "Floor elevation",
+      "kind": "measure",
+      "definition": "Metres above site grade for a space or storey (IFC Elevation / Zone.floor_elevation_m). Distinct from height_m (clear ceiling height).",
+      "see": ["docs/design/SATISFACTION.md"]
+    },
+    {
+      "id": "term.outdoor",
+      "name": "Outdoor",
+      "kind": "tag",
+      "definition": "Space tagged outdoor: open-air zone under the building center. Main outdoor for 105 excludes balcony."
+    },
+    {
+      "id": "term.occupied",
+      "name": "Occupied",
+      "kind": "tag",
+      "definition": "Space tagged occupied: regularly inhabited indoor room used by orientation and depth checks."
+    },
+    {
+      "id": "term.balcony",
+      "name": "Balcony",
+      "kind": "typology",
+      "definition": "Outdoor edge tagged balcony that also sits at floor_elevation_m >= min_elevation_m (default 2.4). Ground patios are not balconies.",
+      "see": ["docs/design/SATISFACTION.md"]
+    },
+    {
+      "id": "term.daytime",
+      "name": "Daytime",
+      "kind": "tag",
+      "definition": "Occupied space used mainly by day; 128 Indoor Sunlight compares its centroid to other occupied rooms."
+    },
+    {
+      "id": "term.transition",
+      "name": "Transition",
+      "kind": "tag",
+      "definition": "Outdoor or semi-outdoor zone on the path from street to main door (112 Entrance Transition)."
+    }
+  ]
+}

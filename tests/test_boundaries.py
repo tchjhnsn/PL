@@ -15,6 +15,9 @@ WATCHED_IMPORTS = frozenset({"ifcopenshell", "bpy", "bonsai"})
 SCHEMA_FILES = (
     "schema/catalog.schema.json",
     "schema/check-report.schema.json",
+    "schema/ontology/terms.json",
+    "schema/ontology/terms.schema.json",
+    "schema/orientation-frame.schema.json",
     "schema/pattern-instance.schema.json",
     "schema/projects.schema.json",
     "schema/spatial-structure.schema.json",  # mid-layer; not a catalog-gate directory

@@ -108,7 +108,11 @@
         },
         "role": { "type": "string" },
         "parent": { "type": ["string", "null"] },
-        "height_m": { "type": "number" },
+        "height_m": { "type": "number", "description": "Clear ceiling height of the place" },
+        "floor_elevation_m": {
+          "type": "number",
+          "description": "Floor elevation above site grade in metres"
+        },
         "enclosure_hw": {
           "type": ["number", "null"],
           "description": "Height-to-width if known"

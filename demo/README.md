@@ -1,6 +1,10 @@
-# Seed district — owned plan symbology
+# Seed district — WebGL entry + plan symbology
 
-Geometry-aware plan demo: **places**, directed **network** (centerlines + hierarchy), named **measures** (dimension strings), **interfaces**, door/window/tree symbology, and pattern diagram overlays.
+**Entry level:** Three.js WebGL over SpatialStructure (`index.html` / `webgl.js`).  
+**Optional advanced:** Blender + Bonsai IFC path (`adapters/blender/`, `docs/design/E2E-BONSAI-EFFECT.md`).  
+**2D companion:** SVG plan symbology at `plan.html`.
+
+Naive marketing dogfood is **deferred**. See `docs/design/WEBGL-ENTRY.md`.
 
 ## Owned layer
 
@@ -8,14 +12,15 @@ Geometry-aware plan demo: **places**, directed **network** (centerlines + hierar
 pattern-language.plan-symbology
 ```
 
-Semantic types can come from CityJSON/IFC/BOT. **How flow, measure, and openings look on the page is our layer.** Naive marketing dogfood is **deferred**.
+Semantic types can come from CityJSON/IFC/BOT. Plan marks and WebGL materials are our layer.
 
 ## Run
 
 ```bash
 uv run python demo/build_district.py   # validates SpatialStructure + writes data/
 python3 demo/serve.py
-# open http://127.0.0.1:8765/
+# WebGL entry:  http://127.0.0.1:8765/
+# 2D plan:      http://127.0.0.1:8765/plan.html
 # concept graph: http://127.0.0.1:8765/concepts.html
 ```
 
@@ -28,10 +33,12 @@ python3 demo/serve.py
 | File | Role |
 |---|---|
 | `data/plan-model.json` | SpatialStructure: places, network, measures, interfaces, openings, patterns |
+| `data/pass-report.json` | Seed check statuses for WebGL pattern chips |
 | `data/concept-graph.json` | Copy of `docs/design/spatial-concept-graph.json` |
 | `data/district.city.json` | CityJSON export (interchange) |
 | `data/district.geojson` | GeoJSON sibling |
-| `plan.js` / `index.html` | SVG plan renderer (flow + dims + symbology) |
+| `webgl.js` / `index.html` | **Entry:** Three.js extrusions + pattern focus |
+| `plan.js` / `plan.html` | SVG plan renderer (flow + dims + symbology) |
 | `concepts.js` / `concepts.html` | Knowledge-graph browser |
 | `build_district.py` | Regenerates data; schema-validates plan-model |
 

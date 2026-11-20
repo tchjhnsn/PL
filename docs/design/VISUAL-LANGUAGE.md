@@ -114,7 +114,7 @@ The profile node is `symbology.profile` (`pattern-language.plan-symbology`).
 
 ### Legend
 
-The sheet legend in `demo/index.html` (`symbology.legend`) includes **Flow** (centerline and arrowhead) and **Measure** (dimension line with end ticks), with Street, Outdoor, Building, Door, Window, and Tree. North and the scale sit in the sheet header.
+The sheet legend in `demo/plan.html` (`symbology.legend`) includes **Flow** (centerline and arrowhead) and **Measure** (dimension line with end ticks), with Street, Outdoor, Building, Door, Window, and Tree. North and the scale sit in the sheet header.
 
 ## Owned layer (productizable)
 

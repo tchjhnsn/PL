@@ -159,9 +159,10 @@ def build_plan() -> dict:
             "ring": [(28, 30), (42, 30), (42, 36), (28, 36)],
             "roles": ["room", "private", "occupied"],
             "patterns": [127, 159, 167],
-            "role": "Private end of the intimacy gradient.",
+            "role": "Private end of the intimacy gradient (upper storey).",
             "parent": "house-a",
             "height_m": 2.7,
+            "floor_elevation_m": 3.0,
         },
         {
             "id": "a-balcony",
@@ -171,9 +172,10 @@ def build_plan() -> dict:
             "ring": [(42, 30), (48, 30), (48, 36), (42, 36)],
             "roles": ["balcony", "outdoor"],
             "patterns": [167],
-            "role": "Six-foot outdoor edge (1.83 m+ depth).",
+            "role": "Elevated outdoor edge ≥1.83 m deep (upper storey).",
             "parent": "house-a",
             "height_m": 3.0,
+            "floor_elevation_m": 3.0,
         },
         {
             "id": "house-b",

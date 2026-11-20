@@ -58,6 +58,7 @@ class Zone:
     tags: frozenset[str]
     footprint: tuple[Point, ...]
     height_m: float | None
+    floor_elevation_m: float | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -101,6 +102,8 @@ class _Space:
     tags: frozenset[str]
     ring: tuple[Point, ...]
     height_m: float
+    floor_elevation_m: float
+    storey: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -197,17 +200,33 @@ def from_json(text: str) -> Topology:
 
 
 _PASS_SPACES = (
-    _Space("street", frozenset({"street"}), ((0, -2), (8, -2), (8, 0), (0, 0)), 3.0),
-    _Space("court", frozenset({"outdoor", "transition"}), ((0, 0), (8, 0), (8, 4), (0, 4)), 3.0),
-    _Space("hall", frozenset({"room", "public", "occupied"}), ((0, 4), (4, 4), (4, 8), (0, 8)), 2.4),
+    _Space("street", frozenset({"street"}), ((0, -2), (8, -2), (8, 0), (0, 0)), 3.0, 0.0, "ground"),
+    _Space("court", frozenset({"outdoor", "transition"}), ((0, 0), (8, 0), (8, 4), (0, 4)), 3.0, 0.0, "ground"),
+    _Space("hall", frozenset({"room", "public", "occupied"}), ((0, 4), (4, 4), (4, 8), (0, 8)), 2.4, 0.0, "ground"),
     _Space(
         "living",
         frozenset({"living", "semi-private", "daytime", "occupied"}),
         ((4, 4), (8, 4), (8, 8), (4, 8)),
         3.0,
+        0.0,
+        "ground",
     ),
-    _Space("bedroom", frozenset({"room", "private", "occupied"}), ((4, 8), (8, 8), (8, 12), (4, 12)), 2.7),
-    _Space("balcony", frozenset({"balcony", "outdoor"}), ((8, 8), (10, 8), (10, 12), (8, 12)), 3.0),
+    _Space(
+        "bedroom",
+        frozenset({"room", "private", "occupied"}),
+        ((4, 8), (8, 8), (8, 12), (4, 12)),
+        2.7,
+        3.0,
+        "upper",
+    ),
+    _Space(
+        "balcony",
+        frozenset({"balcony", "outdoor"}),
+        ((8, 8), (10, 8), (10, 12), (8, 12)),
+        3.0,
+        3.0,
+        "upper",
+    ),
 )
 
 _PASS_HOLES = (
@@ -251,23 +270,41 @@ def _pass_house() -> Topology:
 def _fail_house() -> Topology:
     return _assemble(
         (
-            _Space("street", frozenset({"street"}), ((0, -2), (8, -2), (8, 0), (0, 0)), 2.4),
-            _Space("corridor", frozenset({"corridor"}), ((0, 0), (8, 0), (8, 2), (0, 2)), 2.4),
-            _Space("west-flank", frozenset(), ((0, 2), (4, 2), (4, 12), (0, 12)), 2.4),
-            _Space("bedroom", frozenset({"room", "private", "occupied"}), ((4, 2), (8, 2), (8, 12), (4, 12)), 2.4),
-            _Space("east-flank", frozenset(), ((8, 2), (11, 2), (11, 12), (8, 12)), 2.4),
+            _Space("street", frozenset({"street"}), ((0, -2), (8, -2), (8, 0), (0, 0)), 2.4, 0.0, "ground"),
+            _Space("corridor", frozenset({"corridor"}), ((0, 0), (8, 0), (8, 2), (0, 2)), 2.4, 0.0, "ground"),
+            _Space("west-flank", frozenset(), ((0, 2), (4, 2), (4, 12), (0, 12)), 2.4, 0.0, "ground"),
+            _Space(
+                "bedroom",
+                frozenset({"room", "private", "occupied"}),
+                ((4, 2), (8, 2), (8, 12), (4, 12)),
+                2.4,
+                0.0,
+                "ground",
+            ),
+            _Space("east-flank", frozenset(), ((8, 2), (11, 2), (11, 12), (8, 12)), 2.4, 0.0, "ground"),
             _Space(
                 "dayroom",
                 frozenset({"public", "daytime", "occupied"}),
                 ((0, 12), (6, 12), (6, 15), (0, 15)),
                 2.4,
+                0.0,
+                "ground",
             ),
-            _Space("balcony", frozenset({"balcony", "outdoor"}), ((-1, 12), (0, 12), (0, 15), (-1, 15)), 2.4),
+            _Space(
+                "balcony",
+                frozenset({"balcony", "outdoor"}),
+                ((-1, 12), (0, 12), (0, 15), (-1, 15)),
+                2.4,
+                3.0,
+                "upper",
+            ),
             _Space(
                 "court",
                 frozenset({"outdoor"}),
                 ((0, 15), (8, 15), (8, 16), (2, 16), (2, 22), (0, 22)),
                 3.0,
+                0.0,
+                "ground",
             ),
         ),
         (
@@ -283,14 +320,24 @@ def _fail_house() -> Topology:
 
 
 def _assemble(spaces: tuple[_Space, ...], holes: tuple[_Hole, ...]) -> Topology:
+    reserved = {"site", "house"}
     for space in spaces:
         _reject_unknown_tags(space.tags)
-        if space.name in {"site", "house", "ground"}:
+        if space.name in reserved or space.name == space.storey:
+            raise TopologyError("duplicate zone name")
+        if space.storey in reserved:
             raise TopologyError("duplicate zone name")
     if len({space.name for space in spaces}) != len(spaces):
         raise TopologyError("duplicate zone name")
     if len({hole.name for hole in holes}) != len(holes):
         raise TopologyError("duplicate opening name")
+    storey_elevations: dict[str, float] = {}
+    for space in spaces:
+        elev = _num(space.floor_elevation_m)
+        prior = storey_elevations.get(space.storey)
+        if prior is not None and prior != elev:
+            raise TopologyError(f"storey {space.storey} has mixed elevations")
+        storey_elevations[space.storey] = elev
     rings = {space.name: _normalize_ring(space.ring) for space in spaces}
     boundaries = _boundaries_from(rings)
     openings: list[Opening] = []
@@ -308,19 +355,21 @@ def _assemble(spaces: tuple[_Space, ...], holes: tuple[_Hole, ...]) -> Topology:
         openings.append(Opening(hole.name, hole.kind, orientation, hosts, at))
     opening_tuple = tuple(sorted(openings, key=lambda item: item.name))
     zones: list[Zone] = [
-        Zone("site", "Site", None, frozenset(), (), None),
-        Zone("house", "Building", "site", frozenset(), (), None),
-        Zone("ground", "Storey", "house", frozenset(), (), None),
+        Zone("site", "Site", None, frozenset(), (), None, None),
+        Zone("house", "Building", "site", frozenset(), (), None, None),
     ]
+    for storey_name, elev in sorted(storey_elevations.items(), key=lambda item: (item[1], item[0])):
+        zones.append(Zone(storey_name, "Storey", "house", frozenset(), (), None, elev))
     for space in spaces:
         zones.append(
             Zone(
                 space.name,
                 "Space",
-                "ground",
+                space.storey,
                 space.tags,
                 rings[space.name],
                 _num(space.height_m),
+                _num(space.floor_elevation_m),
             )
         )
     return Topology(
@@ -573,6 +622,9 @@ def _adjacencies(
 
 def _plain_zone(zone: Zone) -> dict[str, Any]:
     return {
+        "floor_elevation_m": None
+        if zone.floor_elevation_m is None
+        else _num(zone.floor_elevation_m),
         "footprint": [[_num(x), _num(y)] for x, y in zone.footprint],
         "height_m": None if zone.height_m is None else _num(zone.height_m),
         "kind": zone.kind,
@@ -624,6 +676,7 @@ def _zone_from(value: dict[str, Any]) -> Zone:
     if kind not in {"Site", "Building", "Storey", "Space"}:
         raise ValueError("kind")
     height = value["height_m"]
+    elev = value.get("floor_elevation_m")
     return Zone(
         str(value["name"]),
         kind,
@@ -631,6 +684,7 @@ def _zone_from(value: dict[str, Any]) -> Zone:
         _tags_from(value["tags"]),
         tuple(_as_point(point) for point in value["footprint"]),
         None if height is None else _num(height),
+        None if elev is None else _num(elev),
     )
 
 
@@ -675,18 +729,46 @@ def _boundary_from(value: dict[str, Any]) -> Boundary:
 def _read_file(ifc: Any) -> Topology:
     _require_metre(ifc)
     north = _read_north(ifc)
-    site, building, storey = _spatial_roots(ifc)
-    spaces = _spaces_on_storey(ifc, storey)
+    site, building, storeys = _spatial_roots(ifc)
     zones = [
-        Zone(site.Name, "Site", None, _description_tags(site), (), None),
-        Zone(building.Name, "Building", site.Name, _description_tags(building), (), None),
-        Zone(storey.Name, "Storey", building.Name, _description_tags(storey), (), None),
+        Zone(site.Name, "Site", None, _description_tags(site), (), None, None),
+        Zone(building.Name, "Building", site.Name, _description_tags(building), (), None, None),
     ]
     rings: dict[str, tuple[Point, ...]] = {}
-    for space in spaces:
-        ring, height = _space_body(space)
-        rings[space.Name] = ring
-        zones.append(Zone(space.Name, "Space", storey.Name, _description_tags(space), ring, height))
+    contained_ids: list[int] = []
+    for storey in storeys:
+        elev = _storey_elevation(storey)
+        zones.append(
+            Zone(
+                storey.Name,
+                "Storey",
+                building.Name,
+                _description_tags(storey),
+                (),
+                None,
+                elev,
+            )
+        )
+        for space in _spaces_on_storey(storey):
+            contained_ids.append(space.id())
+            ring, height = _space_body(space)
+            rings[space.Name] = ring
+            zones.append(
+                Zone(
+                    space.Name,
+                    "Space",
+                    storey.Name,
+                    _description_tags(space),
+                    ring,
+                    height,
+                    elev,
+                )
+            )
+    all_spaces = ifc.by_type("IfcSpace")
+    if sorted(contained_ids) != sorted(element.id() for element in all_spaces):
+        raise TopologyError("space is not on the storey")
+    if not all_spaces:
+        raise TopologyError("house has no spaces")
     names = [zone.name for zone in zones]
     if len(names) != len(set(names)):
         raise TopologyError("duplicate zone name")
@@ -743,28 +825,35 @@ def _aggregate_children(element: Any) -> list[Any]:
     return children
 
 
-def _spatial_roots(ifc: Any) -> tuple[Any, Any, Any]:
+def _spatial_roots(ifc: Any) -> tuple[Any, Any, tuple[Any, ...]]:
     sites = ifc.by_type("IfcSite")
     buildings = ifc.by_type("IfcBuilding")
     storeys = ifc.by_type("IfcBuildingStorey")
-    if len(sites) != 1 or len(buildings) != 1 or len(storeys) != 1:
-        raise TopologyError("expected one site, one building, and one storey")
-    site, building, storey = sites[0], buildings[0], storeys[0]
-    if building not in _aggregate_children(site) or storey not in _aggregate_children(building):
+    if len(sites) != 1 or len(buildings) != 1 or not storeys:
+        raise TopologyError("expected one site, one building, and at least one storey")
+    site, building = sites[0], buildings[0]
+    children = _aggregate_children(building)
+    if building not in _aggregate_children(site):
         raise TopologyError("site, building, and storey are not aggregated")
-    return site, building, storey
+    ordered = sorted(storeys, key=lambda item: (_storey_elevation(item), item.Name or ""))
+    for storey in ordered:
+        if storey not in children:
+            raise TopologyError("site, building, and storey are not aggregated")
+    return site, building, tuple(ordered)
 
 
-def _spaces_on_storey(ifc: Any, storey: Any) -> list[Any]:
+def _storey_elevation(storey: Any) -> float:
+    elev = getattr(storey, "Elevation", None)
+    if elev is None:
+        return 0.0
+    return _num(float(elev))
+
+
+def _spaces_on_storey(storey: Any) -> list[Any]:
     contained: list[Any] = []
     for rel in storey.ContainsElements:
         contained.extend(element for element in rel.RelatedElements if element.is_a("IfcSpace"))
-    spaces = ifc.by_type("IfcSpace")
-    if sorted(element.id() for element in contained) != sorted(element.id() for element in spaces):
-        raise TopologyError("space is not on the storey")
-    if not spaces:
-        raise TopologyError("house has no spaces")
-    return spaces
+    return contained
 
 
 def _description_tags(element: Any) -> frozenset[str]:
@@ -950,39 +1039,60 @@ def _write_file(
     model_context.TrueNorth = ifc.create_entity("IfcDirection", DirectionRatios=(0.0, 1.0, 0.0))
     site = create_entity(ifc, ifc_class="IfcSite", name="site")
     building = create_entity(ifc, ifc_class="IfcBuilding", name="house")
-    storey = create_entity(ifc, ifc_class="IfcBuildingStorey", name="ground")
-    storey.Elevation = 0.0
     assign_object(ifc, products=[site], relating_object=project)
     assign_object(ifc, products=[building], relating_object=site)
-    assign_object(ifc, products=[storey], relating_object=building)
     site.ObjectPlacement = _placement(ifc, None, (0.0, 0.0))
     building.ObjectPlacement = _placement(ifc, site.ObjectPlacement, (0.0, 0.0))
-    storey.ObjectPlacement = _placement(ifc, building.ObjectPlacement, (0.0, 0.0))
+    storey_zones = sorted(
+        [zone for zone in model.zones if zone.kind == "Storey"],
+        key=lambda zone: (zone.floor_elevation_m or 0.0, zone.name),
+    )
+    if not storey_zones:
+        raise TopologyError("house has no storey")
+    storey_elements: dict[str, Any] = {}
+    for storey_zone in storey_zones:
+        elev = 0.0 if storey_zone.floor_elevation_m is None else storey_zone.floor_elevation_m
+        storey = create_entity(ifc, ifc_class="IfcBuildingStorey", name=storey_zone.name)
+        storey.Elevation = float(elev)
+        assign_object(ifc, products=[storey], relating_object=building)
+        storey.ObjectPlacement = _placement(ifc, building.ObjectPlacement, (0.0, 0.0), z=elev)
+        storey_elements[storey_zone.name] = storey
     for rel in ifc.by_type("IfcRelAggregates"):
         rel.Name = f"agg-{rel.RelatingObject.Name}"
     zones = {zone.name: zone for zone in model.zones if zone.kind == "Space"}
     space_elements: dict[str, Any] = {}
+    spaces_by_storey: dict[str, list[Any]] = {name: [] for name in storey_elements}
     for name in sorted(zones):
         zone = zones[name]
         if zone.height_m is None:
             raise TopologyError(f"{name} has no extruded body")
+        parent = zone.parent or storey_zones[0].name
+        if parent not in storey_elements:
+            raise TopologyError(f"{name} storey is missing")
+        storey = storey_elements[parent]
         element = create_entity(ifc, ifc_class="IfcSpace", name=name, predefined_type="SPACE")
         element.Description = " ".join(sorted(zone.tags)) if zone.tags else None
         element.ObjectPlacement = _placement(ifc, storey.ObjectPlacement, (0.0, 0.0))
         _assign_body(ifc, element, zone.footprint, zone.height_m, body)
         space_elements[name] = element
-    walls = _write_walls(ifc, model, storey, create_entity)
+        spaces_by_storey[parent].append(element)
+    host_storey = storey_elements[storey_zones[0].name]
+    walls = _write_walls(ifc, model, host_storey, create_entity)
     _write_boundaries(ifc, model, space_elements, walls, house, compress)
-    elements = _write_openings(ifc, model, walls, storey, house, compress, create_entity)
-    ifc.create_entity(
-        "IfcRelContainedInSpatialStructure",
-        GlobalId=_guid(compress, house, "contain-ground"),
-        OwnerHistory=None,
-        Name="contain-ground",
-        Description=None,
-        RelatedElements=[*space_elements.values(), *walls.values(), *elements],
-        RelatingStructure=storey,
-    )
+    elements = _write_openings(ifc, model, walls, host_storey, house, compress, create_entity)
+    for storey_name, storey in storey_elements.items():
+        related = list(spaces_by_storey[storey_name])
+        if storey is host_storey:
+            related.extend([*walls.values(), *elements])
+        ifc.create_entity(
+            "IfcRelContainedInSpatialStructure",
+            GlobalId=_guid(compress, house, f"contain-{storey_name}"),
+            OwnerHistory=None,
+            Name=f"contain-{storey_name}",
+            Description=None,
+            RelatedElements=related,
+            RelatingStructure=storey,
+        )
     _stamp_named_roots(ifc, house, compress)
     path.parent.mkdir(parents=True, exist_ok=True)
     ifc.header.file_name.name = path.name
@@ -1052,8 +1162,11 @@ def _stamp_named_roots(ifc: Any, house: str, compress: Any) -> None:
             ifc.remove(history)
 
 
-def _placement(ifc: Any, relative: Any, xy: Point) -> Any:
-    point = ifc.create_entity("IfcCartesianPoint", Coordinates=(float(xy[0]), float(xy[1]), 0.0))
+def _placement(ifc: Any, relative: Any, xy: Point, *, z: float = 0.0) -> Any:
+    point = ifc.create_entity(
+        "IfcCartesianPoint",
+        Coordinates=(float(xy[0]), float(xy[1]), float(z)),
+    )
     axis = ifc.create_entity("IfcAxis2Placement3D", Location=point, Axis=None, RefDirection=None)
     return ifc.create_entity("IfcLocalPlacement", PlacementRelTo=relative, RelativePlacement=axis)
 

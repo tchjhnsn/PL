@@ -117,6 +117,42 @@ def test_latitude_zero_fails_equator_checks(
         evidence = function(houses[0], "house", params)
         assert evidence.applicable is True
         assert evidence.passed is False
+        measured = dict(evidence.measured)
+        assert measured["latitude_deg"] == "0.000"
+        assert measured["north_x"] == "0.000"
+        assert measured["north_y"] == "1.000"
+
+
+def test_grade_balcony_is_not_applicable(houses: tuple[Topology, Topology]) -> None:
+    from pattern_language.conditions.six_foot_balcony import check as balcony_check
+
+    pass_house, _ = houses
+    zones = []
+    for zone in pass_house.zones:
+        if zone.name == "balcony":
+            zones.append(
+                Zone(
+                    zone.name,
+                    zone.kind,
+                    zone.parent,
+                    zone.tags,
+                    zone.footprint,
+                    zone.height_m,
+                    0.0,
+                )
+            )
+        else:
+            zones.append(zone)
+    flat = Topology(
+        pass_house.north,
+        tuple(zones),
+        pass_house.adjacencies,
+        pass_house.boundaries,
+        pass_house.openings,
+    )
+    evidence = balcony_check(flat, "house", {"min_depth_m": 1.83, "min_elevation_m": 2.4})
+    assert evidence.applicable is False
+    assert evidence.passed is False
 
 
 def test_pass_house_report_satisfies_computed_patterns(
@@ -177,8 +213,9 @@ def test_missing_subjects_are_not_applicable(repo_root: Path) -> None:
         frozenset({"occupied", "room"}),
         ((0.0, 0.0), (4.0, 0.0), (4.0, 4.0), (0.0, 4.0)),
         2.4,
+        0.0,
     )
-    house = Zone("house", "Building", None, frozenset(), (), None)
+    house = Zone("house", "Building", None, frozenset(), (), None, None)
     topology = Topology((0.0, 1.0), (house, room), (), (), ())
     project = Project(
         id="bare",
