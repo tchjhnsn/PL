@@ -1,6 +1,9 @@
 /** Geometry-aware plan renderer: network flow + measures + symbology. */
 
-const plan = await fetch("data/plan-model.json").then((r) => r.json());
+const [plan, report] = await Promise.all([
+  fetch("data/plan-model.json").then((r) => r.json()),
+  fetch("data/pass-report.json").then((r) => r.json()),
+]);
 
 const svg = document.getElementById("plan");
 const patternList = document.getElementById("pattern-list");
@@ -14,6 +17,33 @@ const NS = "http://www.w3.org/2000/svg";
 let view = "district";
 let activePattern = null;
 let selectedId = null;
+
+const JUDGMENT_KEY = "pl.judgment.";
+const statusByPattern = new Map((report.instances || []).map((i) => [i.pattern, i]));
+
+function judgmentAnswer(number) {
+  try {
+    return sessionStorage.getItem(JUDGMENT_KEY + number);
+  } catch {
+    return null;
+  }
+}
+
+function setJudgmentAnswer(number, value) {
+  try {
+    if (value == null) sessionStorage.removeItem(JUDGMENT_KEY + number);
+    else sessionStorage.setItem(JUDGMENT_KEY + number, value);
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
+function judgmentStatusLabel(number) {
+  const ans = judgmentAnswer(number);
+  if (ans === "yes") return "judged yes";
+  if (ans === "no") return "judged no";
+  return "needs judgment";
+}
 
 const placeById = new Map(plan.places.map((p) => [p.id, p]));
 const openingById = new Map(plan.openings.map((o) => [o.id, o]));
@@ -703,6 +733,38 @@ function render() {
   renderSideLists();
 }
 
+function showJudgmentInspector(row) {
+  const inst = statusByPattern.get(row.number);
+  const question =
+    inst?.evidence?.question ||
+    (row.number === 110
+      ? "Is the entrance seen from the approach?"
+      : row.number === 180
+        ? "Does the main room have a window with a place to sit?"
+        : "Does this pattern hold?");
+  const ans = judgmentAnswer(row.number);
+  inspector.innerHTML = `
+    <span class="tag">pattern · judgment</span>
+    <h3>${row.number} ${row.name}</h3>
+    <p>${row.look_for}</p>
+    <p class="judgment-q"><strong>Evidence</strong> ${question}</p>
+    <p class="soft">Status: <span class="judgment-status" data-status="${ans || "open"}">${judgmentStatusLabel(row.number)}</span></p>
+    <div class="judgment-actions" role="group" aria-label="Judgment answer">
+      <button type="button" class="chip judgment-btn" data-answer="yes" aria-pressed="${ans === "yes"}">Yes</button>
+      <button type="button" class="chip judgment-btn" data-answer="no" aria-pressed="${ans === "no"}">No</button>
+      <button type="button" class="chip judgment-btn" data-answer="clear">Clear</button>
+    </div>
+    <p class="soft">Local only (sessionStorage) — does not change <code>pl check</code>.</p>`;
+  inspector.querySelectorAll(".judgment-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = btn.dataset.answer;
+      setJudgmentAnswer(row.number, a === "clear" ? null : a);
+      refreshPatternCards();
+      showJudgmentInspector(row);
+    });
+  });
+}
+
 function activatePattern(number) {
   activePattern = number === activePattern ? null : number;
   document.querySelectorAll(".pattern-card").forEach((card) => {
@@ -710,14 +772,19 @@ function activatePattern(number) {
   });
   if (activePattern != null) {
     const row = plan.patterns.find((p) => p.number === activePattern);
-    inspector.innerHTML = `
-      <span class="tag">pattern · ${row.kind}</span>
-      <h3>${row.number} ${row.name}</h3>
-      <p>${row.look_for}</p>
-      <p class="soft">Diagram + related edges/measures highlighted.</p>`;
+    if (row.kind === "judgment") {
+      showJudgmentInspector(row);
+    } else {
+      const inst = statusByPattern.get(row.number);
+      inspector.innerHTML = `
+        <span class="tag">pattern · ${row.kind}</span>
+        <h3>${row.number} ${row.name}</h3>
+        <p>${row.look_for}</p>
+        <p class="soft">Report: ${inst?.status || "—"} · diagram + related edges/measures highlighted.</p>`;
+    }
     if ([107, 110, 112, 127, 128, 130, 159, 167, 180, 190].includes(activePattern)) {
       view = "house";
-      document.querySelectorAll(".chip").forEach((c) => {
+      document.querySelectorAll("[data-view]").forEach((c) => {
         c.classList.toggle("is-active", c.dataset.view === "house");
       });
     }
@@ -725,15 +792,27 @@ function activatePattern(number) {
   render();
 }
 
+function refreshPatternCards() {
+  patternList.querySelectorAll(".pattern-card").forEach((btn) => {
+    const number = Number(btn.dataset.number);
+    const row = plan.patterns.find((p) => p.number === number);
+    if (!row) return;
+    const kindLabel =
+      row.kind === "judgment" ? judgmentStatusLabel(number) : row.kind;
+    const judged = row.kind === "judgment" && judgmentAnswer(number);
+    btn.innerHTML = `<span class="num">${row.number}</span><span class="name">${row.name}</span><span class="kind ${row.kind === "judgment" ? "judge" : ""} ${judged ? "judged" : ""}">${kindLabel}</span>`;
+  });
+}
+
 plan.patterns.forEach((p) => {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "pattern-card";
   btn.dataset.number = String(p.number);
-  btn.innerHTML = `<span class="num">${p.number}</span><span class="name">${p.name}</span><span class="kind ${p.kind === "judgment" ? "judge" : ""}">${p.kind}</span>`;
-  btn.addEventListener("click", () => activatePattern(p.number));
   patternList.appendChild(btn);
+  btn.addEventListener("click", () => activatePattern(p.number));
 });
+refreshPatternCards();
 
 document.querySelectorAll(".chip").forEach((chip) => {
   chip.addEventListener("click", () => {
