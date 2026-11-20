@@ -40,6 +40,9 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `scripts/drive_run.py` | Writes one run under `runs/<stamp>/`, or `--check` in a temporary directory. |
 | `scripts/build_spatial_graph.py` | Regenerates `docs/design/spatial-concept-graph.json`. |
 | `scripts/check_spatial_graph.py` | Integrity check for that concept graph. |
+| `scripts/lint_spatial.py` | Plan geometry lint: lot/pad/shell overlap, sit-on containment, clearance gaps. |
+| `src/pattern_language/spatial_lint.py` | Pure AABB helpers used by the lint script and `demo/build_district.py`. |
+| `.agents/skills/` | Installed agent skills (`three-best-practices`, `threejs-spatial-data`, `threejs-testing`). |
 | `tests/` | Pytest for the seed catalog, empty trees, missing schemas, import boundary, Lean manifest, the two houses, SpatialStructure, and the stdio MCP client. |
 | `lean/` | Lake package `PatternLanguage`. `Language`, `Sequence`, `Preservation`, and generated `Instantiations/Buildings.lean`. |
 | `docs/design/DESIGN.md` | Gate contract and unit boundary. |

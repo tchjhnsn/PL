@@ -27,6 +27,9 @@ def test_process_stages_and_survey_validate(repo_root: Path) -> None:
     Draft202012Validator(survey_schema).validate(survey)
     assert survey["status"] == "complete"
     assert survey["orientation"]["latitude_deg"] == 40
+    assert any(g["material"] == "grass" for g in survey["ground_cover"])
+    assert any(p["form"] == "evergreen" for p in survey["plantings"])
+    assert any(w["kind"] == "pond" for w in survey["water_features"])
     ids = [item["id"] for item in stages["stages"]]
     assert ids == ["survey", "land", "foundation", "frame", "openings", "patterns"]
 

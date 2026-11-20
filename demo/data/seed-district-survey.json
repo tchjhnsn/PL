@@ -30,12 +30,12 @@
       ]
     },
     {
-      "elevation_m": 0.4,
+      "elevation_m": 0.25,
       "ring": [
-        [16, 10],
-        [46, 10],
-        [46, 40],
-        [16, 40]
+        [28, 38],
+        [58, 38],
+        [58, 48],
+        [28, 48]
       ]
     }
   ],
@@ -43,5 +43,120 @@
     "solar_azimuth_noon_deg": 180,
     "prevailing_wind_from_deg": 270,
     "note": "Northern hemisphere seed: equator-ward is -north (plan -Y / south)."
-  }
+  },
+  "ground_cover": [
+    {
+      "id": "gc-lawn",
+      "material": "grass",
+      "label": "Shared lawn",
+      "ring": [
+        [28, 38],
+        [58, 38],
+        [58, 48],
+        [28, 48]
+      ],
+      "note": "Turf grass on the block green — greenfield planting."
+    },
+    {
+      "id": "gc-gravel",
+      "material": "gravel",
+      "label": "Gravel edge",
+      "ring": [
+        [26, 36],
+        [60, 36],
+        [60, 38],
+        [26, 38]
+      ],
+      "note": "Crushed gravel south of the green."
+    },
+    {
+      "id": "gc-lot-a-lawn",
+      "material": "grass",
+      "label": "Lot A yard grass",
+      "ring": [
+        [16, 10],
+        [46, 10],
+        [46, 36],
+        [16, 36]
+      ],
+      "note": "Yard turf under Lot A before foundation."
+    }
+  ],
+  "plantings": [
+    {
+      "id": "pl-pine-1",
+      "x": 30,
+      "y": 42,
+      "form": "evergreen",
+      "species": "Pinus strobus",
+      "canopy_m": 3.5,
+      "label": "White pine",
+      "authored": true
+    },
+    {
+      "id": "pl-pine-2",
+      "x": 50,
+      "y": 44,
+      "form": "evergreen",
+      "species": "Pinus strobus",
+      "canopy_m": 4.0,
+      "label": "White pine",
+      "authored": true
+    },
+    {
+      "id": "pl-oak",
+      "x": 40,
+      "y": 47,
+      "form": "deciduous",
+      "species": "Quercus alba",
+      "canopy_m": 4.5,
+      "label": "Oak",
+      "authored": true
+    },
+    {
+      "id": "pl-maple",
+      "x": 22,
+      "y": 20,
+      "form": "deciduous",
+      "species": "Acer rubrum",
+      "canopy_m": 3.2,
+      "label": "Maple",
+      "authored": true
+    },
+    {
+      "id": "pl-pine-lane",
+      "x": 12,
+      "y": 28,
+      "form": "evergreen",
+      "species": "Pinus strobus",
+      "canopy_m": 2.8,
+      "label": "Lane pine",
+      "authored": true
+    },
+    {
+      "id": "pl-willow",
+      "x": 46,
+      "y": 42,
+      "form": "deciduous",
+      "species": "Salix babylonica",
+      "canopy_m": 3.0,
+      "label": "Willow",
+      "authored": true
+    }
+  ],
+  "water_features": [
+    {
+      "id": "wf-pond-a",
+      "kind": "pond",
+      "label": "Garden pond",
+      "ring": [
+        [34, 40],
+        [44, 40],
+        [44, 46],
+        [34, 46]
+      ],
+      "authored": true,
+      "note": "Artificial pond — design-from-scratch."
+    }
+  ]
 }

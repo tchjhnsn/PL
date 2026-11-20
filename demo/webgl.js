@@ -37,10 +37,19 @@ const HEIGHT = {
 const BASE = {
   void: 0x3a4a42,
   path: 0x8a7d68,
-  land: 0x5a6e58,
+  land: 0x6b7d5e,
   foundation: 0x8a8478,
   room: 0xd8cbb4,
   solid: 0xcfc0a8,
+};
+
+const COVER = {
+  grass: 0x4f7a45,
+  gravel: 0x9a9080,
+  mulch: 0x6b5344,
+  water: 0x3a7a9a,
+  pond: 0x3a7a9a,
+  pavement: 0x7a7874,
 };
 
 const ROOF = 0x4a3f36;
@@ -144,8 +153,16 @@ function placeColor(place) {
     return hit ? FOCUS : DIM;
   }
   if (selectedId === place.id) return 0xe8dcc0;
+  const roles = place.roles || [];
+  if (roles.includes("balcony") || place.component === "balcony") return 0xb8c4a8;
+  if (roles.includes("pond") || place.component === "pond" || roles.includes("water")) {
+    return COVER.pond;
+  }
+  if (roles.includes("gravel")) return COVER.gravel;
+  if (roles.includes("grass") || roles.includes("green")) return COVER.grass;
   if (HOUSE_WALL[place.id]) return HOUSE_WALL[place.id];
   if (place.component === "building" || place.kind === "solid") return BASE.solid;
+  if (place.kind === "land") return 0x7a8f6a;
   return BASE[place.kind] ?? 0x888888;
 }
 
@@ -189,12 +206,30 @@ function applyColors() {
     const place = plan.places.find((p) => p.id === id);
     if (!place) continue;
     mesh.material.color.setHex(placeColor(place));
-    mesh.material.opacity = focusPattern != null && !(place.patterns || []).includes(focusPattern)
-      ? 0.35
-      : place.kind === "void"
-        ? 0.85
-        : 0.95;
-    mesh.material.transparent = true;
+    const roles = place.roles || [];
+    const isCover =
+      roles.includes("ground-cover") ||
+      roles.includes("grass") ||
+      roles.includes("gravel") ||
+      roles.includes("green") ||
+      place.component === "pond";
+    const isStreetVoid =
+      place.kind === "void" &&
+      !roles.includes("balcony") &&
+      !isCover;
+    if (focusPattern != null && !(place.patterns || []).includes(focusPattern)) {
+      mesh.material.opacity = 0.35;
+      mesh.material.transparent = true;
+      mesh.material.depthWrite = false;
+    } else if (isStreetVoid) {
+      mesh.material.opacity = 0.72;
+      mesh.material.transparent = true;
+      mesh.material.depthWrite = false;
+    } else {
+      mesh.material.opacity = 1;
+      mesh.material.transparent = false;
+      mesh.material.depthWrite = true;
+    }
   }
 }
 
@@ -252,15 +287,35 @@ function buildPlaces() {
     });
     geom.rotateX(-Math.PI / 2);
 
+    const isCover =
+      (place.roles || []).includes("ground-cover") ||
+      (place.roles || []).includes("grass") ||
+      (place.roles || []).includes("gravel") ||
+      place.component === "pond";
+    const isStreetVoid =
+      place.kind === "void" && !isBalcony && !isCover && !(place.roles || []).includes("green");
+    // Opaque land/cover/pads; only street voids stay slightly translucent (Three.js transparency sorting).
     const mat = new THREE.MeshStandardMaterial({
       color: wallColor,
-      roughness: place.kind === "solid" ? 0.85 : 0.72,
+      roughness: place.kind === "solid" ? 0.85 : isCover ? 0.95 : 0.72,
       metalness: 0.02,
-      transparent: place.kind === "void" && !isBalcony,
-      opacity: place.kind === "void" && !isBalcony ? 0.85 : 1,
+      transparent: isStreetVoid,
+      opacity: isStreetVoid ? 0.72 : 1,
+      depthWrite: !isStreetVoid,
     });
     const mesh = new THREE.Mesh(geom, mat);
-    mesh.position.y = shellBottom;
+    // Slight Y bias so cover layers stack without z-fighting when coplanar.
+    const yBias =
+      place.component === "pond"
+        ? 0.06
+        : (place.roles || []).includes("gravel")
+          ? 0.03
+          : (place.roles || []).includes("grass") || (place.roles || []).includes("green")
+            ? 0.02
+            : place.kind === "land"
+              ? 0.01
+              : 0;
+    mesh.position.y = shellBottom + yBias;
     mesh.userData.placeId = place.id;
     mesh.castShadow = isBuildingShell(place) || isBalcony;
     mesh.receiveShadow = true;
@@ -480,6 +535,34 @@ function buildNorthIndicator() {
   world.add(label);
 }
 
+function buildTrees() {
+  if (!stageAllowed("survey")) return;
+  for (const t of plan.trees || []) {
+    const evergreen = (t.form || "") === "evergreen";
+    const trunkH = evergreen ? 2.2 : 1.8;
+    const canopyR = Math.max(0.6, (t.canopy || 3) * 0.45);
+    const trunk = new THREE.Mesh(
+      new THREE.CylinderGeometry(t.trunk || 0.25, (t.trunk || 0.25) * 1.15, trunkH, 6),
+      new THREE.MeshStandardMaterial({ color: 0x5a4030, roughness: 0.9 }),
+    );
+    trunk.position.set(t.x, trunkH / 2, -t.y);
+    trunk.castShadow = true;
+    trunk.userData.placeId = t.id;
+    world.add(trunk);
+    const canopyMat = new THREE.MeshStandardMaterial({
+      color: evergreen ? 0x2f5a38 : 0x4a7a40,
+      roughness: 0.85,
+    });
+    const canopy = evergreen
+      ? new THREE.Mesh(new THREE.ConeGeometry(canopyR, canopyR * 2.2, 7), canopyMat)
+      : new THREE.Mesh(new THREE.SphereGeometry(canopyR, 10, 8), canopyMat);
+    canopy.position.set(t.x, trunkH + (evergreen ? canopyR * 0.6 : canopyR * 0.7), -t.y);
+    canopy.castShadow = true;
+    canopy.userData.placeId = t.id;
+    world.add(canopy);
+  }
+}
+
 function buildSurveyOverlays() {
   if (!stageAllowed("survey")) return;
   // Sun sector toward south (−Z) for northern-hemisphere seed
@@ -612,6 +695,7 @@ function rebuild() {
   clearWorld();
   buildSurveyOverlays();
   buildPlaces();
+  buildTrees();
   if (stageAllowed("land")) buildNetwork();
   buildOpenings();
   buildInteractions();
