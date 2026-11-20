@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pattern-language.local/schema/survey.schema.json",
+  "title": "SiteSurvey",
+  "description": "Seed district survey artifact. Completing this unlocks land and orientation checks in Decided.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "extent",
+    "datum",
+    "orientation",
+    "contours",
+    "climate"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "status": { "enum": ["draft", "complete"] },
+    "extent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min_x", "min_y", "max_x", "max_y", "units"],
+      "properties": {
+        "min_x": { "type": "number" },
+        "min_y": { "type": "number" },
+        "max_x": { "type": "number" },
+        "max_y": { "type": "number" },
+        "units": { "const": "m" }
+      }
+    },
+    "datum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "grade_m"],
+      "properties": {
+        "name": { "type": "string" },
+        "grade_m": {
+          "type": "number",
+          "description": "Site grade elevation; floors are relative to this"
+        }
+      }
+    },
+    "orientation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["north", "latitude_deg"],
+      "properties": {
+        "north": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          }
+        },
+        "latitude_deg": { "type": "number", "minimum": -90, "maximum": 90 },
+        "origin_lon": { "type": "number" },
+        "origin_lat": { "type": "number" }
+      }
+    },
+    "contours": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["elevation_m", "ring"],
+        "properties": {
+          "elevation_m": { "type": "number" },
+          "ring": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "climate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["solar_azimuth_noon_deg", "prevailing_wind_from_deg"],
+      "properties": {
+        "solar_azimuth_noon_deg": {
+          "type": "number",
+          "description": "Plan degrees; 180 = toward -Y when north is +Y"
+        },
+        "prevailing_wind_from_deg": { "type": "number" },
+        "note": { "type": "string", "maxLength": 240 }
+      }
+    }
+  }
+}

@@ -92,7 +92,7 @@
     "house-b": {
       "type": "Building",
       "attributes": {
-        "name": "House B"
+        "name": "Massing B"
       },
       "geometry": [
         {
@@ -162,7 +162,7 @@
     "house-c": {
       "type": "Building",
       "attributes": {
-        "name": "House C"
+        "name": "Massing C"
       },
       "geometry": [
         {
@@ -232,7 +232,7 @@
     "house-d": {
       "type": "Building",
       "attributes": {
-        "name": "House D"
+        "name": "Massing D"
       },
       "geometry": [
         {
@@ -302,7 +302,7 @@
     "workshop": {
       "type": "Building",
       "attributes": {
-        "name": "Workshop"
+        "name": "Workshop Massing"
       },
       "geometry": [
         {

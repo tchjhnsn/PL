@@ -213,6 +213,396 @@
     },
     {
       "type": "Feature",
+      "id": "lot-a",
+      "properties": {
+        "id": "lot-a",
+        "label": "Lot A",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Surveyed parcel for House A \u2014 land before footprint.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1634125,
+              39.9522898
+            ],
+            [
+              -75.163061,
+              39.9522898
+            ],
+            [
+              -75.163061,
+              39.9525593
+            ],
+            [
+              -75.1634125,
+              39.9525593
+            ],
+            [
+              -75.1634125,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lot-b",
+      "properties": {
+        "id": "lot-b",
+        "label": "Lot B",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Surveyed parcel east of the green.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1630375,
+              39.9522898
+            ],
+            [
+              -75.1627328,
+              39.9522898
+            ],
+            [
+              -75.1627328,
+              39.9524875
+            ],
+            [
+              -75.1630375,
+              39.9524875
+            ],
+            [
+              -75.1630375,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lot-c",
+      "properties": {
+        "id": "lot-c",
+        "label": "Lot C",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Surveyed parcel north of the green.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1634125,
+              39.9526132
+            ],
+            [
+              -75.1631078,
+              39.9526132
+            ],
+            [
+              -75.1631078,
+              39.9528109
+            ],
+            [
+              -75.1634125,
+              39.9528109
+            ],
+            [
+              -75.1634125,
+              39.9526132
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lot-d",
+      "properties": {
+        "id": "lot-d",
+        "label": "Lot D",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Surveyed NE corner parcel.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.163061,
+              39.9526312
+            ],
+            [
+              -75.1627328,
+              39.9526312
+            ],
+            [
+              -75.1627328,
+              39.9528288
+            ],
+            [
+              -75.163061,
+              39.9528288
+            ],
+            [
+              -75.163061,
+              39.9526312
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lot-workshop",
+      "properties": {
+        "id": "lot-workshop",
+        "label": "Workshop Lot",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Surveyed lane-side workshop parcel.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1635297,
+              39.9525414
+            ],
+            [
+              -75.1633656,
+              39.9525414
+            ],
+            [
+              -75.1633656,
+              39.9526851
+            ],
+            [
+              -75.1635297,
+              39.9526851
+            ],
+            [
+              -75.1635297,
+              39.9525414
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-a",
+      "properties": {
+        "id": "found-a",
+        "label": "Foundation A",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for House A \u2014 sits on Lot A.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633891,
+              39.9523258
+            ],
+            [
+              -75.1631078,
+              39.9523258
+            ],
+            [
+              -75.1631078,
+              39.9525234
+            ],
+            [
+              -75.1633891,
+              39.9525234
+            ],
+            [
+              -75.1633891,
+              39.9523258
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-b",
+      "properties": {
+        "id": "found-b",
+        "label": "Foundation B",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for neighbor massing B.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1630141,
+              39.9523078
+            ],
+            [
+              -75.1627563,
+              39.9523078
+            ],
+            [
+              -75.1627563,
+              39.9524695
+            ],
+            [
+              -75.1630141,
+              39.9524695
+            ],
+            [
+              -75.1630141,
+              39.9523078
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-c",
+      "properties": {
+        "id": "found-c",
+        "label": "Foundation C",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for neighbor massing C.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633891,
+              39.9526312
+            ],
+            [
+              -75.1631313,
+              39.9526312
+            ],
+            [
+              -75.1631313,
+              39.9527929
+            ],
+            [
+              -75.1633891,
+              39.9527929
+            ],
+            [
+              -75.1633891,
+              39.9526312
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-d",
+      "properties": {
+        "id": "found-d",
+        "label": "Foundation D",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for neighbor massing D.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1630375,
+              39.9526492
+            ],
+            [
+              -75.1627563,
+              39.9526492
+            ],
+            [
+              -75.1627563,
+              39.9528109
+            ],
+            [
+              -75.1630375,
+              39.9528109
+            ],
+            [
+              -75.1630375,
+              39.9526492
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-workshop",
+      "properties": {
+        "id": "found-workshop",
+        "label": "Foundation Workshop",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for workshop massing.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1635063,
+              39.9525593
+            ],
+            [
+              -75.1633891,
+              39.9525593
+            ],
+            [
+              -75.1633891,
+              39.9526671
+            ],
+            [
+              -75.1635063,
+              39.9526671
+            ],
+            [
+              -75.1635063,
+              39.9525593
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "a-court",
       "properties": {
         "id": "a-court",
@@ -475,10 +865,10 @@
       "id": "house-b",
       "properties": {
         "id": "house-b",
-        "label": "House B",
-        "component": "building",
+        "label": "Massing B",
+        "component": "massing",
         "kind": "solid",
-        "role": "Neighbor massing east of the green.",
+        "role": "Frame-stage massing on Foundation B \u2014 not a finished house.",
         "patterns": [
           105,
           106
@@ -517,10 +907,10 @@
       "id": "house-c",
       "properties": {
         "id": "house-c",
-        "label": "House C",
-        "component": "building",
+        "label": "Massing C",
+        "component": "massing",
         "kind": "solid",
-        "role": "North-lot house closing the green.",
+        "role": "Frame-stage massing on Foundation C.",
         "patterns": [
           105,
           106
@@ -559,10 +949,10 @@
       "id": "house-d",
       "properties": {
         "id": "house-d",
-        "label": "House D",
-        "component": "building",
+        "label": "Massing D",
+        "component": "massing",
         "kind": "solid",
-        "role": "Corner massing.",
+        "role": "Frame-stage massing on Foundation D.",
         "patterns": [
           105,
           106
@@ -601,10 +991,10 @@
       "id": "workshop",
       "properties": {
         "id": "workshop",
-        "label": "Workshop",
-        "component": "building",
+        "label": "Workshop Massing",
+        "component": "massing",
         "kind": "solid",
-        "role": "Work building on the lane.",
+        "role": "Frame-stage workshop massing.",
         "patterns": [
           105,
           106

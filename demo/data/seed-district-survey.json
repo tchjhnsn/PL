@@ -1,0 +1,47 @@
+{
+  "id": "seed-district-survey",
+  "title": "Seed District survey",
+  "status": "complete",
+  "extent": {
+    "min_x": -2,
+    "min_y": -2,
+    "max_x": 94,
+    "max_y": 72,
+    "units": "m"
+  },
+  "datum": {
+    "name": "seed-grade",
+    "grade_m": 0
+  },
+  "orientation": {
+    "north": { "x": 0, "y": 1 },
+    "latitude_deg": 40,
+    "origin_lon": -75.1636,
+    "origin_lat": 39.9522
+  },
+  "contours": [
+    {
+      "elevation_m": 0,
+      "ring": [
+        [0, 0],
+        [90, 0],
+        [90, 70],
+        [0, 70]
+      ]
+    },
+    {
+      "elevation_m": 0.4,
+      "ring": [
+        [16, 10],
+        [46, 10],
+        [46, 40],
+        [16, 40]
+      ]
+    }
+  ],
+  "climate": {
+    "solar_azimuth_noon_deg": 180,
+    "prevailing_wind_from_deg": 270,
+    "note": "Northern hemisphere seed: equator-ward is -north (plan -Y / south)."
+  }
+}

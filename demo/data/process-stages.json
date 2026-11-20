@@ -1,0 +1,60 @@
+{
+  "id": "seed-district-decided",
+  "title": "Seed District — Decided stages",
+  "stages": [
+    {
+      "id": "survey",
+      "name": "Survey",
+      "mode": "sync",
+      "requires": [],
+      "unlocks": ["survey.complete"],
+      "webgl": "Terrain, north rose, sun sector, contour stubs",
+      "note": "No orientation check is legally satisfied without this frame."
+    },
+    {
+      "id": "land",
+      "name": "Land",
+      "mode": "sync",
+      "requires": ["survey.complete"],
+      "unlocks": ["land.lots"],
+      "webgl": "Lot lines, ROW, grade plane",
+      "note": "Lots and ROW before any building footprint."
+    },
+    {
+      "id": "foundation",
+      "name": "Foundations",
+      "mode": "async",
+      "requires": ["land.lots"],
+      "unlocks": ["foundation.ready"],
+      "webgl": "Pads on lots; sit-on and clearance links",
+      "note": "Pads may proceed in parallel across lots."
+    },
+    {
+      "id": "frame",
+      "name": "Frames",
+      "mode": "sync",
+      "requires": ["foundation.ready"],
+      "unlocks": ["frame.ready"],
+      "webgl": "Wall/storey shells — not pretty house skins",
+      "note": "Per-building sync after that lot's foundation."
+    },
+    {
+      "id": "openings",
+      "name": "Openings",
+      "mode": "sync",
+      "requires": ["frame.ready"],
+      "unlocks": ["openings.installed"],
+      "webgl": "Installed windows and doors",
+      "note": "Proposals may exist earlier; install needs frame."
+    },
+    {
+      "id": "patterns",
+      "name": "Patterns",
+      "mode": "sync",
+      "requires": ["survey.complete"],
+      "unlocks": ["patterns.run"],
+      "webgl": "Pattern focus and measured evidence",
+      "note": "Language sequence remains pl sequence; Decided only gates process."
+    }
+  ]
+}
