@@ -38,5 +38,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 107
-  }
+  },
+  "uses": [
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://www.hok.com/projects/view/lg-north-american-headquarters/",
+      "title": "LG North American Headquarters \u2014 HOK",
+      "note": "Narrow office wings chosen so daylight reaches the floor plate instead of a deep block.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://textbookofarchitecture.com/rule/light-on-two-sides",
+      "title": "Light on two sides \u2014 Textbook of Architecture",
+      "note": "Shallow wings as the building-scale move that makes two-sided light possible.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

@@ -37,5 +37,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 159
-  }
+  },
+  "uses": [
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://textbookofarchitecture.com/rule/light-on-two-sides",
+      "title": "Light on two sides \u2014 Textbook of Architecture",
+      "note": "Rooms with daylight from at least two directions; Prairie and Unit\u00e9 examples.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.hok.com/projects/view/lg-north-american-headquarters/",
+      "title": "LG North American Headquarters \u2014 HOK",
+      "note": "Perimeter stairs and narrow wings keeping occupied space near glass.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

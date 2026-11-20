@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seed District — WebGL</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .webgl-app {
+      display: grid;
+      grid-template-columns: minmax(16rem, 20rem) 1fr;
+      height: 100%;
+    }
+    .webgl-app > .rail {
+      min-height: 0;
+      overflow: auto;
+    }
+    @media (max-width: 900px) {
+      .webgl-app { grid-template-columns: 1fr; grid-template-rows: minmax(0, auto) minmax(50vh, 1fr); }
+      .webgl-app > .rail { min-height: 0; overflow: auto; }
+    }
+    #view {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      display: block;
+      background: #1a1f1c;
+      cursor: grab;
+    }
+    #view:active { cursor: grabbing; }
+    .webgl-stage {
+      position: relative;
+      min-height: 0;
+      background: #121612;
+    }
+    .webgl-hud {
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #c8d4cc;
+      background: rgba(18, 22, 18, 0.72);
+      border: 1px solid #3a463e;
+      padding: 0.35rem 0.55rem;
+      pointer-events: none;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+    }
+    .status-dot.satisfied { background: #3d8f5f; }
+    .status-dot.violated { background: #b84a3a; }
+    .status-dot.needs_judgment { background: #c49a2a; }
+    .status-dot.neutral { background: #6a756e; }
+    .pattern-list button .status {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--muted);
+    }
+    .kind-legend {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.75rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .kind-legend li { display: inline-flex; align-items: center; }
+    .kind-legend .status-dot { box-shadow: inset 0 0 0 1px rgba(17, 24, 20, 0.55); }
+    .status-dot.kind-void { background: #3a4a42; }
+    .status-dot.kind-path { background: #8a7d68; }
+    .status-dot.kind-room { background: #d4c4a8; }
+    .status-dot.kind-solid { background: #2a2e2c; }
+    .status-dot.kind-focus { background: #c9a227; }
+    .chip:focus-visible,
+    .pattern-card:focus-visible,
+    .rail a:focus-visible {
+      outline: 2px solid #c9a227;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px #111814;
+    }
+  </style>
+</head>
+<body>
+  <div class="webgl-app">
+    <aside class="rail">
+      <header class="rail-head">
+        <p class="brand">Seed District</p>
+        <p class="lede">
+          Entry-level WebGL view of SpatialStructure: extruded places,
+          flow network, pattern focus, and check status from the seed house.
+        </p>
+        <p class="owned">
+          Entry surface: <code>WebGL</code> · Advanced: Blender + Bonsai (optional)
+        </p>
+      </header>
+
+      <section class="rail-section">
+        <h2>Modes</h2>
+        <div class="view-toggle">
+          <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">District</button>
+          <button type="button" class="chip" data-mode="house" aria-pressed="false">House A</button>
+        </div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Kinds</h2>
+        <ul class="kind-legend">
+          <li><span class="status-dot kind-void"></span>Void</li>
+          <li><span class="status-dot kind-path"></span>Path</li>
+          <li><span class="status-dot kind-room"></span>Room</li>
+          <li><span class="status-dot kind-solid"></span>Solid</li>
+          <li><span class="status-dot kind-focus"></span>Focus</li>
+        </ul>
+      </section>
+
+      <section class="rail-section">
+        <h2>Patterns</h2>
+        <p class="soft">Focus a pattern; related places light up. Status from pass-house check.</p>
+        <div id="pattern-list" class="pattern-list"></div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Selected</h2>
+        <div id="inspector" class="inspector">
+          <p class="soft">Click a place in the 3D view.</p>
+        </div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Also</h2>
+        <p class="soft">
+          <a href="plan.html">2D plan (SVG)</a> ·
+          <a href="concepts.html">Concept graph</a>
+        </p>
+      </section>
+    </aside>
+
+    <main class="webgl-stage">
+      <canvas id="view" aria-label="WebGL seed district"></canvas>
+      <div class="webgl-hud" id="hud">drag to orbit · scroll to zoom</div>
+    </main>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="webgl.js"></script>
+</body>
+</html>

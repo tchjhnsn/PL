@@ -1,7 +1,5 @@
 """Pattern Language add-on. ``bpy`` is imported inside register and unregister."""
 
-from __future__ import annotations
-
 bl_info = {
     "name": "Pattern Language",
     "author": "Pattern Language",

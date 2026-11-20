@@ -1,0 +1,52 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from pattern_language.conditions.plan_clearance import meets_clear_width
+from pattern_language.conditions.registry import CHECKS
+from pattern_language.conditions.six_foot_balcony import check as six_foot_balcony_check
+from pattern_language.spatial_structure import (
+    clear_width,
+    edge_width,
+    load_spatial,
+    measure_value,
+    places_with_role,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+PLAN = ROOT / "demo" / "data" / "plan-model.json"
+
+
+def test_load_and_widths() -> None:
+    plan = load_spatial(PLAN)
+    assert clear_width(plan, "sidewalk-main-n") == 2.5
+    assert clear_width(plan, "a-balcony") == 6.0
+    assert clear_width(plan, "carriageway-main") == 5.5
+    assert measure_value(plan, "m-sidewalk-width") == 2.5
+    assert edge_width(plan, "e-main-1") == 5.5
+    assert edge_width(plan, "e-sidewalk-1") == 2.5
+
+
+def test_roles() -> None:
+    plan = load_spatial(PLAN, validate=False)
+    sidewalks = places_with_role(plan, "sidewalk")
+    assert any(p["id"] == "sidewalk-main-n" for p in sidewalks)
+
+
+def test_balcony_clear_width_meets_threshold() -> None:
+    plan = load_spatial(PLAN)
+    assert meets_clear_width(plan, "a-balcony", 1.83) is True
+    assert meets_clear_width(plan, "no-such-place", 1.83) is None
+    shallow = {
+        "measures": [
+            {"id": "m", "of": "a-balcony", "kind": "depth", "value_m": 1.0},
+        ]
+    }
+    assert meets_clear_width(shallow, "a-balcony", 1.83) is False
+
+
+def test_plan_helper_stays_out_of_checks() -> None:
+    modules = {function.__module__ for function in CHECKS.values()}
+    assert "pattern_language.conditions.plan_clearance" not in modules
+    assert len(CHECKS) == 10
+    assert CHECKS["six-foot-balcony"] is six_foot_balcony_check

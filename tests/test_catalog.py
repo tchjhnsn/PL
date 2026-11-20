@@ -134,11 +134,11 @@ EXPECTED: dict[int, dict[str, object]] = {
         "name": "Six-Foot Balcony",
         "larger": (106,),
         "smaller": (),
-        "summary": "Every balcony is at least 1.83 m deep.",
+        "summary": "Every elevated balcony is at least 1.83 m deep.",
         "forces": ("a balcony wants room to sit", "a narrow ledge is only a step"),
         "kind": "computed",
         "id": "six-foot-balcony",
-        "params": {"min_depth_m": 1.83},
+        "params": {"min_depth_m": 1.83, "min_elevation_m": 2.4},
         "question": None,
     },
     180: {

@@ -32,5 +32,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 110
-  }
+  },
+  "uses": [
+    "term.transition"
+  ],
+  "references": [
+    {
+      "url": "https://archinect.com/wittman-estes/project/yo-ju-courtyard-house",
+      "title": "Yo-Ju Courtyard House \u2014 Wittman Estes",
+      "note": "Screened entry court as the visible approach before the door.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://residentialdesignmagazine.com/design-lab-crescent-drive-residence-by-eryc/",
+      "title": "Crescent Drive Residence \u2014 EYRC",
+      "note": "Gate into a pastoral courtyard; the front door is encountered inside the court.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

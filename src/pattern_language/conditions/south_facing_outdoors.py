@@ -27,14 +27,18 @@ def check(topology: Topology, center: str, params: Mapping[str, Any]) -> Evidenc
     outdoors = [zone for zone in zones if "outdoor" in zone.tags and "balcony" not in zone.tags]
     occupied = [zone for zone in zones if "occupied" in zone.tags]
     subjects = [zone.name for zone in outdoors]
-    latitude_pair = ("latitude_deg", dec(latitude))
+    frame = (
+        ("latitude_deg", dec(latitude)),
+        ("north_x", dec(topology.north[0])),
+        ("north_y", dec(topology.north[1])),
+    )
     if len(outdoors) != 1 or not occupied:
         return make_evidence(
             CHECK_ID,
             passed=False,
             applicable=False,
             subjects=subjects,
-            measured=(latitude_pair,),
+            measured=frame,
         )
     direction = equator_direction(topology.north, latitude)
     dot = 0.0
@@ -45,5 +49,5 @@ def check(topology: Topology, center: str, params: Mapping[str, Any]) -> Evidenc
         passed=direction is not None and dot > 0,
         applicable=True,
         subjects=subjects,
-        measured=(latitude_pair, ("dot", dec(dot))),
+        measured=(*frame, ("dot", dec(dot))),
     )

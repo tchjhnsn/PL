@@ -1,0 +1,244 @@
+{
+  "instances": [
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "south-facing-outdoors",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "dot",
+            "value": "-7.350"
+          },
+          {
+            "name": "latitude_deg",
+            "value": "40.000"
+          },
+          {
+            "name": "north_x",
+            "value": "0.000"
+          },
+          {
+            "name": "north_y",
+            "value": "1.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 105,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "positive-outdoor-space",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "min_ratio",
+            "value": "0.526"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 106,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "wings-of-light",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "max_depth_m",
+            "value": "10.198"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 107,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "kind": "unanswered",
+        "question": "Is the entrance seen from the approach?"
+      },
+      "pattern": 110,
+      "status": "needs_judgment"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "entrance-transition",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "transition",
+            "value": "0.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 112,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "intimacy-gradient",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "ordered",
+            "value": "0.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 127,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "indoor-sunlight",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "dot",
+            "value": "-6.500"
+          },
+          {
+            "name": "latitude_deg",
+            "value": "40.000"
+          },
+          {
+            "name": "north_x",
+            "value": "0.000"
+          },
+          {
+            "name": "north_y",
+            "value": "1.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 128,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "entrance-room",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "room",
+            "value": "0.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 130,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "light-on-two-sides",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "min_orientations",
+            "value": "1.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 159,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "six-foot-balcony",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "floor_elevation_m",
+            "value": "3.000"
+          },
+          {
+            "name": "min_depth_m",
+            "value": "1.000"
+          },
+          {
+            "name": "min_elevation_m",
+            "value": "2.400"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 167,
+      "status": "violated"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "kind": "unanswered",
+        "question": "Does the main room have a window with a place to sit?"
+      },
+      "pattern": 180,
+      "status": "needs_judgment"
+    },
+    {
+      "centers": [
+        "house"
+      ],
+      "evidence": {
+        "check": "ceiling-height-variety",
+        "kind": "check",
+        "measured": [
+          {
+            "name": "difference_m",
+            "value": "0.000"
+          }
+        ],
+        "passed": false
+      },
+      "pattern": 190,
+      "status": "violated"
+    }
+  ],
+  "model": {
+    "file": "fixtures/fail-house.ifc",
+    "sha256": "0b457a05337b4e38f2a8615cc25362e53607124e162673153612e5e29b074aa9"
+  },
+  "project": "seed-house",
+  "satisfied": []
+}

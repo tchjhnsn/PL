@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pattern-language.local/schema/spatial-structure.schema.json",
+  "title": "SpatialStructure",
+  "description": "Geometry-aware mid-layer: places, directed circulation, named measures. Not scanned by the catalog gate. Owned alongside pattern-language.plan-symbology.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "frame", "places", "network", "measures"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "owned_layer": {
+      "type": "string",
+      "const": "pattern-language.plan-symbology"
+    },
+    "concept_graph": {
+      "type": "string",
+      "description": "Path or id of spatial-concept-graph.json"
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["units", "north"],
+      "properties": {
+        "units": { "type": "string", "const": "m" },
+        "north": { "type": "string", "enum": ["up", "bearing"] },
+        "latitude_deg": { "type": "number" },
+        "origin_lon": { "type": "number" },
+        "origin_lat": { "type": "number" }
+      }
+    },
+    "extent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min_x", "min_y", "max_x", "max_y"],
+      "properties": {
+        "min_x": { "type": "number" },
+        "min_y": { "type": "number" },
+        "max_x": { "type": "number" },
+        "max_y": { "type": "number" }
+      }
+    },
+    "places": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/place" }
+    },
+    "walls": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/wall" }
+    },
+    "openings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/opening" }
+    },
+    "trees": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tree" }
+    },
+    "network": { "$ref": "#/$defs/network" },
+    "measures": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/measure" }
+    },
+    "interfaces": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/interface" }
+    },
+    "patterns": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "names": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "ring": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": { "type": "number" }
+      }
+    },
+    "place": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "component", "kind", "ring"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "component": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["solid", "void", "room", "path"]
+        },
+        "ring": { "$ref": "#/$defs/ring" },
+        "roles": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "patterns": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "role": { "type": "string" },
+        "parent": { "type": ["string", "null"] },
+        "height_m": { "type": "number", "description": "Clear ceiling height of the place" },
+        "floor_elevation_m": {
+          "type": "number",
+          "description": "Floor elevation above site grade in metres"
+        },
+        "enclosure_hw": {
+          "type": ["number", "null"],
+          "description": "Height-to-width if known"
+        }
+      }
+    },
+    "wall": {
+      "type": "object",
+      "required": ["id", "a", "b", "thickness"],
+      "properties": {
+        "id": { "type": "string" },
+        "a": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        },
+        "b": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        },
+        "thickness": { "type": "number" }
+      }
+    },
+    "opening": {
+      "type": "object",
+      "required": ["id", "component", "x", "y", "width", "wall_angle"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "component": { "type": "string", "enum": ["door", "window"] },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number" },
+        "wall_angle": { "type": "number" },
+        "swing": { "type": "string", "enum": ["ccw", "cw"] },
+        "facing": { "type": "string" },
+        "patterns": { "type": "array", "items": { "type": "integer" } },
+        "role": { "type": "string" },
+        "parent": { "type": "string" }
+      }
+    },
+    "tree": {
+      "type": "object",
+      "required": ["id", "x", "y", "canopy", "trunk"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "component": { "const": "tree" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "canopy": { "type": "number" },
+        "trunk": { "type": "number" },
+        "patterns": { "type": "array", "items": { "type": "integer" } },
+        "role": { "type": "string" }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "x", "y"],
+            "properties": {
+              "id": { "type": "string" },
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "kind": {
+                "type": "string",
+                "enum": ["intersection", "place", "address", "crossing"]
+              },
+              "place": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "a", "b", "mode", "hierarchy", "width_m"],
+            "properties": {
+              "id": { "type": "string" },
+              "a": { "type": "string" },
+              "b": { "type": "string" },
+              "mode": {
+                "type": "string",
+                "enum": ["pedestrian", "vehicle", "shared", "service"]
+              },
+              "hierarchy": {
+                "type": "string",
+                "enum": ["arterial", "local", "lane", "path", "approach"]
+              },
+              "width_m": { "type": "number" },
+              "directed": { "type": "boolean" },
+              "label": { "type": "string" },
+              "polyline": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": { "type": "number" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "measure": {
+      "type": "object",
+      "required": ["id", "label", "a", "b", "value_m", "kind"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "a": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        },
+        "b": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        },
+        "value_m": { "type": "number" },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "depth",
+            "width",
+            "setback",
+            "spacing",
+            "frontage",
+            "height",
+            "clearance"
+          ]
+        },
+        "of": { "type": "string" },
+        "patterns": { "type": "array", "items": { "type": "integer" } }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "required": ["id", "kind", "between"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["door", "window", "threshold", "frontage", "overlook"]
+        },
+        "between": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "string" }
+        },
+        "opening": { "type": "string" },
+        "length_m": { "type": "number" }
+      }
+    }
+  }
+}

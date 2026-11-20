@@ -1,0 +1,958 @@
+{
+  "type": "FeatureCollection",
+  "name": "seed-district",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "street-main",
+      "properties": {
+        "id": "street-main",
+        "label": "Main Street ROW",
+        "component": "street",
+        "kind": "void",
+        "role": "Right-of-way: carriageway + north sidewalk (CityGML Section stand-in).",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9522
+            ],
+            [
+              -75.1625453,
+              39.9522
+            ],
+            [
+              -75.1625453,
+              39.9522719
+            ],
+            [
+              -75.1636,
+              39.9522719
+            ],
+            [
+              -75.1636,
+              39.9522
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "carriageway-main",
+      "properties": {
+        "id": "carriageway-main",
+        "label": "Main Carriageway",
+        "component": "carriageway",
+        "kind": "void",
+        "role": "TrafficArea driving surface \u2014 5.5 m clear (granularity way).",
+        "patterns": [
+          105
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9522
+            ],
+            [
+              -75.1625453,
+              39.9522
+            ],
+            [
+              -75.1625453,
+              39.9522494
+            ],
+            [
+              -75.1636,
+              39.9522494
+            ],
+            [
+              -75.1636,
+              39.9522
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sidewalk-main-n",
+      "properties": {
+        "id": "sidewalk-main-n",
+        "label": "Main Sidewalk N",
+        "component": "sidewalk",
+        "kind": "path",
+        "role": "North footway against the block \u2014 2.5 m clear width.",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9522494
+            ],
+            [
+              -75.1625453,
+              39.9522494
+            ],
+            [
+              -75.1625453,
+              39.9522719
+            ],
+            [
+              -75.1636,
+              39.9522719
+            ],
+            [
+              -75.1636,
+              39.9522494
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "street-lane",
+      "properties": {
+        "id": "street-lane",
+        "label": "Side Lane",
+        "component": "street",
+        "kind": "void",
+        "role": "North\u2013south service lane; quieter hierarchy than Main Street.",
+        "patterns": [
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9522719
+            ],
+            [
+              -75.1635063,
+              39.9522719
+            ],
+            [
+              -75.1635063,
+              39.9528288
+            ],
+            [
+              -75.1636,
+              39.9528288
+            ],
+            [
+              -75.1636,
+              39.9522719
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-shared",
+      "properties": {
+        "id": "green-shared",
+        "label": "Shared Green",
+        "component": "court",
+        "kind": "void",
+        "role": "Block outdoor room \u2014 convex void several houses address.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1632719,
+              39.9524515
+            ],
+            [
+              -75.1628735,
+              39.9524515
+            ],
+            [
+              -75.1628735,
+              39.9526312
+            ],
+            [
+              -75.1632719,
+              39.9526312
+            ],
+            [
+              -75.1632719,
+              39.9524515
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "a-court",
+      "properties": {
+        "id": "a-court",
+        "label": "South Court",
+        "component": "court",
+        "kind": "void",
+        "role": "Transition void between street and main door (8 m deep).",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633891,
+              39.9523258
+            ],
+            [
+              -75.1631078,
+              39.9523258
+            ],
+            [
+              -75.1631078,
+              39.9523976
+            ],
+            [
+              -75.1633891,
+              39.9523976
+            ],
+            [
+              -75.1633891,
+              39.9523258
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "path-approach",
+      "properties": {
+        "id": "path-approach",
+        "label": "Approach Path",
+        "component": "path",
+        "kind": "path",
+        "role": "Pedestrian approach: street \u2192 court (2 m clear width).",
+        "patterns": [
+          110,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1632953,
+              39.9522719
+            ],
+            [
+              -75.1632016,
+              39.9522719
+            ],
+            [
+              -75.163225,
+              39.9523258
+            ],
+            [
+              -75.1632719,
+              39.9523258
+            ],
+            [
+              -75.1632953,
+              39.9522719
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "a-hall",
+      "properties": {
+        "id": "a-hall",
+        "label": "Hall",
+        "component": "room",
+        "kind": "room",
+        "role": "Entrance room \u2014 shallow wing.",
+        "patterns": [
+          107,
+          110,
+          112,
+          130,
+          159
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633891,
+              39.9523976
+            ],
+            [
+              -75.1632719,
+              39.9523976
+            ],
+            [
+              -75.1632719,
+              39.9524695
+            ],
+            [
+              -75.1633891,
+              39.9524695
+            ],
+            [
+              -75.1633891,
+              39.9523976
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "a-living",
+      "properties": {
+        "id": "a-living",
+        "label": "Living",
+        "component": "room",
+        "kind": "room",
+        "role": "Day room; taller ceiling.",
+        "patterns": [
+          127,
+          128,
+          130,
+          159,
+          190
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1632719,
+              39.9523976
+            ],
+            [
+              -75.1631078,
+              39.9523976
+            ],
+            [
+              -75.1631078,
+              39.9524695
+            ],
+            [
+              -75.1632719,
+              39.9524695
+            ],
+            [
+              -75.1632719,
+              39.9523976
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "a-bedroom",
+      "properties": {
+        "id": "a-bedroom",
+        "label": "Bedroom",
+        "component": "room",
+        "kind": "room",
+        "role": "Private end of the intimacy gradient (upper storey).",
+        "patterns": [
+          127,
+          159,
+          167
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1632719,
+              39.9524695
+            ],
+            [
+              -75.1631078,
+              39.9524695
+            ],
+            [
+              -75.1631078,
+              39.9525234
+            ],
+            [
+              -75.1632719,
+              39.9525234
+            ],
+            [
+              -75.1632719,
+              39.9524695
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "a-balcony",
+      "properties": {
+        "id": "a-balcony",
+        "label": "Balcony",
+        "component": "balcony",
+        "kind": "void",
+        "role": "Elevated outdoor edge \u22651.83 m deep (upper storey).",
+        "patterns": [
+          167
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1631078,
+              39.9524695
+            ],
+            [
+              -75.1630375,
+              39.9524695
+            ],
+            [
+              -75.1630375,
+              39.9525234
+            ],
+            [
+              -75.1631078,
+              39.9525234
+            ],
+            [
+              -75.1631078,
+              39.9524695
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-b",
+      "properties": {
+        "id": "house-b",
+        "label": "House B",
+        "component": "building",
+        "kind": "solid",
+        "role": "Neighbor massing east of the green.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1630141,
+              39.9523078
+            ],
+            [
+              -75.1627563,
+              39.9523078
+            ],
+            [
+              -75.1627563,
+              39.9524695
+            ],
+            [
+              -75.1630141,
+              39.9524695
+            ],
+            [
+              -75.1630141,
+              39.9523078
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-c",
+      "properties": {
+        "id": "house-c",
+        "label": "House C",
+        "component": "building",
+        "kind": "solid",
+        "role": "North-lot house closing the green.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633891,
+              39.9526312
+            ],
+            [
+              -75.1631313,
+              39.9526312
+            ],
+            [
+              -75.1631313,
+              39.9527929
+            ],
+            [
+              -75.1633891,
+              39.9527929
+            ],
+            [
+              -75.1633891,
+              39.9526312
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-d",
+      "properties": {
+        "id": "house-d",
+        "label": "House D",
+        "component": "building",
+        "kind": "solid",
+        "role": "Corner massing.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1630375,
+              39.9526492
+            ],
+            [
+              -75.1627563,
+              39.9526492
+            ],
+            [
+              -75.1627563,
+              39.9528109
+            ],
+            [
+              -75.1630375,
+              39.9528109
+            ],
+            [
+              -75.1630375,
+              39.9526492
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "workshop",
+      "properties": {
+        "id": "workshop",
+        "label": "Workshop",
+        "component": "building",
+        "kind": "solid",
+        "role": "Work building on the lane.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1635063,
+              39.9525593
+            ],
+            [
+              -75.1633891,
+              39.9525593
+            ],
+            [
+              -75.1633891,
+              39.9526671
+            ],
+            [
+              -75.1635063,
+              39.9526671
+            ],
+            [
+              -75.1635063,
+              39.9525593
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-main-1",
+      "properties": {
+        "id": "e-main-1",
+        "label": "Carriageway \u2192",
+        "component": "centerline",
+        "hierarchy": "arterial",
+        "mode": "vehicle",
+        "width_m": 5.5,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1635766,
+            39.9522247
+          ],
+          [
+            -75.1632484,
+            39.9522247
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-main-2",
+      "properties": {
+        "id": "e-main-2",
+        "label": "Carriageway \u2192",
+        "component": "centerline",
+        "hierarchy": "arterial",
+        "mode": "vehicle",
+        "width_m": 5.5,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632484,
+            39.9522247
+          ],
+          [
+            -75.1625688,
+            39.9522247
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-sidewalk-1",
+      "properties": {
+        "id": "e-sidewalk-1",
+        "label": "Sidewalk N",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 2.5,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1635766,
+            39.9522606
+          ],
+          [
+            -75.1632484,
+            39.9522606
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-sidewalk-2",
+      "properties": {
+        "id": "e-sidewalk-2",
+        "label": "Sidewalk N",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 2.5,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632484,
+            39.9522606
+          ],
+          [
+            -75.1625688,
+            39.9522606
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-lane",
+      "properties": {
+        "id": "e-lane",
+        "label": "Side Lane",
+        "component": "centerline",
+        "hierarchy": "lane",
+        "mode": "shared",
+        "width_m": 6.0,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1635531,
+            39.9523078
+          ],
+          [
+            -75.1635531,
+            39.952739
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-1",
+      "properties": {
+        "id": "e-approach-1",
+        "label": "1 Street\u2192Path",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 2.0,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632484,
+            39.9522359
+          ],
+          [
+            -75.1632484,
+            39.9522988
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-2",
+      "properties": {
+        "id": "e-approach-2",
+        "label": "2 Path\u2192Court",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 2.0,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632484,
+            39.9522988
+          ],
+          [
+            -75.1632484,
+            39.9523617
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-3",
+      "properties": {
+        "id": "e-approach-3",
+        "label": "3 Court\u2192Door",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632484,
+            39.9523617
+          ],
+          [
+            -75.1633188,
+            39.9523976
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-in-hall",
+      "properties": {
+        "id": "e-in-hall",
+        "label": "Enter hall",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.0,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1633188,
+            39.9523976
+          ],
+          [
+            -75.1633305,
+            39.9524336
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-hall-liv",
+      "properties": {
+        "id": "e-hall-liv",
+        "label": "Public\u2192living",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 0.9,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1633305,
+            39.9524336
+          ],
+          [
+            -75.1631899,
+            39.9524336
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-liv-bed",
+      "properties": {
+        "id": "e-liv-bed",
+        "label": "Living\u2192private",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 0.9,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1631899,
+            39.9524336
+          ],
+          [
+            -75.1631899,
+            39.9524964
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-to-green",
+      "properties": {
+        "id": "e-to-green",
+        "label": "To shared green",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1631899,
+            39.9524336
+          ],
+          [
+            -75.1631078,
+            39.9524695
+          ],
+          [
+            -75.1630727,
+            39.9525414
+          ]
+        ]
+      }
+    }
+  ]
+}

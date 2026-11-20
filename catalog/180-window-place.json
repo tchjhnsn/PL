@@ -31,5 +31,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 180
-  }
+  },
+  "uses": [
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://textbookofarchitecture.com/rule/light-on-two-sides",
+      "title": "Light on two sides \u2014 Textbook of Architecture",
+      "note": "Window place as part of making daylight usable in the main room.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.livabl.com/articles/design/8-tips-designing-balconies-people-will-actually-use",
+      "title": "8 tips for designing balconies people will actually use",
+      "note": "Adjacent outdoor edge and seating depth as companions to a usable window place.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seed District — plan symbology</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <header class="rail-head">
+        <p class="brand">Seed District</p>
+        <p class="lede">
+          2D plan symbology: places, directed flow, measures, door/window marks.
+          Entry-level view is the <a href="index.html">WebGL district</a>.
+        </p>
+        <p class="owned">
+          Rendering profile we own:
+          <code>pattern-language.plan-symbology</code>
+        </p>
+      </header>
+
+      <section class="rail-section">
+        <h2>View</h2>
+        <div class="view-toggle">
+          <button type="button" class="chip is-active" data-view="district">District</button>
+          <button type="button" class="chip" data-view="house">House A plan</button>
+          <button type="button" class="chip" data-view="figure">Figure–ground</button>
+        </div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Flow network</h2>
+        <p class="soft">Centerlines. Arrowheads are directed flow. Thickness follows hierarchy.</p>
+        <ul id="flow-list" class="side-list"></ul>
+      </section>
+
+      <section class="rail-section">
+        <h2>Measures</h2>
+        <p class="soft">Named distances. The plan labels each one as a dimension string.</p>
+        <ul id="measure-list" class="side-list"></ul>
+      </section>
+
+      <section class="rail-section">
+        <h2>Patterns</h2>
+        <p class="soft">Select a pattern to draw its diagram on the plan.</p>
+        <div id="pattern-list" class="pattern-list"></div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Selected</h2>
+        <div id="inspector" class="inspector">
+          <p class="soft">Click a place, opening, flow edge, or dimension.</p>
+        </div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Concept graph</h2>
+        <p class="soft"><a href="concepts.html">Browse dependencies &amp; siblings</a></p>
+      </section>
+    </aside>
+
+    <main class="stage">
+      <div class="sheet">
+        <div class="sheet-meta">
+          <span>Plan · metres · N ↑ · SpatialStructure</span>
+          <span id="sheet-title">Seed District</span>
+          <span class="scale">1 : <span id="scale-label">250</span></span>
+        </div>
+        <svg id="plan" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architectural plan of the seed district"></svg>
+        <div class="legend" aria-label="Symbol legend">
+          <div><svg width="28" height="14"><rect x="1" y="4" width="26" height="6" class="leg-street"/></svg> Street</div>
+          <div><svg width="28" height="14"><rect x="1" y="2" width="26" height="10" class="leg-green"/></svg> Outdoor</div>
+          <div><svg width="28" height="14"><rect x="2" y="2" width="24" height="10" class="leg-mass"/></svg> Building mass</div>
+          <div><svg width="28" height="14"><path d="M4 12 L4 4 A8 8 0 0 1 12 12 Z" class="leg-door"/><line x1="4" y1="4" x2="4" y2="12" class="leg-door"/></svg> Door</div>
+          <div><svg width="28" height="14"><line x1="2" y1="7" x2="26" y2="7" class="leg-wall"/><line x1="10" y1="3" x2="10" y2="11" class="leg-win"/><line x1="18" y1="3" x2="18" y2="11" class="leg-win"/></svg> Window</div>
+          <div><svg width="28" height="14"><circle cx="14" cy="7" r="5.5" class="leg-canopy"/><circle cx="14" cy="7" r="1.2" class="leg-trunk"/></svg> Tree</div>
+          <div><svg width="36" height="14" viewBox="0 0 36 14"><line x1="1" y1="7" x2="24" y2="7" class="leg-flow"/><path d="M22 3.2 L34 7 L22 10.8 Z" class="leg-flow-head"/></svg> Street flow</div>
+          <div><svg width="36" height="14" viewBox="0 0 36 14"><line x1="4" y1="2" x2="4" y2="12" class="leg-dim"/><line x1="32" y1="2" x2="32" y2="12" class="leg-dim"/><line x1="4" y1="7" x2="32" y2="7" class="leg-dim"/><line x1="4" y1="4.2" x2="8" y2="9.8" class="leg-dim"/><line x1="28" y1="4.2" x2="32" y2="9.8" class="leg-dim"/></svg> Dimension</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="plan.js" type="module"></script>
+</body>
+</html>

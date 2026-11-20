@@ -1,0 +1,18 @@
+{
+  "name": "pl-e2e-effect",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "e2e": "bun run src/cli.ts",
+    "e2e:headless": "bun run src/cli.ts headless",
+    "e2e:live": "bun run src/cli.ts live"
+  },
+  "dependencies": {
+    "effect": "^3.16.12"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.8.3"
+  }
+}

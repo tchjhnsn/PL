@@ -16,7 +16,11 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `fixtures/` | `pass-house.ifc`, `fail-house.ifc`, and a sibling `.expected.json` for each. Generated. Not scanned by the gate. |
 | `runs/` | Timestamped run directories. Empty apart from `.gitkeep` until `drive_run.py` writes one. Not scanned by the gate. |
 | `mcp/` | `server.py`, a stdio MCP server. No `__init__.py`. The SDK owns the `mcp` import. |
-| `adapters/blender/` | Blender add-on: panel, `Session`, and `export_ifc`. `bpy` stays in this directory. |
+| `adapters/blender/` | Blender add-on: panel, `Session`, and `export_ifc` (Bonsai save-as via `bpy.ops.bim`). `bpy` stays in this directory. |
+| `tools/e2e-effect/` | Effect-TS CLI wrapping `pl` / `drive_run` (headless + live). See `docs/design/E2E-BONSAI-EFFECT.md`. |
+| `demo/` | WebGL entry (Three.js SpatialStructure) + SVG plan + concept browser (`python3 demo/serve.py` → http://127.0.0.1:8765/). Blender is optional; see `docs/design/WEBGL-ENTRY.md`. |
+| `schema/ontology/` | Shared term definitions (`term.*`) linked from catalog `uses`. |
+| `docs/design/SATISFACTION.md` | When `satisfied` is legal: orientation frame, tags, elevation. |
 | `src/pattern_language/gate.py` | `DirectorySchemaMap`, frozen `CatalogScan`, and `scan(root)`. |
 | `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |
@@ -68,7 +72,7 @@ That process reads stdin until the client closes it. `uv run pytest` is the clie
 
 `prefix` copies named spaces and openings out of the pass-house tables. `_pass_house` is `prefix` of every name. `record_run` checks that `sequence` on the seed project is `105, 106, 107, 110, 112, 127, 128, 130, 159, 167, 180, 190`, writes `model-00.ifc` through `model-12.ifc`, and calls `record_step` twelve times. Each step is `python -m pattern_language.cli step` with `--out`. Exit 1 raises `RunError` and the driver deletes the directory. `report.json` is `pl check` on `model-12.ifc`. The ten computed patterns are `satisfied`. 110 Main Entrance and 180 Window Place are `needs_judgment` and stay out of `satisfied`. Every logged step has `preserved` true. `model-12.ifc` reads back as the pass house.
 
-`adapters/blender/` holds the add-on. The panel draws `report_lines` from the newest `report.json`, or `report unavailable`. `Session.act` is the transition table. `export_ifc` raises. `bridge.py` is the only file that imports `bonsai`. The live path is `adapters/blender/README.md`. CI runs `drive_run.py --check` and does not launch Blender. U7 adds no schema, no Lean file, and no `pl` command.
+`adapters/blender/` holds the add-on. The panel draws `report_lines` from the newest `report.json`, or `report unavailable`. `Session.act` is the transition table. `export_ifc` calls `bpy.ops.bim.save_project`. `bridge.py` is the only file that imports `bonsai`. The live path is `adapters/blender/README.md`. CI runs `drive_run.py --check` and does not launch Blender. U7 adds no schema, no Lean file, and no `pl` command.
 
 ```bash
 uv run python scripts/drive_run.py --check
