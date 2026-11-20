@@ -176,6 +176,11 @@ body {
 .fg-solid { fill: #111814; stroke: none; }
 .fg-void { fill: #fbfaf6; stroke: #c8c2b6; stroke-width: 0.08; }
 .green-fill { fill: var(--green); stroke: var(--green-edge); stroke-width: 0.12; stroke-dasharray: 0.4 0.25; }
+.land-fill { fill: #c5d4b8; stroke: #6a7a5e; stroke-width: 0.14; }
+.foundation-fill { fill: #b8b0a4; stroke: #6a645c; stroke-width: 0.16; }
+.gravel-fill { fill: #d4cec2; stroke: #8a8478; stroke-width: 0.1; stroke-dasharray: 0.25 0.2; }
+.pond-fill { fill: rgba(70, 130, 160, 0.55); stroke: #3a6a82; stroke-width: 0.14; }
+.tree-canopy.evergreen { fill: rgba(50, 100, 60, 0.4); stroke: #2f5a38; }
 .path-fill { fill: var(--path); stroke: #a09078; stroke-width: 0.1; }
 .room-fill { fill: var(--room); stroke: none; }
 .room-fill.living { fill: var(--living); }

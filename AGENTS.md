@@ -69,7 +69,7 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 
 ## U6
 
-`mcp/server.py` speaks MCP on stdio. The tools are `patterns_search`, `pattern_get`, `language_sequence`, `model_check`, and `model_step`. Search and lookup call `search`, `get`, and `pattern_record`. The other three call `sequence`, `run`, and `build_step` and return that JSON. Arguments and results are checked against the schema documents already in `schema/`. A violated check-report, and a step whose `preserved` is false, are successful tool results. 110 Main Entrance and 180 Window Place stay `needs_judgment` and stay out of `satisfied`. `tests/test_mcp.py` spawns `python mcp/server.py` and calls each tool on `fixtures/pass-house.ifc`, `fixtures/fail-house.ifc`, and `projects/seed-house.json`. Pass house then fail house, pattern 112, returns `preserved` false. There is no `mcp/__init__.py` and no new `pl` command.
+`mcp/server.py` speaks MCP on stdio. The tools are `patterns_search`, `pattern_get`, `language_sequence`, `model_check`, `model_step`, `spatial_get`, and `model_measures`. Search and lookup call `search`, `get`, and `pattern_record`. Sequence/check/step call `sequence`, `run`, and `build_step`. Spatial tools call `load_spatial` / measure helpers. Arguments and results are checked against the schema documents already in `schema/`. A violated check-report, and a step whose `preserved` is false, are successful tool results. 110 Main Entrance and 180 Window Place stay `needs_judgment` and stay out of `satisfied`. `tests/test_mcp.py` spawns `python mcp/server.py` and calls each tool on `fixtures/pass-house.ifc`, `fixtures/fail-house.ifc`, `projects/seed-house.json`, and `demo/data/plan-model.json`. Pass house then fail house, pattern 112, returns `preserved` false. There is no `mcp/__init__.py` and no new `pl` command.
 
 ```bash
 uv run python mcp/server.py
@@ -108,6 +108,15 @@ uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json
 uv run pl check fixtures/fail-house.ifc --language projects/seed-house.json
 ```
 
+## U10
+
+`mcp/server.py` adds `spatial_get` and `model_measures` over SpatialStructure (`docs/design/U10-SPATIAL-MCP.md`). CI runs `scripts/lint_spatial.py`. Plan symbology draws land/foundation/pond/gravel and evergreen tree marks. No new `pl` command, Lean edit, or Blender change.
+
+```bash
+uv run pytest tests/test_mcp.py tests/test_spatial_lint.py
+uv run python scripts/lint_spatial.py
+```
+
 ## Commands
 
 ```bash
@@ -133,5 +142,5 @@ CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_cat
 - Core Python must not import `bpy`. `bpy` may be imported only under `adapters/blender/`. `bonsai` may be imported only in `adapters/blender/bridge.py`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only.
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only. U10 adds `spatial_get` / `model_measures` MCP tools and CI spatial lint.
 - Agents open draft pull requests and do not merge.

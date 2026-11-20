@@ -154,17 +154,48 @@ function drawWindow(g, win, hot) {
 }
 
 function drawTree(g, tree, hot) {
-  const group = el("g", { class: `hit tree ${hot}`, "data-id": tree.id, "data-kind": "tree" });
+  const evergreen = tree.form === "evergreen";
+  const group = el("g", {
+    class: `hit tree ${evergreen ? "evergreen" : ""} ${hot}`,
+    "data-id": tree.id,
+    "data-kind": "tree",
+  });
   const r = tree.canopy;
-  const lobes = [];
-  for (let i = 0; i < 8; i++) {
-    const a = (i / 8) * Math.PI * 2;
-    const rr = r * (0.82 + 0.18 * Math.sin(i * 2.1 + tree.x));
-    lobes.push([tree.x + Math.cos(a) * rr, tree.y + Math.sin(a) * rr]);
+  if (evergreen) {
+    // Needle canopy: layered triangles (plan symbology for pine/evergreen).
+    const tips = [
+      [tree.x, tree.y + r],
+      [tree.x - r * 0.75, tree.y - r * 0.35],
+      [tree.x + r * 0.75, tree.y - r * 0.35],
+    ];
+    group.appendChild(
+      el("polygon", {
+        points: tips.map(([x, y]) => `${x},${-y}`).join(" "),
+        class: "tree-canopy evergreen",
+      }),
+    );
+    const mid = [
+      [tree.x, tree.y + r * 0.45],
+      [tree.x - r * 0.95, tree.y - r * 0.55],
+      [tree.x + r * 0.95, tree.y - r * 0.55],
+    ];
+    group.appendChild(
+      el("polygon", {
+        points: mid.map(([x, y]) => `${x},${-y}`).join(" "),
+        class: "tree-canopy evergreen",
+      }),
+    );
+  } else {
+    const lobes = [];
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      const rr = r * (0.82 + 0.18 * Math.sin(i * 2.1 + tree.x));
+      lobes.push([tree.x + Math.cos(a) * rr, tree.y + Math.sin(a) * rr]);
+    }
+    group.appendChild(
+      el("polygon", { points: lobes.map(([x, y]) => `${x},${-y}`).join(" "), class: "tree-canopy" }),
+    );
   }
-  group.appendChild(
-    el("polygon", { points: lobes.map(([x, y]) => `${x},${-y}`).join(" "), class: "tree-canopy" }),
-  );
   group.appendChild(el("circle", { cx: tree.x, cy: -tree.y, r: tree.trunk, class: "tree-trunk" }));
   g.appendChild(group);
 }
@@ -578,7 +609,7 @@ function render() {
   const root = el("g", { id: "drawing" });
 
   const figureMode = view === "figure";
-  const kindRank = { void: 0, path: 1, solid: 2, room: 3 };
+  const kindRank = { land: 0, void: 1, path: 2, foundation: 3, solid: 4, room: 5 };
   const places = [...plan.places].sort(
     (a, b) => (kindRank[a.kind] ?? 9) - (kindRank[b.kind] ?? 9),
   );
@@ -590,10 +621,19 @@ function render() {
     let cls = "room-fill";
     if (figureMode) {
       cls = p.kind === "solid" || p.kind === "room" ? "fg-solid" : "fg-void";
-    } else if (p.kind === "void" && p.component === "street") cls = "street-fill";
+    } else if (p.component === "pond" || p.roles?.includes("pond") || p.roles?.includes("water"))
+      cls = "pond-fill";
+    else if (p.roles?.includes("gravel") || p.component === "ground-cover") cls = "gravel-fill";
+    else if (p.kind === "land" && (p.roles?.includes("lot") || p.roles?.includes("parcel")))
+      cls = "land-fill";
+    else if (p.kind === "foundation") cls = "foundation-fill";
+    else if (p.kind === "void" && p.component === "street") cls = "street-fill";
     else if (p.component === "sidewalk" || p.roles?.includes("sidewalk")) cls = "sidewalk-fill";
     else if (p.component === "carriageway" || p.roles?.includes("carriageway")) cls = "street-fill";
-    else if (p.kind === "void" && (p.component === "court" || p.component === "balcony"))
+    else if (
+      p.kind === "void" &&
+      (p.component === "court" || p.component === "balcony" || p.roles?.includes("green"))
+    )
       cls = p.component === "balcony" ? "balcony-fill" : "green-fill";
     else if (p.kind === "path") cls = "path-fill";
     else if (p.kind === "solid") cls = "mass-fill";
