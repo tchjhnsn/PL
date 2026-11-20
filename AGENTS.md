@@ -27,7 +27,8 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `src/pattern_language/catalog.py` | `load_catalog`, `search`, `get`, `pattern_record`, `Catalog`, and `CatalogLoadError`. |
 | `src/pattern_language/topology.py` | Frozen `Topology`, `Zone`, `Opening`, `Adjacency`, and `Boundary`. `read_ifc` / `write_ifc` are the only functions that import `ifcopenshell`. |
 | `src/pattern_language/spatial_structure.py` | `load_spatial` (schema-validated), `places_with_role`, `measure_of` / `clear_width`, network edge helpers. No IFC / bpy. |
-| `src/pattern_language/conditions/` | `CHECKS` and one module per computed check id. Pure: no file I/O and no IFC types. |
+| `src/pattern_language/conditions/` | `CHECKS` and one module per computed check id. Pure: no file I/O and no IFC types. `plan_clearance.meets_clear_width` is a plan helper, not a registry entry. |
+| `docs/design/U9-MEASURE-CONDITIONS.md` | U9 contract: plan clear-width reading for 167 without changing `pl check`. |
 | `src/pattern_language/parameters.py` | `load_project` and `params_for`. |
 | `src/pattern_language/checker.py` | `run` writes a check-report and validates it against `schema/check-report.schema.json`. |
 | `src/pattern_language/sequence.py` | `index_before`, `order_ok`, `smaller_edges`, and `sequence`. Does not import the checker. |
@@ -94,6 +95,16 @@ uv run python demo/build_district.py
 python3 scripts/build_spatial_graph.py && python3 scripts/check_spatial_graph.py
 ```
 
+## U9
+
+`conditions/plan_clearance.py` defines `meets_clear_width(plan, place_id, minimum_m)` for SpatialStructure plans. It is **not** a `CHECKS` entry: 167 Six-Foot Balcony still goes through `six_foot_balcony.check` on Topology. The helper returns `True` / `False` / `None` from `clear_width` only; it opens no file and does not build Evidence. `evaluate` / `pl check` stay Topology-only. Contract: `docs/design/U9-MEASURE-CONDITIONS.md`. No new schema, Lean edit, MCP tool, or `pl` command.
+
+```bash
+uv run pytest tests/test_checks.py tests/test_spatial_structure.py tests/test_boundaries.py
+uv run pl check fixtures/pass-house.ifc --language projects/seed-house.json
+uv run pl check fixtures/fail-house.ifc --language projects/seed-house.json
+```
+
 ## Commands
 
 ```bash
@@ -119,5 +130,5 @@ CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_cat
 - Core Python must not import `bpy`. `bpy` may be imported only under `adapters/blender/`. `bonsai` may be imported only in `adapters/blender/bridge.py`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool.
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only.
 - Agents open draft pull requests and do not merge.

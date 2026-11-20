@@ -1,6 +1,6 @@
 # U9 — Measure conditions
 
-Sketch. A condition may read a frozen `Topology` or a SpatialStructure plan. This document is the contract. `CHECKS` still maps each catalog check id to the Topology function from U4. The plan reading is a private helper.
+Contract (accepted). A condition may read a frozen `Topology` or a SpatialStructure plan. `CHECKS` still maps each catalog check id to the Topology function from U4. The plan reading is a private helper (`meets_clear_width`); wiring that helper into `evaluate` is a later unit.
 
 ## Goal
 
