@@ -13,7 +13,7 @@
   "extent": {
     "min_x": -2,
     "min_y": -2,
-    "max_x": 124,
+    "max_x": 154,
     "max_y": 78
   },
   "places": [
@@ -28,11 +28,11 @@
           0
         ],
         [
-          120,
+          150,
           0
         ],
         [
-          120,
+          150,
           8
         ],
         [
@@ -65,11 +65,11 @@
           0
         ],
         [
-          120,
+          150,
           0
         ],
         [
-          120,
+          150,
           5.5
         ],
         [
@@ -101,11 +101,11 @@
           5.5
         ],
         [
-          120,
+          150,
           5.5
         ],
         [
-          120,
+          150,
           8
         ],
         [
@@ -172,11 +172,11 @@
           48
         ],
         [
-          120,
+          150,
           48
         ],
         [
-          120,
+          150,
           52
         ],
         [
@@ -210,11 +210,11 @@
           48
         ],
         [
-          120,
+          150,
           48
         ],
         [
-          120,
+          150,
           50.5
         ],
         [
@@ -246,11 +246,11 @@
           50.5
         ],
         [
-          120,
+          150,
           50.5
         ],
         [
-          120,
+          150,
           52
         ],
         [
@@ -321,11 +321,11 @@
           70
         ],
         [
-          120,
+          150,
           70
         ],
         [
-          120,
+          150,
           74
         ],
         [
@@ -343,7 +343,7 @@
         105,
         106
       ],
-      "role": "East\u2013west local street closing the north edge of the 2\u00d72 city grid.",
+      "role": "East\u2013west local street closing the north edge of the city grid.",
       "parent": null,
       "enclosure_hw": 0.45,
       "stage": "land"
@@ -485,6 +485,40 @@
       "stage": "land"
     },
     {
+      "id": "block-far-east",
+      "label": "Far East Block",
+      "component": "block",
+      "kind": "land",
+      "ring": [
+        [
+          114,
+          10
+        ],
+        [
+          144,
+          10
+        ],
+        [
+          144,
+          36
+        ],
+        [
+          114,
+          36
+        ]
+      ],
+      "roles": [
+        "block"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Fifth block east of East Block \u2014 stamped from the frontage-lot kit.",
+      "parent": "district-seed",
+      "stage": "land"
+    },
+    {
       "id": "district-seed",
       "label": "Seed City",
       "component": "district",
@@ -495,11 +529,11 @@
           0
         ],
         [
-          120,
+          150,
           0
         ],
         [
-          120,
+          150,
           76
         ],
         [
@@ -516,7 +550,7 @@
         105,
         106
       ],
-      "role": "2\u00d72 block city fragment \u2014 four blocks, Main / Cross / East / North streets.",
+      "role": "Growing city fragment \u2014 block grid on Main / Cross / East / North.",
       "parent": null,
       "stage": "survey"
     },
@@ -2251,6 +2285,356 @@
       "parent": "found-h",
       "height_m": 5.5,
       "stage": "frame"
+    },
+    {
+      "id": "lot-i",
+      "label": "Lot I",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          114,
+          10
+        ],
+        [
+          128,
+          10
+        ],
+        [
+          128,
+          32
+        ],
+        [
+          114,
+          32
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel",
+        "living"
+      ],
+      "patterns": [],
+      "role": "Parcel on block-far-east facing street-main.",
+      "parent": "block-far-east",
+      "stage": "land"
+    },
+    {
+      "id": "found-i",
+      "label": "Foundation I",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          116,
+          16
+        ],
+        [
+          126,
+          16
+        ],
+        [
+          126,
+          30
+        ],
+        [
+          116,
+          30
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for massing I.",
+      "parent": "lot-i",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "i-court",
+      "label": "Front Court I",
+      "component": "court",
+      "kind": "void",
+      "ring": [
+        [
+          116,
+          10
+        ],
+        [
+          126,
+          10
+        ],
+        [
+          126,
+          16
+        ],
+        [
+          116,
+          16
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Street front court on Lot I.",
+      "parent": "lot-i",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "house-i",
+      "label": "Massing I",
+      "component": "massing",
+      "kind": "solid",
+      "ring": [
+        [
+          116,
+          16
+        ],
+        [
+          126,
+          16
+        ],
+        [
+          126,
+          30
+        ],
+        [
+          116,
+          30
+        ]
+      ],
+      "roles": [
+        "building",
+        "massing"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Frame-stage massing on Foundation I.",
+      "parent": "found-i",
+      "height_m": 6.0,
+      "stage": "frame"
+    },
+    {
+      "id": "path-approach-i",
+      "label": "Approach Path I",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          119,
+          8
+        ],
+        [
+          123,
+          8
+        ],
+        [
+          123,
+          10
+        ],
+        [
+          119,
+          10
+        ]
+      ],
+      "roles": [
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Stub into Court I.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "lot-j",
+      "label": "Lot J",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          130,
+          10
+        ],
+        [
+          144,
+          10
+        ],
+        [
+          144,
+          32
+        ],
+        [
+          130,
+          32
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel",
+        "living"
+      ],
+      "patterns": [],
+      "role": "Parcel on block-far-east facing street-main.",
+      "parent": "block-far-east",
+      "stage": "land"
+    },
+    {
+      "id": "found-j",
+      "label": "Foundation J",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          132,
+          16
+        ],
+        [
+          142,
+          16
+        ],
+        [
+          142,
+          30
+        ],
+        [
+          132,
+          30
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for massing J.",
+      "parent": "lot-j",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "j-court",
+      "label": "Front Court J",
+      "component": "court",
+      "kind": "void",
+      "ring": [
+        [
+          132,
+          10
+        ],
+        [
+          142,
+          10
+        ],
+        [
+          142,
+          16
+        ],
+        [
+          132,
+          16
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Street front court on Lot J.",
+      "parent": "lot-j",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "house-j",
+      "label": "Massing J",
+      "component": "massing",
+      "kind": "solid",
+      "ring": [
+        [
+          132,
+          16
+        ],
+        [
+          142,
+          16
+        ],
+        [
+          142,
+          30
+        ],
+        [
+          132,
+          30
+        ]
+      ],
+      "roles": [
+        "building",
+        "massing"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Frame-stage massing on Foundation J.",
+      "parent": "found-j",
+      "height_m": 5.5,
+      "stage": "frame"
+    },
+    {
+      "id": "path-approach-j",
+      "label": "Approach Path J",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          135,
+          8
+        ],
+        [
+          139,
+          8
+        ],
+        [
+          139,
+          10
+        ],
+        [
+          135,
+          10
+        ]
+      ],
+      "roles": [
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Stub into Court J.",
+      "parent": null,
+      "stage": "land"
     }
   ],
   "walls": [
@@ -2745,6 +3129,78 @@
         56
       ],
       "thickness": 0.2
+    },
+    {
+      "id": "w-i-court-s",
+      "a": [
+        116,
+        10
+      ],
+      "b": [
+        126,
+        10
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-i-court-w",
+      "a": [
+        116,
+        10
+      ],
+      "b": [
+        116,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-i-court-e",
+      "a": [
+        126,
+        10
+      ],
+      "b": [
+        126,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-j-court-s",
+      "a": [
+        132,
+        10
+      ],
+      "b": [
+        142,
+        10
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-j-court-w",
+      "a": [
+        132,
+        10
+      ],
+      "b": [
+        132,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-j-court-e",
+      "a": [
+        142,
+        10
+      ],
+      "b": [
+        142,
+        16
+      ],
+      "thickness": 0.2
     }
   ],
   "openings": [
@@ -3032,6 +3488,40 @@
       "role": "West light \u2014 second side.",
       "parent": "a-bedroom",
       "facing": "west"
+    },
+    {
+      "id": "i-door-approach",
+      "label": "Court Gate I",
+      "component": "door",
+      "x": 121,
+      "y": 10,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "ccw",
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Garden-wall gate into Front Court I.",
+      "parent": "i-court"
+    },
+    {
+      "id": "j-door-approach",
+      "label": "Court Gate J",
+      "component": "door",
+      "x": 137,
+      "y": 10,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "ccw",
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Garden-wall gate into Front Court J.",
+      "parent": "j-court"
     }
   ],
   "trees": [
@@ -3157,7 +3647,7 @@
       },
       {
         "id": "n-e",
-        "x": 118,
+        "x": 148,
         "y": 2.75,
         "kind": "intersection",
         "label": "E"
@@ -3188,7 +3678,7 @@
       },
       {
         "id": "n-sw-e",
-        "x": 118,
+        "x": 148,
         "y": 6.75,
         "kind": "place",
         "place": "sidewalk-main-n",
@@ -3252,7 +3742,7 @@
       },
       {
         "id": "n-north-e",
-        "x": 118,
+        "x": 148,
         "y": 72,
         "kind": "intersection",
         "label": "North E"
@@ -3266,7 +3756,7 @@
       },
       {
         "id": "n-cross-e",
-        "x": 118,
+        "x": 148,
         "y": 49.25,
         "kind": "intersection",
         "label": "Cross E"
@@ -3550,6 +4040,70 @@
         "kind": "address",
         "place": "house-h",
         "label": "Address H"
+      },
+      {
+        "id": "n-sw-i",
+        "x": 121,
+        "y": 6.75,
+        "kind": "place",
+        "place": "sidewalk-main-n",
+        "label": "SW@I"
+      },
+      {
+        "id": "n-path-i",
+        "x": 121,
+        "y": 8.375,
+        "kind": "place",
+        "place": "path-approach-i",
+        "label": "Path I"
+      },
+      {
+        "id": "n-court-i",
+        "x": 121,
+        "y": 13.0,
+        "kind": "place",
+        "place": "i-court",
+        "label": "Court I"
+      },
+      {
+        "id": "n-addr-i",
+        "x": 121,
+        "y": 16,
+        "kind": "address",
+        "place": "house-i",
+        "label": "Address I"
+      },
+      {
+        "id": "n-sw-j",
+        "x": 137,
+        "y": 6.75,
+        "kind": "place",
+        "place": "sidewalk-main-n",
+        "label": "SW@J"
+      },
+      {
+        "id": "n-path-j",
+        "x": 137,
+        "y": 8.375,
+        "kind": "place",
+        "place": "path-approach-j",
+        "label": "Path J"
+      },
+      {
+        "id": "n-court-j",
+        "x": 137,
+        "y": 13.0,
+        "kind": "place",
+        "place": "j-court",
+        "label": "Court J"
+      },
+      {
+        "id": "n-addr-j",
+        "x": 137,
+        "y": 16,
+        "kind": "address",
+        "place": "house-j",
+        "label": "Address J"
       }
     ],
     "edges": [
@@ -3608,7 +4162,7 @@
             2.75
           ],
           [
-            118,
+            148,
             2.75
           ]
         ]
@@ -3668,7 +4222,7 @@
             6.75
           ],
           [
-            118,
+            148,
             6.75
           ]
         ]
@@ -3828,7 +4382,7 @@
             72
           ],
           [
-            118,
+            148,
             72
           ]
         ]
@@ -3908,7 +4462,7 @@
             50
           ],
           [
-            118,
+            148,
             49.25
           ]
         ]
@@ -4576,6 +5130,126 @@
             51.25
           ]
         ]
+      },
+      {
+        "id": "e-approach-i-1",
+        "a": "n-sw-i",
+        "b": "n-path-i",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 2.0,
+        "directed": true,
+        "label": "Sidewalk\u2192Path I",
+        "polyline": [
+          [
+            121,
+            6.75
+          ],
+          [
+            121,
+            8.375
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-i-2",
+        "a": "n-path-i",
+        "b": "n-court-i",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Path\u2192Court I",
+        "polyline": [
+          [
+            121,
+            8.375
+          ],
+          [
+            121,
+            13.0
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-i-3",
+        "a": "n-court-i",
+        "b": "n-addr-i",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court\u2192Address I",
+        "polyline": [
+          [
+            121,
+            13.0
+          ],
+          [
+            121,
+            16
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-j-1",
+        "a": "n-sw-j",
+        "b": "n-path-j",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 2.0,
+        "directed": true,
+        "label": "Sidewalk\u2192Path J",
+        "polyline": [
+          [
+            137,
+            6.75
+          ],
+          [
+            137,
+            8.375
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-j-2",
+        "a": "n-path-j",
+        "b": "n-court-j",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Path\u2192Court J",
+        "polyline": [
+          [
+            137,
+            8.375
+          ],
+          [
+            137,
+            13.0
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-j-3",
+        "a": "n-court-j",
+        "b": "n-addr-j",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court\u2192Address J",
+        "polyline": [
+          [
+            137,
+            13.0
+          ],
+          [
+            137,
+            16
+          ]
+        ]
       }
     ]
   },
@@ -5026,16 +5700,16 @@
         40
       ],
       "b": [
-        120,
+        150,
         40
       ],
-      "value_m": 120.0,
+      "value_m": 150.0,
       "kind": "width",
       "of": "district-seed",
       "patterns": [
         105
       ],
-      "role": "2\u00d72 grid width along Main / Cross."
+      "role": "City width along Main / Cross."
     },
     {
       "id": "m-city-span-y",
@@ -5180,6 +5854,44 @@
       "of": "a-living",
       "patterns": [
         190
+      ]
+    },
+    {
+      "id": "m-frontage-i",
+      "label": "Lot I frontage",
+      "a": [
+        116,
+        10
+      ],
+      "b": [
+        126,
+        10
+      ],
+      "value_m": 10,
+      "kind": "frontage",
+      "of": "i-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-frontage-j",
+      "label": "Lot J frontage",
+      "a": [
+        132,
+        10
+      ],
+      "b": [
+        142,
+        10
+      ],
+      "value_m": 10,
+      "kind": "frontage",
+      "of": "j-court",
+      "patterns": [
+        105,
+        106
       ]
     }
   ],
@@ -5397,6 +6109,42 @@
         "a-court"
       ],
       "opening": "a-win-liv-s"
+    },
+    {
+      "id": "if-approach-i",
+      "kind": "door",
+      "between": [
+        "street-main",
+        "i-court"
+      ],
+      "opening": "i-door-approach"
+    },
+    {
+      "id": "if-front-i",
+      "kind": "frontage",
+      "between": [
+        "i-court",
+        "street-main"
+      ],
+      "length_m": 10
+    },
+    {
+      "id": "if-approach-j",
+      "kind": "door",
+      "between": [
+        "street-main",
+        "j-court"
+      ],
+      "opening": "j-door-approach"
+    },
+    {
+      "id": "if-front-j",
+      "kind": "frontage",
+      "between": [
+        "j-court",
+        "street-main"
+      ],
+      "length_m": 10
     }
   ],
   "interactions": [
@@ -5617,6 +6365,42 @@
       "kind": "shared-wall",
       "a": "a-hall",
       "b": "a-living"
+    },
+    {
+      "id": "ix-found-i-lot",
+      "kind": "sit-on",
+      "a": "found-i",
+      "b": "lot-i"
+    },
+    {
+      "id": "ix-mass-i",
+      "kind": "sit-on",
+      "a": "house-i",
+      "b": "found-i"
+    },
+    {
+      "id": "ix-i-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "i-court",
+      "b": "house-i"
+    },
+    {
+      "id": "ix-found-j-lot",
+      "kind": "sit-on",
+      "a": "found-j",
+      "b": "lot-j"
+    },
+    {
+      "id": "ix-mass-j",
+      "kind": "sit-on",
+      "a": "house-j",
+      "b": "found-j"
+    },
+    {
+      "id": "ix-j-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "j-court",
+      "b": "house-j"
     }
   ],
   "patterns": [

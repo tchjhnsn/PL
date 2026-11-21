@@ -25,11 +25,11 @@
               39.9522
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522719
             ],
             [
@@ -66,11 +66,11 @@
               39.9522
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522494
             ],
             [
@@ -109,11 +109,11 @@
               39.9522494
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522494
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522719
             ],
             [
@@ -192,11 +192,11 @@
               39.9526312
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9526312
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9526671
             ],
             [
@@ -233,11 +233,11 @@
               39.9526312
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9526312
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9526536
             ],
             [
@@ -276,11 +276,11 @@
               39.9526536
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9526536
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9526671
             ],
             [
@@ -345,7 +345,7 @@
         "label": "North Street ROW",
         "component": "street",
         "kind": "void",
-        "role": "East\u2013west local street closing the north edge of the 2\u00d72 city grid.",
+        "role": "East\u2013west local street closing the north edge of the city grid.",
         "patterns": [
           105,
           106
@@ -360,11 +360,11 @@
               39.9528288
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9528288
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9528648
             ],
             [
@@ -549,13 +549,55 @@
     },
     {
       "type": "Feature",
+      "id": "block-far-east",
+      "properties": {
+        "id": "block-far-east",
+        "label": "Far East Block",
+        "component": "block",
+        "kind": "land",
+        "role": "Fifth block east of East Block \u2014 stamped from the frontage-lot kit.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1622641,
+              39.9522898
+            ],
+            [
+              -75.1619125,
+              39.9522898
+            ],
+            [
+              -75.1619125,
+              39.9525234
+            ],
+            [
+              -75.1622641,
+              39.9525234
+            ],
+            [
+              -75.1622641,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "district-seed",
       "properties": {
         "id": "district-seed",
         "label": "Seed City",
         "component": "district",
         "kind": "land",
-        "role": "2\u00d72 block city fragment \u2014 four blocks, Main / Cross / East / North streets.",
+        "role": "Growing city fragment \u2014 block grid on Main / Cross / East / North.",
         "patterns": [
           105,
           106
@@ -570,11 +612,11 @@
               39.9522
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9522
             ],
             [
-              -75.1621938,
+              -75.1618422,
               39.9528827
             ],
             [
@@ -2606,6 +2648,416 @@
     },
     {
       "type": "Feature",
+      "id": "lot-i",
+      "properties": {
+        "id": "lot-i",
+        "label": "Lot I",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Parcel on block-far-east facing street-main.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1622641,
+              39.9522898
+            ],
+            [
+              -75.1621,
+              39.9522898
+            ],
+            [
+              -75.1621,
+              39.9524875
+            ],
+            [
+              -75.1622641,
+              39.9524875
+            ],
+            [
+              -75.1622641,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-i",
+      "properties": {
+        "id": "found-i",
+        "label": "Foundation I",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for massing I.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1622407,
+              39.9523437
+            ],
+            [
+              -75.1621235,
+              39.9523437
+            ],
+            [
+              -75.1621235,
+              39.9524695
+            ],
+            [
+              -75.1622407,
+              39.9524695
+            ],
+            [
+              -75.1622407,
+              39.9523437
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "i-court",
+      "properties": {
+        "id": "i-court",
+        "label": "Front Court I",
+        "component": "court",
+        "kind": "void",
+        "role": "Street front court on Lot I.",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1622407,
+              39.9522898
+            ],
+            [
+              -75.1621235,
+              39.9522898
+            ],
+            [
+              -75.1621235,
+              39.9523437
+            ],
+            [
+              -75.1622407,
+              39.9523437
+            ],
+            [
+              -75.1622407,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-i",
+      "properties": {
+        "id": "house-i",
+        "label": "Massing I",
+        "component": "massing",
+        "kind": "solid",
+        "role": "Frame-stage massing on Foundation I.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1622407,
+              39.9523437
+            ],
+            [
+              -75.1621235,
+              39.9523437
+            ],
+            [
+              -75.1621235,
+              39.9524695
+            ],
+            [
+              -75.1622407,
+              39.9524695
+            ],
+            [
+              -75.1622407,
+              39.9523437
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "path-approach-i",
+      "properties": {
+        "id": "path-approach-i",
+        "label": "Approach Path I",
+        "component": "path",
+        "kind": "path",
+        "role": "Stub into Court I.",
+        "patterns": [
+          110,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1622055,
+              39.9522719
+            ],
+            [
+              -75.1621586,
+              39.9522719
+            ],
+            [
+              -75.1621586,
+              39.9522898
+            ],
+            [
+              -75.1622055,
+              39.9522898
+            ],
+            [
+              -75.1622055,
+              39.9522719
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lot-j",
+      "properties": {
+        "id": "lot-j",
+        "label": "Lot J",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Parcel on block-far-east facing street-main.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1620766,
+              39.9522898
+            ],
+            [
+              -75.1619125,
+              39.9522898
+            ],
+            [
+              -75.1619125,
+              39.9524875
+            ],
+            [
+              -75.1620766,
+              39.9524875
+            ],
+            [
+              -75.1620766,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-j",
+      "properties": {
+        "id": "found-j",
+        "label": "Foundation J",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for massing J.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1620532,
+              39.9523437
+            ],
+            [
+              -75.161936,
+              39.9523437
+            ],
+            [
+              -75.161936,
+              39.9524695
+            ],
+            [
+              -75.1620532,
+              39.9524695
+            ],
+            [
+              -75.1620532,
+              39.9523437
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "j-court",
+      "properties": {
+        "id": "j-court",
+        "label": "Front Court J",
+        "component": "court",
+        "kind": "void",
+        "role": "Street front court on Lot J.",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1620532,
+              39.9522898
+            ],
+            [
+              -75.161936,
+              39.9522898
+            ],
+            [
+              -75.161936,
+              39.9523437
+            ],
+            [
+              -75.1620532,
+              39.9523437
+            ],
+            [
+              -75.1620532,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-j",
+      "properties": {
+        "id": "house-j",
+        "label": "Massing J",
+        "component": "massing",
+        "kind": "solid",
+        "role": "Frame-stage massing on Foundation J.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1620532,
+              39.9523437
+            ],
+            [
+              -75.161936,
+              39.9523437
+            ],
+            [
+              -75.161936,
+              39.9524695
+            ],
+            [
+              -75.1620532,
+              39.9524695
+            ],
+            [
+              -75.1620532,
+              39.9523437
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "path-approach-j",
+      "properties": {
+        "id": "path-approach-j",
+        "label": "Approach Path J",
+        "component": "path",
+        "kind": "path",
+        "role": "Stub into Court J.",
+        "patterns": [
+          110,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.162018,
+              39.9522719
+            ],
+            [
+              -75.1619711,
+              39.9522719
+            ],
+            [
+              -75.1619711,
+              39.9522898
+            ],
+            [
+              -75.162018,
+              39.9522898
+            ],
+            [
+              -75.162018,
+              39.9522719
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "e-main-1",
       "properties": {
         "id": "e-main-1",
@@ -2676,7 +3128,7 @@
             39.9522247
           ],
           [
-            -75.1622172,
+            -75.1618657,
             39.9522247
           ]
         ]
@@ -2754,7 +3206,7 @@
             39.9522606
           ],
           [
-            -75.1622172,
+            -75.1618657,
             39.9522606
           ]
         ]
@@ -2962,7 +3414,7 @@
             39.9528468
           ],
           [
-            -75.1622172,
+            -75.1618657,
             39.9528468
           ]
         ]
@@ -3066,7 +3518,7 @@
             39.9526492
           ],
           [
-            -75.1622172,
+            -75.1618657,
             39.9526424
           ]
         ]
@@ -3930,6 +4382,162 @@
           [
             -75.162393,
             39.9526604
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-i-1",
+      "properties": {
+        "id": "e-approach-i-1",
+        "label": "Sidewalk\u2192Path I",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 2.0,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1621821,
+            39.9522606
+          ],
+          [
+            -75.1621821,
+            39.9522752
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-i-2",
+      "properties": {
+        "id": "e-approach-i-2",
+        "label": "Path\u2192Court I",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1621821,
+            39.9522752
+          ],
+          [
+            -75.1621821,
+            39.9523168
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-i-3",
+      "properties": {
+        "id": "e-approach-i-3",
+        "label": "Court\u2192Address I",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1621821,
+            39.9523168
+          ],
+          [
+            -75.1621821,
+            39.9523437
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-j-1",
+      "properties": {
+        "id": "e-approach-j-1",
+        "label": "Sidewalk\u2192Path J",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 2.0,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1619946,
+            39.9522606
+          ],
+          [
+            -75.1619946,
+            39.9522752
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-j-2",
+      "properties": {
+        "id": "e-approach-j-2",
+        "label": "Path\u2192Court J",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1619946,
+            39.9522752
+          ],
+          [
+            -75.1619946,
+            39.9523168
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-j-3",
+      "properties": {
+        "id": "e-approach-j-3",
+        "label": "Court\u2192Address J",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1619946,
+            39.9523168
+          ],
+          [
+            -75.1619946,
+            39.9523437
           ]
         ]
       }

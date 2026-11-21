@@ -57,8 +57,10 @@ def test_roles() -> None:
     assert measure_value(plan, "m-frontage-rhythm-main") == 54.0
     assert measure_value(plan, "m-cross-width") == 4.0
     assert measure_value(plan, "m-enclosure-main") == 0.35
-    assert measure_value(plan, "m-city-span-x") == 120.0
-    assert len(places_with_role(plan, "block")) >= 4
+    assert measure_value(plan, "m-city-span-x") == 150.0
+    assert len(places_with_role(plan, "block")) >= 5
+    assert any(p["id"] == "lot-i" for p in plan["places"])
+    assert any(p["id"] == "lot-j" for p in plan["places"])
 
 
 def test_balcony_clear_width_meets_threshold() -> None:

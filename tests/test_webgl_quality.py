@@ -30,6 +30,12 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     html = (repo_root / "demo" / "index.html").read_text()
     assert 'id="sun-time"' in html
     assert 'id="bloom-toggle"' in html
+    assert "Seed City" in html
+    assert "Build order" in html
+    assert "Whole city" in html
+    assert "Semantic massing" not in html
+    assert "pl sequence" not in html
+    assert "Decided stage viewer" not in html
 
     assert "addPorch" in source
     assert "addStair" in source

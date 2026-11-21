@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Seed District — WebGL</title>
+  <title>Seed City</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     .webgl-app {
@@ -118,79 +118,74 @@
   <div class="webgl-app">
     <aside class="rail">
       <header class="rail-head">
-        <p class="brand">Seed District</p>
+        <p class="brand">Seed City</p>
         <p class="lede">
-          Decided stage viewer: survey and land first, then foundations,
-          frames, openings, and patterns. Semantic massing with site light —
-          not a photoreal house. Blender remains the finished path.
-        </p>
-        <p class="owned">
-          Process: <code>Decided</code> · Entry: <code>WebGL</code> · Advanced: Blender optional
+          Walk the city as it is built: land first, then pads, buildings,
+          doors and windows. Drag to look around.
         </p>
       </header>
 
       <section class="rail-section">
-        <h2>Decided stages</h2>
-        <p class="soft" id="stage-note">Survey unlocks land; foundations unlock frames.</p>
+        <h2>Build order</h2>
+        <p class="soft" id="stage-note">Choose a step to show what exists so far.</p>
         <div class="view-toggle" id="stage-list"></div>
       </section>
 
       <section class="rail-section">
-        <h2>Modes</h2>
+        <h2>View</h2>
         <div class="view-toggle">
-          <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">District</button>
+          <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">Whole city</button>
           <button type="button" class="chip" data-mode="house" aria-pressed="false">House A</button>
         </div>
       </section>
 
       <section class="rail-section" id="look-section">
-        <h2>Look</h2>
-        <p class="soft">Site light toward the archviz bar — still Decided massing, not a finished house.</p>
+        <h2>Light</h2>
         <label class="look-label" for="sun-time">Sun <span id="sun-time-label">midday</span></label>
         <input id="sun-time" type="range" min="0" max="100" value="28" aria-valuemin="0" aria-valuemax="100" />
         <label class="look-check">
           <input id="bloom-toggle" type="checkbox" checked />
-          Soft bloom
+          Soft glow
         </label>
       </section>
 
       <section class="rail-section">
-        <h2>Kinds</h2>
+        <h2>Colors</h2>
         <ul class="kind-legend">
-          <li><span class="status-dot kind-void"></span>Void</li>
-          <li><span class="status-dot kind-path"></span>Path / land</li>
-          <li><span class="status-dot kind-room"></span>Room / pad</li>
-          <li><span class="status-dot kind-solid"></span>Massing</li>
-          <li><span class="status-dot kind-focus"></span>Focus</li>
+          <li><span class="status-dot kind-void"></span>Street / court</li>
+          <li><span class="status-dot kind-path"></span>Path</li>
+          <li><span class="status-dot kind-room"></span>Room</li>
+          <li><span class="status-dot kind-solid"></span>Building</li>
+          <li><span class="status-dot kind-focus"></span>Highlighted</li>
         </ul>
       </section>
 
       <section class="rail-section" id="patterns-section">
         <h2>Patterns</h2>
-        <p class="soft">Unlocked at the Patterns stage. Focus lights related places.</p>
+        <p class="soft">Pick a pattern to highlight the places it cares about.</p>
         <div id="pattern-list" class="pattern-list"></div>
       </section>
 
       <section class="rail-section">
-        <h2>Selected</h2>
+        <h2>Selection</h2>
         <div id="inspector" class="inspector">
-          <p class="soft">Click a place in the 3D view.</p>
+          <p class="soft">Click a place in the view.</p>
         </div>
       </section>
 
       <section class="rail-section">
-        <h2>Also</h2>
+        <h2>More views</h2>
         <p class="soft">
           <a href="map.html">City map</a> ·
-          <a href="plan.html">2D plan (SVG)</a> ·
-          <a href="concepts.html">Concept graph</a>
+          <a href="plan.html">Floor plan</a> ·
+          <a href="concepts.html">Ideas graph</a>
         </p>
       </section>
     </aside>
 
     <main class="webgl-stage">
-      <canvas id="view" aria-label="WebGL seed district"></canvas>
-      <div class="webgl-hud" id="hud">drag to orbit · scroll to zoom</div>
+      <canvas id="view" aria-label="Seed city in 3D"></canvas>
+      <div class="webgl-hud" id="hud">drag to look · scroll to zoom</div>
     </main>
   </div>
   <script type="importmap">
@@ -201,6 +196,6 @@
     }
   }
   </script>
-  <script type="module" src="webgl.js?v=look"></script>
+  <script type="module" src="webgl.js?v=u22"></script>
 </body>
 </html>
