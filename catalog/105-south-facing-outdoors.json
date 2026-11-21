@@ -36,5 +36,24 @@
   "source": {
     "book": "A Pattern Language",
     "number": 105
-  }
+  },
+  "uses": [
+    "term.orientation-frame",
+    "term.outdoor",
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://architectureau.com/articles/Courtyard-House-by-Clare-Cousins-Architects/",
+      "title": "Courtyard House by Clare Cousins Architects",
+      "note": "U-plan house that puts the main outdoor court on the sunlit edge when the north wall is blocked.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://anderslasaterarchitects.com/anders-lasater-architects-projects/inside-out",
+      "title": "Inside Out \u2014 Anders Lasater Architects",
+      "note": "South-facing central courtyard organizing public and private outdoor rooms.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

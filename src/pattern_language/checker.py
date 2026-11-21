@@ -28,6 +28,7 @@ class PatternInstance:
     check: str | None = None
     passed: bool | None = None
     question: str | None = None
+    measured: tuple[tuple[str, str], ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -131,6 +132,7 @@ def evaluate(
                 status=status,
                 check=evidence.check,
                 passed=evidence.passed,
+                measured=evidence.measured,
             )
         )
     ordered = tuple(instances)
@@ -165,6 +167,10 @@ def _instance_json(item: PatternInstance) -> dict[str, Any]:
         evidence: dict[str, Any] = {"kind": "unanswered", "question": item.question}
     else:
         evidence = {"kind": "check", "check": item.check, "passed": item.passed}
+        if item.measured:
+            evidence["measured"] = [
+                {"name": name, "value": value} for name, value in item.measured
+            ]
     return {
         "centers": list(item.centers),
         "evidence": evidence,

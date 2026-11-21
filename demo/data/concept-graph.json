@@ -1,0 +1,5171 @@
+{
+  "id": "pattern-language.spatial-concept-graph",
+  "title": "Spatial concept knowledge graph",
+  "version": 1,
+  "description": "Exhaustive graph of spatial concepts for the pattern-language workbench: foundations, metric space, morphology, topology, city transportation, circulation, interaction, climate, place roles, language, and owned symbology. Edges: depends_on, parent_of, sibling_of, maps_to, specializes, renders_as.",
+  "status_legend": {
+    "have": "In topology/checks/demo today",
+    "partial": "Present but incomplete",
+    "todo": "Must codify next",
+    "placeholder": "Named; out of scope or thin"
+  },
+  "nodes": [
+    {
+      "id": "prim.point",
+      "name": "Point",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "ISO 19107",
+        "internal"
+      ],
+      "note": "2D/3D location"
+    },
+    {
+      "id": "prim.segment",
+      "name": "Segment",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "ISO 19107"
+      ],
+      "note": "Edge between two points"
+    },
+    {
+      "id": "prim.ring",
+      "name": "Ring / Polygon",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "ISO 19107",
+        "topology.py"
+      ],
+      "note": "Closed footprint"
+    },
+    {
+      "id": "prim.curve",
+      "name": "Curve / Polyline",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "ISO 19107",
+        "CityGML LoD0",
+        "plan-model network"
+      ],
+      "note": "Centerlines"
+    },
+    {
+      "id": "prim.frame",
+      "name": "Coordinate frame",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "EPSG",
+        "plan-model"
+      ],
+      "note": "North + units + optional CRS"
+    },
+    {
+      "id": "prim.north",
+      "name": "True / project north",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "topology north"
+      ],
+      "note": ""
+    },
+    {
+      "id": "prim.metre",
+      "name": "Metric measure",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "SI"
+      ],
+      "note": "Length unit"
+    },
+    {
+      "id": "prim.angle",
+      "name": "Bearing / angle",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "have",
+      "sources": [
+        "cardinal",
+        "wall_angle"
+      ],
+      "note": ""
+    },
+    {
+      "id": "prim.time",
+      "name": "Time / season",
+      "kind": "primitive",
+      "layer": "foundation",
+      "status": "placeholder",
+      "sources": [
+        "climate"
+      ],
+      "note": "For solar schedules later"
+    },
+    {
+      "id": "M1.frame",
+      "name": "Spatial frame",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "partial",
+      "sources": [
+        "plan-model"
+      ],
+      "note": "Alias of prim.frame in product"
+    },
+    {
+      "id": "M2.distance",
+      "name": "Distance",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "have",
+      "sources": [
+        "plan-model measures"
+      ],
+      "note": "Between points/edges/fronts"
+    },
+    {
+      "id": "M3.area",
+      "name": "Area",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [],
+      "note": "m\u00b2 of places/voids"
+    },
+    {
+      "id": "M4.clear_width",
+      "name": "Clear width / depth",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "have",
+      "sources": [
+        "167",
+        "107",
+        "measures"
+      ],
+      "note": "Usable span"
+    },
+    {
+      "id": "M5.height",
+      "name": "Height / section",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "have",
+      "sources": [
+        "Zone.height_m",
+        "190"
+      ],
+      "note": ""
+    },
+    {
+      "id": "M5.hw_ratio",
+      "name": "Height-to-width ratio",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "partial",
+      "sources": [
+        "enclosure lit.",
+        "places.enclosure_hw"
+      ],
+      "note": "Street section"
+    },
+    {
+      "id": "M6.setback",
+      "name": "Setback",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "site plans"
+      ],
+      "note": "Face to ROW/lot line"
+    },
+    {
+      "id": "M7.spacing",
+      "name": "Spacing / gap",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "have",
+      "sources": [
+        "m-gap-ab"
+      ],
+      "note": "Between solids"
+    },
+    {
+      "id": "M8.measure",
+      "name": "Named measure",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "have",
+      "sources": [
+        "plan-model measures",
+        "schema"
+      ],
+      "note": "First-class dimension record"
+    },
+    {
+      "id": "M9.length_along",
+      "name": "Length along curve",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "partial",
+      "sources": [
+        "centerline",
+        "frontage"
+      ],
+      "note": "Stationing"
+    },
+    {
+      "id": "M10.offset",
+      "name": "Offset / buffer",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "sidewalk from curb"
+      ],
+      "note": ""
+    },
+    {
+      "id": "M11.coverage",
+      "name": "Building coverage ratio",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "Morpho",
+        "FSI sibling"
+      ],
+      "note": "Footprint / parcel"
+    },
+    {
+      "id": "M12.fsi",
+      "name": "Floor space index",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "Morpho"
+      ],
+      "note": "GFA / parcel"
+    },
+    {
+      "id": "M13.plot_density",
+      "name": "Plot density",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "Morpho plots/block"
+      ],
+      "note": ""
+    },
+    {
+      "id": "M14.frontage_grain",
+      "name": "Frontage grain",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "plots per 100m"
+      ],
+      "note": ""
+    },
+    {
+      "id": "M15.dh_ratio",
+      "name": "Distance-to-height ratio",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "Ashihara D/H"
+      ],
+      "note": "Inverse reading of H:W"
+    },
+    {
+      "id": "M16.sky_view",
+      "name": "Sky view",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "Ewing enclosure"
+      ],
+      "note": "Sky fraction in a street section"
+    },
+    {
+      "id": "M17.active_frontage_ratio",
+      "name": "Active frontage ratio",
+      "kind": "metric",
+      "layer": "metric",
+      "status": "todo",
+      "sources": [
+        "active frontage"
+      ],
+      "note": "Open length / frontage length"
+    },
+    {
+      "id": "V1.figure",
+      "name": "Figure (solid mass)",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "partial",
+      "sources": [
+        "Nolli",
+        "figure-ground"
+      ],
+      "note": "Buildings as solid"
+    },
+    {
+      "id": "V2.ground",
+      "name": "Ground (void)",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "partial",
+      "sources": [
+        "Nolli"
+      ],
+      "note": "Streets, courts, parks"
+    },
+    {
+      "id": "V3.enclosure",
+      "name": "Enclosure",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "partial",
+      "sources": [
+        "Alexander positive outdoor",
+        "Ewing",
+        "places"
+      ],
+      "note": "Outdoor room definition"
+    },
+    {
+      "id": "V3.edge_continuity",
+      "name": "Edge continuity",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "street wall",
+        "Morpho alignment"
+      ],
+      "note": "Breaks = dead space"
+    },
+    {
+      "id": "V4.street_wall",
+      "name": "Street wall / frontage wall",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "urban design"
+      ],
+      "note": ""
+    },
+    {
+      "id": "V5.grain",
+      "name": "Urban grain",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "UDC",
+        "Conzen"
+      ],
+      "note": "Plot/block fineness"
+    },
+    {
+      "id": "V6.parcel",
+      "name": "Lot / parcel",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "LandInfra",
+        "cadastre",
+        "Conzen"
+      ],
+      "note": ""
+    },
+    {
+      "id": "V6.block",
+      "name": "Block",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "UDC grid",
+        "Morpho"
+      ],
+      "note": "Assembly of parcels"
+    },
+    {
+      "id": "V6.plot_series",
+      "name": "Plot series",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Conzen town plan"
+      ],
+      "note": "Plots along one street frontage"
+    },
+    {
+      "id": "V6.town_plan",
+      "name": "Town plan",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Conzen"
+      ],
+      "note": "Ground plan: streets, plots, building block-plans"
+    },
+    {
+      "id": "V7.soft_edge",
+      "name": "Soft edge",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Alexander"
+      ],
+      "note": "Porous building edge"
+    },
+    {
+      "id": "V8.dead_space",
+      "name": "Dead space",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Ewing"
+      ],
+      "note": "Inactive setback/gap"
+    },
+    {
+      "id": "V9.poch\u00e9",
+      "name": "Poch\u00e9",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "partial",
+      "sources": [
+        "Beaux-Arts",
+        "figure-ground",
+        "mass-fill"
+      ],
+      "note": "Graphic solid fill"
+    },
+    {
+      "id": "V10.alignment",
+      "name": "Building alignment",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Morpho"
+      ],
+      "note": "Face to street consistency"
+    },
+    {
+      "id": "V11.permeability_vis",
+      "name": "Visual permeability",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Bentley"
+      ],
+      "note": "See-through at the edge"
+    },
+    {
+      "id": "V11.permeability_phys",
+      "name": "Physical permeability",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Bentley"
+      ],
+      "note": "Alternative routes through the plan"
+    },
+    {
+      "id": "V2.convex",
+      "name": "Convex space",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "partial",
+      "sources": [
+        "Hillier",
+        "106"
+      ],
+      "note": "Outdoor convexity already checked"
+    },
+    {
+      "id": "V6.block_face",
+      "name": "Block face",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "street wall"
+      ],
+      "note": "One side of a block between junctions"
+    },
+    {
+      "id": "V6.plan_unit",
+      "name": "Morphological region",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Conzen",
+        "Whitehand"
+      ],
+      "note": "Nested plan unit"
+    },
+    {
+      "id": "V6.morphotope",
+      "name": "Morphotope",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Conzen"
+      ],
+      "note": "Smallest form ensemble"
+    },
+    {
+      "id": "V6.fringe_belt",
+      "name": "Fringe belt",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "placeholder",
+      "sources": [
+        "Louis",
+        "Conzen"
+      ],
+      "note": "Large plots, fewer crossings"
+    },
+    {
+      "id": "V6.fixation_line",
+      "name": "Fixation line",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "placeholder",
+      "sources": [
+        "Conzen"
+      ],
+      "note": "Edge that holds a fringe belt"
+    },
+    {
+      "id": "V6.building_fabric",
+      "name": "Building fabric",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Conzen"
+      ],
+      "note": "3D form complex, beside the ground plan"
+    },
+    {
+      "id": "V12.building_line",
+      "name": "Building line",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "site plans"
+      ],
+      "note": "Face line; setback offsets it from the curb"
+    },
+    {
+      "id": "V13.cross_section",
+      "name": "Street cross-section",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "UDC"
+      ],
+      "note": "Sidewalk + verge + carriageway"
+    },
+    {
+      "id": "V14.nolli",
+      "name": "Nolli public void",
+      "kind": "morphology",
+      "layer": "morphology",
+      "status": "todo",
+      "sources": [
+        "Nolli map"
+      ],
+      "note": "Public interiors join the ground"
+    },
+    {
+      "id": "T.site",
+      "name": "Site",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "BOT Site",
+        "IfcSite"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.building",
+      "name": "Building",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "BOT Building",
+        "IfcBuilding"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.storey",
+      "name": "Storey",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "BOT Storey",
+        "IfcBuildingStorey"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.space",
+      "name": "Space",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "BOT Space",
+        "IfcSpace"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.zone",
+      "name": "Zone",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "BOT Zone"
+      ],
+      "note": "Supertype"
+    },
+    {
+      "id": "T.element",
+      "name": "Element",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "BOT Element",
+        "IfcElement"
+      ],
+      "note": "Walls etc."
+    },
+    {
+      "id": "T.contains",
+      "name": "Containment",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "bot:containsZone"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.adjacent",
+      "name": "Adjacency",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "Adjacency",
+        "bot:adjacentZone"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.boundary",
+      "name": "Boundary segment",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "Boundary"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.interface",
+      "name": "Interface",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "bot:Interface",
+        "plan-model interfaces"
+      ],
+      "note": "Shared face / opening"
+    },
+    {
+      "id": "T.opening.door",
+      "name": "Door",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "IfcDoor",
+        "Opening"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.opening.window",
+      "name": "Window",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "IfcWindow",
+        "Opening"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.facing",
+      "name": "Cardinal facing",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "Opening.orientation"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.intersects",
+      "name": "Intersection of zones",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "bot:intersectsZone"
+      ],
+      "note": "Stairwell across storeys"
+    },
+    {
+      "id": "T.has_building",
+      "name": "hasBuilding",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "bot:hasBuilding"
+      ],
+      "note": "\u2291 containsZone"
+    },
+    {
+      "id": "T.has_storey",
+      "name": "hasStorey",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "bot:hasStorey"
+      ],
+      "note": "\u2291 containsZone"
+    },
+    {
+      "id": "T.has_space",
+      "name": "hasSpace",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "have",
+      "sources": [
+        "bot:hasSpace"
+      ],
+      "note": "\u2291 containsZone"
+    },
+    {
+      "id": "T.adjacent_element",
+      "name": "adjacentElement",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "bot:adjacentElement"
+      ],
+      "note": "Zone\u2194Element"
+    },
+    {
+      "id": "T.contains_element",
+      "name": "containsElement",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "bot:containsElement"
+      ],
+      "note": ""
+    },
+    {
+      "id": "T.interface_of",
+      "name": "interfaceOf",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "bot:interfaceOf",
+        "interfaces"
+      ],
+      "note": "Qualifies adjacency"
+    },
+    {
+      "id": "T.has_element",
+      "name": "hasElement",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "bot:hasElement"
+      ],
+      "note": "Superproperty of contain and adjacent element"
+    },
+    {
+      "id": "T.has_subelement",
+      "name": "hasSubElement",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "bot:hasSubElement"
+      ],
+      "note": "Wall hosts an opening"
+    },
+    {
+      "id": "T.intersecting_element",
+      "name": "intersectingElement",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "bot:intersectingElement"
+      ],
+      "note": "Element crosses a zone"
+    },
+    {
+      "id": "T.space_boundary",
+      "name": "Space boundary",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "IfcRelSpaceBoundary"
+      ],
+      "note": "Space-to-element delimiter"
+    },
+    {
+      "id": "T.virtual_boundary",
+      "name": "Virtual boundary",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "IfcPhysicalOrVirtualEnum"
+      ],
+      "note": "Delimited by IfcVirtualElement"
+    },
+    {
+      "id": "T.external_space",
+      "name": "External spatial element",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "IfcExternalSpatialElement"
+      ],
+      "note": "Site exterior with its own boundary"
+    },
+    {
+      "id": "T.ifc_zone",
+      "name": "IfcZone group",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "IfcZone"
+      ],
+      "note": "Groups spaces; own geometry is forbidden"
+    },
+    {
+      "id": "T.spatial_zone",
+      "name": "Overlapping spatial zone",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "IfcSpatialZone"
+      ],
+      "note": "Thermal or fire zone may overlap"
+    },
+    {
+      "id": "T.opening_element",
+      "name": "Opening element",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "IfcOpeningElement"
+      ],
+      "note": "Void cut into a host"
+    },
+    {
+      "id": "T.voids_element",
+      "name": "Voids element",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "IfcRelVoidsElement"
+      ],
+      "note": "Opening subtracts from a wall"
+    },
+    {
+      "id": "T.fills_element",
+      "name": "Fills element",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "partial",
+      "sources": [
+        "IfcRelFillsElement"
+      ],
+      "note": "Door or window fills the void"
+    },
+    {
+      "id": "T.quantity",
+      "name": "Space quantities",
+      "kind": "topology",
+      "layer": "topology",
+      "status": "todo",
+      "sources": [
+        "Qto_SpaceBaseQuantities"
+      ],
+      "note": "IFC area and height"
+    },
+    {
+      "id": "U.road",
+      "name": "Road",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "partial",
+      "sources": [
+        "CityGML Road"
+      ],
+      "note": "District street"
+    },
+    {
+      "id": "U.square",
+      "name": "Square",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML Square"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.track",
+      "name": "Track",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Track"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.railway",
+      "name": "Railway",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Railway"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.waterway",
+      "name": "Waterway",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Waterway"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.complex",
+      "name": "TransportationComplex",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML 2"
+      ],
+      "note": "2.0 name; 3.0 superclass is AbstractTransportationSpace"
+    },
+    {
+      "id": "U.abstract_space",
+      "name": "AbstractTransportationSpace",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML 3.0"
+      ],
+      "note": "Network geometry and surface geometry may both be stored"
+    },
+    {
+      "id": "U.section",
+      "name": "Transportation section",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML 3 Section"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.intersection",
+      "name": "Intersection",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML 3"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.granularity",
+      "name": "Transport granularity",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "lane",
+        "way"
+      ],
+      "note": "XSD enum is lane|way"
+    },
+    {
+      "id": "U.granularity_way",
+      "name": "Granularity way",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "GranularityValueType"
+      ],
+      "note": "One object per surface function"
+    },
+    {
+      "id": "U.granularity_lane",
+      "name": "Granularity lane",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "GranularityValueType"
+      ],
+      "note": "One object per lane"
+    },
+    {
+      "id": "U.granularity_area",
+      "name": "Granularity area",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "TUM road2citygml3"
+      ],
+      "note": "Whole section width; absent from the XSD enum"
+    },
+    {
+      "id": "U.traffic_space",
+      "name": "Traffic space",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML TrafficSpace"
+      ],
+      "note": "Lane/way volume"
+    },
+    {
+      "id": "U.traffic_area",
+      "name": "Traffic area",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML TrafficArea"
+      ],
+      "note": "Carriageway, sidewalk"
+    },
+    {
+      "id": "U.aux_space",
+      "name": "Auxiliary traffic space",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML"
+      ],
+      "note": "Non-traffic volume"
+    },
+    {
+      "id": "U.aux_area",
+      "name": "Auxiliary traffic area",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "CityGML"
+      ],
+      "note": "Median, verge"
+    },
+    {
+      "id": "U.clearance",
+      "name": "Clearance space",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "TrafficSpace clearance"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.pred_succ",
+      "name": "Predecessor/successor",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "partial",
+      "sources": [
+        "TrafficSpace"
+      ],
+      "note": "Property of TrafficSpace, not of Section"
+    },
+    {
+      "id": "U.traffic_function",
+      "name": "Traffic-area function",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "driving_lane",
+        "footpath",
+        "cyclepath"
+      ],
+      "note": "Codelist on the surface"
+    },
+    {
+      "id": "U.marking",
+      "name": "Traffic marking",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Marking",
+        "CityJSON TransportationMarking"
+      ],
+      "note": "Painted restriction"
+    },
+    {
+      "id": "U.hole",
+      "name": "Transportation hole",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Hole",
+        "CityJSON TransportationHole"
+      ],
+      "note": "Manhole or break in the surface"
+    },
+    {
+      "id": "U.traffic_dir",
+      "name": "Traffic direction",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "have",
+      "sources": [
+        "TrafficDirection",
+        "edge.directed"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.plant_cover",
+      "name": "Plant cover",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "partial",
+      "sources": [
+        "PlantCover"
+      ],
+      "note": "Shared green"
+    },
+    {
+      "id": "U.tree",
+      "name": "Solitary vegetation",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "have",
+      "sources": [
+        "SolitaryVegetationObject",
+        "trees"
+      ],
+      "note": "Canopy tree"
+    },
+    {
+      "id": "U.landuse",
+      "name": "Land use",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "todo",
+      "sources": [
+        "LandUse"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.relief",
+      "name": "Relief / terrain",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "Relief"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.city_furniture",
+      "name": "City furniture",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityFurniture"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.bridge",
+      "name": "Bridge",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Bridge"
+      ],
+      "note": ""
+    },
+    {
+      "id": "U.tunnel",
+      "name": "Tunnel",
+      "kind": "urban",
+      "layer": "citygml",
+      "status": "placeholder",
+      "sources": [
+        "CityGML Tunnel"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C1.graph",
+      "name": "Circulation graph",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "112",
+        "127",
+        "plan-model network"
+      ],
+      "note": "Nodes+edges"
+    },
+    {
+      "id": "C1.node",
+      "name": "Circulation node",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "network.nodes"
+      ],
+      "note": "Place or intersection"
+    },
+    {
+      "id": "C1.edge",
+      "name": "Circulation edge",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "network.edges"
+      ],
+      "note": "Traversable link"
+    },
+    {
+      "id": "C2.centerline",
+      "name": "Centerline",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "CityGML LoD0",
+        "edge.polyline"
+      ],
+      "note": "Directed axis"
+    },
+    {
+      "id": "C3.hierarchy",
+      "name": "Route hierarchy",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "UDC",
+        "edge.hierarchy"
+      ],
+      "note": "Arterial\u2026path"
+    },
+    {
+      "id": "C4.mode",
+      "name": "Movement mode",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "ped/bike/veh",
+        "edge.mode"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C4.shared_surface",
+      "name": "Shared surface",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "placeholder",
+      "sources": [
+        "woonerf"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C5.approach",
+      "name": "Approach sequence",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "112",
+        "network"
+      ],
+      "note": "Ordered places to door"
+    },
+    {
+      "id": "C6.choice",
+      "name": "Choice / permeability",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "Space Syntax choice"
+      ],
+      "note": "Betweenness / through-movement"
+    },
+    {
+      "id": "C6.connectivity",
+      "name": "Connectivity",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "Space Syntax"
+      ],
+      "note": "Degree of a line or node"
+    },
+    {
+      "id": "C6.integration",
+      "name": "Integration",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "placeholder",
+      "sources": [
+        "Space Syntax"
+      ],
+      "note": "Closeness / to-movement"
+    },
+    {
+      "id": "C7.address",
+      "name": "Front door / address point",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "110",
+        "112",
+        "door"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C8.direction",
+      "name": "Flow direction",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "TrafficDirection",
+        "directed"
+      ],
+      "note": "Boolean directed; CityGML enumerates forwards, backwards, both"
+    },
+    {
+      "id": "C5.serial_vision",
+      "name": "Serial vision",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "Cullen"
+      ],
+      "note": "Sequence of views along a path"
+    },
+    {
+      "id": "C9.sidewalk",
+      "name": "Sidewalk / footway",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "TrafficArea",
+        "sidewalk-main-n"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C10.carriageway",
+      "name": "Carriageway",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "TrafficArea",
+        "carriageway-main"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C11.crossing",
+      "name": "Crossing",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [],
+      "note": ""
+    },
+    {
+      "id": "C12.row",
+      "name": "Right-of-way",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "have",
+      "sources": [
+        "street-main",
+        "site plans"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C13.curb",
+      "name": "Curb line",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "partial",
+      "sources": [
+        "sidewalk/carriageway split"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C14.bike_lane",
+      "name": "Bicycle lane",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "TrafficArea function"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C15.parking_bay",
+      "name": "Parking bay",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "TrafficArea"
+      ],
+      "note": ""
+    },
+    {
+      "id": "C16.lod0",
+      "name": "LoD0 network geometry",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "partial",
+      "sources": [
+        "CityJSON LoD0"
+      ],
+      "note": "Linear transport"
+    },
+    {
+      "id": "C17.lod1",
+      "name": "LoD1 mass / section",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "partial",
+      "sources": [
+        "CityJSON LoD1"
+      ],
+      "note": "Extruded solids"
+    },
+    {
+      "id": "C18.lod2",
+      "name": "LoD2 traffic surfaces",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "CityJSON",
+        "PLATEAU"
+      ],
+      "note": "TrafficArea surfaces; CityGML 3 splits LoD from granularity"
+    },
+    {
+      "id": "C19.axial",
+      "name": "Axial line",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "placeholder",
+      "sources": [
+        "Space Syntax"
+      ],
+      "note": "Longest line of sight and access"
+    },
+    {
+      "id": "C20.lane",
+      "name": "Traffic lane",
+      "kind": "circulation",
+      "layer": "circulation",
+      "status": "todo",
+      "sources": [
+        "granularity lane"
+      ],
+      "note": "Subdivision of a carriageway"
+    },
+    {
+      "id": "I1.adjacency",
+      "name": "Adjacency",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "have",
+      "sources": [
+        "Adjacency"
+      ],
+      "note": "maps T.adjacent"
+    },
+    {
+      "id": "I2.interface",
+      "name": "Interface relation",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "partial",
+      "sources": [
+        "Opening"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I3.frontage",
+      "name": "Frontage",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "partial",
+      "sources": [
+        "active frontage",
+        "m-green-frontage"
+      ],
+      "note": "Metres of face on a void"
+    },
+    {
+      "id": "I3.active_frontage",
+      "name": "Active frontage",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "todo",
+      "sources": [
+        "UD"
+      ],
+      "note": "Doors/windows onto street"
+    },
+    {
+      "id": "I3.blank_frontage",
+      "name": "Blank frontage",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "todo",
+      "sources": [
+        "street wall"
+      ],
+      "note": "Frontage length without openings"
+    },
+    {
+      "id": "I3.primary_frontage",
+      "name": "Primary frontage",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "todo",
+      "sources": [
+        "plot address"
+      ],
+      "note": "The street a parcel faces"
+    },
+    {
+      "id": "I3.frontage_rhythm",
+      "name": "Frontage rhythm",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "todo",
+      "sources": [
+        "Conzen plot series"
+      ],
+      "note": "Repeated plot widths along one street"
+    },
+    {
+      "id": "I4.access",
+      "name": "Access / reachability",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "partial",
+      "sources": [
+        "graph walk",
+        "network"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I5.overlook",
+      "name": "Overlook / exposure",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "todo",
+      "sources": [
+        "isovist"
+      ],
+      "note": "Sees relation"
+    },
+    {
+      "id": "I5.isovist",
+      "name": "Isovist / visibility field",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "placeholder",
+      "sources": [
+        "Space Syntax"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I5.prospect_refuge",
+      "name": "Prospect\u2013refuge",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "placeholder",
+      "sources": [
+        "Appleton"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I6.threshold",
+      "name": "Threshold",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "have",
+      "sources": [
+        "112",
+        "130",
+        "interfaces"
+      ],
+      "note": "Thickened transition"
+    },
+    {
+      "id": "I7.containment",
+      "name": "Containment",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "have",
+      "sources": [
+        "BOT"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I8.shared_outdoor",
+      "name": "Shared outdoor address",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "partial",
+      "sources": [
+        "shared green",
+        "interfaces"
+      ],
+      "note": "Many solids face one void"
+    },
+    {
+      "id": "I9.intimacy_field",
+      "name": "Intimacy gradient field",
+      "kind": "interaction",
+      "layer": "interaction",
+      "status": "partial",
+      "sources": [
+        "127"
+      ],
+      "note": "Public\u2192private along path"
+    },
+    {
+      "id": "I10.place",
+      "name": "SpatialStructure place",
+      "kind": "interaction",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "schema places"
+      ],
+      "note": "Product mid-layer zone"
+    },
+    {
+      "id": "I11.ss_network",
+      "name": "SpatialStructure network",
+      "kind": "interaction",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "schema network"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I12.ss_measure",
+      "name": "SpatialStructure measure",
+      "kind": "interaction",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "schema measures"
+      ],
+      "note": ""
+    },
+    {
+      "id": "I13.ss_interface",
+      "name": "SpatialStructure interface",
+      "kind": "interaction",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "schema interfaces"
+      ],
+      "note": ""
+    },
+    {
+      "id": "O1.cardinal",
+      "name": "Cardinal frame",
+      "kind": "climate",
+      "layer": "climate",
+      "status": "have",
+      "sources": [
+        "north"
+      ],
+      "note": ""
+    },
+    {
+      "id": "O2.equator_side",
+      "name": "Equator-facing side",
+      "kind": "climate",
+      "layer": "climate",
+      "status": "have",
+      "sources": [
+        "105",
+        "128",
+        "latitude"
+      ],
+      "note": ""
+    },
+    {
+      "id": "O3.solar_access",
+      "name": "Solar access",
+      "kind": "climate",
+      "layer": "climate",
+      "status": "todo",
+      "sources": [],
+      "note": "Time-aware sun on places"
+    },
+    {
+      "id": "O3.daylight",
+      "name": "Daylight (qualitative)",
+      "kind": "climate",
+      "layer": "climate",
+      "status": "partial",
+      "sources": [
+        "159",
+        "107"
+      ],
+      "note": ""
+    },
+    {
+      "id": "O4.approach_dir",
+      "name": "Prevailing approach direction",
+      "kind": "climate",
+      "layer": "climate",
+      "status": "todo",
+      "sources": [
+        "110"
+      ],
+      "note": ""
+    },
+    {
+      "id": "O5.wind",
+      "name": "Wind / comfort",
+      "kind": "climate",
+      "layer": "climate",
+      "status": "placeholder",
+      "sources": [],
+      "note": "Out of scope physics"
+    },
+    {
+      "id": "P1.tags",
+      "name": "Role tags",
+      "kind": "place",
+      "layer": "place",
+      "status": "have",
+      "sources": [
+        "ALLOWED_TAGS"
+      ],
+      "note": "street, outdoor, private\u2026"
+    },
+    {
+      "id": "P2.center",
+      "name": "Center",
+      "kind": "place",
+      "layer": "place",
+      "status": "partial",
+      "sources": [
+        "Alexander",
+        "DESIGN"
+      ],
+      "note": "Coherent region"
+    },
+    {
+      "id": "P3.domain",
+      "name": "Public\u2013private domain",
+      "kind": "place",
+      "layer": "place",
+      "status": "partial",
+      "sources": [
+        "127"
+      ],
+      "note": ""
+    },
+    {
+      "id": "P4.room_kind",
+      "name": "Room kind",
+      "kind": "place",
+      "layer": "place",
+      "status": "partial",
+      "sources": [
+        "living",
+        "hall"
+      ],
+      "note": ""
+    },
+    {
+      "id": "P5.landmark",
+      "name": "Landmark",
+      "kind": "place",
+      "layer": "place",
+      "status": "placeholder",
+      "sources": [
+        "Lynch"
+      ],
+      "note": "Imageable object"
+    },
+    {
+      "id": "P6.district",
+      "name": "District",
+      "kind": "place",
+      "layer": "place",
+      "status": "todo",
+      "sources": [
+        "Lynch",
+        "Conzen region"
+      ],
+      "note": "Named area of common character"
+    },
+    {
+      "id": "L1.condition",
+      "name": "Spatial condition",
+      "kind": "language",
+      "layer": "language",
+      "status": "have",
+      "sources": [
+        "conditions/"
+      ],
+      "note": "Predicate over model"
+    },
+    {
+      "id": "L2.diagram",
+      "name": "Pattern diagram schema",
+      "kind": "language",
+      "layer": "language",
+      "status": "partial",
+      "sources": [
+        "plan-model diagrams"
+      ],
+      "note": ""
+    },
+    {
+      "id": "L3.preserve",
+      "name": "Structure preservation",
+      "kind": "language",
+      "layer": "language",
+      "status": "have",
+      "sources": [
+        "Preserving",
+        "step"
+      ],
+      "note": ""
+    },
+    {
+      "id": "L4.sequence",
+      "name": "Pattern sequence",
+      "kind": "language",
+      "layer": "language",
+      "status": "have",
+      "sources": [
+        "sequence.py"
+      ],
+      "note": ""
+    },
+    {
+      "id": "L5.project",
+      "name": "Project language",
+      "kind": "language",
+      "layer": "language",
+      "status": "have",
+      "sources": [
+        "seed-house"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.profile",
+      "name": "Plan symbology profile",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "partial",
+      "sources": [
+        "VISUAL-LANGUAGE"
+      ],
+      "note": "pattern-language.plan-symbology"
+    },
+    {
+      "id": "symbology.door_swing",
+      "name": "Door swing glyph",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "HABS"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.window_tick",
+      "name": "Window tick glyph",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "HABS"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.tree_canopy",
+      "name": "Tree canopy glyph",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "HABS"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.flow_arrow",
+      "name": "Flow arrow glyph",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "plan.js centerline"
+      ],
+      "note": "Needs C2"
+    },
+    {
+      "id": "symbology.dimension",
+      "name": "Dimension string glyph",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "plan.js measures"
+      ],
+      "note": "Needs M8"
+    },
+    {
+      "id": "symbology.figure_ground",
+      "name": "Figure\u2013ground render",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "partial",
+      "sources": [
+        "Nolli"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.legend",
+      "name": "Legend / north / scale",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "site plans",
+        "demo legend"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.hierarchy_weight",
+      "name": "Hierarchy stroke weight",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "HIER_WIDTH"
+      ],
+      "note": ""
+    },
+    {
+      "id": "symbology.diagram_overlay",
+      "name": "Pattern diagram overlay",
+      "kind": "symbology",
+      "layer": "owned",
+      "status": "have",
+      "sources": [
+        "plan.js diagrams"
+      ],
+      "note": ""
+    },
+    {
+      "id": "pat.105",
+      "name": "105 South Facing Outdoors",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/105"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.106",
+      "name": "106 Positive Outdoor Space",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/106"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.107",
+      "name": "107 Wings of Light",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/107"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.110",
+      "name": "110 Main Entrance",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/110"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.112",
+      "name": "112 Entrance Transition",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/112"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.127",
+      "name": "127 Intimacy Gradient",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/127"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.128",
+      "name": "128 Indoor Sunlight",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/128"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.130",
+      "name": "130 Entrance Room",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/130"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.159",
+      "name": "159 Light on Two Sides",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/159"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.167",
+      "name": "167 Six-Foot Balcony",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/167"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.180",
+      "name": "180 Window Place",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/180"
+      ],
+      "note": "Seed pattern"
+    },
+    {
+      "id": "pat.190",
+      "name": "190 Ceiling Height Variety",
+      "kind": "pattern",
+      "layer": "catalog",
+      "status": "have",
+      "sources": [
+        "catalog/190"
+      ],
+      "note": "Seed pattern"
+    }
+  ],
+  "edges": [
+    {
+      "from": "prim.segment",
+      "to": "prim.point",
+      "rel": "depends_on"
+    },
+    {
+      "from": "prim.ring",
+      "to": "prim.segment",
+      "rel": "depends_on"
+    },
+    {
+      "from": "prim.curve",
+      "to": "prim.point",
+      "rel": "depends_on"
+    },
+    {
+      "from": "prim.frame",
+      "to": "prim.north",
+      "rel": "depends_on"
+    },
+    {
+      "from": "prim.frame",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "prim.point",
+      "to": "prim.segment",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.segment",
+      "to": "prim.point",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.point",
+      "to": "prim.ring",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.ring",
+      "to": "prim.point",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.point",
+      "to": "prim.curve",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.curve",
+      "to": "prim.point",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.segment",
+      "to": "prim.ring",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.ring",
+      "to": "prim.segment",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.segment",
+      "to": "prim.curve",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.curve",
+      "to": "prim.segment",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.ring",
+      "to": "prim.curve",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "prim.curve",
+      "to": "prim.ring",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M2.distance",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M2.distance",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M3.area",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M3.area",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M5.height",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M5.height",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M6.setback",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M6.setback",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M8.measure",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M8.measure",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M9.length_along",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M9.length_along",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M10.offset",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M10.offset",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M12.fsi",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M12.fsi",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "prim.metre",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M5.hw_ratio",
+      "to": "M5.height",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M5.hw_ratio",
+      "to": "M4.clear_width",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M6.setback",
+      "to": "M2.distance",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "M2.distance",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M8.measure",
+      "to": "M2.distance",
+      "rel": "specializes"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "M3.area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M12.fsi",
+      "to": "M11.coverage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "M12.fsi",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "V6.block",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "I3.frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "V5.grain",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M15.dh_ratio",
+      "to": "M5.height",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M15.dh_ratio",
+      "to": "M2.distance",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M15.dh_ratio",
+      "to": "V13.cross_section",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M15.dh_ratio",
+      "to": "M5.hw_ratio",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M5.hw_ratio",
+      "to": "M15.dh_ratio",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M16.sky_view",
+      "to": "M5.height",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M16.sky_view",
+      "to": "V13.cross_section",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V3.enclosure",
+      "to": "M16.sky_view",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M17.active_frontage_ratio",
+      "to": "I3.active_frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M17.active_frontage_ratio",
+      "to": "M9.length_along",
+      "rel": "depends_on"
+    },
+    {
+      "from": "M1.frame",
+      "to": "prim.frame",
+      "rel": "maps_to"
+    },
+    {
+      "from": "M2.distance",
+      "to": "M3.area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M3.area",
+      "to": "M2.distance",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M2.distance",
+      "to": "M4.clear_width",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "M2.distance",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M2.distance",
+      "to": "M5.height",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M5.height",
+      "to": "M2.distance",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M2.distance",
+      "to": "M6.setback",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M6.setback",
+      "to": "M2.distance",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M2.distance",
+      "to": "M7.spacing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "M2.distance",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M3.area",
+      "to": "M4.clear_width",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "M3.area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M3.area",
+      "to": "M5.height",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M5.height",
+      "to": "M3.area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M3.area",
+      "to": "M6.setback",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M6.setback",
+      "to": "M3.area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M3.area",
+      "to": "M7.spacing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "M3.area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "M5.height",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M5.height",
+      "to": "M4.clear_width",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "M6.setback",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M6.setback",
+      "to": "M4.clear_width",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M4.clear_width",
+      "to": "M7.spacing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "M4.clear_width",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M5.height",
+      "to": "M6.setback",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M6.setback",
+      "to": "M5.height",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M5.height",
+      "to": "M7.spacing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "M5.height",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M6.setback",
+      "to": "M7.spacing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M7.spacing",
+      "to": "M6.setback",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "M12.fsi",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M12.fsi",
+      "to": "M11.coverage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "M13.plot_density",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "M11.coverage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M11.coverage",
+      "to": "M14.frontage_grain",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "M11.coverage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M12.fsi",
+      "to": "M13.plot_density",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "M12.fsi",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M12.fsi",
+      "to": "M14.frontage_grain",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "M12.fsi",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M13.plot_density",
+      "to": "M14.frontage_grain",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "M14.frontage_grain",
+      "to": "M13.plot_density",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V1.figure",
+      "to": "prim.ring",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V2.ground",
+      "to": "prim.ring",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V3.enclosure",
+      "to": "M5.hw_ratio",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V3.enclosure",
+      "to": "V3.edge_continuity",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V3.enclosure",
+      "to": "V2.ground",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V4.street_wall",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V4.street_wall",
+      "to": "V3.edge_continuity",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V5.grain",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V5.grain",
+      "to": "V6.block",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.block",
+      "to": "V6.parcel",
+      "rel": "parent_of"
+    },
+    {
+      "from": "V6.plot_series",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.plot_series",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.town_plan",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.town_plan",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.town_plan",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.town_plan",
+      "to": "V6.plot_series",
+      "rel": "parent_of"
+    },
+    {
+      "from": "V8.dead_space",
+      "to": "M6.setback",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V8.dead_space",
+      "to": "V3.edge_continuity",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V9.poch\u00e9",
+      "to": "V1.figure",
+      "rel": "renders_as"
+    },
+    {
+      "from": "V7.soft_edge",
+      "to": "V4.street_wall",
+      "rel": "specializes"
+    },
+    {
+      "from": "V7.soft_edge",
+      "to": "I3.active_frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V10.alignment",
+      "to": "V4.street_wall",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V10.alignment",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V11.permeability_vis",
+      "to": "I3.frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V11.permeability_vis",
+      "to": "I5.overlook",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V11.permeability_phys",
+      "to": "C6.connectivity",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V11.permeability_phys",
+      "to": "C6.choice",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V2.convex",
+      "to": "V2.ground",
+      "rel": "specializes"
+    },
+    {
+      "from": "V2.convex",
+      "to": "prim.ring",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.block_face",
+      "to": "V6.block",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.block_face",
+      "to": "U.intersection",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.block_face",
+      "to": "I3.frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.plan_unit",
+      "to": "V6.town_plan",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.plan_unit",
+      "to": "V6.morphotope",
+      "rel": "parent_of"
+    },
+    {
+      "from": "V6.morphotope",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.fringe_belt",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.fringe_belt",
+      "to": "V6.fixation_line",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.fringe_belt",
+      "to": "V11.permeability_phys",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.fixation_line",
+      "to": "U.road",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.road",
+      "to": "V6.fixation_line",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.building_fabric",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.building_fabric",
+      "to": "M5.height",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V6.town_plan",
+      "to": "V6.building_fabric",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.building_fabric",
+      "to": "V6.town_plan",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.building_fabric",
+      "to": "U.landuse",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.landuse",
+      "to": "V6.building_fabric",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V12.building_line",
+      "to": "V4.street_wall",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V12.building_line",
+      "to": "M6.setback",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V12.building_line",
+      "to": "C13.curb",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V13.cross_section",
+      "to": "C9.sidewalk",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V13.cross_section",
+      "to": "C10.carriageway",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V13.cross_section",
+      "to": "U.aux_area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V13.cross_section",
+      "to": "M5.hw_ratio",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V14.nolli",
+      "to": "V2.ground",
+      "rel": "specializes"
+    },
+    {
+      "from": "V14.nolli",
+      "to": "P3.domain",
+      "rel": "depends_on"
+    },
+    {
+      "from": "V1.figure",
+      "to": "V2.ground",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V2.ground",
+      "to": "V1.figure",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.parcel",
+      "to": "V6.block",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.block",
+      "to": "V6.parcel",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.parcel",
+      "to": "V6.plot_series",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.plot_series",
+      "to": "V6.parcel",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.block",
+      "to": "V6.plot_series",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.plot_series",
+      "to": "V6.block",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.plan_unit",
+      "to": "V6.fringe_belt",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.fringe_belt",
+      "to": "V6.plan_unit",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.plan_unit",
+      "to": "V6.block_face",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.block_face",
+      "to": "V6.plan_unit",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.fringe_belt",
+      "to": "V6.block_face",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V6.block_face",
+      "to": "V6.fringe_belt",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V12.building_line",
+      "to": "C13.curb",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C13.curb",
+      "to": "V12.building_line",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V12.building_line",
+      "to": "V4.street_wall",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V4.street_wall",
+      "to": "V12.building_line",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C13.curb",
+      "to": "V4.street_wall",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V4.street_wall",
+      "to": "C13.curb",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V11.permeability_vis",
+      "to": "V11.permeability_phys",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V11.permeability_phys",
+      "to": "V11.permeability_vis",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V7.soft_edge",
+      "to": "V4.street_wall",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "V4.street_wall",
+      "to": "V7.soft_edge",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.site",
+      "to": "T.zone",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.building",
+      "to": "T.zone",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.storey",
+      "to": "T.zone",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.space",
+      "to": "T.zone",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.contains",
+      "to": "T.zone",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.has_building",
+      "to": "T.contains",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.has_storey",
+      "to": "T.contains",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.has_space",
+      "to": "T.contains",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.adjacent",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.intersects",
+      "to": "T.zone",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.boundary",
+      "to": "prim.segment",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.interface",
+      "to": "T.adjacent",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.interface_of",
+      "to": "T.interface",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.adjacent_element",
+      "to": "T.element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.adjacent_element",
+      "to": "T.zone",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.contains_element",
+      "to": "T.element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.contains_element",
+      "to": "T.zone",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.opening.door",
+      "to": "T.interface",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.opening.window",
+      "to": "T.interface",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.facing",
+      "to": "prim.angle",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.building",
+      "to": "T.site",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.storey",
+      "to": "T.building",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.space",
+      "to": "T.storey",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.contains_element",
+      "to": "T.has_element",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.adjacent_element",
+      "to": "T.has_element",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.intersecting_element",
+      "to": "T.has_element",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.has_subelement",
+      "to": "T.element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.opening.door",
+      "to": "T.has_subelement",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.opening.window",
+      "to": "T.has_subelement",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.space_boundary",
+      "to": "T.boundary",
+      "rel": "maps_to"
+    },
+    {
+      "from": "T.space_boundary",
+      "to": "T.element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.space_boundary",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.virtual_boundary",
+      "to": "T.space_boundary",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.external_space",
+      "to": "I10.place",
+      "rel": "maps_to"
+    },
+    {
+      "from": "T.external_space",
+      "to": "V2.ground",
+      "rel": "maps_to"
+    },
+    {
+      "from": "T.external_space",
+      "to": "T.space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.space",
+      "to": "T.external_space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.ifc_zone",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.ifc_zone",
+      "to": "T.zone",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.zone",
+      "to": "T.ifc_zone",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.spatial_zone",
+      "to": "T.intersects",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.spatial_zone",
+      "to": "T.ifc_zone",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.ifc_zone",
+      "to": "T.spatial_zone",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.opening_element",
+      "to": "T.element",
+      "rel": "specializes"
+    },
+    {
+      "from": "T.voids_element",
+      "to": "T.opening_element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.voids_element",
+      "to": "T.element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.fills_element",
+      "to": "T.opening_element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.opening.door",
+      "to": "T.fills_element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.opening.window",
+      "to": "T.fills_element",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.quantity",
+      "to": "M8.measure",
+      "rel": "maps_to"
+    },
+    {
+      "from": "T.quantity",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "T.opening.door",
+      "to": "T.opening.window",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.opening.window",
+      "to": "T.opening.door",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.site",
+      "to": "T.building",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.building",
+      "to": "T.site",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.site",
+      "to": "T.storey",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.storey",
+      "to": "T.site",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.site",
+      "to": "T.space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.space",
+      "to": "T.site",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.building",
+      "to": "T.storey",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.storey",
+      "to": "T.building",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.building",
+      "to": "T.space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.space",
+      "to": "T.building",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.storey",
+      "to": "T.space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.space",
+      "to": "T.storey",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.adjacent",
+      "to": "T.intersects",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.intersects",
+      "to": "T.adjacent",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.adjacent",
+      "to": "T.contains",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.contains",
+      "to": "T.adjacent",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.intersects",
+      "to": "T.contains",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.contains",
+      "to": "T.intersects",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.adjacent_element",
+      "to": "T.intersecting_element",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.intersecting_element",
+      "to": "T.adjacent_element",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.adjacent_element",
+      "to": "T.contains_element",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.contains_element",
+      "to": "T.adjacent_element",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.intersecting_element",
+      "to": "T.contains_element",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "T.contains_element",
+      "to": "T.intersecting_element",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.road",
+      "to": "V2.ground",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.road",
+      "to": "U.complex",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.square",
+      "to": "U.complex",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.track",
+      "to": "U.complex",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.railway",
+      "to": "U.complex",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.waterway",
+      "to": "U.complex",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.section",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.intersection",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.traffic_area",
+      "to": "U.section",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.traffic_space",
+      "to": "U.traffic_area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.traffic_space",
+      "to": "U.granularity",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.aux_area",
+      "to": "U.section",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.aux_space",
+      "to": "U.aux_area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.clearance",
+      "to": "U.traffic_space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.clearance",
+      "to": "M8.measure",
+      "rel": "maps_to"
+    },
+    {
+      "from": "U.complex",
+      "to": "U.abstract_space",
+      "rel": "maps_to"
+    },
+    {
+      "from": "U.granularity_way",
+      "to": "U.granularity",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.granularity_lane",
+      "to": "U.granularity",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.granularity_area",
+      "to": "U.section",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.traffic_function",
+      "to": "U.traffic_area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.marking",
+      "to": "U.traffic_area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.hole",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.pred_succ",
+      "to": "U.traffic_space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.traffic_dir",
+      "to": "U.pred_succ",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.plant_cover",
+      "to": "V2.ground",
+      "rel": "specializes"
+    },
+    {
+      "from": "U.tree",
+      "to": "prim.point",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.landuse",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.relief",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.city_furniture",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "U.road",
+      "to": "U.square",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.square",
+      "to": "U.road",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.road",
+      "to": "U.track",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.track",
+      "to": "U.road",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.road",
+      "to": "U.railway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.railway",
+      "to": "U.road",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.road",
+      "to": "U.waterway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.waterway",
+      "to": "U.road",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.square",
+      "to": "U.track",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.track",
+      "to": "U.square",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.square",
+      "to": "U.railway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.railway",
+      "to": "U.square",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.square",
+      "to": "U.waterway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.waterway",
+      "to": "U.square",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.track",
+      "to": "U.railway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.railway",
+      "to": "U.track",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.track",
+      "to": "U.waterway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.waterway",
+      "to": "U.track",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.railway",
+      "to": "U.waterway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.waterway",
+      "to": "U.railway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.traffic_area",
+      "to": "U.aux_area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.aux_area",
+      "to": "U.traffic_area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.traffic_space",
+      "to": "U.aux_space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.aux_space",
+      "to": "U.traffic_space",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.section",
+      "to": "U.intersection",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.intersection",
+      "to": "U.section",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.bridge",
+      "to": "U.tunnel",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.tunnel",
+      "to": "U.bridge",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.granularity_way",
+      "to": "U.granularity_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.granularity_lane",
+      "to": "U.granularity_way",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.granularity_way",
+      "to": "U.granularity_area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.granularity_area",
+      "to": "U.granularity_way",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.granularity_lane",
+      "to": "U.granularity_area",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.granularity_area",
+      "to": "U.granularity_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.marking",
+      "to": "U.hole",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.hole",
+      "to": "U.marking",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.landuse",
+      "to": "U.plant_cover",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.plant_cover",
+      "to": "U.landuse",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.landuse",
+      "to": "U.relief",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.relief",
+      "to": "U.landuse",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.plant_cover",
+      "to": "U.relief",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.relief",
+      "to": "U.plant_cover",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.city_furniture",
+      "to": "U.tree",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "U.tree",
+      "to": "U.city_furniture",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C1.graph",
+      "to": "C1.node",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C1.graph",
+      "to": "C1.edge",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C1.edge",
+      "to": "C1.node",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C1.edge",
+      "to": "C2.centerline",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C2.centerline",
+      "to": "prim.curve",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C2.centerline",
+      "to": "C8.direction",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C3.hierarchy",
+      "to": "C1.edge",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C4.mode",
+      "to": "C1.edge",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C5.approach",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C5.approach",
+      "to": "I6.threshold",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C5.approach",
+      "to": "C7.address",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C6.choice",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C6.connectivity",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C6.integration",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C5.serial_vision",
+      "to": "C2.centerline",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C5.serial_vision",
+      "to": "I5.isovist",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C7.address",
+      "to": "T.opening.door",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C7.address",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "U.traffic_area",
+      "rel": "maps_to"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "U.traffic_area",
+      "rel": "maps_to"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "C1.edge",
+      "rel": "specializes"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "C1.edge",
+      "rel": "specializes"
+    },
+    {
+      "from": "C12.row",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C13.curb",
+      "to": "C12.row",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C9.sidewalk",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C10.carriageway",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C4.mode",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "U.traffic_area",
+      "rel": "maps_to"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "U.aux_area",
+      "rel": "maps_to"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "C1.edge",
+      "rel": "specializes"
+    },
+    {
+      "from": "C16.lod0",
+      "to": "C2.centerline",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C17.lod1",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C18.lod2",
+      "to": "U.traffic_area",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "U.granularity_way",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "U.traffic_function",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "U.granularity_way",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "U.traffic_function",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C11.crossing",
+      "to": "U.traffic_function",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "U.traffic_function",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "U.traffic_function",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C19.axial",
+      "to": "C2.centerline",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C2.centerline",
+      "to": "C19.axial",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C20.lane",
+      "to": "C10.carriageway",
+      "rel": "specializes"
+    },
+    {
+      "from": "C20.lane",
+      "to": "U.granularity_lane",
+      "rel": "depends_on"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "C10.carriageway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "C9.sidewalk",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "C11.crossing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C11.crossing",
+      "to": "C9.sidewalk",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "C14.bike_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "C9.sidewalk",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "C15.parking_bay",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "C9.sidewalk",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C9.sidewalk",
+      "to": "C4.shared_surface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C9.sidewalk",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "C11.crossing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C11.crossing",
+      "to": "C10.carriageway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "C14.bike_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "C10.carriageway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "C15.parking_bay",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "C10.carriageway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C10.carriageway",
+      "to": "C4.shared_surface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C10.carriageway",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C11.crossing",
+      "to": "C14.bike_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "C11.crossing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C11.crossing",
+      "to": "C15.parking_bay",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "C11.crossing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C11.crossing",
+      "to": "C4.shared_surface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C11.crossing",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "C15.parking_bay",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "C14.bike_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C14.bike_lane",
+      "to": "C4.shared_surface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C14.bike_lane",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C15.parking_bay",
+      "to": "C4.shared_surface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.shared_surface",
+      "to": "C15.parking_bay",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C3.hierarchy",
+      "to": "C4.mode",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.mode",
+      "to": "C3.hierarchy",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C3.hierarchy",
+      "to": "C8.direction",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C8.direction",
+      "to": "C3.hierarchy",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C4.mode",
+      "to": "C8.direction",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C8.direction",
+      "to": "C4.mode",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C6.choice",
+      "to": "C6.connectivity",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C6.connectivity",
+      "to": "C6.choice",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C6.choice",
+      "to": "C6.integration",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C6.integration",
+      "to": "C6.choice",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C6.connectivity",
+      "to": "C6.integration",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C6.integration",
+      "to": "C6.connectivity",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C5.approach",
+      "to": "C5.serial_vision",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C5.serial_vision",
+      "to": "C5.approach",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C16.lod0",
+      "to": "C17.lod1",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C17.lod1",
+      "to": "C16.lod0",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C16.lod0",
+      "to": "C18.lod2",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C18.lod2",
+      "to": "C16.lod0",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C17.lod1",
+      "to": "C18.lod2",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "C18.lod2",
+      "to": "C17.lod1",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I1.adjacency",
+      "to": "T.adjacent",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I2.interface",
+      "to": "T.interface",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I3.frontage",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.frontage",
+      "to": "V2.ground",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.frontage",
+      "to": "M9.length_along",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.frontage",
+      "to": "I13.ss_interface",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I3.active_frontage",
+      "to": "I3.frontage",
+      "rel": "specializes"
+    },
+    {
+      "from": "I3.active_frontage",
+      "to": "T.opening.door",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.blank_frontage",
+      "to": "I3.frontage",
+      "rel": "specializes"
+    },
+    {
+      "from": "I3.blank_frontage",
+      "to": "V8.dead_space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.primary_frontage",
+      "to": "I3.frontage",
+      "rel": "specializes"
+    },
+    {
+      "from": "I3.primary_frontage",
+      "to": "V6.parcel",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.primary_frontage",
+      "to": "U.road",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.frontage_rhythm",
+      "to": "V6.plot_series",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I3.frontage_rhythm",
+      "to": "M14.frontage_grain",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I4.access",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I5.overlook",
+      "to": "T.opening.window",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I5.overlook",
+      "to": "V2.ground",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I5.isovist",
+      "to": "prim.ring",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I5.prospect_refuge",
+      "to": "I5.isovist",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I6.threshold",
+      "to": "I2.interface",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I6.threshold",
+      "to": "C5.approach",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I7.containment",
+      "to": "T.contains",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I8.shared_outdoor",
+      "to": "V2.ground",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I8.shared_outdoor",
+      "to": "I3.frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I9.intimacy_field",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I9.intimacy_field",
+      "to": "P3.domain",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I10.place",
+      "to": "T.zone",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I10.place",
+      "to": "prim.ring",
+      "rel": "depends_on"
+    },
+    {
+      "from": "I11.ss_network",
+      "to": "C1.graph",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I12.ss_measure",
+      "to": "M8.measure",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I13.ss_interface",
+      "to": "T.interface",
+      "rel": "maps_to"
+    },
+    {
+      "from": "I3.active_frontage",
+      "to": "I3.blank_frontage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I3.blank_frontage",
+      "to": "I3.active_frontage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I3.active_frontage",
+      "to": "I3.primary_frontage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I3.primary_frontage",
+      "to": "I3.active_frontage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I3.blank_frontage",
+      "to": "I3.primary_frontage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I3.primary_frontage",
+      "to": "I3.blank_frontage",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I5.overlook",
+      "to": "I5.isovist",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I5.isovist",
+      "to": "I5.overlook",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I5.overlook",
+      "to": "I5.prospect_refuge",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I5.prospect_refuge",
+      "to": "I5.overlook",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I5.isovist",
+      "to": "I5.prospect_refuge",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I5.prospect_refuge",
+      "to": "I5.isovist",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I10.place",
+      "to": "I11.ss_network",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I11.ss_network",
+      "to": "I10.place",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I10.place",
+      "to": "I12.ss_measure",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I12.ss_measure",
+      "to": "I10.place",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I10.place",
+      "to": "I13.ss_interface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I13.ss_interface",
+      "to": "I10.place",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I11.ss_network",
+      "to": "I12.ss_measure",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I12.ss_measure",
+      "to": "I11.ss_network",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I11.ss_network",
+      "to": "I13.ss_interface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I13.ss_interface",
+      "to": "I11.ss_network",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I12.ss_measure",
+      "to": "I13.ss_interface",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "I13.ss_interface",
+      "to": "I12.ss_measure",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "O1.cardinal",
+      "to": "prim.north",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O2.equator_side",
+      "to": "O1.cardinal",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O2.equator_side",
+      "to": "prim.frame",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O3.solar_access",
+      "to": "O2.equator_side",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O3.solar_access",
+      "to": "prim.time",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O3.daylight",
+      "to": "T.opening.window",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O4.approach_dir",
+      "to": "C5.approach",
+      "rel": "depends_on"
+    },
+    {
+      "from": "O3.solar_access",
+      "to": "O3.daylight",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "O3.daylight",
+      "to": "O3.solar_access",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "O3.solar_access",
+      "to": "O5.wind",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "O5.wind",
+      "to": "O3.solar_access",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "O3.daylight",
+      "to": "O5.wind",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "O5.wind",
+      "to": "O3.daylight",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "P2.center",
+      "to": "T.zone",
+      "rel": "depends_on"
+    },
+    {
+      "from": "P3.domain",
+      "to": "P1.tags",
+      "rel": "depends_on"
+    },
+    {
+      "from": "P4.room_kind",
+      "to": "P1.tags",
+      "rel": "specializes"
+    },
+    {
+      "from": "P4.room_kind",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "P5.landmark",
+      "to": "V1.figure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "P6.district",
+      "to": "V6.plan_unit",
+      "rel": "maps_to"
+    },
+    {
+      "from": "P6.district",
+      "to": "P2.center",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "P2.center",
+      "to": "P6.district",
+      "rel": "sibling_of"
+    },
+    {
+      "from": "L1.condition",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "L1.condition",
+      "to": "M2.distance",
+      "rel": "depends_on"
+    },
+    {
+      "from": "L2.diagram",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "L2.diagram",
+      "to": "symbology.profile",
+      "rel": "depends_on"
+    },
+    {
+      "from": "L3.preserve",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "L4.sequence",
+      "to": "L5.project",
+      "rel": "depends_on"
+    },
+    {
+      "from": "symbology.door_swing",
+      "to": "T.opening.door",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.window_tick",
+      "to": "T.opening.window",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.tree_canopy",
+      "to": "U.tree",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.flow_arrow",
+      "to": "C2.centerline",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.dimension",
+      "to": "M8.measure",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.figure_ground",
+      "to": "V1.figure",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.figure_ground",
+      "to": "V2.ground",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.hierarchy_weight",
+      "to": "C3.hierarchy",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.diagram_overlay",
+      "to": "L2.diagram",
+      "rel": "renders_as"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.door_swing",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.window_tick",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.tree_canopy",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.flow_arrow",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.dimension",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.hierarchy_weight",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.diagram_overlay",
+      "rel": "parent_of"
+    },
+    {
+      "from": "symbology.profile",
+      "to": "symbology.legend",
+      "rel": "parent_of"
+    },
+    {
+      "from": "pat.105",
+      "to": "O2.equator_side",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.105",
+      "to": "V2.ground",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.105",
+      "to": "I3.frontage",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.105",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.106",
+      "to": "V3.enclosure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.106",
+      "to": "V2.ground",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.106",
+      "to": "V2.convex",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.106",
+      "to": "prim.ring",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.106",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.107",
+      "to": "M4.clear_width",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.107",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.107",
+      "to": "O3.daylight",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.107",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.110",
+      "to": "C7.address",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.110",
+      "to": "C5.approach",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.110",
+      "to": "O4.approach_dir",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.110",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.112",
+      "to": "C5.approach",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.112",
+      "to": "I6.threshold",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.112",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.112",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.127",
+      "to": "I9.intimacy_field",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.127",
+      "to": "C1.graph",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.127",
+      "to": "P3.domain",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.127",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.128",
+      "to": "O2.equator_side",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.128",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.128",
+      "to": "P4.room_kind",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.128",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.130",
+      "to": "C7.address",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.130",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.130",
+      "to": "I6.threshold",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.130",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.159",
+      "to": "T.opening.window",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.159",
+      "to": "T.facing",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.159",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.159",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.167",
+      "to": "M4.clear_width",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.167",
+      "to": "M8.measure",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.167",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.180",
+      "to": "T.opening.window",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.180",
+      "to": "I5.overlook",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.180",
+      "to": "P4.room_kind",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.180",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.190",
+      "to": "M5.height",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.190",
+      "to": "T.space",
+      "rel": "depends_on"
+    },
+    {
+      "from": "pat.190",
+      "to": "L1.condition",
+      "rel": "depends_on"
+    }
+  ],
+  "stats": {
+    "nodes": 199,
+    "edges": 579,
+    "by_status": {
+      "have": 76,
+      "placeholder": 20,
+      "partial": 33,
+      "todo": 70
+    }
+  }
+}

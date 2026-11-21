@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pattern-language.local/schema/process-stage.schema.json",
+  "title": "ProcessStages",
+  "description": "Decided process graph: sync/async stages and unlock predicates. Not scanned by the catalog gate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "stages"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/stage" }
+    }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "mode", "requires", "unlocks"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": ["survey", "land", "foundation", "frame", "openings", "patterns"]
+        },
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "mode": { "enum": ["sync", "async"] },
+        "requires": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "unlocks": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "webgl": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 400
+        }
+      }
+    }
+  }
+}
