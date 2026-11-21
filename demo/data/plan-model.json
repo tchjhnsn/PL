@@ -162,6 +162,221 @@
       "stage": "land"
     },
     {
+      "id": "street-cross",
+      "label": "Cross Street ROW",
+      "component": "street",
+      "kind": "void",
+      "ring": [
+        [
+          0,
+          48
+        ],
+        [
+          90,
+          48
+        ],
+        [
+          90,
+          52
+        ],
+        [
+          0,
+          52
+        ]
+      ],
+      "roles": [
+        "street",
+        "public",
+        "row",
+        "local"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "East\u2013west local street between south and north blocks; junctions with the lane.",
+      "parent": null,
+      "enclosure_hw": 0.45,
+      "stage": "land"
+    },
+    {
+      "id": "carriageway-cross",
+      "label": "Cross Carriageway",
+      "component": "carriageway",
+      "kind": "void",
+      "ring": [
+        [
+          0,
+          48
+        ],
+        [
+          90,
+          48
+        ],
+        [
+          90,
+          50.5
+        ],
+        [
+          0,
+          50.5
+        ]
+      ],
+      "roles": [
+        "street",
+        "carriageway",
+        "vehicle"
+      ],
+      "patterns": [
+        105
+      ],
+      "role": "Local driving surface \u2014 2.5 m clear.",
+      "parent": "street-cross",
+      "enclosure_hw": 0.5,
+      "stage": "land"
+    },
+    {
+      "id": "sidewalk-cross-n",
+      "label": "Cross Sidewalk N",
+      "component": "sidewalk",
+      "kind": "path",
+      "ring": [
+        [
+          0,
+          50.5
+        ],
+        [
+          90,
+          50.5
+        ],
+        [
+          90,
+          52
+        ],
+        [
+          0,
+          52
+        ]
+      ],
+      "roles": [
+        "sidewalk",
+        "pedestrian",
+        "public"
+      ],
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "North footway against the north block \u2014 1.5 m clear.",
+      "parent": "street-cross",
+      "stage": "land"
+    },
+    {
+      "id": "block-south",
+      "label": "South Block",
+      "component": "block",
+      "kind": "land",
+      "ring": [
+        [
+          16,
+          10
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          74,
+          36
+        ],
+        [
+          16,
+          36
+        ]
+      ],
+      "roles": [
+        "block"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Urban block south of the shared green \u2014 Lots A and B plot series on Main Street.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "block-north",
+      "label": "North Block",
+      "component": "block",
+      "kind": "land",
+      "ring": [
+        [
+          16,
+          52
+        ],
+        [
+          74,
+          52
+        ],
+        [
+          74,
+          70
+        ],
+        [
+          16,
+          70
+        ]
+      ],
+      "roles": [
+        "block"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Urban block north of Cross Street \u2014 Lots C and D plot series on the local street.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "path-midblock",
+      "label": "Mid-block Passage",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          48,
+          36
+        ],
+        [
+          54,
+          36
+        ],
+        [
+          54,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ],
+      "roles": [
+        "transition",
+        "permeability",
+        "public"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Through-block path east of the pond: south lots \u2192 gravel \u2192 shared green \u2192 Cross Street.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
       "id": "green-shared",
       "label": "Shared Green",
       "component": "court",
@@ -194,7 +409,7 @@
         105,
         106
       ],
-      "role": "Block outdoor room \u2014 turf grass court between parcels (no lot overlap).",
+      "role": "Mid-block outdoor room between South Block and Cross Street.",
       "parent": null,
       "enclosure_hw": 0.4,
       "stage": "land"
@@ -299,7 +514,7 @@
       ],
       "patterns": [],
       "role": "Surveyed parcel for House A \u2014 land before footprint.",
-      "parent": null,
+      "parent": "block-south",
       "stage": "land"
     },
     {
@@ -330,8 +545,8 @@
         "parcel"
       ],
       "patterns": [],
-      "role": "Surveyed parcel east of the green.",
-      "parent": null,
+      "role": "Surveyed parcel east of House A on South Block.",
+      "parent": "block-south",
       "stage": "land"
     },
     {
@@ -342,19 +557,19 @@
       "ring": [
         [
           16,
-          50
+          52
         ],
         [
           42,
-          50
+          52
         ],
         [
           42,
-          68
+          70
         ],
         [
           16,
-          68
+          70
         ]
       ],
       "roles": [
@@ -362,8 +577,8 @@
         "parcel"
       ],
       "patterns": [],
-      "role": "Surveyed parcel north of the green.",
-      "parent": null,
+      "role": "Surveyed parcel on North Block facing Cross Street.",
+      "parent": "block-north",
       "stage": "land"
     },
     {
@@ -394,8 +609,8 @@
         "parcel"
       ],
       "patterns": [],
-      "role": "Surveyed NE corner parcel.",
-      "parent": null,
+      "role": "Surveyed NE parcel on North Block facing Cross Street.",
+      "parent": "block-north",
       "stage": "land"
     },
     {
@@ -414,11 +629,11 @@
         ],
         [
           20,
-          50
+          48
         ],
         [
           8,
-          50
+          48
         ]
       ],
       "roles": [
@@ -426,7 +641,7 @@
         "parcel"
       ],
       "patterns": [],
-      "role": "Surveyed lane-side workshop parcel.",
+      "role": "Surveyed lane-side workshop parcel south of Cross Street.",
       "parent": null,
       "stage": "land"
     },
@@ -525,7 +740,7 @@
         "pad"
       ],
       "patterns": [],
-      "role": "Pad for neighbor massing C \u2014 set back from green frontage.",
+      "role": "Pad for neighbor massing C \u2014 set back from Cross Street frontage.",
       "parent": "lot-c",
       "height_m": 0.35,
       "stage": "foundation"
@@ -538,19 +753,19 @@
       "ring": [
         [
           50,
-          58
+          56
         ],
         [
           72,
-          58
+          56
         ],
         [
           72,
-          68
+          66
         ],
         [
           50,
-          68
+          66
         ]
       ],
       "roles": [
@@ -558,7 +773,7 @@
         "pad"
       ],
       "patterns": [],
-      "role": "Pad for neighbor massing D \u2014 set back from green frontage.",
+      "role": "Pad for neighbor massing D \u2014 set back from Cross Street frontage.",
       "parent": "lot-d",
       "height_m": 0.35,
       "stage": "foundation"
@@ -579,11 +794,11 @@
         ],
         [
           18,
-          50
+          48
         ],
         [
           10,
-          50
+          48
         ]
       ],
       "roles": [
@@ -1037,7 +1252,7 @@
         105,
         106
       ],
-      "role": "Green-facing front court on Lot C \u2014 plot series on the shared outdoor room.",
+      "role": "Cross Street front court on Lot C \u2014 plot series with Court D.",
       "parent": "lot-c",
       "enclosure_hw": 0.4,
       "stage": "frame"
@@ -1086,19 +1301,19 @@
       "ring": [
         [
           50,
-          54
+          52
         ],
         [
           72,
-          54
+          52
         ],
         [
           72,
-          58
+          56
         ],
         [
           50,
-          58
+          56
         ]
       ],
       "roles": [
@@ -1110,7 +1325,7 @@
         105,
         106
       ],
-      "role": "Green-facing front court on Lot D \u2014 plot series with Court C.",
+      "role": "Cross Street front court on Lot D \u2014 plot series with Court C.",
       "parent": "lot-d",
       "enclosure_hw": 0.4,
       "stage": "frame"
@@ -1123,19 +1338,19 @@
       "ring": [
         [
           50,
-          58
+          56
         ],
         [
           72,
-          58
+          56
         ],
         [
           72,
-          68
+          66
         ],
         [
           50,
-          68
+          66
         ]
       ],
       "roles": [
@@ -1167,11 +1382,11 @@
         ],
         [
           18,
-          50
+          48
         ],
         [
           10,
-          50
+          48
         ]
       ],
       "roles": [
@@ -1182,10 +1397,45 @@
         105,
         106
       ],
-      "role": "Frame-stage workshop massing.",
+      "role": "Frame-stage workshop massing \u2014 addressed from the lane.",
       "parent": "found-workshop",
       "height_m": 4.0,
       "stage": "frame"
+    },
+    {
+      "id": "path-approach-w",
+      "label": "Approach Path Workshop",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          8,
+          42
+        ],
+        [
+          10,
+          42
+        ],
+        [
+          10,
+          46
+        ],
+        [
+          8,
+          46
+        ]
+      ],
+      "roles": [
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Lane stub into the workshop address.",
+      "parent": null,
+      "stage": "land"
     }
   ],
   "walls": [
@@ -1493,11 +1743,11 @@
       "id": "w-d-court-s",
       "a": [
         50,
-        54
+        52
       ],
       "b": [
         72,
-        54
+        52
       ],
       "thickness": 0.2
     },
@@ -1505,11 +1755,11 @@
       "id": "w-d-court-w",
       "a": [
         50,
-        54
+        52
       ],
       "b": [
         50,
-        58
+        56
       ],
       "thickness": 0.2
     },
@@ -1517,11 +1767,23 @@
       "id": "w-d-court-e",
       "a": [
         72,
-        54
+        52
       ],
       "b": [
         72,
-        58
+        56
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-workshop-w",
+      "a": [
+        10,
+        40
+      ],
+      "b": [
+        10,
+        48
       ],
       "thickness": 0.2
     }
@@ -1571,7 +1833,7 @@
       "patterns": [
         106
       ],
-      "role": "Green-edge gate into Front Court C (w-c-court-s).",
+      "role": "Cross Street garden-wall gate into Front Court C (w-c-court-s).",
       "parent": "c-court"
     },
     {
@@ -1579,15 +1841,31 @@
       "label": "Court Gate D",
       "component": "door",
       "x": 61,
-      "y": 54,
+      "y": 52,
       "width": 1.2,
       "wall_angle": 0,
       "swing": "cw",
       "patterns": [
         106
       ],
-      "role": "Green-edge gate into Front Court D (w-d-court-s).",
+      "role": "Cross Street garden-wall gate into Front Court D (w-d-court-s).",
       "parent": "d-court"
+    },
+    {
+      "id": "w-door-approach",
+      "label": "Workshop Door",
+      "component": "door",
+      "x": 10,
+      "y": 44,
+      "width": 1.0,
+      "wall_angle": 90,
+      "swing": "ccw",
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Lane address into the workshop massing.",
+      "parent": "workshop"
     },
     {
       "id": "a-door-main",
@@ -1886,11 +2164,48 @@
         "label": "Lane S"
       },
       {
+        "id": "n-junc-cross",
+        "x": 4,
+        "y": 50,
+        "kind": "intersection",
+        "label": "Lane\u00d7Cross"
+      },
+      {
         "id": "n-lane-n",
         "x": 4,
         "y": 60,
         "kind": "intersection",
         "label": "Lane N"
+      },
+      {
+        "id": "n-cross-mid",
+        "x": 51,
+        "y": 49.25,
+        "kind": "intersection",
+        "label": "Cross@Pass"
+      },
+      {
+        "id": "n-cross-e",
+        "x": 88,
+        "y": 49.25,
+        "kind": "intersection",
+        "label": "Cross E"
+      },
+      {
+        "id": "n-sw-cross-c",
+        "x": 29,
+        "y": 51.25,
+        "kind": "place",
+        "place": "sidewalk-cross-n",
+        "label": "SW@C"
+      },
+      {
+        "id": "n-sw-cross-d",
+        "x": 61,
+        "y": 51.25,
+        "kind": "place",
+        "place": "sidewalk-cross-n",
+        "label": "SW@D"
       },
       {
         "id": "n-path",
@@ -1957,6 +2272,14 @@
         "label": "Green"
       },
       {
+        "id": "n-midblock",
+        "x": 51,
+        "y": 42,
+        "kind": "place",
+        "place": "path-midblock",
+        "label": "Mid-block"
+      },
+      {
         "id": "n-sw-b",
         "x": 62,
         "y": 6.75,
@@ -2007,7 +2330,7 @@
       {
         "id": "n-court-d",
         "x": 61,
-        "y": 56,
+        "y": 54,
         "kind": "place",
         "place": "d-court",
         "label": "Court D"
@@ -2015,10 +2338,26 @@
       {
         "id": "n-addr-d",
         "x": 61,
-        "y": 58,
+        "y": 56,
         "kind": "address",
         "place": "house-d",
         "label": "Address D"
+      },
+      {
+        "id": "n-path-w",
+        "x": 9,
+        "y": 44,
+        "kind": "place",
+        "place": "path-approach-w",
+        "label": "Path W"
+      },
+      {
+        "id": "n-addr-w",
+        "x": 10,
+        "y": 44,
+        "kind": "address",
+        "place": "workshop",
+        "label": "Address Workshop"
       }
     ],
     "edges": [
@@ -2103,14 +2442,14 @@
         ]
       },
       {
-        "id": "e-lane",
+        "id": "e-lane-s",
         "a": "n-lane-s",
-        "b": "n-lane-n",
+        "b": "n-junc-cross",
         "mode": "shared",
         "hierarchy": "lane",
         "width_m": 6.0,
         "directed": false,
-        "label": "Side Lane",
+        "label": "Side Lane S",
         "polyline": [
           [
             4,
@@ -2118,7 +2457,107 @@
           ],
           [
             4,
+            50
+          ]
+        ]
+      },
+      {
+        "id": "e-lane-n",
+        "a": "n-junc-cross",
+        "b": "n-lane-n",
+        "mode": "shared",
+        "hierarchy": "lane",
+        "width_m": 6.0,
+        "directed": false,
+        "label": "Side Lane N",
+        "polyline": [
+          [
+            4,
+            50
+          ],
+          [
+            4,
             60
+          ]
+        ]
+      },
+      {
+        "id": "e-cross-1",
+        "a": "n-junc-cross",
+        "b": "n-cross-mid",
+        "mode": "vehicle",
+        "hierarchy": "local",
+        "width_m": 2.5,
+        "directed": false,
+        "label": "Cross Street \u2192",
+        "polyline": [
+          [
+            4,
+            50
+          ],
+          [
+            51,
+            49.25
+          ]
+        ]
+      },
+      {
+        "id": "e-cross-2",
+        "a": "n-cross-mid",
+        "b": "n-cross-e",
+        "mode": "vehicle",
+        "hierarchy": "local",
+        "width_m": 2.5,
+        "directed": false,
+        "label": "Cross Street \u2192",
+        "polyline": [
+          [
+            51,
+            49.25
+          ],
+          [
+            88,
+            49.25
+          ]
+        ]
+      },
+      {
+        "id": "e-midblock-1",
+        "a": "n-green",
+        "b": "n-midblock",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 2.0,
+        "directed": false,
+        "label": "Green\u2194Mid-block",
+        "polyline": [
+          [
+            43,
+            43
+          ],
+          [
+            51,
+            42
+          ]
+        ]
+      },
+      {
+        "id": "e-midblock-2",
+        "a": "n-midblock",
+        "b": "n-cross-mid",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 2.0,
+        "directed": true,
+        "label": "Mid-block\u2192Cross",
+        "polyline": [
+          [
+            51,
+            42
+          ],
+          [
+            51,
+            49.25
           ]
         ]
       },
@@ -2347,22 +2786,18 @@
         ]
       },
       {
-        "id": "e-green-c",
-        "a": "n-green",
+        "id": "e-approach-c-1",
+        "a": "n-sw-cross-c",
         "b": "n-court-c",
         "mode": "pedestrian",
-        "hierarchy": "path",
+        "hierarchy": "approach",
         "width_m": 1.5,
         "directed": true,
-        "label": "Green\u2192Court C",
+        "label": "Sidewalk\u2192Court C",
         "polyline": [
           [
-            43,
-            43
-          ],
-          [
             29,
-            50
+            51.25
           ],
           [
             29,
@@ -2391,26 +2826,22 @@
         ]
       },
       {
-        "id": "e-green-d",
-        "a": "n-green",
+        "id": "e-approach-d-1",
+        "a": "n-sw-cross-d",
         "b": "n-court-d",
         "mode": "pedestrian",
-        "hierarchy": "path",
+        "hierarchy": "approach",
         "width_m": 1.5,
         "directed": true,
-        "label": "Green\u2192Court D",
+        "label": "Sidewalk\u2192Court D",
         "polyline": [
           [
-            43,
-            43
+            61,
+            51.25
           ],
           [
             61,
-            50
-          ],
-          [
-            61,
-            56
+            54
           ]
         ]
       },
@@ -2426,11 +2857,91 @@
         "polyline": [
           [
             61,
-            56
+            54
           ],
           [
             61,
-            58
+            56
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-w-1",
+        "a": "n-junc-cross",
+        "b": "n-path-w",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.5,
+        "directed": true,
+        "label": "Lane\u2192Path W",
+        "polyline": [
+          [
+            4,
+            50
+          ],
+          [
+            9,
+            44
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-w-2",
+        "a": "n-path-w",
+        "b": "n-addr-w",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.0,
+        "directed": true,
+        "label": "Path W\u2192Workshop",
+        "polyline": [
+          [
+            9,
+            44
+          ],
+          [
+            10,
+            44
+          ]
+        ]
+      },
+      {
+        "id": "e-cross-sw-c",
+        "a": "n-cross-mid",
+        "b": "n-sw-cross-c",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.5,
+        "directed": false,
+        "label": "Cross\u2192SW C",
+        "polyline": [
+          [
+            51,
+            49.25
+          ],
+          [
+            29,
+            51.25
+          ]
+        ]
+      },
+      {
+        "id": "e-cross-sw-d",
+        "a": "n-cross-mid",
+        "b": "n-sw-cross-d",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.5,
+        "directed": false,
+        "label": "Cross\u2192SW D",
+        "polyline": [
+          [
+            51,
+            49.25
+          ],
+          [
+            61,
+            51.25
           ]
         ]
       }
@@ -2626,7 +3137,7 @@
     },
     {
       "id": "m-frontage-c",
-      "label": "Lot C green frontage",
+      "label": "Lot C cross-street frontage",
       "a": [
         18,
         52
@@ -2645,14 +3156,14 @@
     },
     {
       "id": "m-frontage-d",
-      "label": "Lot D green frontage",
+      "label": "Lot D cross-street frontage",
       "a": [
         50,
-        54
+        52
       ],
       "b": [
         72,
-        54
+        52
       ],
       "value_m": 22.0,
       "kind": "frontage",
@@ -2661,6 +3172,84 @@
         105,
         106
       ]
+    },
+    {
+      "id": "m-frontage-rhythm-main",
+      "label": "Main Street frontage rhythm",
+      "a": [
+        18,
+        14
+      ],
+      "b": [
+        72,
+        14
+      ],
+      "value_m": 54.0,
+      "kind": "frontage",
+      "of": "block-south",
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Plot-series grain on Main: 24 m + 10 m gap + 20 m (Lots A\u2013B)."
+    },
+    {
+      "id": "m-frontage-rhythm-cross",
+      "label": "Cross Street frontage rhythm",
+      "a": [
+        18,
+        52
+      ],
+      "b": [
+        72,
+        52
+      ],
+      "value_m": 54.0,
+      "kind": "frontage",
+      "of": "block-north",
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Plot-series grain on Cross: 22 m + 8 m gap + 22 m (Lots C\u2013D)."
+    },
+    {
+      "id": "m-cross-width",
+      "label": "Cross Street ROW width",
+      "a": [
+        40,
+        48
+      ],
+      "b": [
+        40,
+        52
+      ],
+      "value_m": 4.0,
+      "kind": "width",
+      "of": "street-cross",
+      "patterns": [
+        105
+      ]
+    },
+    {
+      "id": "m-building-line-cross",
+      "label": "Cross Street building line",
+      "a": [
+        18,
+        56
+      ],
+      "b": [
+        72,
+        56
+      ],
+      "value_m": 54.0,
+      "kind": "setback",
+      "of": "street-cross",
+      "patterns": [
+        105,
+        112
+      ],
+      "role": "Shared setback face for Lots C\u2013D plot series."
     },
     {
       "id": "m-b-court-depth",
@@ -2812,7 +3401,7 @@
       "id": "if-approach-c",
       "kind": "door",
       "between": [
-        "green-shared",
+        "street-cross",
         "c-court"
       ],
       "opening": "c-door-approach"
@@ -2821,10 +3410,19 @@
       "id": "if-approach-d",
       "kind": "door",
       "between": [
-        "green-shared",
+        "street-cross",
         "d-court"
       ],
       "opening": "d-door-approach"
+    },
+    {
+      "id": "if-approach-w",
+      "kind": "door",
+      "between": [
+        "street-lane",
+        "workshop"
+      ],
+      "opening": "w-door-approach"
     },
     {
       "id": "if-main",
@@ -2892,7 +3490,7 @@
       "kind": "frontage",
       "between": [
         "c-court",
-        "green-shared"
+        "street-cross"
       ],
       "length_m": 22.0
     },
@@ -2901,9 +3499,18 @@
       "kind": "frontage",
       "between": [
         "d-court",
-        "green-shared"
+        "street-cross"
       ],
       "length_m": 22.0
+    },
+    {
+      "id": "if-front-w",
+      "kind": "frontage",
+      "between": [
+        "workshop",
+        "street-lane"
+      ],
+      "length_m": 8.0
     },
     {
       "id": "if-overlook-liv",

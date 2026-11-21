@@ -22,7 +22,23 @@ def test_cityjson_has_traffic_areas_and_lod0() -> None:
     assert objs["carriageway-main"]["attributes"]["function"] == "drivingLane"
     assert objs["sidewalk-main-n"]["attributes"]["function"] == "footpath"
 
-    for oid in ("carriageway-main", "sidewalk-main-n", "lot-a", "green-shared", "pond-a", "house-a"):
+    assert objs["street-cross"]["type"] == "Road"
+    assert set(objs["street-cross"]["children"]) == {"carriageway-cross", "sidewalk-cross-n"}
+    assert objs["carriageway-cross"]["type"] == "TrafficArea"
+    assert objs["carriageway-cross"]["parents"] == ["street-cross"]
+    assert objs["block-south"]["attributes"]["class"] == "block"
+    assert objs["block-north"]["attributes"]["class"] == "block"
+
+    for oid in (
+        "carriageway-main",
+        "sidewalk-main-n",
+        "carriageway-cross",
+        "lot-a",
+        "green-shared",
+        "pond-a",
+        "house-a",
+        "block-south",
+    ):
         assert oid in objs
         lods = {str(g.get("lod")) for g in objs[oid]["geometry"]}
         assert "0" in lods, f"{oid} missing LoD0"
