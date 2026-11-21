@@ -1288,7 +1288,9 @@ function buildWalls() {
 
 function isGateOpening(o, wall) {
   if (!wall) return false;
-  if ((o.id || "").includes("approach") || (o.label || "").toLowerCase().includes("gate")) return true;
+  const id = o.id || "";
+  const label = (o.label || "").toLowerCase();
+  if (id.includes("approach") || label.includes("gate")) return true;
   return wallKind(wall) === "garden";
 }
 
