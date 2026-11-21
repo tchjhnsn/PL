@@ -14,12 +14,23 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "makeTiledTexture" in source
     assert "paintGrass" in source
     assert "paintGravel" in source
+    assert "paintPlaster" in source
     assert "InstancedMesh" in source
+    assert "applySunTime" in source
+    assert "EffectComposer" in source
+    assert "UnrealBloomPass" in source
+    assert "MeshPhysicalMaterial" in source
+    assert "buildUnderstory" in source
     assert "bpy" not in source
     assert "ifcopenshell" not in source
+
+    html = (repo_root / "demo" / "index.html").read_text()
+    assert 'id="sun-time"' in html
+    assert 'id="bloom-toggle"' in html
 
     note = (repo_root / "docs" / "design" / "WEBGL-QUALITY.md").read_text()
     assert "threejs-archviz.vercel.app" in note
     assert "Deferred" in note
+    assert "midday" in note.lower() or "sunset" in note.lower()
     assert "110 Main Entrance" in note
     assert "180 Window Place" in note
