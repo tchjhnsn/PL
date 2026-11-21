@@ -82,3 +82,22 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "roof" in u16.lower()
     assert "a-stair" in u16
     assert "stacked" in u16.lower() or "storey" in u16.lower()
+
+    assert '"id": "block-south"' in plan
+    assert '"id": "block-north"' in plan
+    assert '"id": "street-cross"' in plan
+    assert '"id": "path-midblock"' in plan
+    assert '"id": "n-junc-cross"' in plan
+    assert '"id": "m-frontage-rhythm-main"' in plan
+    assert '"id": "m-frontage-rhythm-cross"' in plan
+    assert '"id": "m-building-line-cross"' in plan
+    assert '"id": "n-addr-w"' in plan
+    assert '"id": "w-door-approach"' in plan
+    u17 = (repo_root / "docs" / "design" / "U17-BLOCK-STREET.md").read_text()
+    assert "block-south" in u17
+    assert "street-cross" in u17
+    u18 = (repo_root / "docs" / "design" / "U18-RHYTHM-ADDRESS.md").read_text()
+    assert "rhythm" in u18.lower()
+    assert "n-addr-w" in u18 or "workshop" in u18.lower()
+    assert (repo_root / ".agents" / "skills" / "threejs-procedural-architecture" / "SKILL.md").is_file()
+    assert (repo_root / ".agents" / "skills" / "threejs-procedural-buildings-and-cities" / "SKILL.md").is_file()

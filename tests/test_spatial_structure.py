@@ -35,6 +35,12 @@ def test_roles() -> None:
     assert any(p["id"] == "sidewalk-main-n" for p in sidewalks)
     assert any(p["id"] == "carriageway-main" for p in places_with_role(plan, "carriageway"))
     assert any("row" in (p.get("roles") or []) for p in plan["places"])
+    assert any(p["id"] == "block-south" for p in places_with_role(plan, "block"))
+    assert any(p["id"] == "street-cross" for p in plan["places"])
+    addr = [n for n in plan["network"]["nodes"] if n.get("kind") == "address"]
+    assert {n["id"] for n in addr} >= {"n-door", "n-addr-b", "n-addr-c", "n-addr-d", "n-addr-w"}
+    assert measure_value(plan, "m-frontage-rhythm-main") == 54.0
+    assert measure_value(plan, "m-cross-width") == 4.0
 
 
 def test_balcony_clear_width_meets_threshold() -> None:
