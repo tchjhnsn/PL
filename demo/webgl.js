@@ -585,6 +585,7 @@ function clearWorld() {
 const HOUSE_A_IDS = new Set([
   "a-court",
   "path-approach",
+  "a-porch",
   "a-hall",
   "a-living",
   "a-bedroom",
@@ -607,6 +608,12 @@ function buildPlaces() {
 
   for (const place of places) {
     if (!place.ring || place.ring.length < 3) continue;
+    const isPorch =
+      place.component === "porch" || (place.roles || []).includes("porch");
+    if (isPorch) {
+      addPorch(place);
+      continue;
+    }
     const shape = ringToShape(place.ring);
     const depth = placeHeight(place);
     const elev = placeElevation(place);
@@ -666,6 +673,69 @@ function buildPlaces() {
       }
     }
   }
+}
+
+/** Covered arrival: deck + posts + flat canopy — not a solid room box. */
+function addPorch(place) {
+  const b = ringBounds(place.ring);
+  const elev = placeElevation(place);
+  const canopyH = placeHeight(place) || 2.4;
+  const cx = (b.minX + b.maxX) / 2;
+  const cy = (b.minY + b.maxY) / 2;
+  const deckMat = new THREE.MeshStandardMaterial({
+    color: 0x8a7d68,
+    roughness: 0.88,
+    metalness: 0.02,
+    envMapIntensity: 0.35,
+  });
+  const postMat = new THREE.MeshStandardMaterial({
+    color: 0x5a5048,
+    roughness: 0.85,
+    metalness: 0.02,
+  });
+  const canopyMat = new THREE.MeshStandardMaterial({
+    color: 0x6a5344,
+    roughness: 0.9,
+    metalness: 0.04,
+    envMapIntensity: 0.3,
+    side: THREE.DoubleSide,
+  });
+
+  const deck = new THREE.Mesh(
+    new THREE.BoxGeometry(b.w, 0.12, b.d),
+    deckMat,
+  );
+  deck.position.set(cx, elev + 0.06, -cy);
+  deck.receiveShadow = true;
+  deck.userData.placeId = place.id;
+  deck.userData.surface = "porch";
+  world.add(deck);
+  placeMeshes.set(place.id, deck);
+
+  const inset = 0.2;
+  const corners = [
+    [b.minX + inset, b.minY + inset],
+    [b.maxX - inset, b.minY + inset],
+    [b.minX + inset, b.maxY - inset],
+    [b.maxX - inset, b.maxY - inset],
+  ];
+  for (const [px, py] of corners) {
+    const post = new THREE.Mesh(new THREE.BoxGeometry(0.18, canopyH, 0.18), postMat);
+    post.position.set(px, elev + canopyH / 2, -py);
+    post.castShadow = true;
+    post.userData.placeId = place.id;
+    world.add(post);
+  }
+
+  const canopy = new THREE.Mesh(
+    new THREE.BoxGeometry(b.w + 0.25, 0.12, b.d + 0.25),
+    canopyMat,
+  );
+  canopy.position.set(cx, elev + canopyH, -cy);
+  canopy.castShadow = true;
+  canopy.receiveShadow = true;
+  canopy.userData.placeId = place.id;
+  world.add(canopy);
 }
 
 function addBalconyPosts(place, elev) {
@@ -1083,7 +1153,14 @@ function buildNetwork() {
 /** Garden / court enclosure vs building shell vs balcony rail. */
 function wallKind(wall) {
   const id = wall.id || "";
-  if (id.includes("court") || id === "w-house-w" || id.includes("house-e-court")) return "garden";
+  if (
+    id.includes("court")
+    || id.includes("porch")
+    || id === "w-house-w"
+    || id.includes("house-e-court")
+  ) {
+    return "garden";
+  }
   if (id.includes("balc")) return "rail";
   return "building";
 }
