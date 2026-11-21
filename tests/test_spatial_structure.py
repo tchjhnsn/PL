@@ -61,6 +61,12 @@ def test_roles() -> None:
     assert len(places_with_role(plan, "block")) >= 5
     assert any(p["id"] == "lot-i" for p in plan["places"])
     assert any(p["id"] == "lot-j" for p in plan["places"])
+    assert any(p["id"] == "district-metro" for p in places_with_role(plan, "district"))
+    assert any("park" in (p.get("roles") or []) for p in plan["places"])
+    assert any("school" in (p.get("roles") or []) for p in plan["places"])
+    assert any("grocery" in (p.get("roles") or []) for p in plan["places"])
+    assert measure_value(plan, "m-metro-width") >= 400.0
+    assert len(plan["places"]) >= 400
 
 
 def test_balcony_clear_width_meets_threshold() -> None:

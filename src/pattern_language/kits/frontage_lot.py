@@ -29,6 +29,8 @@ class FrontageLotSpec:
     land_use: str = "living"  # living | work | civic
     wall_thickness: float = 0.2
     patterns: tuple[int, ...] = (105, 106, 112)
+    sidewalk_place: str | None = None  # override network sidewalk place id
+    sidewalk_y: float | None = None
 
 
 def stamp_frontage_lot(spec: FrontageLotSpec) -> dict[str, Any]:
@@ -139,8 +141,10 @@ def stamp_frontage_lot(spec: FrontageLotSpec) -> dict[str, Any]:
     gx, _gy = spec.gate_xy
     addr_y = y1  # massing front
     on_main = "main" in spec.street_id
-    sw_place = "sidewalk-main-n" if on_main else "sidewalk-cross-n"
-    sw_y = 6.75 if on_main else 51.25
+    sw_place = spec.sidewalk_place or (
+        "sidewalk-main-n" if on_main else "sidewalk-cross-n"
+    )
+    sw_y = spec.sidewalk_y if spec.sidewalk_y is not None else (6.75 if on_main else 51.25)
     path_y = (sw_y + y0) / 2
     court_y = (y0 + y1) / 2
     nodes = [
