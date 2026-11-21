@@ -32560,6 +32560,90 @@
     },
     {
       "type": "Feature",
+      "id": "metro-country-south",
+      "properties": {
+        "id": "metro-country-south",
+        "label": "Country fringe",
+        "component": "park",
+        "kind": "void",
+        "role": "Countryside fringe meeting the city fingers.",
+        "patterns": [
+          3,
+          60
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9606621
+            ],
+            [
+              -75.1516472,
+              39.9606621
+            ],
+            [
+              -75.1516472,
+              39.9609855
+            ],
+            [
+              -75.1636,
+              39.9609855
+            ],
+            [
+              -75.1636,
+              39.9606621
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "metro-country-road",
+      "properties": {
+        "id": "metro-country-road",
+        "label": "Country road",
+        "component": "street",
+        "kind": "void",
+        "role": "Country road along the metro fringe.",
+        "patterns": [
+          3,
+          14
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9609855
+            ],
+            [
+              -75.1516472,
+              39.9609855
+            ],
+            [
+              -75.1516472,
+              39.9610573
+            ],
+            [
+              -75.1636,
+              39.9610573
+            ],
+            [
+              -75.1636,
+              39.9609855
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "district-metro-east",
       "properties": {
         "id": "district-metro-east",
@@ -52101,6 +52185,90 @@
             [
               -75.1423428,
               39.9584522
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "metro-east-country-south",
+      "properties": {
+        "id": "metro-east-country-south",
+        "label": "Country fringe",
+        "component": "park",
+        "kind": "void",
+        "role": "Countryside fringe meeting the city fingers.",
+        "patterns": [
+          3,
+          60
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1514128,
+              39.9591529
+            ],
+            [
+              -75.1414287,
+              39.9591529
+            ],
+            [
+              -75.1414287,
+              39.9594763
+            ],
+            [
+              -75.1514128,
+              39.9594763
+            ],
+            [
+              -75.1514128,
+              39.9591529
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "metro-east-country-road",
+      "properties": {
+        "id": "metro-east-country-road",
+        "label": "Country road",
+        "component": "street",
+        "kind": "void",
+        "role": "Country road along the metro fringe.",
+        "patterns": [
+          3,
+          14
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1514128,
+              39.9594763
+            ],
+            [
+              -75.1414287,
+              39.9594763
+            ],
+            [
+              -75.1414287,
+              39.9595482
+            ],
+            [
+              -75.1514128,
+              39.9595482
+            ],
+            [
+              -75.1514128,
+              39.9594763
             ]
           ]
         ]

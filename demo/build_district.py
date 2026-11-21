@@ -2301,7 +2301,7 @@ def build_plan() -> dict:
             "origin_lon": ORIGIN_LON,
             "origin_lat": ORIGIN_LAT,
         },
-        "extent": {"min_x": -8, "min_y": -8, "max_x": 1900, "max_y": 960},
+        "extent": {"min_x": -8, "min_y": -8, "max_x": 1900, "max_y": 1020},
         "places": places,
         "walls": walls,
         "openings": openings,

@@ -334,6 +334,40 @@ def generate_city_fabric(
                     ),
                 )
 
+    # Country edge south of the quarter — continuous green that the fingers meet
+    # (3 City Country Fingers / countryside fringe).
+    country_d = 36.0
+    cy0, cy1 = y1, y1 + country_d
+    parts["places"].append(
+        {
+            "id": f"{prefix}-country-south",
+            "label": "Country fringe",
+            "component": "park",
+            "kind": "void",
+            "ring": [list(p) for p in _ring(x0, cy0, x1, cy1)],
+            "roles": ["park", "green", "grass", "outdoor", "public", "country"],
+            "patterns": [3, 60],
+            "role": "Countryside fringe meeting the city fingers.",
+            "parent": district_id,
+            "stage": "land",
+        }
+    )
+    parts["places"].append(
+        {
+            "id": f"{prefix}-country-road",
+            "label": "Country road",
+            "component": "street",
+            "kind": "void",
+            "ring": [list(p) for p in _ring(x0, cy1, x1, cy1 + 8.0)],
+            "roles": ["street", "public", "row", "country", "local"],
+            "patterns": [3, 14],
+            "role": "Country road along the metro fringe.",
+            "parent": None,
+            "enclosure_hw": 0.15,
+            "stage": "land",
+        }
+    )
+
     parts["measures"].append(
         {
             "id": f"m-{prefix}-width",

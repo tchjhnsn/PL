@@ -14,7 +14,7 @@
     "min_x": -8,
     "min_y": -8,
     "max_x": 1900,
-    "max_y": 960
+    "max_y": 1020
   },
   "places": [
     {
@@ -27927,6 +27927,84 @@
       "stage": "land"
     },
     {
+      "id": "metro-country-south",
+      "label": "Country fringe",
+      "component": "park",
+      "kind": "void",
+      "ring": [
+        [
+          0.0,
+          942.0
+        ],
+        [
+          1020.0,
+          942.0
+        ],
+        [
+          1020.0,
+          978.0
+        ],
+        [
+          0.0,
+          978.0
+        ]
+      ],
+      "roles": [
+        "park",
+        "green",
+        "grass",
+        "outdoor",
+        "public",
+        "country"
+      ],
+      "patterns": [
+        3,
+        60
+      ],
+      "role": "Countryside fringe meeting the city fingers.",
+      "parent": "district-metro",
+      "stage": "land"
+    },
+    {
+      "id": "metro-country-road",
+      "label": "Country road",
+      "component": "street",
+      "kind": "void",
+      "ring": [
+        [
+          0.0,
+          978.0
+        ],
+        [
+          1020.0,
+          978.0
+        ],
+        [
+          1020.0,
+          986.0
+        ],
+        [
+          0.0,
+          986.0
+        ]
+      ],
+      "roles": [
+        "street",
+        "public",
+        "row",
+        "country",
+        "local"
+      ],
+      "patterns": [
+        3,
+        14
+      ],
+      "role": "Country road along the metro fringe.",
+      "parent": null,
+      "enclosure_hw": 0.15,
+      "stage": "land"
+    },
+    {
       "id": "district-metro-east",
       "label": "Metro Quarter (metro-east)",
       "component": "district",
@@ -44703,6 +44781,84 @@
       "parent": "found-metro-east-utility-9-7",
       "height_m": 6.0,
       "stage": "frame"
+    },
+    {
+      "id": "metro-east-country-south",
+      "label": "Country fringe",
+      "component": "park",
+      "kind": "void",
+      "ring": [
+        [
+          1040.0,
+          774.0
+        ],
+        [
+          1892.0,
+          774.0
+        ],
+        [
+          1892.0,
+          810.0
+        ],
+        [
+          1040.0,
+          810.0
+        ]
+      ],
+      "roles": [
+        "park",
+        "green",
+        "grass",
+        "outdoor",
+        "public",
+        "country"
+      ],
+      "patterns": [
+        3,
+        60
+      ],
+      "role": "Countryside fringe meeting the city fingers.",
+      "parent": "district-metro-east",
+      "stage": "land"
+    },
+    {
+      "id": "metro-east-country-road",
+      "label": "Country road",
+      "component": "street",
+      "kind": "void",
+      "ring": [
+        [
+          1040.0,
+          810.0
+        ],
+        [
+          1892.0,
+          810.0
+        ],
+        [
+          1892.0,
+          818.0
+        ],
+        [
+          1040.0,
+          818.0
+        ]
+      ],
+      "roles": [
+        "street",
+        "public",
+        "row",
+        "country",
+        "local"
+      ],
+      "patterns": [
+        3,
+        14
+      ],
+      "role": "Country road along the metro fringe.",
+      "parent": null,
+      "enclosure_hw": 0.15,
+      "stage": "land"
     }
   ],
   "walls": [

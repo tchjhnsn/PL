@@ -87,13 +87,20 @@ const siteCenter = new THREE.Vector3(
   -((extent.min_y + extent.max_y) / 2),
 );
 const siteSpan = Math.max(extent.max_x - extent.min_x, extent.max_y - extent.min_y, 40);
+const viewFar = Math.max(480, siteSpan * 2.4);
+const viewNearFog = Math.max(80, siteSpan * 0.35);
+const viewFarFog = Math.max(220, siteSpan * 1.35);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xc5d6ea);
-scene.fog = new THREE.Fog(0xd5e3f0, 220, 560);
+scene.fog = new THREE.Fog(0xd5e3f0, viewNearFog, viewFarFog);
 
-const camera = new THREE.PerspectiveCamera(52, 1, 0.35, 480);
-camera.position.set(siteCenter.x + 64, 9, siteCenter.z + 100);
+const camera = new THREE.PerspectiveCamera(52, 1, 0.35, viewFar);
+camera.position.set(
+  siteCenter.x + siteSpan * 0.12,
+  Math.max(24, siteSpan * 0.08),
+  siteCenter.z + siteSpan * 0.22,
+);
 
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const renderer = new THREE.WebGLRenderer({
@@ -118,7 +125,7 @@ controls.dampingFactor = 0.08;
 controls.target.copy(siteCenter);
 controls.maxPolarAngle = Math.PI * 0.49;
 controls.minDistance = 6;
-controls.maxDistance = 160;
+controls.maxDistance = Math.max(160, siteSpan * 1.6);
 
 const sun = new THREE.DirectionalLight(0xfff1d6, 2.65);
 sun.castShadow = true;
@@ -1554,9 +1561,12 @@ function frameCamera() {
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const span = Math.max(size.x, size.z, 20);
-  const eye = Math.max(8, span * 0.2);
-  controls.target.set(center.x, Math.min(4, eye * 0.35), center.z);
-  camera.position.set(center.x + span * 0.62, eye, center.z + span * 0.95);
+  const eye = Math.max(8, span * 0.28);
+  controls.target.set(center.x, Math.min(4, eye * 0.12), center.z);
+  camera.position.set(center.x + span * 0.55, eye, center.z + span * 0.72);
+  camera.far = Math.max(viewFar, span * 3);
+  camera.updateProjectionMatrix();
+  controls.maxDistance = Math.max(controls.maxDistance, span * 1.8);
   controls.update();
 }
 
