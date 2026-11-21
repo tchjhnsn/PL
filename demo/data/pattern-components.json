@@ -217,9 +217,11 @@
       "look_for": "Public before private along the graph.",
       "feature_ids": [
         "e-hall-liv",
-        "e-liv-bed",
+        "e-liv-stair",
+        "e-stair-bed",
         "a-hall",
         "a-living",
+        "a-stair",
         "a-bedroom"
       ],
       "kind": "computed",
@@ -243,20 +245,22 @@
               26
             ],
             "to": [
-              35,
-              33
+              29.5,
+              26
             ],
-            "label": "private"
+            "label": "up"
           }
         ],
         "zones": [
           "a-hall",
           "a-living",
+          "a-stair",
           "a-bedroom"
         ],
         "edges": [
           "e-hall-liv",
-          "e-liv-bed"
+          "e-liv-stair",
+          "e-stair-bed"
         ]
       }
     },
@@ -418,9 +422,9 @@
           {
             "at": [
               35,
-              33
+              26
             ],
-            "text": "2.7 m"
+            "text": "upper 2.7 m"
           }
         ],
         "zones": [

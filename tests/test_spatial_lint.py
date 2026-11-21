@@ -35,3 +35,21 @@ def test_deliberate_lot_overlap_is_caught() -> None:
             break
     errors = lint_plan(broken)
     assert any("overlap: lots" in e for e in errors)
+
+
+def test_stacked_storeys_may_share_xy() -> None:
+    """Upper bedroom on the living footprint is legal; same-elev overlap is not."""
+    plan = json.loads(PLAN.read_text(encoding="utf-8"))
+    assert lint_plan(plan) == []
+    bedroom = next(p for p in plan["places"] if p["id"] == "a-bedroom")
+    living = next(p for p in plan["places"] if p["id"] == "a-living")
+    assert bedroom.get("floor_elevation_m", 0) >= living.get("height_m", 0)
+    assert "a-door-bed" not in {o["id"] for o in plan.get("openings") or []}
+    assert any(p["id"] == "a-stair" for p in plan["places"])
+
+    broken = json.loads(json.dumps(plan))
+    for p in broken["places"]:
+        if p["id"] == "a-bedroom":
+            p["floor_elevation_m"] = 0
+            break
+    assert any("overlap: shells" in e for e in lint_plan(broken))

@@ -128,7 +128,28 @@ def lint_plan(plan: dict[str, Any]) -> list[str]:
             if overlaps(ra, rb):
                 errors.append(f"overlap: foundations {a} and {b}")
 
-    # Occupied shells (rooms + massing solids) must not area-overlap peers.
+    # Occupied shells (rooms + massing solids) must not area-overlap peers
+    # on the same storey. Stacked storeys (upper floor ≥ lower ceiling) may share XY.
+    by_id = {p["id"]: p for p in places if "id" in p}
+
+    def floor_elev(pid: str) -> float:
+        p = by_id.get(pid) or {}
+        v = p.get("floor_elevation_m")
+        return float(v) if isinstance(v, (int, float)) else 0.0
+
+    def clear_height(pid: str) -> float:
+        p = by_id.get(pid) or {}
+        v = p.get("height_m")
+        return float(v) if isinstance(v, (int, float)) else 0.0
+
+    def stacked_ok(a: str, b: str) -> bool:
+        fa, fb = floor_elev(a), floor_elev(b)
+        if fa > fb + EPS:
+            return fa + EPS >= fb + clear_height(b)
+        if fb > fa + EPS:
+            return fb + EPS >= fa + clear_height(a)
+        return False
+
     shells = [
         p["id"]
         for p in places
@@ -143,7 +164,7 @@ def lint_plan(plan: dict[str, Any]) -> list[str]:
             rb = ring_of(b)
             if rb is None:
                 continue
-            if overlaps(ra, rb):
+            if overlaps(ra, rb) and not stacked_ok(a, b):
                 errors.append(f"overlap: shells {a} and {b}")
 
     for ix in plan.get("interactions") or []:

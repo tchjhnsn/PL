@@ -32,6 +32,9 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert 'id="bloom-toggle"' in html
 
     assert "addPorch" in source
+    assert "addStair" in source
+    assert "shellBottom" in source or "elevated" in source
+    assert "setCamera" in source
 
     plan = (repo_root / "demo" / "data" / "plan-model.json").read_text()
     assert '"id": "a-door-approach"' in plan
@@ -71,3 +74,11 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "plot series" in u15.lower() or "frontage" in u15.lower()
     assert "b-court" in u15
     assert "Non-goals" in u15
+
+    assert '"id": "a-stair"' in plan
+    assert "a-door-bed" not in plan
+    assert '"id": "m-building-line-main"' in plan
+    u16 = (repo_root / "docs" / "design" / "U16-HOUSE-STOREY.md").read_text()
+    assert "roof" in u16.lower()
+    assert "a-stair" in u16
+    assert "stacked" in u16.lower() or "storey" in u16.lower()
