@@ -155,11 +155,11 @@
             ],
             [
               -75.1635063,
-              39.9528288
+              39.9528648
             ],
             [
               -75.1636,
-              39.9528288
+              39.9528648
             ],
             [
               -75.1636,
@@ -303,7 +303,7 @@
         "label": "East Street ROW",
         "component": "street",
         "kind": "void",
-        "role": "North\u2013south local street between South Block and East Block.",
+        "role": "North\u2013south local street splitting the 2\u00d72 block grid (South/East | North/NE).",
         "patterns": [
           105,
           106
@@ -323,15 +323,57 @@
             ],
             [
               -75.162686,
-              39.9526312
+              39.9528288
             ],
             [
               -75.1627328,
-              39.9526312
+              39.9528288
             ],
             [
               -75.1627328,
               39.9522719
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "street-north",
+      "properties": {
+        "id": "street-north",
+        "label": "North Street ROW",
+        "component": "street",
+        "kind": "void",
+        "role": "East\u2013west local street closing the north edge of the 2\u00d72 city grid.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1636,
+              39.9528288
+            ],
+            [
+              -75.1621938,
+              39.9528288
+            ],
+            [
+              -75.1621938,
+              39.9528648
+            ],
+            [
+              -75.1636,
+              39.9528648
+            ],
+            [
+              -75.1636,
+              39.9528288
             ]
           ]
         ]
@@ -345,7 +387,7 @@
         "label": "South Block",
         "component": "block",
         "kind": "land",
-        "role": "Urban block south of the shared green \u2014 Lots A and B plot series on Main Street.",
+        "role": "SW cell of the 2\u00d72 grid \u2014 Lots A and B on Main Street.",
         "patterns": [
           105,
           106
@@ -387,7 +429,7 @@
         "label": "North Block",
         "component": "block",
         "kind": "land",
-        "role": "Urban block north of Cross Street \u2014 Lots C and D plot series on the local street.",
+        "role": "NW cell of the 2\u00d72 grid \u2014 Lots C and D on Cross Street.",
         "patterns": [
           105,
           106
@@ -429,7 +471,7 @@
         "label": "East Block",
         "component": "block",
         "kind": "land",
-        "role": "Second block east of East Street \u2014 Lots E and F on Main Street.",
+        "role": "SE cell of the 2\u00d72 grid \u2014 Lots E and F on Main Street.",
         "patterns": [
           105,
           106
@@ -465,13 +507,55 @@
     },
     {
       "type": "Feature",
+      "id": "block-northeast",
+      "properties": {
+        "id": "block-northeast",
+        "label": "Northeast Block",
+        "component": "block",
+        "kind": "land",
+        "role": "NE cell of the 2\u00d72 grid \u2014 Lots G and H on Cross Street.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.162686,
+              39.9526671
+            ],
+            [
+              -75.162311,
+              39.9526671
+            ],
+            [
+              -75.162311,
+              39.9528288
+            ],
+            [
+              -75.162686,
+              39.9528288
+            ],
+            [
+              -75.162686,
+              39.9526671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "district-seed",
       "properties": {
         "id": "district-seed",
-        "label": "Seed Neighborhood",
+        "label": "Seed City",
         "component": "district",
         "kind": "land",
-        "role": "Multi-block neighborhood container for the seed city fragment.",
+        "role": "2\u00d72 block city fragment \u2014 four blocks, Main / Cross / East / North streets.",
         "patterns": [
           105,
           106
@@ -491,11 +575,11 @@
             ],
             [
               -75.1621938,
-              39.9528468
+              39.9528827
             ],
             [
               -75.1636,
-              39.9528468
+              39.9528827
             ],
             [
               -75.1636,
@@ -947,6 +1031,84 @@
     },
     {
       "type": "Feature",
+      "id": "lot-g",
+      "properties": {
+        "id": "lot-g",
+        "label": "Lot G",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Northeast Block parcel on Cross Street.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.162686,
+              39.9526671
+            ],
+            [
+              -75.1624985,
+              39.9526671
+            ],
+            [
+              -75.1624985,
+              39.9528288
+            ],
+            [
+              -75.162686,
+              39.9528288
+            ],
+            [
+              -75.162686,
+              39.9526671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lot-h",
+      "properties": {
+        "id": "lot-h",
+        "label": "Lot H",
+        "component": "parcel",
+        "kind": "land",
+        "role": "Northeast Block eastern parcel on Cross Street.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.162475,
+              39.9526671
+            ],
+            [
+              -75.162311,
+              39.9526671
+            ],
+            [
+              -75.162311,
+              39.9528288
+            ],
+            [
+              -75.162475,
+              39.9528288
+            ],
+            [
+              -75.162475,
+              39.9526671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "found-a",
       "properties": {
         "id": "found-a",
@@ -1213,6 +1375,84 @@
             [
               -75.1624516,
               39.9523437
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-g",
+      "properties": {
+        "id": "found-g",
+        "label": "Foundation G",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for Northeast Block massing G.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1626625,
+              39.9527031
+            ],
+            [
+              -75.1625219,
+              39.9527031
+            ],
+            [
+              -75.1625219,
+              39.9527929
+            ],
+            [
+              -75.1626625,
+              39.9527929
+            ],
+            [
+              -75.1626625,
+              39.9527031
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "found-h",
+      "properties": {
+        "id": "found-h",
+        "label": "Foundation H",
+        "component": "pad",
+        "kind": "foundation",
+        "role": "Pad for Northeast Block massing H.",
+        "patterns": []
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1624516,
+              39.9527031
+            ],
+            [
+              -75.1623344,
+              39.9527031
+            ],
+            [
+              -75.1623344,
+              39.9527929
+            ],
+            [
+              -75.1624516,
+              39.9527929
+            ],
+            [
+              -75.1624516,
+              39.9527031
             ]
           ]
         ]
@@ -2196,6 +2436,176 @@
     },
     {
       "type": "Feature",
+      "id": "g-court",
+      "properties": {
+        "id": "g-court",
+        "label": "Front Court G",
+        "component": "court",
+        "kind": "void",
+        "role": "Cross Street front court on Lot G \u2014 Northeast Block plot series.",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1626625,
+              39.9526671
+            ],
+            [
+              -75.1625219,
+              39.9526671
+            ],
+            [
+              -75.1625219,
+              39.9527031
+            ],
+            [
+              -75.1626625,
+              39.9527031
+            ],
+            [
+              -75.1626625,
+              39.9526671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-g",
+      "properties": {
+        "id": "house-g",
+        "label": "Massing G",
+        "component": "massing",
+        "kind": "solid",
+        "role": "Frame-stage massing on Foundation G.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1626625,
+              39.9527031
+            ],
+            [
+              -75.1625219,
+              39.9527031
+            ],
+            [
+              -75.1625219,
+              39.9527929
+            ],
+            [
+              -75.1626625,
+              39.9527929
+            ],
+            [
+              -75.1626625,
+              39.9527031
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "h-court",
+      "properties": {
+        "id": "h-court",
+        "label": "Front Court H",
+        "component": "court",
+        "kind": "void",
+        "role": "Cross Street front court on Lot H \u2014 Northeast Block with G.",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1624516,
+              39.9526671
+            ],
+            [
+              -75.1623344,
+              39.9526671
+            ],
+            [
+              -75.1623344,
+              39.9527031
+            ],
+            [
+              -75.1624516,
+              39.9527031
+            ],
+            [
+              -75.1624516,
+              39.9526671
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "house-h",
+      "properties": {
+        "id": "house-h",
+        "label": "Massing H",
+        "component": "massing",
+        "kind": "solid",
+        "role": "Frame-stage massing on Foundation H.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1624516,
+              39.9527031
+            ],
+            [
+              -75.1623344,
+              39.9527031
+            ],
+            [
+              -75.1623344,
+              39.9527929
+            ],
+            [
+              -75.1624516,
+              39.9527929
+            ],
+            [
+              -75.1624516,
+              39.9527031
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "e-main-1",
       "properties": {
         "id": "e-main-1",
@@ -2450,6 +2860,136 @@
           [
             -75.1635531,
             39.952739
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-lane-nn",
+      "properties": {
+        "id": "e-lane-nn",
+        "label": "Side Lane \u2192North",
+        "component": "centerline",
+        "hierarchy": "lane",
+        "mode": "shared",
+        "width_m": 6.0,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1635531,
+            39.952739
+          ],
+          [
+            -75.1635531,
+            39.9528468
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-north-1",
+      "properties": {
+        "id": "e-north-1",
+        "label": "North Street \u2192",
+        "component": "centerline",
+        "hierarchy": "local",
+        "mode": "vehicle",
+        "width_m": 4.0,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1635531,
+            39.9528468
+          ],
+          [
+            -75.1628969,
+            39.9528468
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-north-2",
+      "properties": {
+        "id": "e-north-2",
+        "label": "North Street \u2192",
+        "component": "centerline",
+        "hierarchy": "local",
+        "mode": "vehicle",
+        "width_m": 4.0,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1628969,
+            39.9528468
+          ],
+          [
+            -75.1627094,
+            39.9528468
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-north-3",
+      "properties": {
+        "id": "e-north-3",
+        "label": "North Street \u2192",
+        "component": "centerline",
+        "hierarchy": "local",
+        "mode": "vehicle",
+        "width_m": 4.0,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1627094,
+            39.9528468
+          ],
+          [
+            -75.1622172,
+            39.9528468
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-east-ne",
+      "properties": {
+        "id": "e-east-ne",
+        "label": "East Street \u2191NE",
+        "component": "centerline",
+        "hierarchy": "local",
+        "mode": "vehicle",
+        "width_m": 4.0,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1627094,
+            39.9526492
+          ],
+          [
+            -75.1627094,
+            39.9528468
           ]
         ]
       }
@@ -3234,6 +3774,162 @@
           [
             -75.162393,
             39.9523437
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-g-1",
+      "properties": {
+        "id": "e-approach-g-1",
+        "label": "Sidewalk\u2192Court G",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1625922,
+            39.9526604
+          ],
+          [
+            -75.1625922,
+            39.9526851
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-g-2",
+      "properties": {
+        "id": "e-approach-g-2",
+        "label": "Court G\u2192Address",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1625922,
+            39.9526851
+          ],
+          [
+            -75.1625922,
+            39.9527031
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-h-1",
+      "properties": {
+        "id": "e-approach-h-1",
+        "label": "Sidewalk\u2192Court H",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.162393,
+            39.9526604
+          ],
+          [
+            -75.162393,
+            39.9526851
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-h-2",
+      "properties": {
+        "id": "e-approach-h-2",
+        "label": "Court H\u2192Address",
+        "component": "centerline",
+        "hierarchy": "approach",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.162393,
+            39.9526851
+          ],
+          [
+            -75.162393,
+            39.9527031
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-cross-sw-g",
+      "properties": {
+        "id": "e-cross-sw-g",
+        "label": "Cross\u2192SW G",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1627094,
+            39.9526492
+          ],
+          [
+            -75.1625922,
+            39.9526604
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-cross-sw-h",
+      "properties": {
+        "id": "e-cross-sw-h",
+        "label": "Cross\u2192SW H",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1627094,
+            39.9526492
+          ],
+          [
+            -75.162393,
+            39.9526604
           ]
         ]
       }

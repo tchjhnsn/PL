@@ -112,3 +112,13 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     u19 = (repo_root / "docs" / "design" / "U19-SECOND-BLOCK.md").read_text()
     assert "block-east" in u19
     assert "district-seed" in u19
+
+    assert '"id": "block-northeast"' in plan
+    assert '"id": "street-north"' in plan
+    assert '"id": "lot-g"' in plan
+    assert '"id": "n-addr-g"' in plan
+    assert '"id": "m-city-span-x"' in plan
+    assert "Seed City" in plan
+    u21 = (repo_root / "docs" / "design" / "U21-CITY-GRID.md").read_text()
+    assert "2×2" in u21 or "2x2" in u21.lower()
+    assert "block-northeast" in u21
