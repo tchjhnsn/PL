@@ -87,20 +87,14 @@ const siteCenter = new THREE.Vector3(
   -((extent.min_y + extent.max_y) / 2),
 );
 const siteSpan = Math.max(extent.max_x - extent.min_x, extent.max_y - extent.min_y, 40);
-const viewFar = Math.max(480, siteSpan * 2.4);
-const viewNearFog = Math.max(80, siteSpan * 0.35);
-const viewFarFog = Math.max(220, siteSpan * 1.35);
+const viewFar = Math.max(2000, siteSpan * 3);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xc5d6ea);
-scene.fog = new THREE.Fog(0xd5e3f0, viewNearFog, viewFarFog);
+scene.fog = null;
 
 const camera = new THREE.PerspectiveCamera(52, 1, 0.35, viewFar);
-camera.position.set(
-  siteCenter.x + siteSpan * 0.12,
-  Math.max(24, siteSpan * 0.08),
-  siteCenter.z + siteSpan * 0.22,
-);
+camera.position.set(siteCenter.x + 64, 28, siteCenter.z + 100);
 
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const renderer = new THREE.WebGLRenderer({
@@ -357,7 +351,6 @@ function applySunTime(t) {
   scene.add(sky);
   scene.environment = envRenderTarget.texture;
   scene.environmentIntensity = THREE.MathUtils.lerp(0.34, 0.48, sunTime);
-  scene.fog.color.set(sunTime < 0.55 ? 0xd5e3f0 : 0xe8c9a8);
   scene.background = new THREE.Color(sunTime < 0.55 ? 0x8eb6dc : 0xc48a58);
 
   const warm = new THREE.Color().setHSL(0.1, 0.35 + sunTime * 0.35, 0.88);
@@ -1654,18 +1647,12 @@ function showPlace(id) {
     .join("");
   const elev = placeElevation(place);
   const h = placeHeight(place);
-  const links = (plan.interactions || [])
-    .filter((ix) => ix.a === place.id || ix.b === place.id)
-    .map((ix) => `<li><code>${ix.kind}</code> ${ix.a} ↔ ${ix.b}${ix.min_m != null ? ` ≥ ${ix.min_m} m` : ""}</li>`)
-    .join("");
   inspector.innerHTML = `
     <p><strong>${place.label || place.id}</strong></p>
-    <p class="soft">${place.kind} · ${place.component || "—"} · stage ${placeStageId(place)}</p>
-    <p class="soft">floor ${elev.toFixed(1)} m · height ${h.toFixed(1)} m</p>
     ${place.role ? `<p class="soft">${place.role}</p>` : ""}
-    ${links ? `<p class="soft">interactions</p><ul class="soft">${links}</ul>` : ""}
-    <p class="soft">patterns</p>
-    <ul class="soft">${pats || "<li>none</li>"}</ul>
+    <p class="soft">${elev.toFixed(1)} m up · ${h.toFixed(1)} m tall</p>
+    <p class="soft">Patterns</p>
+    <ul class="soft">${pats || "<li>none yet</li>"}</ul>
   `;
 }
 

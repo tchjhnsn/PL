@@ -1,14 +1,8 @@
-"""Object library kits stamp valid frontage lots and city fabric."""
+"""Object library kits stamp valid frontage lots."""
 
 from __future__ import annotations
 
-from pattern_language.kits import (
-    FrontageLotSpec,
-    ProgramPlaceSpec,
-    generate_city_fabric,
-    stamp_frontage_lot,
-    stamp_program_place,
-)
+from pattern_language.kits import FrontageLotSpec, stamp_frontage_lot
 
 
 def test_frontage_lot_kit_ids() -> None:
@@ -31,33 +25,3 @@ def test_frontage_lot_kit_ids() -> None:
     assert any(o["id"] == "z-door-approach" for o in kit["openings"])
     assert any(n["kind"] == "address" for n in kit["nodes"])
     assert any(m["kind"] == "frontage" for m in kit["measures"])
-
-
-def test_program_place_school() -> None:
-    kit = stamp_program_place(
-        ProgramPlaceSpec(
-            key="sch-test",
-            label="Test school",
-            program="school",
-            ring=((0, 0), (40, 0), (40, 40), (0, 40)),
-            mass_ring=((6, 6), (34, 6), (34, 34), (6, 34)),
-        )
-    )
-    ids = {p["id"] for p in kit["places"]}
-    assert "lot-sch-test" in ids
-    assert "bldg-sch-test" in ids
-    assert 85 in kit["places"][0]["patterns"]
-
-
-def test_city_fabric_has_civic_and_fingers() -> None:
-    fabric = generate_city_fabric(origin_x=0, origin_y=0, cols=8, rows=6)
-    roles = {r for p in fabric["places"] for r in (p.get("roles") or [])}
-    assert "park" in roles
-    assert "school" in roles
-    assert "grocery" in roles or "shop" in roles
-    assert any(p["id"] == "district-metro" for p in fabric["places"])
-    comps = {p.get("component") for p in fabric["places"]}
-    assert "civic" in comps or any("town" in (p.get("label") or "").lower() for p in fabric["places"])
-    assert any(m["id"] == "m-metro-width" for m in fabric["measures"])
-    m = next(x for x in fabric["measures"] if x["id"] == "m-metro-width")
-    assert m["value_m"] >= 400

@@ -1,19 +1,19 @@
 {
-  "id": "seed-district-decided",
-  "title": "Seed City — build order",
+  "id": "seed-district-build",
+  "title": "Seed City — what to show",
   "stages": [
     {
       "id": "survey",
-      "name": "Survey",
+      "name": "Site",
       "mode": "sync",
       "requires": [],
       "unlocks": ["survey.complete"],
-      "webgl": "Ground, north, and sun",
-      "note": "Site frame only — no lots yet."
+      "webgl": "Ground and sun",
+      "note": "Empty site — no lots yet."
     },
     {
       "id": "land",
-      "name": "Land",
+      "name": "Lots",
       "mode": "sync",
       "requires": ["survey.complete"],
       "unlocks": ["land.lots"],
@@ -36,11 +36,11 @@
       "requires": ["foundation.ready"],
       "unlocks": ["frame.ready"],
       "webgl": "Walls and floors",
-      "note": "Building shells after that lot’s pad."
+      "note": "Walls after that lot’s pad."
     },
     {
       "id": "openings",
-      "name": "Doors & windows",
+      "name": "Doors",
       "mode": "sync",
       "requires": ["frame.ready"],
       "unlocks": ["openings.installed"],

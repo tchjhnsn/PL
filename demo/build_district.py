@@ -10,7 +10,6 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-from pattern_language.kits.city_fabric import generate_city_fabric
 from pattern_language.kits.frontage_lot import FrontageLotSpec, merge_kit, stamp_frontage_lot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,26 +21,6 @@ ORIGIN_LON = -75.1636
 M_PER_DEG_LAT = 111_320.0
 
 NAMES = {
-    3: "City Country Fingers",
-    8: "Mosaic of Subcultures",
-    14: "Identifiable Neighborhood",
-    15: "Neighborhood Boundary",
-    19: "Web of Shopping",
-    30: "Activity Nodes",
-    32: "Shopping Street",
-    41: "Work Community",
-    42: "Industrial Ribbon",
-    44: "Local Town Hall",
-    46: "Market of Many Shops",
-    47: "Health Center",
-    57: "Children in the City",
-    60: "Accessible Green",
-    67: "Common Land",
-    68: "Connected Play",
-    81: "Small Services Without Red Tape",
-    85: "Shopfront Schools",
-    87: "Individually Owned Shops",
-    89: "Corner Grocery",
     105: "South Facing Outdoors",
     106: "Positive Outdoor Space",
     107: "Wings of Light",
@@ -2265,30 +2244,10 @@ def build_plan() -> dict:
     ):
         merge_kit(kit_parts, stamp_frontage_lot(spec))
 
-    # Real city quarters south/east of the seed neighborhood: schools, shops, parks,
-    # town hall, police, bank, clinic, utilities, green fingers (3 City Country Fingers).
-    merge_kit(
-        kit_parts,
-        generate_city_fabric(
-            origin_x=0.0, origin_y=90.0, cols=12, rows=10, district_id="district-metro"
-        ),
-    )
-    merge_kit(
-        kit_parts,
-        generate_city_fabric(
-            origin_x=1040.0,
-            origin_y=90.0,
-            cols=10,
-            rows=8,
-            district_id="district-metro-east",
-        ),
-    )
-
     for p in places:
         if p.get("ring") and p["ring"] and isinstance(p["ring"][0], tuple):
             p["ring"] = [list(pt) for pt in p["ring"]]
 
-    # Extent covers seed + two metro quarters (~2 km east–west).
     return {
         "id": "seed-district",
         "title": "Seed City",
@@ -2301,7 +2260,7 @@ def build_plan() -> dict:
             "origin_lon": ORIGIN_LON,
             "origin_lat": ORIGIN_LAT,
         },
-        "extent": {"min_x": -8, "min_y": -8, "max_x": 1900, "max_y": 1020},
+        "extent": {"min_x": -2, "min_y": -2, "max_x": 154, "max_y": 78},
         "places": places,
         "walls": walls,
         "openings": openings,
