@@ -41,18 +41,30 @@
       "look_for": "Outdoor rooms with definite shape.",
       "feature_ids": [
         "a-court",
+        "b-court",
+        "c-court",
+        "d-court",
         "green-shared",
-        "m-green-frontage"
+        "m-green-frontage",
+        "m-frontage-a",
+        "m-frontage-b"
       ],
       "kind": "computed",
       "diagram": {
         "kind": "zone",
         "zones": [
           "a-court",
+          "b-court",
+          "c-court",
+          "d-court",
           "green-shared"
         ],
         "measures": [
-          "m-green-frontage"
+          "m-green-frontage",
+          "m-frontage-a",
+          "m-frontage-b",
+          "m-frontage-c",
+          "m-frontage-d"
         ]
       }
     },

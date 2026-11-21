@@ -58,3 +58,16 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "addPorch" in u14 or "canopy" in u14
     assert "112" in u14
     assert "130" in u14
+
+    assert '"id": "b-court"' in plan
+    assert '"id": "c-court"' in plan
+    assert '"id": "d-court"' in plan
+    assert '"id": "b-door-approach"' in plan
+    assert '"id": "w-b-court-s"' in plan
+    assert '"id": "m-frontage-b"' in plan
+    assert '"id": "path-approach-b"' in plan
+
+    u15 = (repo_root / "docs" / "design" / "U15-STREET-FRONTAGE.md").read_text()
+    assert "plot series" in u15.lower() or "frontage" in u15.lower()
+    assert "b-court" in u15
+    assert "Non-goals" in u15

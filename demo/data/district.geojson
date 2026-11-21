@@ -536,7 +536,7 @@
         "label": "Foundation B",
         "component": "pad",
         "kind": "foundation",
-        "role": "Pad for neighbor massing B.",
+        "role": "Pad for neighbor massing B \u2014 set back for front court.",
         "patterns": []
       },
       "geometry": {
@@ -545,11 +545,11 @@
           [
             [
               -75.1629906,
-              39.9523078
+              39.9523437
             ],
             [
               -75.1627563,
-              39.9523078
+              39.9523437
             ],
             [
               -75.1627563,
@@ -561,7 +561,7 @@
             ],
             [
               -75.1629906,
-              39.9523078
+              39.9523437
             ]
           ]
         ]
@@ -575,7 +575,7 @@
         "label": "Foundation C",
         "component": "pad",
         "kind": "foundation",
-        "role": "Pad for neighbor massing C.",
+        "role": "Pad for neighbor massing C \u2014 set back from green frontage.",
         "patterns": []
       },
       "geometry": {
@@ -584,11 +584,11 @@
           [
             [
               -75.1633891,
-              39.9526671
+              39.9527031
             ],
             [
               -75.1631313,
-              39.9526671
+              39.9527031
             ],
             [
               -75.1631313,
@@ -600,7 +600,7 @@
             ],
             [
               -75.1633891,
-              39.9526671
+              39.9527031
             ]
           ]
         ]
@@ -614,7 +614,7 @@
         "label": "Foundation D",
         "component": "pad",
         "kind": "foundation",
-        "role": "Pad for neighbor massing D.",
+        "role": "Pad for neighbor massing D \u2014 set back from green frontage.",
         "patterns": []
       },
       "geometry": {
@@ -623,11 +623,11 @@
           [
             [
               -75.1630141,
-              39.9526851
+              39.952721
             ],
             [
               -75.1627563,
-              39.9526851
+              39.952721
             ],
             [
               -75.1627563,
@@ -639,7 +639,7 @@
             ],
             [
               -75.1630141,
-              39.9526851
+              39.952721
             ]
           ]
         ]
@@ -988,6 +988,91 @@
     },
     {
       "type": "Feature",
+      "id": "b-court",
+      "properties": {
+        "id": "b-court",
+        "label": "Front Court B",
+        "component": "court",
+        "kind": "void",
+        "role": "Street-facing front court on Lot B \u2014 plot series with House A.",
+        "patterns": [
+          105,
+          106,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1629906,
+              39.9522898
+            ],
+            [
+              -75.1627563,
+              39.9522898
+            ],
+            [
+              -75.1627563,
+              39.9523437
+            ],
+            [
+              -75.1629906,
+              39.9523437
+            ],
+            [
+              -75.1629906,
+              39.9522898
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "path-approach-b",
+      "properties": {
+        "id": "path-approach-b",
+        "label": "Approach Path B",
+        "component": "path",
+        "kind": "path",
+        "role": "Sidewalk stub into Lot B court gate.",
+        "patterns": [
+          110,
+          112
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1628969,
+              39.9522719
+            ],
+            [
+              -75.16285,
+              39.9522719
+            ],
+            [
+              -75.16285,
+              39.9522898
+            ],
+            [
+              -75.1628969,
+              39.9522898
+            ],
+            [
+              -75.1628969,
+              39.9522719
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "house-b",
       "properties": {
         "id": "house-b",
@@ -1006,11 +1091,11 @@
           [
             [
               -75.1629906,
-              39.9523078
+              39.9523437
             ],
             [
               -75.1627563,
-              39.9523078
+              39.9523437
             ],
             [
               -75.1627563,
@@ -1022,7 +1107,49 @@
             ],
             [
               -75.1629906,
-              39.9523078
+              39.9523437
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "c-court",
+      "properties": {
+        "id": "c-court",
+        "label": "Front Court C",
+        "component": "court",
+        "kind": "void",
+        "role": "Green-facing front court on Lot C \u2014 plot series on the shared outdoor room.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633891,
+              39.9526671
+            ],
+            [
+              -75.1631313,
+              39.9526671
+            ],
+            [
+              -75.1631313,
+              39.9527031
+            ],
+            [
+              -75.1633891,
+              39.9527031
+            ],
+            [
+              -75.1633891,
+              39.9526671
             ]
           ]
         ]
@@ -1048,11 +1175,11 @@
           [
             [
               -75.1633891,
-              39.9526671
+              39.9527031
             ],
             [
               -75.1631313,
-              39.9526671
+              39.9527031
             ],
             [
               -75.1631313,
@@ -1064,7 +1191,49 @@
             ],
             [
               -75.1633891,
-              39.9526671
+              39.9527031
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "d-court",
+      "properties": {
+        "id": "d-court",
+        "label": "Front Court D",
+        "component": "court",
+        "kind": "void",
+        "role": "Green-facing front court on Lot D \u2014 plot series with Court C.",
+        "patterns": [
+          105,
+          106
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1630141,
+              39.9526851
+            ],
+            [
+              -75.1627563,
+              39.9526851
+            ],
+            [
+              -75.1627563,
+              39.952721
+            ],
+            [
+              -75.1630141,
+              39.952721
+            ],
+            [
+              -75.1630141,
+              39.9526851
             ]
           ]
         ]
@@ -1090,11 +1259,11 @@
           [
             [
               -75.1630141,
-              39.9526851
+              39.952721
             ],
             [
               -75.1627563,
-              39.9526851
+              39.952721
             ],
             [
               -75.1627563,
@@ -1106,7 +1275,7 @@
             ],
             [
               -75.1630141,
-              39.9526851
+              39.952721
             ]
           ]
         ]
@@ -1466,6 +1635,196 @@
           [
             -75.1630727,
             39.9525414
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-b-1",
+      "properties": {
+        "id": "e-approach-b-1",
+        "label": "Sidewalk\u2192Path B",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 2.0,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1628735,
+            39.9522606
+          ],
+          [
+            -75.1628735,
+            39.9522808
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-b-2",
+      "properties": {
+        "id": "e-approach-b-2",
+        "label": "Path B\u2192Court B",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1628735,
+            39.9522808
+          ],
+          [
+            -75.1628735,
+            39.9523168
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-approach-b-3",
+      "properties": {
+        "id": "e-approach-b-3",
+        "label": "Court B\u2192Address",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1628735,
+            39.9523168
+          ],
+          [
+            -75.1628735,
+            39.9523437
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-green-c",
+      "properties": {
+        "id": "e-green-c",
+        "label": "Green\u2192Court C",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1630961,
+            39.9525863
+          ],
+          [
+            -75.1632602,
+            39.9526492
+          ],
+          [
+            -75.1632602,
+            39.9526851
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-court-c-addr",
+      "properties": {
+        "id": "e-court-c-addr",
+        "label": "Court C\u2192Address",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632602,
+            39.9526851
+          ],
+          [
+            -75.1632602,
+            39.9527031
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-green-d",
+      "properties": {
+        "id": "e-green-d",
+        "label": "Green\u2192Court D",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.5,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1630961,
+            39.9525863
+          ],
+          [
+            -75.1628852,
+            39.9526492
+          ],
+          [
+            -75.1628852,
+            39.9527031
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-court-d-addr",
+      "properties": {
+        "id": "e-court-d-addr",
+        "label": "Court D\u2192Address",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 1.2,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1628852,
+            39.9527031
+          ],
+          [
+            -75.1628852,
+            39.952721
           ]
         ]
       }

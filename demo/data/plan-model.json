@@ -472,11 +472,11 @@
       "ring": [
         [
           52,
-          12
+          16
         ],
         [
           72,
-          12
+          16
         ],
         [
           72,
@@ -492,7 +492,7 @@
         "pad"
       ],
       "patterns": [],
-      "role": "Pad for neighbor massing B.",
+      "role": "Pad for neighbor massing B \u2014 set back for front court.",
       "parent": "lot-b",
       "height_m": 0.35,
       "stage": "foundation"
@@ -505,11 +505,11 @@
       "ring": [
         [
           18,
-          52
+          56
         ],
         [
           40,
-          52
+          56
         ],
         [
           40,
@@ -525,7 +525,7 @@
         "pad"
       ],
       "patterns": [],
-      "role": "Pad for neighbor massing C.",
+      "role": "Pad for neighbor massing C \u2014 set back from green frontage.",
       "parent": "lot-c",
       "height_m": 0.35,
       "stage": "foundation"
@@ -538,11 +538,11 @@
       "ring": [
         [
           50,
-          54
+          58
         ],
         [
           72,
-          54
+          58
         ],
         [
           72,
@@ -558,7 +558,7 @@
         "pad"
       ],
       "patterns": [],
-      "role": "Pad for neighbor massing D.",
+      "role": "Pad for neighbor massing D \u2014 set back from green frontage.",
       "parent": "lot-d",
       "height_m": 0.35,
       "stage": "foundation"
@@ -861,6 +861,79 @@
       "stage": "frame"
     },
     {
+      "id": "b-court",
+      "label": "Front Court B",
+      "component": "court",
+      "kind": "void",
+      "ring": [
+        [
+          52,
+          10
+        ],
+        [
+          72,
+          10
+        ],
+        [
+          72,
+          16
+        ],
+        [
+          52,
+          16
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Street-facing front court on Lot B \u2014 plot series with House A.",
+      "parent": "lot-b",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "path-approach-b",
+      "label": "Approach Path B",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          60,
+          8
+        ],
+        [
+          64,
+          8
+        ],
+        [
+          64,
+          10
+        ],
+        [
+          60,
+          10
+        ]
+      ],
+      "roles": [
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Sidewalk stub into Lot B court gate.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
       "id": "house-b",
       "label": "Massing B",
       "component": "massing",
@@ -868,11 +941,11 @@
       "ring": [
         [
           52,
-          12
+          16
         ],
         [
           72,
-          12
+          16
         ],
         [
           72,
@@ -897,10 +970,10 @@
       "stage": "frame"
     },
     {
-      "id": "house-c",
-      "label": "Massing C",
-      "component": "massing",
-      "kind": "solid",
+      "id": "c-court",
+      "label": "Front Court C",
+      "component": "court",
+      "kind": "void",
       "ring": [
         [
           18,
@@ -909,6 +982,43 @@
         [
           40,
           52
+        ],
+        [
+          40,
+          56
+        ],
+        [
+          18,
+          56
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Green-facing front court on Lot C \u2014 plot series on the shared outdoor room.",
+      "parent": "lot-c",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "house-c",
+      "label": "Massing C",
+      "component": "massing",
+      "kind": "solid",
+      "ring": [
+        [
+          18,
+          56
+        ],
+        [
+          40,
+          56
         ],
         [
           40,
@@ -933,10 +1043,10 @@
       "stage": "frame"
     },
     {
-      "id": "house-d",
-      "label": "Massing D",
-      "component": "massing",
-      "kind": "solid",
+      "id": "d-court",
+      "label": "Front Court D",
+      "component": "court",
+      "kind": "void",
       "ring": [
         [
           50,
@@ -945,6 +1055,43 @@
         [
           72,
           54
+        ],
+        [
+          72,
+          58
+        ],
+        [
+          50,
+          58
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Green-facing front court on Lot D \u2014 plot series with Court C.",
+      "parent": "lot-d",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "house-d",
+      "label": "Massing D",
+      "component": "massing",
+      "kind": "solid",
+      "ring": [
+        [
+          50,
+          58
+        ],
+        [
+          72,
+          58
         ],
         [
           72,
@@ -1221,6 +1368,114 @@
         22
       ],
       "thickness": 0.25
+    },
+    {
+      "id": "w-b-court-s",
+      "a": [
+        52,
+        10
+      ],
+      "b": [
+        72,
+        10
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-b-court-w",
+      "a": [
+        52,
+        10
+      ],
+      "b": [
+        52,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-b-court-e",
+      "a": [
+        72,
+        10
+      ],
+      "b": [
+        72,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-c-court-s",
+      "a": [
+        18,
+        52
+      ],
+      "b": [
+        40,
+        52
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-c-court-w",
+      "a": [
+        18,
+        52
+      ],
+      "b": [
+        18,
+        56
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-c-court-e",
+      "a": [
+        40,
+        52
+      ],
+      "b": [
+        40,
+        56
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-d-court-s",
+      "a": [
+        50,
+        54
+      ],
+      "b": [
+        72,
+        54
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-d-court-w",
+      "a": [
+        50,
+        54
+      ],
+      "b": [
+        50,
+        58
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-d-court-e",
+      "a": [
+        72,
+        54
+      ],
+      "b": [
+        72,
+        58
+      ],
+      "thickness": 0.2
     }
   ],
   "openings": [
@@ -1239,6 +1494,52 @@
       ],
       "role": "Garden-wall threshold: path into the south court (gate in w-court-s).",
       "parent": "a-court"
+    },
+    {
+      "id": "b-door-approach",
+      "label": "Court Gate B",
+      "component": "door",
+      "x": 62,
+      "y": 10,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "ccw",
+      "patterns": [
+        106,
+        112
+      ],
+      "role": "Street garden-wall gate into Front Court B (w-b-court-s).",
+      "parent": "b-court"
+    },
+    {
+      "id": "c-door-approach",
+      "label": "Court Gate C",
+      "component": "door",
+      "x": 29,
+      "y": 52,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "cw",
+      "patterns": [
+        106
+      ],
+      "role": "Green-edge gate into Front Court C (w-c-court-s).",
+      "parent": "c-court"
+    },
+    {
+      "id": "d-door-approach",
+      "label": "Court Gate D",
+      "component": "door",
+      "x": 61,
+      "y": 54,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "cw",
+      "patterns": [
+        106
+      ],
+      "role": "Green-edge gate into Front Court D (w-d-court-s).",
+      "parent": "d-court"
     },
     {
       "id": "a-door-main",
@@ -1613,6 +1914,70 @@
         "kind": "place",
         "place": "green-shared",
         "label": "Green"
+      },
+      {
+        "id": "n-sw-b",
+        "x": 62,
+        "y": 6.75,
+        "kind": "place",
+        "place": "sidewalk-main-n",
+        "label": "SW@B"
+      },
+      {
+        "id": "n-path-b",
+        "x": 62,
+        "y": 9,
+        "kind": "place",
+        "place": "path-approach-b",
+        "label": "Path B"
+      },
+      {
+        "id": "n-court-b",
+        "x": 62,
+        "y": 13,
+        "kind": "place",
+        "place": "b-court",
+        "label": "Court B"
+      },
+      {
+        "id": "n-addr-b",
+        "x": 62,
+        "y": 16,
+        "kind": "address",
+        "place": "house-b",
+        "label": "Address B"
+      },
+      {
+        "id": "n-court-c",
+        "x": 29,
+        "y": 54,
+        "kind": "place",
+        "place": "c-court",
+        "label": "Court C"
+      },
+      {
+        "id": "n-addr-c",
+        "x": 29,
+        "y": 56,
+        "kind": "address",
+        "place": "house-c",
+        "label": "Address C"
+      },
+      {
+        "id": "n-court-d",
+        "x": 61,
+        "y": 56,
+        "kind": "place",
+        "place": "d-court",
+        "label": "Court D"
+      },
+      {
+        "id": "n-addr-d",
+        "x": 61,
+        "y": 58,
+        "kind": "address",
+        "place": "house-d",
+        "label": "Address D"
       }
     ],
     "edges": [
@@ -1859,6 +2224,154 @@
             38
           ]
         ]
+      },
+      {
+        "id": "e-approach-b-1",
+        "a": "n-sw-b",
+        "b": "n-path-b",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 2.0,
+        "directed": true,
+        "label": "Sidewalk\u2192Path B",
+        "polyline": [
+          [
+            62,
+            6.75
+          ],
+          [
+            62,
+            9
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-b-2",
+        "a": "n-path-b",
+        "b": "n-court-b",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Path B\u2192Court B",
+        "polyline": [
+          [
+            62,
+            9
+          ],
+          [
+            62,
+            13
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-b-3",
+        "a": "n-court-b",
+        "b": "n-addr-b",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court B\u2192Address",
+        "polyline": [
+          [
+            62,
+            13
+          ],
+          [
+            62,
+            16
+          ]
+        ]
+      },
+      {
+        "id": "e-green-c",
+        "a": "n-green",
+        "b": "n-court-c",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.5,
+        "directed": true,
+        "label": "Green\u2192Court C",
+        "polyline": [
+          [
+            43,
+            43
+          ],
+          [
+            29,
+            50
+          ],
+          [
+            29,
+            54
+          ]
+        ]
+      },
+      {
+        "id": "e-court-c-addr",
+        "a": "n-court-c",
+        "b": "n-addr-c",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court C\u2192Address",
+        "polyline": [
+          [
+            29,
+            54
+          ],
+          [
+            29,
+            56
+          ]
+        ]
+      },
+      {
+        "id": "e-green-d",
+        "a": "n-green",
+        "b": "n-court-d",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.5,
+        "directed": true,
+        "label": "Green\u2192Court D",
+        "polyline": [
+          [
+            43,
+            43
+          ],
+          [
+            61,
+            50
+          ],
+          [
+            61,
+            56
+          ]
+        ]
+      },
+      {
+        "id": "e-court-d-addr",
+        "a": "n-court-d",
+        "b": "n-addr-d",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court D\u2192Address",
+        "polyline": [
+          [
+            61,
+            56
+          ],
+          [
+            61,
+            58
+          ]
+        ]
       }
     ]
   },
@@ -1993,6 +2506,100 @@
       ]
     },
     {
+      "id": "m-frontage-a",
+      "label": "Lot A street frontage",
+      "a": [
+        18,
+        14
+      ],
+      "b": [
+        42,
+        14
+      ],
+      "value_m": 24.0,
+      "kind": "frontage",
+      "of": "a-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-frontage-b",
+      "label": "Lot B street frontage",
+      "a": [
+        52,
+        10
+      ],
+      "b": [
+        72,
+        10
+      ],
+      "value_m": 20.0,
+      "kind": "frontage",
+      "of": "b-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-frontage-c",
+      "label": "Lot C green frontage",
+      "a": [
+        18,
+        52
+      ],
+      "b": [
+        40,
+        52
+      ],
+      "value_m": 22.0,
+      "kind": "frontage",
+      "of": "c-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-frontage-d",
+      "label": "Lot D green frontage",
+      "a": [
+        50,
+        54
+      ],
+      "b": [
+        72,
+        54
+      ],
+      "value_m": 22.0,
+      "kind": "frontage",
+      "of": "d-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-b-court-depth",
+      "label": "Court B depth",
+      "a": [
+        62,
+        10
+      ],
+      "b": [
+        62,
+        16
+      ],
+      "value_m": 6.0,
+      "kind": "depth",
+      "of": "b-court",
+      "patterns": [
+        112
+      ]
+    },
+    {
       "id": "m-balcony-depth",
       "label": "Balcony depth",
       "a": [
@@ -2112,6 +2719,33 @@
       "opening": "a-door-approach"
     },
     {
+      "id": "if-approach-b",
+      "kind": "door",
+      "between": [
+        "street-main",
+        "b-court"
+      ],
+      "opening": "b-door-approach"
+    },
+    {
+      "id": "if-approach-c",
+      "kind": "door",
+      "between": [
+        "green-shared",
+        "c-court"
+      ],
+      "opening": "c-door-approach"
+    },
+    {
+      "id": "if-approach-d",
+      "kind": "door",
+      "between": [
+        "green-shared",
+        "d-court"
+      ],
+      "opening": "d-door-approach"
+    },
+    {
       "id": "if-main",
       "kind": "threshold",
       "between": [
@@ -2163,6 +2797,33 @@
         "street-main"
       ],
       "length_m": 24.0
+    },
+    {
+      "id": "if-front-b",
+      "kind": "frontage",
+      "between": [
+        "b-court",
+        "street-main"
+      ],
+      "length_m": 20.0
+    },
+    {
+      "id": "if-front-c",
+      "kind": "frontage",
+      "between": [
+        "c-court",
+        "green-shared"
+      ],
+      "length_m": 22.0
+    },
+    {
+      "id": "if-front-d",
+      "kind": "frontage",
+      "between": [
+        "d-court",
+        "green-shared"
+      ],
+      "length_m": 22.0
     },
     {
       "id": "if-overlook-liv",
@@ -2261,6 +2922,24 @@
       "b": "found-workshop"
     },
     {
+      "id": "ix-b-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "b-court",
+      "b": "house-b"
+    },
+    {
+      "id": "ix-c-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "c-court",
+      "b": "house-c"
+    },
+    {
+      "id": "ix-d-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "d-court",
+      "b": "house-d"
+    },
+    {
       "id": "ix-clear-ab",
       "kind": "clearance",
       "a": "found-a",
@@ -2330,18 +3009,30 @@
       "look_for": "Outdoor rooms with definite shape.",
       "feature_ids": [
         "a-court",
+        "b-court",
+        "c-court",
+        "d-court",
         "green-shared",
-        "m-green-frontage"
+        "m-green-frontage",
+        "m-frontage-a",
+        "m-frontage-b"
       ],
       "kind": "computed",
       "diagram": {
         "kind": "zone",
         "zones": [
           "a-court",
+          "b-court",
+          "c-court",
+          "d-court",
           "green-shared"
         ],
         "measures": [
-          "m-green-frontage"
+          "m-green-frontage",
+          "m-frontage-a",
+          "m-frontage-b",
+          "m-frontage-c",
+          "m-frontage-d"
         ]
       }
     },
