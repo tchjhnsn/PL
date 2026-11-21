@@ -105,6 +105,7 @@
       "look_for": "Address on the movement network.",
       "feature_ids": [
         "a-door-main",
+        "a-porch",
         "path-approach",
         "e-approach-3",
         "n-door"
@@ -122,7 +123,8 @@
           }
         ],
         "zones": [
-          "a-hall"
+          "a-hall",
+          "a-porch"
         ],
         "edges": [
           "e-approach-3"
@@ -132,13 +134,15 @@
     {
       "number": 112,
       "name": "Entrance Transition",
-      "look_for": "Street \u2192 path \u2192 court \u2192 door (directed edges).",
+      "look_for": "Street \u2192 path \u2192 gate \u2192 court \u2192 porch \u2192 door.",
       "feature_ids": [
         "e-approach-1",
         "e-approach-2",
         "e-approach-3",
         "a-court",
-        "m-setback-a"
+        "a-porch",
+        "m-setback-a",
+        "m-porch-depth"
       ],
       "kind": "computed",
       "diagram": {
@@ -173,14 +177,15 @@
             ],
             "to": [
               24,
-              22
+              21
             ],
             "label": "3"
           }
         ],
         "zones": [
           "a-court",
-          "path-approach"
+          "path-approach",
+          "a-porch"
         ],
         "edges": [
           "e-approach-1",
@@ -189,7 +194,8 @@
         ],
         "measures": [
           "m-setback-a",
-          "m-approach-width"
+          "m-approach-width",
+          "m-porch-depth"
         ]
       }
     },
@@ -287,13 +293,15 @@
       "look_for": "Arrival is a room.",
       "feature_ids": [
         "a-hall",
+        "a-porch",
         "a-door-main"
       ],
       "kind": "computed",
       "diagram": {
         "kind": "zone",
         "zones": [
-          "a-hall"
+          "a-hall",
+          "a-porch"
         ]
       }
     },

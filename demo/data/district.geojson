@@ -771,6 +771,49 @@
     },
     {
       "type": "Feature",
+      "id": "a-porch",
+      "properties": {
+        "id": "a-porch",
+        "label": "Entrance Porch",
+        "component": "porch",
+        "kind": "void",
+        "role": "Covered arrival between court and hall (2 m deep).",
+        "patterns": [
+          110,
+          112,
+          130
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1633539,
+              39.9523797
+            ],
+            [
+              -75.1632836,
+              39.9523797
+            ],
+            [
+              -75.1632836,
+              39.9523976
+            ],
+            [
+              -75.1633539,
+              39.9523976
+            ],
+            [
+              -75.1633539,
+              39.9523797
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "a-hall",
       "properties": {
         "id": "a-hall",
