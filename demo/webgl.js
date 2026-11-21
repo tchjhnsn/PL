@@ -609,6 +609,14 @@ function buildPlaces() {
 
   for (const place of places) {
     if (!place.ring || place.ring.length < 3) continue;
+    // District / block envelopes are data containers — lots and streets draw the ground.
+    if (
+      place.component === "district" ||
+      place.component === "block" ||
+      (place.roles || []).includes("district")
+    ) {
+      continue;
+    }
     const isPorch =
       place.component === "porch" || (place.roles || []).includes("porch");
     if (isPorch) {
