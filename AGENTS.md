@@ -234,7 +234,7 @@ uv run pytest tests/test_kits.py tests/test_webgl_quality.py tests/test_maplibre
 
 ## U23
 
-Real city fabric south of the seed neighborhood: `generate_city_fabric` (12×10 blocks, ~1 km) with **3 City Country Fingers**, schools, playgrounds, shops/market/grocery, town hall / police / bank / clinic, utilities, and residential frontage stamps. Kits: `program_place`, `city_fabric`. No catalog / Lean / `pl` / MCP. Contract: `docs/design/U23-REAL-CITY.md`.
+Real city fabric south/east of the seed neighborhood: two `generate_city_fabric` quarters (`district-metro` 12×10 + `district-metro-east` 10×8, ~2 km span) with **3 City Country Fingers**, schools, playgrounds, shops/market/grocery, town hall / police / bank / clinic, utilities, and residential frontage stamps. Kits: `program_place`, `city_fabric`. No catalog / Lean / `pl` / MCP. Contract: `docs/design/U23-REAL-CITY.md`.
 
 ```bash
 uv run python demo/build_district.py

@@ -2265,7 +2265,7 @@ def build_plan() -> dict:
     ):
         merge_kit(kit_parts, stamp_frontage_lot(spec))
 
-    # Real city quarter south of the seed neighborhood: schools, shops, parks,
+    # Real city quarters south/east of the seed neighborhood: schools, shops, parks,
     # town hall, police, bank, clinic, utilities, green fingers (3 City Country Fingers).
     merge_kit(
         kit_parts,
@@ -2273,12 +2273,22 @@ def build_plan() -> dict:
             origin_x=0.0, origin_y=90.0, cols=12, rows=10, district_id="district-metro"
         ),
     )
+    merge_kit(
+        kit_parts,
+        generate_city_fabric(
+            origin_x=1040.0,
+            origin_y=90.0,
+            cols=10,
+            rows=8,
+            district_id="district-metro-east",
+        ),
+    )
 
     for p in places:
         if p.get("ring") and p["ring"] and isinstance(p["ring"][0], tuple):
             p["ring"] = [list(pt) for pt in p["ring"]]
 
-    # Extent covers seed + metro quarter (~1.0 km × ~0.94 km).
+    # Extent covers seed + two metro quarters (~2 km east–west).
     return {
         "id": "seed-district",
         "title": "Seed City",
@@ -2291,7 +2301,7 @@ def build_plan() -> dict:
             "origin_lon": ORIGIN_LON,
             "origin_lat": ORIGIN_LAT,
         },
-        "extent": {"min_x": -8, "min_y": -8, "max_x": 1030, "max_y": 960},
+        "extent": {"min_x": -8, "min_y": -8, "max_x": 1900, "max_y": 960},
         "places": places,
         "walls": walls,
         "openings": openings,

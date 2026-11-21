@@ -84,10 +84,11 @@ def generate_city_fabric(
     x0, y0 = origin_x, origin_y
     x1, y1 = x0 + width, y0 + height
 
+    prefix = district_id.replace("district-", "")
     parts["places"].append(
         {
             "id": district_id,
-            "label": "Metro Quarter",
+            "label": "Metro Quarter" if prefix == "metro" else f"Metro Quarter ({prefix})",
             "component": "district",
             "kind": "land",
             "ring": [list(p) for p in _ring(x0, y0, x1, y1)],
@@ -102,7 +103,7 @@ def generate_city_fabric(
     # Arterial streets — horizontal
     for r in range(rows + 1):
         sy = y0 + r * PITCH
-        sid = f"st-h-{r}"
+        sid = f"{prefix}-st-h-{r}"
         parts["places"].append(
             {
                 "id": sid,
@@ -119,13 +120,19 @@ def generate_city_fabric(
             }
         )
         parts["nodes"].append(
-            {"id": f"n-{sid}", "x": (x0 + x1) / 2, "y": sy + STREET_W / 2, "kind": "intersection", "label": f"H{r}"}
+            {
+                "id": f"n-{sid}",
+                "x": (x0 + x1) / 2,
+                "y": sy + STREET_W / 2,
+                "kind": "intersection",
+                "label": f"H{r}",
+            }
         )
 
     # Arterial streets — vertical
     for c in range(cols + 1):
         sx = x0 + c * PITCH
-        sid = f"st-v-{c}"
+        sid = f"{prefix}-st-v-{c}"
         parts["places"].append(
             {
                 "id": sid,
@@ -142,24 +149,32 @@ def generate_city_fabric(
             }
         )
         parts["nodes"].append(
-            {"id": f"n-{sid}", "x": sx + STREET_W / 2, "y": (y0 + y1) / 2, "kind": "intersection", "label": f"V{c}"}
+            {
+                "id": f"n-{sid}",
+                "x": sx + STREET_W / 2,
+                "y": (y0 + y1) / 2,
+                "kind": "intersection",
+                "label": f"V{c}",
+            }
         )
 
     # Network: connect street centers into a grid
     for r in range(rows + 1):
         for c in range(cols):
-            a = f"n-st-v-{c}"
-            b = f"n-st-v-{c + 1}"
-            # horizontal edge along H street — use midpoints at junctions
             ax = x0 + c * PITCH + STREET_W / 2
-            bx = x0 + (c + 1) * PITCH + STREET_W / 2
             y = y0 + r * PITCH + STREET_W / 2
             parts["nodes"].append(
-                {"id": f"n-j-h{r}-v{c}", "x": ax, "y": y, "kind": "intersection", "label": f"J{r},{c}"}
+                {
+                    "id": f"n-{prefix}-j-h{r}-v{c}",
+                    "x": ax,
+                    "y": y,
+                    "kind": "intersection",
+                    "label": f"J{r},{c}",
+                }
             )
         parts["nodes"].append(
             {
-                "id": f"n-j-h{r}-v{cols}",
+                "id": f"n-{prefix}-j-h{r}-v{cols}",
                 "x": x0 + cols * PITCH + STREET_W / 2,
                 "y": y0 + r * PITCH + STREET_W / 2,
                 "kind": "intersection",
@@ -167,11 +182,11 @@ def generate_city_fabric(
             }
         )
         for c in range(cols):
-            na = f"n-j-h{r}-v{c}"
-            nb = f"n-j-h{r}-v{c + 1}"
+            na = f"n-{prefix}-j-h{r}-v{c}"
+            nb = f"n-{prefix}-j-h{r}-v{c + 1}"
             parts["edges"].append(
                 {
-                    "id": f"e-h{r}-{c}",
+                    "id": f"e-{prefix}-h{r}-{c}",
                     "a": na,
                     "b": nb,
                     "mode": "vehicle",
@@ -188,11 +203,11 @@ def generate_city_fabric(
 
     for c in range(cols + 1):
         for r in range(rows):
-            na = f"n-j-h{r}-v{c}"
-            nb = f"n-j-h{r + 1}-v{c}"
+            na = f"n-{prefix}-j-h{r}-v{c}"
+            nb = f"n-{prefix}-j-h{r + 1}-v{c}"
             parts["edges"].append(
                 {
-                    "id": f"e-v{c}-{r}",
+                    "id": f"e-{prefix}-v{c}-{r}",
                     "a": na,
                     "b": nb,
                     "mode": "vehicle",
@@ -213,7 +228,7 @@ def generate_city_fabric(
             bx0 = x0 + STREET_W + col * PITCH
             by0 = y0 + STREET_W + row * PITCH
             bx1, by1 = bx0 + BLOCK, by0 + BLOCK
-            bid = f"block-{col}-{row}"
+            bid = f"{prefix}-block-{col}-{row}"
             prog = _program_for(col, row, cols, rows)
 
             parts["places"].append(
@@ -236,7 +251,7 @@ def generate_city_fabric(
                     parts,
                     stamp_program_place(
                         ProgramPlaceSpec(
-                            key=f"park-{col}-{row}",
+                            key=f"{prefix}-park-{col}-{row}",
                             label=f"Green finger {col},{row}",
                             program="park",
                             ring=_ring(bx0, by0, bx1, by1),
@@ -263,7 +278,7 @@ def generate_city_fabric(
                     parts,
                     stamp_program_place(
                         ProgramPlaceSpec(
-                            key=f"{prog}-{col}-{row}",
+                            key=f"{prefix}-{prog}-{col}-{row}",
                             label={
                                 "school": f"School {col},{row}",
                                 "playground": f"Playground {col},{row}",
@@ -288,12 +303,12 @@ def generate_city_fabric(
             # Residential: two frontage lots facing the street south of the block
             mid = (bx0 + bx1) / 2
             gap = 2.0
-            street_id = f"st-h-{row}"
+            street_id = f"{prefix}-st-h-{row}"
             sw_y = by0 - STREET_W / 2
             for i, (lx0, lx1, key) in enumerate(
                 (
-                    (bx0, mid - gap / 2, f"r{col}{row}a"),
-                    (mid + gap / 2, bx1, f"r{col}{row}b"),
+                    (bx0, mid - gap / 2, f"{prefix}-r{col}{row}a"),
+                    (mid + gap / 2, bx1, f"{prefix}-r{col}{row}b"),
                 )
             ):
                 court_d = 5.0
@@ -321,7 +336,7 @@ def generate_city_fabric(
 
     parts["measures"].append(
         {
-            "id": "m-metro-width",
+            "id": f"m-{prefix}-width",
             "label": "Metro quarter width",
             "a": [x0, y0 + height / 2],
             "b": [x1, y0 + height / 2],
@@ -333,7 +348,7 @@ def generate_city_fabric(
     )
     parts["measures"].append(
         {
-            "id": "m-metro-depth",
+            "id": f"m-{prefix}-depth",
             "label": "Metro quarter depth",
             "a": [x0 + width / 2, y0],
             "b": [x0 + width / 2, y1],

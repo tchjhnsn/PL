@@ -59,9 +59,5 @@ def test_city_fabric_has_civic_and_fingers() -> None:
     comps = {p.get("component") for p in fabric["places"]}
     assert "civic" in comps or any("town" in (p.get("label") or "").lower() for p in fabric["places"])
     assert any(m["id"] == "m-metro-width" for m in fabric["measures"])
-    assert m_metro_width_ge_400(fabric)
-
-
-def m_metro_width_ge_400(fabric: dict) -> bool:
     m = next(x for x in fabric["measures"] if x["id"] == "m-metro-width")
-    return m["value_m"] >= 400
+    assert m["value_m"] >= 400

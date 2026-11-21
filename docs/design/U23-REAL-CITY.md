@@ -8,7 +8,7 @@ reads as a city, not a single house plot series.
 
 ## Contract
 
-- `generate_city_fabric` stamps a grid of blocks (~84 m pitch) with:
+- `generate_city_fabric` stamps namespaced quarters (ids prefixed by district) of blocks (~84 m pitch) with:
   - **3 City Country Fingers** — north–south park columns every fourth block
   - **Identifiable Neighborhood** / **Neighborhood Boundary** — street grid + blocks
   - **Shopfront Schools**, **Connected Play** — school + playground pairs
@@ -20,6 +20,7 @@ reads as a city, not a single house plot series.
 - Plan cites town-scale pattern **numbers and names only** (no book text)
 - No new `pl` command, Lean edit, MCP tool, or catalog records in this unit
 - Spatial lint must pass on the merged plan
+- Seed demo merges two quarters: `district-metro` (12×10) + `district-metro-east` (10×8)
 
 ## Commands
 
