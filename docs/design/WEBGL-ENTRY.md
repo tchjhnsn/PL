@@ -8,7 +8,8 @@ Blender + Bonsai remains a **complete** professional path for IFC authoring and 
 
 - Stage strip: Survey → Land → Foundations → Frames → Openings → Patterns (default **Land**).
 - Loads `data/seed-district-survey.json`, `data/process-stages.json`, and `data/plan-model.json`.
-- Survey/land first: grade plane, contours, north rose, sun sector, lots; then pads; then frames/openings.
+- Survey/land first: site ground, contours, north rose, sun sector, lots; then pads; then frames/openings.
+- Light and materials: `docs/design/WEBGL-QUALITY.md`.
 - Pattern focus and **measured** evidence only at the Patterns stage.
 - SVG plan stays at `/plan.html`. Concept graph at `/concepts.html`.
 - Process rules: `docs/design/DECIDED.md`. Satisfaction: `docs/design/SATISFACTION.md`.

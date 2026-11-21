@@ -24,14 +24,21 @@
       height: 100%;
       min-height: 420px;
       display: block;
-      background: #1a1f1c;
+      background: #c5d0c0;
       cursor: grab;
     }
     #view:active { cursor: grabbing; }
     .webgl-stage {
       position: relative;
       min-height: 0;
-      background: #121612;
+      background: #c5d0c0;
+    }
+    .webgl-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 58%, rgba(24, 32, 26, 0.28) 100%);
     }
     .webgl-hud {
       position: absolute;
@@ -79,6 +86,25 @@
     .status-dot.kind-room { background: #d4c4a8; }
     .status-dot.kind-solid { background: #2a2e2c; }
     .status-dot.kind-focus { background: #c9a227; }
+    .look-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 0.35rem 0 0.2rem;
+    }
+    #sun-time {
+      width: 100%;
+      accent-color: #c9a227;
+    }
+    .look-check {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      margin-top: 0.55rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
     .chip:focus-visible,
     .pattern-card:focus-visible,
     .rail a:focus-visible {
@@ -95,7 +121,8 @@
         <p class="brand">Seed District</p>
         <p class="lede">
           Decided stage viewer: survey and land first, then foundations,
-          frames, openings, and patterns. Semantic WebGL — not finished houses.
+          frames, openings, and patterns. Semantic massing with site light —
+          not a photoreal house. Blender remains the finished path.
         </p>
         <p class="owned">
           Process: <code>Decided</code> · Entry: <code>WebGL</code> · Advanced: Blender optional
@@ -114,6 +141,17 @@
           <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">District</button>
           <button type="button" class="chip" data-mode="house" aria-pressed="false">House A</button>
         </div>
+      </section>
+
+      <section class="rail-section" id="look-section">
+        <h2>Look</h2>
+        <p class="soft">Site light toward the archviz bar — still Decided massing, not a finished house.</p>
+        <label class="look-label" for="sun-time">Sun <span id="sun-time-label">midday</span></label>
+        <input id="sun-time" type="range" min="0" max="100" value="28" aria-valuemin="0" aria-valuemax="100" />
+        <label class="look-check">
+          <input id="bloom-toggle" type="checkbox" checked />
+          Soft bloom
+        </label>
       </section>
 
       <section class="rail-section">
@@ -162,6 +200,6 @@
     }
   }
   </script>
-  <script type="module" src="webgl.js"></script>
+  <script type="module" src="webgl.js?v=look"></script>
 </body>
 </html>
