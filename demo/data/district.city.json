@@ -1,0 +1,3574 @@
+{
+  "type": "CityJSON",
+  "version": "2.0",
+  "transform": {
+    "scale": [
+      0.01,
+      0.01,
+      0.01
+    ],
+    "translate": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "metadata": {
+    "title": "Seed District",
+    "spatialStructure": "plan-model",
+    "referenceSystem": "local-metres"
+  },
+  "CityObjects": {
+    "house-a": {
+      "type": "Building",
+      "attributes": {
+        "name": "House A",
+        "floorPlan": "plan-model"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  5,
+                  7,
+                  9,
+                  11,
+                  5
+                ]
+              ],
+              [
+                [
+                  6,
+                  12,
+                  10,
+                  8,
+                  6
+                ]
+              ],
+              [
+                [
+                  5,
+                  7,
+                  8,
+                  6,
+                  5
+                ]
+              ],
+              [
+                [
+                  7,
+                  9,
+                  10,
+                  8,
+                  7
+                ]
+              ],
+              [
+                [
+                  9,
+                  11,
+                  12,
+                  10,
+                  9
+                ]
+              ],
+              [
+                [
+                  11,
+                  5,
+                  6,
+                  12,
+                  11
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-b": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing B",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                13,
+                14,
+                15,
+                16,
+                17
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  18,
+                  20,
+                  22,
+                  24,
+                  18
+                ]
+              ],
+              [
+                [
+                  19,
+                  25,
+                  23,
+                  21,
+                  19
+                ]
+              ],
+              [
+                [
+                  18,
+                  20,
+                  21,
+                  19,
+                  18
+                ]
+              ],
+              [
+                [
+                  20,
+                  22,
+                  23,
+                  21,
+                  20
+                ]
+              ],
+              [
+                [
+                  22,
+                  24,
+                  25,
+                  23,
+                  22
+                ]
+              ],
+              [
+                [
+                  24,
+                  18,
+                  19,
+                  25,
+                  24
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-c": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing C",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                26,
+                27,
+                28,
+                29,
+                30
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  31,
+                  33,
+                  35,
+                  37,
+                  31
+                ]
+              ],
+              [
+                [
+                  32,
+                  38,
+                  36,
+                  34,
+                  32
+                ]
+              ],
+              [
+                [
+                  31,
+                  33,
+                  34,
+                  32,
+                  31
+                ]
+              ],
+              [
+                [
+                  33,
+                  35,
+                  36,
+                  34,
+                  33
+                ]
+              ],
+              [
+                [
+                  35,
+                  37,
+                  38,
+                  36,
+                  35
+                ]
+              ],
+              [
+                [
+                  37,
+                  31,
+                  32,
+                  38,
+                  37
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-d": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing D",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                39,
+                40,
+                41,
+                42,
+                43
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  44,
+                  46,
+                  48,
+                  50,
+                  44
+                ]
+              ],
+              [
+                [
+                  45,
+                  51,
+                  49,
+                  47,
+                  45
+                ]
+              ],
+              [
+                [
+                  44,
+                  46,
+                  47,
+                  45,
+                  44
+                ]
+              ],
+              [
+                [
+                  46,
+                  48,
+                  49,
+                  47,
+                  46
+                ]
+              ],
+              [
+                [
+                  48,
+                  50,
+                  51,
+                  49,
+                  48
+                ]
+              ],
+              [
+                [
+                  50,
+                  44,
+                  45,
+                  51,
+                  50
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "workshop": {
+      "type": "Building",
+      "attributes": {
+        "name": "Workshop Massing",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                52,
+                53,
+                54,
+                55,
+                56
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  57,
+                  59,
+                  61,
+                  63,
+                  57
+                ]
+              ],
+              [
+                [
+                  58,
+                  64,
+                  62,
+                  60,
+                  58
+                ]
+              ],
+              [
+                [
+                  57,
+                  59,
+                  60,
+                  58,
+                  57
+                ]
+              ],
+              [
+                [
+                  59,
+                  61,
+                  62,
+                  60,
+                  59
+                ]
+              ],
+              [
+                [
+                  61,
+                  63,
+                  64,
+                  62,
+                  61
+                ]
+              ],
+              [
+                [
+                  63,
+                  57,
+                  58,
+                  64,
+                  63
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-e": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing E",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                65,
+                66,
+                67,
+                68,
+                69
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  70,
+                  72,
+                  74,
+                  76,
+                  70
+                ]
+              ],
+              [
+                [
+                  71,
+                  77,
+                  75,
+                  73,
+                  71
+                ]
+              ],
+              [
+                [
+                  70,
+                  72,
+                  73,
+                  71,
+                  70
+                ]
+              ],
+              [
+                [
+                  72,
+                  74,
+                  75,
+                  73,
+                  72
+                ]
+              ],
+              [
+                [
+                  74,
+                  76,
+                  77,
+                  75,
+                  74
+                ]
+              ],
+              [
+                [
+                  76,
+                  70,
+                  71,
+                  77,
+                  76
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-f": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing F",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                78,
+                79,
+                80,
+                81,
+                82
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  83,
+                  85,
+                  87,
+                  89,
+                  83
+                ]
+              ],
+              [
+                [
+                  84,
+                  90,
+                  88,
+                  86,
+                  84
+                ]
+              ],
+              [
+                [
+                  83,
+                  85,
+                  86,
+                  84,
+                  83
+                ]
+              ],
+              [
+                [
+                  85,
+                  87,
+                  88,
+                  86,
+                  85
+                ]
+              ],
+              [
+                [
+                  87,
+                  89,
+                  90,
+                  88,
+                  87
+                ]
+              ],
+              [
+                [
+                  89,
+                  83,
+                  84,
+                  90,
+                  89
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-g": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing G",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                91,
+                92,
+                93,
+                94,
+                95
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  96,
+                  98,
+                  100,
+                  102,
+                  96
+                ]
+              ],
+              [
+                [
+                  97,
+                  103,
+                  101,
+                  99,
+                  97
+                ]
+              ],
+              [
+                [
+                  96,
+                  98,
+                  99,
+                  97,
+                  96
+                ]
+              ],
+              [
+                [
+                  98,
+                  100,
+                  101,
+                  99,
+                  98
+                ]
+              ],
+              [
+                [
+                  100,
+                  102,
+                  103,
+                  101,
+                  100
+                ]
+              ],
+              [
+                [
+                  102,
+                  96,
+                  97,
+                  103,
+                  102
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-h": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing H",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                104,
+                105,
+                106,
+                107,
+                108
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  109,
+                  111,
+                  113,
+                  115,
+                  109
+                ]
+              ],
+              [
+                [
+                  110,
+                  116,
+                  114,
+                  112,
+                  110
+                ]
+              ],
+              [
+                [
+                  109,
+                  111,
+                  112,
+                  110,
+                  109
+                ]
+              ],
+              [
+                [
+                  111,
+                  113,
+                  114,
+                  112,
+                  111
+                ]
+              ],
+              [
+                [
+                  113,
+                  115,
+                  116,
+                  114,
+                  113
+                ]
+              ],
+              [
+                [
+                  115,
+                  109,
+                  110,
+                  116,
+                  115
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-i": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing I",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                117,
+                118,
+                119,
+                120,
+                121
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  122,
+                  124,
+                  126,
+                  128,
+                  122
+                ]
+              ],
+              [
+                [
+                  123,
+                  129,
+                  127,
+                  125,
+                  123
+                ]
+              ],
+              [
+                [
+                  122,
+                  124,
+                  125,
+                  123,
+                  122
+                ]
+              ],
+              [
+                [
+                  124,
+                  126,
+                  127,
+                  125,
+                  124
+                ]
+              ],
+              [
+                [
+                  126,
+                  128,
+                  129,
+                  127,
+                  126
+                ]
+              ],
+              [
+                [
+                  128,
+                  122,
+                  123,
+                  129,
+                  128
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "house-j": {
+      "type": "Building",
+      "attributes": {
+        "name": "Massing J",
+        "massing": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                130,
+                131,
+                132,
+                133,
+                134
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "Solid",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                [
+                  135,
+                  137,
+                  139,
+                  141,
+                  135
+                ]
+              ],
+              [
+                [
+                  136,
+                  142,
+                  140,
+                  138,
+                  136
+                ]
+              ],
+              [
+                [
+                  135,
+                  137,
+                  138,
+                  136,
+                  135
+                ]
+              ],
+              [
+                [
+                  137,
+                  139,
+                  140,
+                  138,
+                  137
+                ]
+              ],
+              [
+                [
+                  139,
+                  141,
+                  142,
+                  140,
+                  139
+                ]
+              ],
+              [
+                [
+                  141,
+                  135,
+                  136,
+                  142,
+                  141
+                ]
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "street-main": {
+      "type": "Road",
+      "attributes": {
+        "name": "Main Street ROW",
+        "trafficDirection": "both",
+        "class": "section",
+        "granularity": "way",
+        "hierarchy": "arterial"
+      },
+      "children": [
+        "carriageway-main",
+        "sidewalk-main-n"
+      ],
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                143,
+                144,
+                145,
+                146,
+                147
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "MultiSurface",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                148,
+                149,
+                150,
+                151,
+                152
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "carriageway-main": {
+      "type": "TrafficArea",
+      "parents": [
+        "street-main"
+      ],
+      "attributes": {
+        "name": "Main Carriageway",
+        "function": "drivingLane",
+        "granularity": "way",
+        "surfaceMaterial": "asphalt"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                153,
+                154,
+                155,
+                156,
+                157
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "sidewalk-main-n": {
+      "type": "TrafficArea",
+      "parents": [
+        "street-main"
+      ],
+      "attributes": {
+        "name": "Main Sidewalk N",
+        "function": "footpath",
+        "granularity": "way",
+        "surfaceMaterial": "concrete"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                158,
+                159,
+                160,
+                161,
+                162
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "street-cross": {
+      "type": "Road",
+      "attributes": {
+        "name": "Cross Street ROW",
+        "trafficDirection": "both",
+        "class": "section",
+        "granularity": "way",
+        "hierarchy": "local"
+      },
+      "children": [
+        "carriageway-cross",
+        "sidewalk-cross-n"
+      ],
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                163,
+                164,
+                165,
+                166,
+                167
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "MultiSurface",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                168,
+                169,
+                170,
+                171,
+                172
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "carriageway-cross": {
+      "type": "TrafficArea",
+      "parents": [
+        "street-cross"
+      ],
+      "attributes": {
+        "name": "Cross Carriageway",
+        "function": "drivingLane",
+        "granularity": "way",
+        "surfaceMaterial": "asphalt"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                173,
+                174,
+                175,
+                176,
+                177
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "sidewalk-cross-n": {
+      "type": "TrafficArea",
+      "parents": [
+        "street-cross"
+      ],
+      "attributes": {
+        "name": "Cross Sidewalk N",
+        "function": "footpath",
+        "granularity": "way",
+        "surfaceMaterial": "concrete"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                178,
+                179,
+                180,
+                181,
+                182
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "street-lane": {
+      "type": "Road",
+      "attributes": {
+        "name": "Side Lane",
+        "trafficDirection": "both",
+        "class": "section",
+        "hierarchy": "lane"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                183,
+                184,
+                185,
+                186,
+                187
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "street-east": {
+      "type": "Road",
+      "attributes": {
+        "name": "East Street ROW",
+        "trafficDirection": "both",
+        "class": "section",
+        "hierarchy": "local"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                188,
+                189,
+                190,
+                191,
+                192
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "street-north": {
+      "type": "Road",
+      "attributes": {
+        "name": "North Street ROW",
+        "trafficDirection": "both",
+        "class": "section",
+        "hierarchy": "local"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                193,
+                194,
+                195,
+                196,
+                197
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "block-south": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "South Block",
+        "class": "block"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                198,
+                199,
+                200,
+                201,
+                202
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "block-north": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "North Block",
+        "class": "block"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                203,
+                204,
+                205,
+                206,
+                207
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "block-east": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "East Block",
+        "class": "block"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                208,
+                209,
+                210,
+                211,
+                212
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "block-northeast": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Northeast Block",
+        "class": "block"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                213,
+                214,
+                215,
+                216,
+                217
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "block-far-east": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Far East Block",
+        "class": "block"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                218,
+                219,
+                220,
+                221,
+                222
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "district-seed": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Seed City",
+        "class": "neighborhood"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                223,
+                224,
+                225,
+                226,
+                227
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "green-shared": {
+      "type": "PlantCover",
+      "attributes": {
+        "name": "Shared Green",
+        "cover": "grass"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                228,
+                229,
+                230,
+                231,
+                232
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "MultiSurface",
+          "lod": "1",
+          "boundaries": [
+            [
+              [
+                233,
+                234,
+                235,
+                236,
+                237
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "cover-gravel": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Gravel court edge",
+        "class": "gravel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                238,
+                239,
+                240,
+                241,
+                242
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "pond-a": {
+      "type": "WaterBody",
+      "attributes": {
+        "name": "Garden pond",
+        "class": "pond",
+        "authored": true
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                243,
+                244,
+                245,
+                246,
+                247
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-a": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot A",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                248,
+                249,
+                250,
+                251,
+                252
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-b": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot B",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                253,
+                254,
+                255,
+                256,
+                257
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-c": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot C",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                258,
+                259,
+                260,
+                261,
+                262
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-d": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot D",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                263,
+                264,
+                265,
+                266,
+                267
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-workshop": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Workshop Lot",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                268,
+                269,
+                270,
+                271,
+                272
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-e": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot E",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                273,
+                274,
+                275,
+                276,
+                277
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-f": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot F",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                278,
+                279,
+                280,
+                281,
+                282
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-g": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot G",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                283,
+                284,
+                285,
+                286,
+                287
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-h": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot H",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                288,
+                289,
+                290,
+                291,
+                292
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-i": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot I",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                293,
+                294,
+                295,
+                296,
+                297
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "lot-j": {
+      "type": "LandUse",
+      "attributes": {
+        "name": "Lot J",
+        "class": "parcel"
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                298,
+                299,
+                300,
+                301,
+                302
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "tree-1": {
+      "type": "SolitaryVegetationObject",
+      "attributes": {
+        "name": "White pine",
+        "species": "Pinus strobus",
+        "form": "evergreen",
+        "canopy_m": 3.5
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                303,
+                304,
+                305,
+                306,
+                307
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "tree-2": {
+      "type": "SolitaryVegetationObject",
+      "attributes": {
+        "name": "White pine",
+        "species": "Pinus strobus",
+        "form": "evergreen",
+        "canopy_m": 4.0
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                308,
+                309,
+                310,
+                311,
+                312
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "tree-3": {
+      "type": "SolitaryVegetationObject",
+      "attributes": {
+        "name": "Oak",
+        "species": "Quercus alba",
+        "form": "deciduous",
+        "canopy_m": 4.5
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                313,
+                314,
+                315,
+                316,
+                317
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "tree-4": {
+      "type": "SolitaryVegetationObject",
+      "attributes": {
+        "name": "Maple",
+        "species": "Acer rubrum",
+        "form": "deciduous",
+        "canopy_m": 3.2
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                318,
+                319,
+                320,
+                321,
+                322
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "tree-5": {
+      "type": "SolitaryVegetationObject",
+      "attributes": {
+        "name": "White pine",
+        "species": "Pinus strobus",
+        "form": "evergreen",
+        "canopy_m": 2.8
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                323,
+                324,
+                325,
+                326,
+                327
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "tree-6": {
+      "type": "SolitaryVegetationObject",
+      "attributes": {
+        "name": "Willow",
+        "species": "Salix babylonica",
+        "form": "deciduous",
+        "canopy_m": 3.0
+      },
+      "geometry": [
+        {
+          "type": "MultiSurface",
+          "lod": "0",
+          "boundaries": [
+            [
+              [
+                328,
+                329,
+                330,
+                331,
+                332
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "vertices": [
+    [
+      1800,
+      1400,
+      0
+    ],
+    [
+      4200,
+      1400,
+      0
+    ],
+    [
+      4200,
+      3600,
+      0
+    ],
+    [
+      1800,
+      3600,
+      0
+    ],
+    [
+      1800,
+      1400,
+      0
+    ],
+    [
+      1800,
+      1400,
+      0
+    ],
+    [
+      1800,
+      1400,
+      720
+    ],
+    [
+      4200,
+      1400,
+      0
+    ],
+    [
+      4200,
+      1400,
+      720
+    ],
+    [
+      4200,
+      3600,
+      0
+    ],
+    [
+      4200,
+      3600,
+      720
+    ],
+    [
+      1800,
+      3600,
+      0
+    ],
+    [
+      1800,
+      3600,
+      720
+    ],
+    [
+      5200,
+      1600,
+      0
+    ],
+    [
+      7200,
+      1600,
+      0
+    ],
+    [
+      7200,
+      3000,
+      0
+    ],
+    [
+      5200,
+      3000,
+      0
+    ],
+    [
+      5200,
+      1600,
+      0
+    ],
+    [
+      5200,
+      1600,
+      0
+    ],
+    [
+      5200,
+      1600,
+      650
+    ],
+    [
+      7200,
+      1600,
+      0
+    ],
+    [
+      7200,
+      1600,
+      650
+    ],
+    [
+      7200,
+      3000,
+      0
+    ],
+    [
+      7200,
+      3000,
+      650
+    ],
+    [
+      5200,
+      3000,
+      0
+    ],
+    [
+      5200,
+      3000,
+      650
+    ],
+    [
+      1800,
+      5600,
+      0
+    ],
+    [
+      4000,
+      5600,
+      0
+    ],
+    [
+      4000,
+      6600,
+      0
+    ],
+    [
+      1800,
+      6600,
+      0
+    ],
+    [
+      1800,
+      5600,
+      0
+    ],
+    [
+      1800,
+      5600,
+      0
+    ],
+    [
+      1800,
+      5600,
+      600
+    ],
+    [
+      4000,
+      5600,
+      0
+    ],
+    [
+      4000,
+      5600,
+      600
+    ],
+    [
+      4000,
+      6600,
+      0
+    ],
+    [
+      4000,
+      6600,
+      600
+    ],
+    [
+      1800,
+      6600,
+      0
+    ],
+    [
+      1800,
+      6600,
+      600
+    ],
+    [
+      5000,
+      5600,
+      0
+    ],
+    [
+      7200,
+      5600,
+      0
+    ],
+    [
+      7200,
+      6600,
+      0
+    ],
+    [
+      5000,
+      6600,
+      0
+    ],
+    [
+      5000,
+      5600,
+      0
+    ],
+    [
+      5000,
+      5600,
+      0
+    ],
+    [
+      5000,
+      5600,
+      550
+    ],
+    [
+      7200,
+      5600,
+      0
+    ],
+    [
+      7200,
+      5600,
+      550
+    ],
+    [
+      7200,
+      6600,
+      0
+    ],
+    [
+      7200,
+      6600,
+      550
+    ],
+    [
+      5000,
+      6600,
+      0
+    ],
+    [
+      5000,
+      6600,
+      550
+    ],
+    [
+      1000,
+      4000,
+      0
+    ],
+    [
+      1800,
+      4000,
+      0
+    ],
+    [
+      1800,
+      4800,
+      0
+    ],
+    [
+      1000,
+      4800,
+      0
+    ],
+    [
+      1000,
+      4000,
+      0
+    ],
+    [
+      1000,
+      4000,
+      0
+    ],
+    [
+      1000,
+      4000,
+      400
+    ],
+    [
+      1800,
+      4000,
+      0
+    ],
+    [
+      1800,
+      4000,
+      400
+    ],
+    [
+      1800,
+      4800,
+      0
+    ],
+    [
+      1800,
+      4800,
+      400
+    ],
+    [
+      1000,
+      4800,
+      0
+    ],
+    [
+      1000,
+      4800,
+      400
+    ],
+    [
+      8000,
+      1600,
+      0
+    ],
+    [
+      9200,
+      1600,
+      0
+    ],
+    [
+      9200,
+      3000,
+      0
+    ],
+    [
+      8000,
+      3000,
+      0
+    ],
+    [
+      8000,
+      1600,
+      0
+    ],
+    [
+      8000,
+      1600,
+      0
+    ],
+    [
+      8000,
+      1600,
+      600
+    ],
+    [
+      9200,
+      1600,
+      0
+    ],
+    [
+      9200,
+      1600,
+      600
+    ],
+    [
+      9200,
+      3000,
+      0
+    ],
+    [
+      9200,
+      3000,
+      600
+    ],
+    [
+      8000,
+      3000,
+      0
+    ],
+    [
+      8000,
+      3000,
+      600
+    ],
+    [
+      9800,
+      1600,
+      0
+    ],
+    [
+      10800,
+      1600,
+      0
+    ],
+    [
+      10800,
+      3000,
+      0
+    ],
+    [
+      9800,
+      3000,
+      0
+    ],
+    [
+      9800,
+      1600,
+      0
+    ],
+    [
+      9800,
+      1600,
+      0
+    ],
+    [
+      9800,
+      1600,
+      550
+    ],
+    [
+      10800,
+      1600,
+      0
+    ],
+    [
+      10800,
+      1600,
+      550
+    ],
+    [
+      10800,
+      3000,
+      0
+    ],
+    [
+      10800,
+      3000,
+      550
+    ],
+    [
+      9800,
+      3000,
+      0
+    ],
+    [
+      9800,
+      3000,
+      550
+    ],
+    [
+      8000,
+      5600,
+      0
+    ],
+    [
+      9200,
+      5600,
+      0
+    ],
+    [
+      9200,
+      6600,
+      0
+    ],
+    [
+      8000,
+      6600,
+      0
+    ],
+    [
+      8000,
+      5600,
+      0
+    ],
+    [
+      8000,
+      5600,
+      0
+    ],
+    [
+      8000,
+      5600,
+      600
+    ],
+    [
+      9200,
+      5600,
+      0
+    ],
+    [
+      9200,
+      5600,
+      600
+    ],
+    [
+      9200,
+      6600,
+      0
+    ],
+    [
+      9200,
+      6600,
+      600
+    ],
+    [
+      8000,
+      6600,
+      0
+    ],
+    [
+      8000,
+      6600,
+      600
+    ],
+    [
+      9800,
+      5600,
+      0
+    ],
+    [
+      10800,
+      5600,
+      0
+    ],
+    [
+      10800,
+      6600,
+      0
+    ],
+    [
+      9800,
+      6600,
+      0
+    ],
+    [
+      9800,
+      5600,
+      0
+    ],
+    [
+      9800,
+      5600,
+      0
+    ],
+    [
+      9800,
+      5600,
+      550
+    ],
+    [
+      10800,
+      5600,
+      0
+    ],
+    [
+      10800,
+      5600,
+      550
+    ],
+    [
+      10800,
+      6600,
+      0
+    ],
+    [
+      10800,
+      6600,
+      550
+    ],
+    [
+      9800,
+      6600,
+      0
+    ],
+    [
+      9800,
+      6600,
+      550
+    ],
+    [
+      11600,
+      1600,
+      0
+    ],
+    [
+      12600,
+      1600,
+      0
+    ],
+    [
+      12600,
+      3000,
+      0
+    ],
+    [
+      11600,
+      3000,
+      0
+    ],
+    [
+      11600,
+      1600,
+      0
+    ],
+    [
+      11600,
+      1600,
+      0
+    ],
+    [
+      11600,
+      1600,
+      600
+    ],
+    [
+      12600,
+      1600,
+      0
+    ],
+    [
+      12600,
+      1600,
+      600
+    ],
+    [
+      12600,
+      3000,
+      0
+    ],
+    [
+      12600,
+      3000,
+      600
+    ],
+    [
+      11600,
+      3000,
+      0
+    ],
+    [
+      11600,
+      3000,
+      600
+    ],
+    [
+      13200,
+      1600,
+      0
+    ],
+    [
+      14200,
+      1600,
+      0
+    ],
+    [
+      14200,
+      3000,
+      0
+    ],
+    [
+      13200,
+      3000,
+      0
+    ],
+    [
+      13200,
+      1600,
+      0
+    ],
+    [
+      13200,
+      1600,
+      0
+    ],
+    [
+      13200,
+      1600,
+      550
+    ],
+    [
+      14200,
+      1600,
+      0
+    ],
+    [
+      14200,
+      1600,
+      550
+    ],
+    [
+      14200,
+      3000,
+      0
+    ],
+    [
+      14200,
+      3000,
+      550
+    ],
+    [
+      13200,
+      3000,
+      0
+    ],
+    [
+      13200,
+      3000,
+      550
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      15000,
+      0,
+      0
+    ],
+    [
+      15000,
+      800,
+      0
+    ],
+    [
+      0,
+      800,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      15000,
+      0,
+      0
+    ],
+    [
+      15000,
+      800,
+      0
+    ],
+    [
+      0,
+      800,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      15000,
+      0,
+      0
+    ],
+    [
+      15000,
+      550,
+      0
+    ],
+    [
+      0,
+      550,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      550,
+      0
+    ],
+    [
+      15000,
+      550,
+      0
+    ],
+    [
+      15000,
+      800,
+      0
+    ],
+    [
+      0,
+      800,
+      0
+    ],
+    [
+      0,
+      550,
+      0
+    ],
+    [
+      0,
+      4800,
+      0
+    ],
+    [
+      15000,
+      4800,
+      0
+    ],
+    [
+      15000,
+      5200,
+      0
+    ],
+    [
+      0,
+      5200,
+      0
+    ],
+    [
+      0,
+      4800,
+      0
+    ],
+    [
+      0,
+      4800,
+      0
+    ],
+    [
+      15000,
+      4800,
+      0
+    ],
+    [
+      15000,
+      5200,
+      0
+    ],
+    [
+      0,
+      5200,
+      0
+    ],
+    [
+      0,
+      4800,
+      0
+    ],
+    [
+      0,
+      4800,
+      0
+    ],
+    [
+      15000,
+      4800,
+      0
+    ],
+    [
+      15000,
+      5050,
+      0
+    ],
+    [
+      0,
+      5050,
+      0
+    ],
+    [
+      0,
+      4800,
+      0
+    ],
+    [
+      0,
+      5050,
+      0
+    ],
+    [
+      15000,
+      5050,
+      0
+    ],
+    [
+      15000,
+      5200,
+      0
+    ],
+    [
+      0,
+      5200,
+      0
+    ],
+    [
+      0,
+      5050,
+      0
+    ],
+    [
+      0,
+      800,
+      0
+    ],
+    [
+      800,
+      800,
+      0
+    ],
+    [
+      800,
+      7400,
+      0
+    ],
+    [
+      0,
+      7400,
+      0
+    ],
+    [
+      0,
+      800,
+      0
+    ],
+    [
+      7400,
+      800,
+      0
+    ],
+    [
+      7800,
+      800,
+      0
+    ],
+    [
+      7800,
+      7000,
+      0
+    ],
+    [
+      7400,
+      7000,
+      0
+    ],
+    [
+      7400,
+      800,
+      0
+    ],
+    [
+      0,
+      7000,
+      0
+    ],
+    [
+      15000,
+      7000,
+      0
+    ],
+    [
+      15000,
+      7400,
+      0
+    ],
+    [
+      0,
+      7400,
+      0
+    ],
+    [
+      0,
+      7000,
+      0
+    ],
+    [
+      1600,
+      1000,
+      0
+    ],
+    [
+      7400,
+      1000,
+      0
+    ],
+    [
+      7400,
+      3600,
+      0
+    ],
+    [
+      1600,
+      3600,
+      0
+    ],
+    [
+      1600,
+      1000,
+      0
+    ],
+    [
+      1600,
+      5200,
+      0
+    ],
+    [
+      7400,
+      5200,
+      0
+    ],
+    [
+      7400,
+      7000,
+      0
+    ],
+    [
+      1600,
+      7000,
+      0
+    ],
+    [
+      1600,
+      5200,
+      0
+    ],
+    [
+      7800,
+      1000,
+      0
+    ],
+    [
+      11000,
+      1000,
+      0
+    ],
+    [
+      11000,
+      3600,
+      0
+    ],
+    [
+      7800,
+      3600,
+      0
+    ],
+    [
+      7800,
+      1000,
+      0
+    ],
+    [
+      7800,
+      5200,
+      0
+    ],
+    [
+      11000,
+      5200,
+      0
+    ],
+    [
+      11000,
+      7000,
+      0
+    ],
+    [
+      7800,
+      7000,
+      0
+    ],
+    [
+      7800,
+      5200,
+      0
+    ],
+    [
+      11400,
+      1000,
+      0
+    ],
+    [
+      14400,
+      1000,
+      0
+    ],
+    [
+      14400,
+      3600,
+      0
+    ],
+    [
+      11400,
+      3600,
+      0
+    ],
+    [
+      11400,
+      1000,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      15000,
+      0,
+      0
+    ],
+    [
+      15000,
+      7600,
+      0
+    ],
+    [
+      0,
+      7600,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      2800,
+      3800,
+      0
+    ],
+    [
+      5800,
+      3800,
+      0
+    ],
+    [
+      5800,
+      4800,
+      0
+    ],
+    [
+      2800,
+      4800,
+      0
+    ],
+    [
+      2800,
+      3800,
+      0
+    ],
+    [
+      2800,
+      3800,
+      0
+    ],
+    [
+      5800,
+      3800,
+      0
+    ],
+    [
+      5800,
+      4800,
+      0
+    ],
+    [
+      2800,
+      4800,
+      0
+    ],
+    [
+      2800,
+      3800,
+      0
+    ],
+    [
+      2600,
+      3600,
+      0
+    ],
+    [
+      6000,
+      3600,
+      0
+    ],
+    [
+      6000,
+      3800,
+      0
+    ],
+    [
+      2600,
+      3800,
+      0
+    ],
+    [
+      2600,
+      3600,
+      0
+    ],
+    [
+      3400,
+      4000,
+      0
+    ],
+    [
+      4400,
+      4000,
+      0
+    ],
+    [
+      4400,
+      4600,
+      0
+    ],
+    [
+      3400,
+      4600,
+      0
+    ],
+    [
+      3400,
+      4000,
+      0
+    ],
+    [
+      1600,
+      1000,
+      0
+    ],
+    [
+      4600,
+      1000,
+      0
+    ],
+    [
+      4600,
+      3600,
+      0
+    ],
+    [
+      1600,
+      3600,
+      0
+    ],
+    [
+      1600,
+      1000,
+      0
+    ],
+    [
+      5000,
+      1000,
+      0
+    ],
+    [
+      7400,
+      1000,
+      0
+    ],
+    [
+      7400,
+      3200,
+      0
+    ],
+    [
+      5000,
+      3200,
+      0
+    ],
+    [
+      5000,
+      1000,
+      0
+    ],
+    [
+      1600,
+      5200,
+      0
+    ],
+    [
+      4200,
+      5200,
+      0
+    ],
+    [
+      4200,
+      7000,
+      0
+    ],
+    [
+      1600,
+      7000,
+      0
+    ],
+    [
+      1600,
+      5200,
+      0
+    ],
+    [
+      4800,
+      5200,
+      0
+    ],
+    [
+      7400,
+      5200,
+      0
+    ],
+    [
+      7400,
+      7000,
+      0
+    ],
+    [
+      4800,
+      7000,
+      0
+    ],
+    [
+      4800,
+      5200,
+      0
+    ],
+    [
+      800,
+      3800,
+      0
+    ],
+    [
+      2000,
+      3800,
+      0
+    ],
+    [
+      2000,
+      4800,
+      0
+    ],
+    [
+      800,
+      4800,
+      0
+    ],
+    [
+      800,
+      3800,
+      0
+    ],
+    [
+      7800,
+      1000,
+      0
+    ],
+    [
+      9400,
+      1000,
+      0
+    ],
+    [
+      9400,
+      3200,
+      0
+    ],
+    [
+      7800,
+      3200,
+      0
+    ],
+    [
+      7800,
+      1000,
+      0
+    ],
+    [
+      9600,
+      1000,
+      0
+    ],
+    [
+      11000,
+      1000,
+      0
+    ],
+    [
+      11000,
+      3200,
+      0
+    ],
+    [
+      9600,
+      3200,
+      0
+    ],
+    [
+      9600,
+      1000,
+      0
+    ],
+    [
+      7800,
+      5200,
+      0
+    ],
+    [
+      9400,
+      5200,
+      0
+    ],
+    [
+      9400,
+      7000,
+      0
+    ],
+    [
+      7800,
+      7000,
+      0
+    ],
+    [
+      7800,
+      5200,
+      0
+    ],
+    [
+      9600,
+      5200,
+      0
+    ],
+    [
+      11000,
+      5200,
+      0
+    ],
+    [
+      11000,
+      7000,
+      0
+    ],
+    [
+      9600,
+      7000,
+      0
+    ],
+    [
+      9600,
+      5200,
+      0
+    ],
+    [
+      11400,
+      1000,
+      0
+    ],
+    [
+      12800,
+      1000,
+      0
+    ],
+    [
+      12800,
+      3200,
+      0
+    ],
+    [
+      11400,
+      3200,
+      0
+    ],
+    [
+      11400,
+      1000,
+      0
+    ],
+    [
+      13000,
+      1000,
+      0
+    ],
+    [
+      14400,
+      1000,
+      0
+    ],
+    [
+      14400,
+      3200,
+      0
+    ],
+    [
+      13000,
+      3200,
+      0
+    ],
+    [
+      13000,
+      1000,
+      0
+    ],
+    [
+      2965,
+      4165,
+      0
+    ],
+    [
+      3035,
+      4165,
+      0
+    ],
+    [
+      3035,
+      4235,
+      0
+    ],
+    [
+      2965,
+      4235,
+      0
+    ],
+    [
+      2965,
+      4165,
+      0
+    ],
+    [
+      4960,
+      4360,
+      0
+    ],
+    [
+      5040,
+      4360,
+      0
+    ],
+    [
+      5040,
+      4440,
+      0
+    ],
+    [
+      4960,
+      4440,
+      0
+    ],
+    [
+      4960,
+      4360,
+      0
+    ],
+    [
+      3955,
+      4655,
+      0
+    ],
+    [
+      4045,
+      4655,
+      0
+    ],
+    [
+      4045,
+      4745,
+      0
+    ],
+    [
+      3955,
+      4745,
+      0
+    ],
+    [
+      3955,
+      4655,
+      0
+    ],
+    [
+      2170,
+      1970,
+      0
+    ],
+    [
+      2230,
+      1970,
+      0
+    ],
+    [
+      2230,
+      2030,
+      0
+    ],
+    [
+      2170,
+      2030,
+      0
+    ],
+    [
+      2170,
+      1970,
+      0
+    ],
+    [
+      1172,
+      2772,
+      0
+    ],
+    [
+      1228,
+      2772,
+      0
+    ],
+    [
+      1228,
+      2828,
+      0
+    ],
+    [
+      1172,
+      2828,
+      0
+    ],
+    [
+      1172,
+      2772,
+      0
+    ],
+    [
+      4570,
+      4170,
+      0
+    ],
+    [
+      4630,
+      4170,
+      0
+    ],
+    [
+      4630,
+      4230,
+      0
+    ],
+    [
+      4570,
+      4230,
+      0
+    ],
+    [
+      4570,
+      4170,
+      0
+    ]
+  ]
+}

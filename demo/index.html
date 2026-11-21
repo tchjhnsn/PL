@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seed City</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .webgl-app {
+      display: grid;
+      grid-template-columns: minmax(15rem, 17.5rem) 1fr;
+      height: 100%;
+    }
+    .webgl-app > .rail {
+      min-height: 0;
+      overflow: auto;
+    }
+    @media (max-width: 900px) {
+      .webgl-app { grid-template-columns: 1fr; grid-template-rows: minmax(0, auto) minmax(50vh, 1fr); }
+      .webgl-app > .rail { min-height: 0; overflow: auto; }
+    }
+    #view {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      display: block;
+      background: #c5d0c0;
+      cursor: grab;
+    }
+    #view:active { cursor: grabbing; }
+    .webgl-stage {
+      position: relative;
+      min-height: 0;
+      background: #c5d0c0;
+    }
+    .webgl-hud {
+      position: absolute;
+      left: 0.75rem;
+      bottom: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #c8d4cc;
+      background: rgba(18, 22, 18, 0.72);
+      border: 1px solid #3a463e;
+      padding: 0.35rem 0.55rem;
+      pointer-events: none;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+    }
+    .status-dot.satisfied { background: #3d8f5f; }
+    .status-dot.violated { background: #b84a3a; }
+    .status-dot.needs_judgment { background: #c49a2a; }
+    .status-dot.neutral { background: #6a756e; }
+    .pattern-list button .status {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--muted);
+    }
+    .look-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 0.35rem 0 0.2rem;
+    }
+    #sun-time {
+      width: 100%;
+      accent-color: #c9a227;
+    }
+    .look-check {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      margin-top: 0.55rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    details.rail-more {
+      margin-top: 1.15rem;
+      border-top: 1px solid var(--line);
+      padding-top: 0.75rem;
+    }
+    details.rail-more > summary {
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--muted);
+      list-style: none;
+    }
+    details.rail-more > summary::-webkit-details-marker { display: none; }
+    .chip:focus-visible,
+    .pattern-card:focus-visible,
+    .rail a:focus-visible {
+      outline: 2px solid #c9a227;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px #111814;
+    }
+  </style>
+</head>
+<body>
+  <div class="webgl-app">
+    <aside class="rail">
+      <header class="rail-head">
+        <p class="brand">Seed City</p>
+        <p class="lede">
+          A neighborhood you can walk through as it goes up — land, then pads,
+          then buildings. Drag to look; scroll to zoom.
+        </p>
+      </header>
+
+      <section class="rail-section">
+        <h2>Show</h2>
+        <p class="soft" id="stage-note">Pick how far the build has gone.</p>
+        <div class="view-toggle" id="stage-list"></div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Where</h2>
+        <div class="view-toggle">
+          <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">Neighborhood</button>
+          <button type="button" class="chip" data-mode="house" aria-pressed="false">House A</button>
+        </div>
+      </section>
+
+      <section class="rail-section" id="patterns-section">
+        <h2>Patterns</h2>
+        <p class="soft">Highlight places a pattern cares about.</p>
+        <div id="pattern-list" class="pattern-list"></div>
+      </section>
+
+      <section class="rail-section">
+        <h2>Clicked</h2>
+        <div id="inspector" class="inspector">
+          <p class="soft">Click a building or street.</p>
+        </div>
+      </section>
+
+      <details class="rail-more">
+        <summary>Light &amp; more</summary>
+        <section class="rail-section" id="look-section">
+          <h2>Sun</h2>
+          <label class="look-label" for="sun-time"><span id="sun-time-label">midday</span></label>
+          <input id="sun-time" type="range" min="0" max="100" value="28" aria-valuemin="0" aria-valuemax="100" />
+          <label class="look-check">
+            <input id="bloom-toggle" type="checkbox" />
+            Soft glow
+          </label>
+        </section>
+        <section class="rail-section">
+          <h2>Also</h2>
+          <p class="soft">
+            <a href="map.html">Map</a> ·
+            <a href="plan.html">Plan</a> ·
+            <a href="concepts.html">Ideas</a>
+          </p>
+        </section>
+      </details>
+    </aside>
+
+    <main class="webgl-stage">
+      <canvas id="view" aria-label="Seed city in 3D"></canvas>
+      <div class="webgl-hud" id="hud">drag to look · scroll to zoom</div>
+    </main>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="webgl.js?v=u23-kill"></script>
+</body>
+</html>

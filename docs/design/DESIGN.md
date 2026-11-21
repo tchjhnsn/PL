@@ -64,6 +64,10 @@ An empty `catalog/` and `projects/` is valid, including trees that contain only 
 
 `adapters/blender/` is the Blender add-on. `bpy` imports live only under that directory. `bonsai` is imported only in `adapters/blender/bridge.py`. `mcp/server.py` is the stdio server, and `mcp/` has no `__init__.py`. `topology.py` imports `ifcopenshell` only inside `read_ifc` and `write_ifc`. Adapter code stays outside `src/pattern_language/`.
 
+## Placement among AEC / urban formalisms
+
+We sit in **semantic place + pattern dictionary**, not physics simulation. Geography and solar geometry are planning inputs. Adopted spatial documents: **CityJSON** (city/urban), **IFC** (building detail), **BOT**-shaped topology internally. Mid-layer for geometry-aware plans: **SpatialStructure** (`schema/spatial-structure.schema.json`) with owned SVG **plan-symbology** (`demo/`). MapLibre remains an optional map host, not the primary drawing. Full map: `docs/design/ONTOLOGY-PLACEMENT.md`. Concept graph: `docs/design/spatial-concept-graph.json`.
+
 ## Copyright
 
 Cite pattern numbers and names only. Do not copy book text into records, schemas, comments, or docs.

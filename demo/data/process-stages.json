@@ -1,0 +1,60 @@
+{
+  "id": "seed-district-build",
+  "title": "Seed City — what to show",
+  "stages": [
+    {
+      "id": "survey",
+      "name": "Site",
+      "mode": "sync",
+      "requires": [],
+      "unlocks": ["survey.complete"],
+      "webgl": "Ground and sun",
+      "note": "Empty site — no lots yet."
+    },
+    {
+      "id": "land",
+      "name": "Lots",
+      "mode": "sync",
+      "requires": ["survey.complete"],
+      "unlocks": ["land.lots"],
+      "webgl": "Streets, lots, and greens",
+      "note": "Streets and lots before any building."
+    },
+    {
+      "id": "foundation",
+      "name": "Pads",
+      "mode": "async",
+      "requires": ["land.lots"],
+      "unlocks": ["foundation.ready"],
+      "webgl": "Building pads on lots",
+      "note": "Pads can go up on many lots at once."
+    },
+    {
+      "id": "frame",
+      "name": "Buildings",
+      "mode": "sync",
+      "requires": ["foundation.ready"],
+      "unlocks": ["frame.ready"],
+      "webgl": "Walls and floors",
+      "note": "Walls after that lot’s pad."
+    },
+    {
+      "id": "openings",
+      "name": "Doors",
+      "mode": "sync",
+      "requires": ["frame.ready"],
+      "unlocks": ["openings.installed"],
+      "webgl": "Doors, gates, and windows",
+      "note": "Openings after the walls exist."
+    },
+    {
+      "id": "patterns",
+      "name": "Patterns",
+      "mode": "sync",
+      "requires": ["survey.complete"],
+      "unlocks": ["patterns.run"],
+      "webgl": "Pattern highlights",
+      "note": "Highlight places a pattern cares about."
+    }
+  ]
+}

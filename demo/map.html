@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seed City — Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .map-app {
+      display: grid;
+      grid-template-columns: minmax(14rem, 18rem) 1fr;
+      height: 100%;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      background: #d8d2c4;
+    }
+    .map-legend {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+      font-size: 0.85rem;
+    }
+    .map-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.25rem 0;
+    }
+    .swatch {
+      width: 1rem;
+      height: 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      flex: 0 0 auto;
+    }
+    @media (max-width: 900px) {
+      .map-app {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, auto) minmax(50vh, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="map-app">
+    <aside class="rail">
+      <header class="rail-header">
+        <p class="eyebrow">Seed City</p>
+        <h1>Map</h1>
+        <p class="lede">
+          Dark buildings, light streets — the neighborhood from above.
+          Open 3D to walk it.
+        </p>
+      </header>
+      <section class="rail-section">
+        <h2>Legend</h2>
+        <ul class="map-legend">
+          <li><span class="swatch" style="background:#2a2a28"></span> Building</li>
+          <li><span class="swatch" style="background:#5c5c58"></span> Street</li>
+          <li><span class="swatch" style="background:#8a9a7a"></span> Lot</li>
+          <li><span class="swatch" style="background:#6f9a6a"></span> Green / court</li>
+          <li><span class="swatch" style="background:#c9b896"></span> Path</li>
+          <li><span class="swatch" style="background:#4a7a9a"></span> Water</li>
+        </ul>
+      </section>
+      <section class="rail-section">
+        <h2>More views</h2>
+        <p class="soft">
+          <a href="index.html">3D city</a> ·
+          <a href="plan.html">Floor plan</a> ·
+          <a href="concepts.html">Ideas graph</a>
+        </p>
+      </section>
+      <section class="rail-section">
+        <h2>Selection</h2>
+        <p class="soft" id="sel">Click a place on the map.</p>
+      </section>
+    </aside>
+    <main id="map" aria-label="Seed district city map"></main>
+  </div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script type="module" src="map.js?v=u20"></script>
+</body>
+</html>

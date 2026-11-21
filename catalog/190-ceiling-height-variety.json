@@ -34,5 +34,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 190
-  }
+  },
+  "uses": [
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://architizer.com/projects/portside-2/",
+      "title": "Portside \u2014 Daniel Joseph Chenin",
+      "note": "Ceiling geometry and volume changes marking public vs private layers.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "http://www.sensiblehouse.org/des_nested.htm",
+      "title": "Hierarchy of Spaces \u2014 Sensible House",
+      "note": "Nested public-to-private layers that often show up as height and enclosure changes.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

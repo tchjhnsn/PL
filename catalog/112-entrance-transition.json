@@ -34,5 +34,23 @@
   "source": {
     "book": "A Pattern Language",
     "number": 112
-  }
+  },
+  "uses": [
+    "term.transition",
+    "term.outdoor"
+  ],
+  "references": [
+    {
+      "url": "https://www.mfm.sk/en/glossary/threshold-architecture",
+      "title": "Threshold (Architecture) \u2014 mfm architects",
+      "note": "Catalog of threshold devices: gate, path, level change, porch, vestibule.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.habitusliving.com/projects/hyla-architects-princess-of-wales-house",
+      "title": "Princess of Wales House \u2014 HYLA Architects",
+      "note": "Gate \u2192 porch \u2192 courtyard \u2192 concealed door as a decompression sequence.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

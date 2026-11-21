@@ -1,0 +1,456 @@
+{
+  "patterns": [
+    {
+      "number": 105,
+      "name": "South Facing Outdoors",
+      "look_for": "Open land south of occupied rooms \u2014 measure the court.",
+      "feature_ids": [
+        "a-court",
+        "green-shared",
+        "street-main",
+        "m-court-depth"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "zone+arrow",
+        "zones": [
+          "a-court",
+          "green-shared"
+        ],
+        "arrows": [
+          {
+            "from": [
+              30,
+              26
+            ],
+            "to": [
+              30,
+              18
+            ],
+            "label": "south"
+          }
+        ],
+        "measures": [
+          "m-court-depth"
+        ]
+      }
+    },
+    {
+      "number": 106,
+      "name": "Positive Outdoor Space",
+      "look_for": "Outdoor rooms with definite shape.",
+      "feature_ids": [
+        "a-court",
+        "b-court",
+        "c-court",
+        "d-court",
+        "green-shared",
+        "m-green-frontage",
+        "m-frontage-a",
+        "m-frontage-b"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "zone",
+        "zones": [
+          "a-court",
+          "b-court",
+          "c-court",
+          "d-court",
+          "green-shared"
+        ],
+        "measures": [
+          "m-green-frontage",
+          "m-frontage-a",
+          "m-frontage-b",
+          "m-frontage-c",
+          "m-frontage-d"
+        ]
+      }
+    },
+    {
+      "number": 107,
+      "name": "Wings of Light",
+      "look_for": "Narrow wings \u2014 hall clear span.",
+      "feature_ids": [
+        "a-hall",
+        "a-win-hall-s",
+        "a-win-hall-w",
+        "m-hall-span"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "zone+rays",
+        "zones": [
+          "a-hall"
+        ],
+        "rays": [
+          {
+            "at": [
+              21,
+              22
+            ],
+            "dir": [
+              0,
+              -1
+            ]
+          },
+          {
+            "at": [
+              18,
+              26
+            ],
+            "dir": [
+              -1,
+              0
+            ]
+          }
+        ],
+        "measures": [
+          "m-hall-span"
+        ]
+      }
+    },
+    {
+      "number": 110,
+      "name": "Main Entrance",
+      "look_for": "Address on the movement network.",
+      "feature_ids": [
+        "a-door-main",
+        "a-porch",
+        "path-approach",
+        "e-approach-3",
+        "n-door"
+      ],
+      "kind": "judgment",
+      "diagram": {
+        "kind": "marker",
+        "markers": [
+          {
+            "at": [
+              24,
+              22
+            ],
+            "label": "entrance"
+          }
+        ],
+        "zones": [
+          "a-hall",
+          "a-porch"
+        ],
+        "edges": [
+          "e-approach-3"
+        ]
+      }
+    },
+    {
+      "number": 112,
+      "name": "Entrance Transition",
+      "look_for": "Street \u2192 path \u2192 gate \u2192 court \u2192 porch \u2192 door.",
+      "feature_ids": [
+        "e-approach-1",
+        "e-approach-2",
+        "e-approach-3",
+        "a-court",
+        "a-porch",
+        "m-setback-a",
+        "m-porch-depth"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "sequence",
+        "arrows": [
+          {
+            "from": [
+              30,
+              4
+            ],
+            "to": [
+              30,
+              11
+            ],
+            "label": "1"
+          },
+          {
+            "from": [
+              30,
+              11
+            ],
+            "to": [
+              30,
+              18
+            ],
+            "label": "2"
+          },
+          {
+            "from": [
+              30,
+              18
+            ],
+            "to": [
+              24,
+              21
+            ],
+            "label": "3"
+          }
+        ],
+        "zones": [
+          "a-court",
+          "path-approach",
+          "a-porch"
+        ],
+        "edges": [
+          "e-approach-1",
+          "e-approach-2",
+          "e-approach-3"
+        ],
+        "measures": [
+          "m-setback-a",
+          "m-approach-width",
+          "m-porch-depth"
+        ]
+      }
+    },
+    {
+      "number": 127,
+      "name": "Intimacy Gradient",
+      "look_for": "Public before private along the graph.",
+      "feature_ids": [
+        "e-hall-liv",
+        "e-liv-stair",
+        "e-stair-bed",
+        "a-hall",
+        "a-living",
+        "a-stair",
+        "a-bedroom"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "sequence",
+        "arrows": [
+          {
+            "from": [
+              23,
+              26
+            ],
+            "to": [
+              35,
+              26
+            ],
+            "label": "public"
+          },
+          {
+            "from": [
+              35,
+              26
+            ],
+            "to": [
+              29.5,
+              26
+            ],
+            "label": "up"
+          }
+        ],
+        "zones": [
+          "a-hall",
+          "a-living",
+          "a-stair",
+          "a-bedroom"
+        ],
+        "edges": [
+          "e-hall-liv",
+          "e-liv-stair",
+          "e-stair-bed"
+        ]
+      }
+    },
+    {
+      "number": 128,
+      "name": "Indoor Sunlight",
+      "look_for": "Day rooms that see the sun.",
+      "feature_ids": [
+        "a-living",
+        "a-win-liv-s",
+        "a-win-liv-e"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "zone+rays",
+        "zones": [
+          "a-living"
+        ],
+        "rays": [
+          {
+            "at": [
+              35,
+              22
+            ],
+            "dir": [
+              0,
+              -1
+            ]
+          },
+          {
+            "at": [
+              42,
+              26
+            ],
+            "dir": [
+              1,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "number": 130,
+      "name": "Entrance Room",
+      "look_for": "Arrival is a room.",
+      "feature_ids": [
+        "a-hall",
+        "a-porch",
+        "a-door-main"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "zone",
+        "zones": [
+          "a-hall",
+          "a-porch"
+        ]
+      }
+    },
+    {
+      "number": 159,
+      "name": "Light on Two Sides of Every Room",
+      "look_for": "Windows on two sides.",
+      "feature_ids": [
+        "a-win-hall-s",
+        "a-win-hall-w",
+        "a-win-liv-s",
+        "a-win-liv-e",
+        "a-win-bed-n",
+        "a-win-bed-w"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "openings",
+        "openings": [
+          "a-win-hall-s",
+          "a-win-hall-w",
+          "a-win-liv-s",
+          "a-win-liv-e",
+          "a-win-bed-n",
+          "a-win-bed-w"
+        ]
+      }
+    },
+    {
+      "number": 167,
+      "name": "Six-Foot Balcony",
+      "look_for": "Balcony depth \u2265 ~1.83 m (shown 6.0 m clear).",
+      "feature_ids": [
+        "a-balcony",
+        "m-balcony-depth"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "zone+dim",
+        "zones": [
+          "a-balcony"
+        ],
+        "measures": [
+          "m-balcony-depth"
+        ]
+      }
+    },
+    {
+      "number": 180,
+      "name": "Window Place",
+      "look_for": "Place by the window.",
+      "feature_ids": [
+        "a-win-liv-s",
+        "a-living"
+      ],
+      "kind": "judgment",
+      "diagram": {
+        "kind": "marker",
+        "markers": [
+          {
+            "at": [
+              35,
+              24
+            ],
+            "label": "window place"
+          }
+        ],
+        "zones": [
+          "a-living"
+        ]
+      }
+    },
+    {
+      "number": 190,
+      "name": "Ceiling Height Variety",
+      "look_for": "Ceiling heights differ.",
+      "feature_ids": [
+        "m-ceil-hall",
+        "m-ceil-liv",
+        "a-hall",
+        "a-living",
+        "a-bedroom"
+      ],
+      "kind": "computed",
+      "diagram": {
+        "kind": "heights",
+        "labels": [
+          {
+            "at": [
+              23,
+              26
+            ],
+            "text": "2.4 m"
+          },
+          {
+            "at": [
+              35,
+              26
+            ],
+            "text": "3.0 m"
+          },
+          {
+            "at": [
+              35,
+              26
+            ],
+            "text": "upper 2.7 m"
+          }
+        ],
+        "zones": [
+          "a-hall",
+          "a-living",
+          "a-bedroom"
+        ],
+        "measures": [
+          "m-ceil-hall",
+          "m-ceil-liv"
+        ]
+      }
+    }
+  ],
+  "names": {
+    "105": "South Facing Outdoors",
+    "106": "Positive Outdoor Space",
+    "107": "Wings of Light",
+    "110": "Main Entrance",
+    "112": "Entrance Transition",
+    "127": "Intimacy Gradient",
+    "128": "Indoor Sunlight",
+    "130": "Entrance Room",
+    "159": "Light on Two Sides of Every Room",
+    "167": "Six-Foot Balcony",
+    "180": "Window Place",
+    "190": "Ceiling Height Variety"
+  }
+}

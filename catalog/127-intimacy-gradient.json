@@ -32,5 +32,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 127
-  }
+  },
+  "uses": [
+    "term.occupied"
+  ],
+  "references": [
+    {
+      "url": "https://www.aadityainterior.com/blog/zoning-a-home-public-private-and-service-areas",
+      "title": "Zoning a Home: Public, Private and Service Areas",
+      "note": "Privacy gradient from foyer through living to bedroom lobby.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.moomoo.pl/en/research-the-plan-as-a-graph.html",
+      "title": "The plan as a graph: depth and privacy",
+      "note": "Measured room depth from the entrance as a privacy gradient check.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

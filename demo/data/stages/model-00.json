@@ -1,0 +1,115 @@
+{
+  "adjacencies": [],
+  "boundaries": [
+    {
+      "end": [
+        8.0,
+        -2.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        0.0,
+        -2.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        -2.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "end": [
+        8.0,
+        0.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        8.0,
+        -2.0
+      ]
+    },
+    {
+      "end": [
+        0.0,
+        0.0
+      ],
+      "external": true,
+      "other": null,
+      "space": "street",
+      "start": [
+        8.0,
+        0.0
+      ]
+    }
+  ],
+  "north": [
+    0.0,
+    1.0
+  ],
+  "openings": [],
+  "zones": [
+    {
+      "footprint": [],
+      "height_m": null,
+      "kind": "Storey",
+      "name": "ground",
+      "parent": "house",
+      "tags": []
+    },
+    {
+      "footprint": [],
+      "height_m": null,
+      "kind": "Building",
+      "name": "house",
+      "parent": "site",
+      "tags": []
+    },
+    {
+      "footprint": [],
+      "height_m": null,
+      "kind": "Site",
+      "name": "site",
+      "parent": null,
+      "tags": []
+    },
+    {
+      "footprint": [
+        [
+          0.0,
+          -2.0
+        ],
+        [
+          8.0,
+          -2.0
+        ],
+        [
+          8.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "height_m": 3.0,
+      "kind": "Space",
+      "name": "street",
+      "parent": "ground",
+      "tags": [
+        "street"
+      ]
+    }
+  ]
+}

@@ -44,8 +44,16 @@ FAIL_RINGS = {
 }
 
 
-def _space(name: str, tags: set[str], ring: tuple[tuple[float, float], ...], height: float) -> Zone:
-    return Zone(name, "Space", "ground", frozenset(tags), ring, height)
+def _space(
+    name: str,
+    tags: set[str],
+    ring: tuple[tuple[float, float], ...],
+    height: float,
+    *,
+    storey: str = "ground",
+    floor_elevation_m: float = 0.0,
+) -> Zone:
+    return Zone(name, "Space", storey, frozenset(tags), ring, height, floor_elevation_m)
 
 
 def _boundary(
@@ -72,22 +80,39 @@ def _topology(
     )
 
 
-def _structural() -> list[Zone]:
-    return [
-        Zone("site", "Site", None, frozenset(), (), None),
-        Zone("house", "Building", "site", frozenset(), (), None),
-        Zone("ground", "Storey", "house", frozenset(), (), None),
+def _structural(*storeys: tuple[str, float]) -> list[Zone]:
+    zones = [
+        Zone("site", "Site", None, frozenset(), (), None, None),
+        Zone("house", "Building", "site", frozenset(), (), None, None),
     ]
+    levels = storeys or (("ground", 0.0),)
+    for name, elev in levels:
+        zones.append(Zone(name, "Storey", "house", frozenset(), (), None, elev))
+    return zones
 
 
 def expected_pass() -> Topology:
-    zones = _structural() + [
+    zones = _structural(("ground", 0.0), ("upper", 3.0)) + [
         _space("street", {"street"}, PASS_RINGS["street"], 3.0),
         _space("court", {"outdoor", "transition"}, PASS_RINGS["court"], 3.0),
         _space("hall", {"room", "public", "occupied"}, PASS_RINGS["hall"], 2.4),
         _space("living", {"living", "semi-private", "daytime", "occupied"}, PASS_RINGS["living"], 3.0),
-        _space("bedroom", {"room", "private", "occupied"}, PASS_RINGS["bedroom"], 2.7),
-        _space("balcony", {"balcony", "outdoor"}, PASS_RINGS["balcony"], 3.0),
+        _space(
+            "bedroom",
+            {"room", "private", "occupied"},
+            PASS_RINGS["bedroom"],
+            2.7,
+            storey="upper",
+            floor_elevation_m=3.0,
+        ),
+        _space(
+            "balcony",
+            {"balcony", "outdoor"},
+            PASS_RINGS["balcony"],
+            3.0,
+            storey="upper",
+            floor_elevation_m=3.0,
+        ),
     ]
     adjacencies = [
         Adjacency("balcony", "bedroom", "door", "bedroom-balcony"),
@@ -141,14 +166,21 @@ def expected_pass() -> Topology:
 
 
 def expected_fail() -> Topology:
-    zones = _structural() + [
+    zones = _structural(("ground", 0.0), ("upper", 3.0)) + [
         _space("street", {"street"}, FAIL_RINGS["street"], 2.4),
         _space("corridor", {"corridor"}, FAIL_RINGS["corridor"], 2.4),
         _space("west-flank", set(), FAIL_RINGS["west-flank"], 2.4),
         _space("bedroom", {"room", "private", "occupied"}, FAIL_RINGS["bedroom"], 2.4),
         _space("east-flank", set(), FAIL_RINGS["east-flank"], 2.4),
         _space("dayroom", {"public", "daytime", "occupied"}, FAIL_RINGS["dayroom"], 2.4),
-        _space("balcony", {"balcony", "outdoor"}, FAIL_RINGS["balcony"], 2.4),
+        _space(
+            "balcony",
+            {"balcony", "outdoor"},
+            FAIL_RINGS["balcony"],
+            2.4,
+            storey="upper",
+            floor_elevation_m=3.0,
+        ),
         _space("court", {"outdoor"}, FAIL_RINGS["court"], 3.0),
     ]
     adjacencies = [
@@ -325,10 +357,12 @@ def _assert_containment(graph: Topology) -> None:
     by_name = {zone.name: zone for zone in graph.zones}
     assert by_name["site"].parent is None
     assert by_name["house"].parent == "site"
-    assert by_name["ground"].parent == "house"
+    storeys = {zone.name for zone in graph.zones if zone.kind == "Storey"}
+    assert storeys
+    assert all(by_name[name].parent == "house" for name in storeys)
     spaces = [zone for zone in graph.zones if zone.kind == "Space"]
     assert spaces
-    assert all(zone.parent == "ground" for zone in spaces)
+    assert all(zone.parent in storeys for zone in spaces)
 
 
 def test_two_openings_share_an_edge(pass_graph: Topology, fail_graph: Topology) -> None:
@@ -402,6 +436,7 @@ def test_write_ifc_rejects_a_diagonal(tmp_path: Path) -> None:
         frozenset(),
         ((0.0, 0.0), (2.0, 0.0), (1.0, 1.0)),
         2.4,
+        0.0,
     )
     model = Topology((0.0, 1.0), (triangle,), (), (), ())
     with pytest.raises(TopologyError, match="not axis-aligned"):

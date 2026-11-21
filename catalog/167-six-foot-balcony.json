@@ -8,7 +8,7 @@
   ],
   "smaller": [],
   "summary": {
-    "text": "Every balcony is at least 1.83 m deep.",
+    "text": "Every elevated balcony is at least 1.83 m deep.",
     "draft": true
   },
   "forces": [
@@ -27,12 +27,32 @@
       "kind": "computed",
       "check": "six-foot-balcony",
       "params": {
-        "min_depth_m": 1.83
+        "min_depth_m": 1.83,
+        "min_elevation_m": 2.4
       }
     }
+  ],
+  "uses": [
+    "term.balcony",
+    "term.floor-elevation",
+    "term.orientation-frame"
   ],
   "source": {
     "book": "A Pattern Language",
     "number": 167
-  }
+  },
+  "references": [
+    {
+      "url": "https://www.bchousing.org/sites/default/files/media/documents/Builder-Insight-23-Design-Guidelines-for-Condominium-Balconies.pdf",
+      "title": "BC Housing \u2014 Design Guidelines for Condominium Balconies",
+      "note": "1.8 m minimum usable depth; deeper for dining; elevated outdoor edge typology.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.modernacrestudio.com/articles/second-floor-balcony-design-depth-drainage-railing",
+      "title": "How Deep Should a Balcony Be? \u2014 Modern Acre Studio",
+      "note": "Second-floor balcony: ~6 ft minimum for sitting; distinguishes standing shelves from rooms.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

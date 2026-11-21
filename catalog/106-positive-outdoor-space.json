@@ -36,5 +36,22 @@
   "source": {
     "book": "A Pattern Language",
     "number": 106
-  }
+  },
+  "uses": [
+    "term.outdoor"
+  ],
+  "references": [
+    {
+      "url": "https://archinect.com/wittman-estes/project/yo-ju-courtyard-house",
+      "title": "Yo-Ju Courtyard House \u2014 Wittman Estes",
+      "note": "Entry and garden courts shaped as definite outdoor rooms rather than leftover yards.",
+      "retrieved": "2026-11-20"
+    },
+    {
+      "url": "https://www.habitusliving.com/projects/hyla-architects-princess-of-wales-house",
+      "title": "Princess of Wales House \u2014 HYLA Architects",
+      "note": "Layered courtyards that enclose outdoor space as rooms in the sequence of the house.",
+      "retrieved": "2026-11-20"
+    }
+  ]
 }

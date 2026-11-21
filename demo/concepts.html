@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spatial concept graph</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="concepts-page">
+  <div class="app">
+    <aside class="rail">
+      <header class="rail-head">
+        <p class="brand">Concept graph</p>
+        <p class="lede">Dependencies, parents, siblings, and the symbology that draws them.</p>
+        <p class="owned">
+          <a href="index.html">WebGL district</a> ·
+          <a href="plan.html">2D plan</a><br />
+          <code>pattern-language.spatial-concept-graph</code>
+        </p>
+        <p class="stats" id="stats"></p>
+      </header>
+      <section class="rail-section concepts-find">
+        <h2>Find</h2>
+        <label class="visually-hidden" for="search">Search concepts</label>
+        <input class="search" id="search" type="search" placeholder="Name, id, source, note" autocomplete="off" />
+        <div class="filters" id="status-filters" role="group" aria-label="Status"></div>
+        <label class="layer-filter">
+          Layer
+          <select id="layer"></select>
+        </label>
+        <p class="soft" id="list-count"></p>
+        <ul class="node-list" id="node-list"></ul>
+      </section>
+    </aside>
+
+    <main class="stage">
+      <div class="sheet">
+        <div class="sheet-meta">
+          <span>1-hop · arrow follows the relation</span>
+          <span id="sheet-title">Select a concept</span>
+          <span id="edge-count"></span>
+        </div>
+        <svg id="graph-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concept neighborhood"></svg>
+        <div class="legend" id="rel-legend" aria-label="Relation and status legend"></div>
+      </div>
+    </main>
+
+    <aside class="rail" id="detail-rail">
+      <section class="rail-section">
+        <h2>Selected</h2>
+        <div id="detail" class="inspector">
+          <p class="soft">Pick a concept to see its neighbors.</p>
+        </div>
+        <div id="relations"></div>
+      </section>
+    </aside>
+  </div>
+  <script src="concepts.js" type="module"></script>
+</body>
+</html>
