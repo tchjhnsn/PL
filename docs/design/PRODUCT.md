@@ -8,11 +8,13 @@
 
 | Surface | Job |
 |---|---|
-| `/` WebGL | Build order + 3D place (city or House A) |
+| `/` WebGL | Scale ladder (House → Neighborhood → City) + build stages |
 | `/map.html` | City figure–ground at a glance |
 | `/plan.html` | Measured 2D plan + judgment |
 | `pl check` / MCP | Machine truth (IFC / measures) |
 
 **Voice:** Plain words. Name the thing the user is looking at. Hide process jargon (`Decided`, `pl sequence`, `Semantic massing`) behind Advanced or docs.
+
+**Scale:** Neighborhood is the default home. City is wider context, not a replacement for the seed block. See `docs/design/U23-SCALE-UX.md`.
 
 **Non-goals for the chrome:** Explaining the whole formal system. That lives in `DESIGN.md` / contracts.

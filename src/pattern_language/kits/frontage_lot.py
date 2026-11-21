@@ -31,6 +31,7 @@ class FrontageLotSpec:
     patterns: tuple[int, ...] = (105, 106, 112)
     sidewalk_place: str | None = None  # override network sidewalk place id
     sidewalk_y: float | None = None
+    with_walls: bool = True  # False for city-LOD massing (skip garden walls)
 
 
 def stamp_frontage_lot(spec: FrontageLotSpec) -> dict[str, Any]:
@@ -116,27 +117,29 @@ def stamp_frontage_lot(spec: FrontageLotSpec) -> dict[str, Any]:
     xs = [p[0] for p in spec.court_ring]
     ys = [p[1] for p in spec.court_ring]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    walls = [
-        {"id": f"w-{k}-court-s", "a": [x0, y0], "b": [x1, y0], "thickness": spec.wall_thickness},
-        {"id": f"w-{k}-court-w", "a": [x0, y0], "b": [x0, y1], "thickness": spec.wall_thickness},
-        {"id": f"w-{k}-court-e", "a": [x1, y0], "b": [x1, y1], "thickness": spec.wall_thickness},
-    ]
-
-    openings = [
-        {
-            "id": door_id,
-            "label": f"Court Gate {spec.label}",
-            "component": "door",
-            "x": spec.gate_xy[0],
-            "y": spec.gate_xy[1],
-            "width": 1.2,
-            "wall_angle": 0,
-            "swing": spec.gate_swing,
-            "patterns": list(spec.patterns),
-            "role": f"Garden-wall gate into Front Court {spec.label}.",
-            "parent": court_id,
-        }
-    ]
+    walls: list[dict[str, Any]] = []
+    openings: list[dict[str, Any]] = []
+    if spec.with_walls:
+        walls = [
+            {"id": f"w-{k}-court-s", "a": [x0, y0], "b": [x1, y0], "thickness": spec.wall_thickness},
+            {"id": f"w-{k}-court-w", "a": [x0, y0], "b": [x0, y1], "thickness": spec.wall_thickness},
+            {"id": f"w-{k}-court-e", "a": [x1, y0], "b": [x1, y1], "thickness": spec.wall_thickness},
+        ]
+        openings = [
+            {
+                "id": door_id,
+                "label": f"Court Gate {spec.label}",
+                "component": "door",
+                "x": spec.gate_xy[0],
+                "y": spec.gate_xy[1],
+                "width": 1.2,
+                "wall_angle": 0,
+                "swing": spec.gate_swing,
+                "patterns": list(spec.patterns),
+                "role": f"Garden-wall gate into Front Court {spec.label}.",
+                "parent": court_id,
+            }
+        ]
 
     gx, _gy = spec.gate_xy
     addr_y = y1  # massing front
@@ -261,9 +264,13 @@ def stamp_frontage_lot(spec: FrontageLotSpec) -> dict[str, Any]:
     ]
 
     interfaces = [
-        {"id": f"if-approach-{k}", "kind": "door", "between": [spec.street_id, court_id], "opening": door_id},
         {"id": f"if-front-{k}", "kind": "frontage", "between": [court_id, spec.street_id], "length_m": frontage_m},
     ]
+    if spec.with_walls:
+        interfaces.insert(
+            0,
+            {"id": f"if-approach-{k}", "kind": "door", "between": [spec.street_id, court_id], "opening": door_id},
+        )
 
     interactions = [
         {"id": f"ix-found-{k}-lot", "kind": "sit-on", "a": found_id, "b": lot_id},

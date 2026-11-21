@@ -70,11 +70,13 @@ const HOUSE_WALL = {
   workshop: 0xa89078,
 };
 
-let mode = "district";
+/** Scale ladder: house → neighborhood (seed) → city (metro fabric). Default: neighborhood. */
+let mode = "neighborhood";
 let focusPattern = null;
 let selectedId = null;
-/** Highest unlocked Decided stage index (default: land = survey + land). */
+/** Highest unlocked build stage index (default: land = site + lots). */
 let stageIndex = 1;
+let bloomEnabled = false;
 
 const placeMeshes = new Map();
 const raycaster = new THREE.Raycaster();
@@ -87,14 +89,18 @@ const siteCenter = new THREE.Vector3(
   -((extent.min_y + extent.max_y) / 2),
 );
 const siteSpan = Math.max(extent.max_x - extent.min_x, extent.max_y - extent.min_y, 40);
-const viewFar = Math.max(2000, siteSpan * 3);
+const viewFar = Math.max(8000, siteSpan * 4);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xc5d6ea);
+scene.background = new THREE.Color(0xa8c4dc);
 scene.fog = null;
 
-const camera = new THREE.PerspectiveCamera(52, 1, 0.35, viewFar);
-camera.position.set(siteCenter.x + 64, 28, siteCenter.z + 100);
+const camera = new THREE.PerspectiveCamera(52, 1, 1.0, viewFar);
+camera.position.set(
+  siteCenter.x + siteSpan * 0.15,
+  Math.max(80, siteSpan * 0.22),
+  siteCenter.z + siteSpan * 0.28,
+);
 
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const renderer = new THREE.WebGLRenderer({
@@ -118,8 +124,8 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.08;
 controls.target.copy(siteCenter);
 controls.maxPolarAngle = Math.PI * 0.49;
-controls.minDistance = 6;
-controls.maxDistance = Math.max(160, siteSpan * 1.6);
+controls.minDistance = 8;
+controls.maxDistance = Math.max(4000, siteSpan * 2.5);
 
 const sun = new THREE.DirectionalLight(0xfff1d6, 2.65);
 sun.castShadow = true;
@@ -143,7 +149,7 @@ scene.add(hemi);
 
 /** 0 = high midday, 1 = low sunset (matches archviz sun control intent). */
 let sunTime = 0.28;
-let bloomEnabled = !isMobile;
+// bloomEnabled set above; stay off unless the reader opts in.
 const sky = new Sky();
 sky.scale.setScalar(450000);
 sky.frustumCulled = false;
@@ -182,7 +188,7 @@ groundMap.repeat.set(36, 36);
 groundMap.needsUpdate = true;
 
 const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(Math.max(220, siteSpan * 2.4), Math.max(220, siteSpan * 2.4)),
+  new THREE.PlaneGeometry(Math.max(800, siteSpan * 2.8), Math.max(800, siteSpan * 2.8)),
   new THREE.MeshStandardMaterial({
     color: 0xffffff,
     map: groundMap,
@@ -439,7 +445,17 @@ function placeColor(place) {
   if (roles.includes("gravel")) return COVER.gravel;
   if (roles.includes("grass") || roles.includes("green")) return COVER.grass;
   if (HOUSE_WALL[place.id]) return HOUSE_WALL[place.id];
-  if (place.component === "building" || place.kind === "solid") return BASE.solid;
+  const comp = place.component;
+  if (comp === "civic" || roles.includes("town-hall") || roles.includes("government")) return 0x8a7a6a;
+  if (comp === "school" || roles.includes("school")) return 0xc4b898;
+  if (comp === "clinic" || roles.includes("health")) return 0xb8c8c4;
+  if (comp === "shop" || comp === "market" || roles.includes("shop") || roles.includes("grocery")) {
+    return 0xb89070;
+  }
+  if (comp === "utility" || roles.includes("utility")) return 0x6a6860;
+  if (place.component === "building" || place.component === "massing" || place.kind === "solid") {
+    return BASE.solid;
+  }
   if (place.kind === "land") return 0x7a8f6a;
   return BASE[place.kind] ?? 0x888888;
 }
@@ -598,14 +614,41 @@ function houseFocus(place) {
   return HOUSE_A_IDS.has(place.id) || String(place.id).startsWith("a-");
 }
 
+/** Metro fabric ids are namespaced `metro-` / `metro-east-` / district-metro*. */
+function isMetroId(id) {
+  const s = String(id || "");
+  return (
+    s.startsWith("metro-") ||
+    s.startsWith("metro-east-") ||
+    s.startsWith("district-metro") ||
+    s.includes("-finger-") ||
+    s.startsWith("lot-metro") ||
+    s.startsWith("found-metro") ||
+    s.startsWith("bldg-metro") ||
+    s.startsWith("house-metro") ||
+    s.startsWith("n-metro") ||
+    s.startsWith("e-metro")
+  );
+}
+
+function placeInScale(place) {
+  if (mode === "house") {
+    return houseFocus(place) || place.id === "lot-a" || place.id === "found-a";
+  }
+  if (mode === "neighborhood") {
+    return !isMetroId(place.id) && !isMetroId(place.parent);
+  }
+  return true; // city: seed + metro
+}
+
+function scaleLabel() {
+  if (mode === "house") return "House A";
+  if (mode === "city") return "City";
+  return "Neighborhood";
+}
+
 function buildPlaces() {
-  const places = plan.places.filter((p) => {
-    if (mode === "house") {
-      const ok = houseFocus(p) || p.id === "lot-a" || p.id === "found-a";
-      if (!ok) return false;
-    }
-    return stageAllowed(placeStageId(p));
-  });
+  const places = plan.places.filter((p) => placeInScale(p) && stageAllowed(placeStageId(p)));
 
   for (const place of places) {
     if (!place.ring || place.ring.length < 3) continue;
@@ -687,8 +730,8 @@ function buildPlaces() {
           && placeElevation(p) > placeElevation(place) + 0.5
           && ringsOverlapXY(p.ring, place.ring),
       );
-      // Roof only on the top storey — never put a gable under an upper room (roof-door bug).
-      if (!hasUpper && (stageAllowed("openings") || place.kind === "room")) {
+      // Roof on top storey once walls exist (frame+). Rooms kept for House A detail.
+      if (!hasUpper && stageAllowed("frame")) {
         addGableRoof(place, shellBottom + depth);
       }
       if (stageAllowed("openings") && !elevated) {
@@ -1146,6 +1189,7 @@ function buildUnderstory(trees, dummy) {
   }
   // Extra clumps on shared green / grass cover places.
   for (const place of plan.places || []) {
+    if (!placeInScale(place)) continue;
     const roles = place.roles || [];
     if (!(roles.includes("grass") || roles.includes("green") || place.id === "green-shared")) continue;
     if (!place.ring || place.ring.length < 3) continue;
@@ -1254,9 +1298,8 @@ function buildNetwork() {
   for (const e of edges) {
     const pts = e.centerline || e.path || e.polyline;
     if (!pts || pts.length < 2) continue;
-    if (mode === "house") {
-      // keep district flow visible but faint when zoomed conceptually
-    }
+    if (mode !== "city" && isMetroId(e.id)) continue;
+    if (mode === "house" && isMetroId(e.id)) continue;
     const vectors = pts.map(([x, y]) => new THREE.Vector3(x, 0.25, -y));
     const geom = new THREE.BufferGeometry().setFromPoints(vectors);
     world.add(new THREE.Line(geom, mat));
@@ -1516,8 +1559,7 @@ function rebuild() {
   applyColors();
   renderer.shadowMap.needsUpdate = true;
   const st = currentStage();
-  const unlocks = [...unlockedPredicates()].join(", ") || "—";
-  hud.textContent = `${st.name} · unlocks ${unlocks} · drag to orbit`;
+  hud.textContent = `${scaleLabel()} · ${st.name} · drag to look`;
   if (patternsSection) {
     patternsSection.style.display = stageAllowed("patterns") ? "" : "none";
   }
@@ -1536,7 +1578,7 @@ function renderStages() {
     btn.textContent = st.name;
     btn.dataset.stage = st.id;
     btn.setAttribute("aria-pressed", i === stageIndex ? "true" : "false");
-    btn.title = `${st.mode}: requires ${(st.requires || []).join(", ") || "—"}`;
+    btn.title = st.note || st.webgl || st.name;
     btn.addEventListener("click", () => {
       stageIndex = i;
       if (!stageAllowed("patterns")) focusPattern = null;
@@ -1549,17 +1591,31 @@ function renderStages() {
 }
 
 function frameCamera() {
-  const box = new THREE.Box3().setFromObject(world);
+  const box = new THREE.Box3();
+  let any = false;
+  for (const mesh of placeMeshes.values()) {
+    box.expandByObject(mesh);
+    any = true;
+  }
+  if (!any) {
+    box.setFromObject(world);
+  }
   if (box.isEmpty()) return;
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const span = Math.max(size.x, size.z, 20);
-  const eye = Math.max(8, span * 0.28);
-  controls.target.set(center.x, Math.min(4, eye * 0.12), center.z);
-  camera.position.set(center.x + span * 0.55, eye, center.z + span * 0.72);
-  camera.far = Math.max(viewFar, span * 3);
+  const eye =
+    mode === "house"
+      ? Math.max(10, span * 0.55)
+      : mode === "neighborhood"
+        ? Math.max(28, span * 0.45)
+        : Math.max(80, span * 0.32);
+  controls.target.set(center.x, Math.min(3, eye * 0.08), center.z);
+  camera.position.set(center.x + span * 0.5, eye, center.z + span * 0.7);
+  camera.far = Math.max(viewFar, span * 4);
   camera.updateProjectionMatrix();
-  controls.maxDistance = Math.max(controls.maxDistance, span * 1.8);
+  controls.maxDistance = Math.max(400, span * (mode === "city" ? 2.2 : 1.8));
+  controls.minDistance = mode === "house" ? 4 : 8;
   controls.update();
 }
 
@@ -1680,8 +1736,13 @@ canvas.addEventListener("pointerup", (e) => {
 
 document.querySelectorAll("[data-mode]").forEach((btn) => {
   btn.addEventListener("click", () => {
-    mode = btn.dataset.mode;
-    document.querySelectorAll("[data-mode]").forEach((b) => b.classList.toggle("is-active", b === btn));
+    const next = btn.dataset.mode;
+    mode = next === "house" || next === "city" ? next : "neighborhood";
+    document.querySelectorAll("[data-mode]").forEach((b) => {
+      const on = b.dataset.mode === mode;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
     rebuild();
   });
 });
@@ -1752,12 +1813,15 @@ window.__plWebgl = {
     rebuild();
   },
   setMode: (m) => {
-    mode = m === "house" ? "house" : "district";
+    mode = m === "house" || m === "city" ? m : "neighborhood";
     document.querySelectorAll("[data-mode]").forEach((b) => {
-      b.classList.toggle("is-active", b.dataset.mode === mode);
+      const on = b.dataset.mode === mode;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
     });
     rebuild();
   },
+  mode: () => mode,
   sunTime: () => sunTime,
   bloom: () => bloomEnabled,
   setSunTime: (t) => applySunTime(t),

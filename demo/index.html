@@ -8,7 +8,7 @@
   <style>
     .webgl-app {
       display: grid;
-      grid-template-columns: minmax(15rem, 17.5rem) 1fr;
+      grid-template-columns: minmax(14rem, 16.5rem) 1fr;
       height: 100%;
     }
     .webgl-app > .rail {
@@ -17,7 +17,6 @@
     }
     @media (max-width: 900px) {
       .webgl-app { grid-template-columns: 1fr; grid-template-rows: minmax(0, auto) minmax(50vh, 1fr); }
-      .webgl-app > .rail { min-height: 0; overflow: auto; }
     }
     #view {
       width: 100%;
@@ -44,6 +43,7 @@
       border: 1px solid #3a463e;
       padding: 0.35rem 0.55rem;
       pointer-events: none;
+      max-width: min(28rem, 70%);
     }
     .status-dot {
       display: inline-block;
@@ -62,6 +62,12 @@
       font-size: 0.66rem;
       color: var(--muted);
     }
+    .scale-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .scale-row .chip { width: 100%; text-align: left; }
     .look-label {
       display: flex;
       justify-content: space-between;
@@ -69,10 +75,7 @@
       color: var(--muted);
       margin: 0.35rem 0 0.2rem;
     }
-    #sun-time {
-      width: 100%;
-      accent-color: #c9a227;
-    }
+    #sun-time { width: 100%; accent-color: #c9a227; }
     .look-check {
       display: flex;
       gap: 0.4rem;
@@ -82,9 +85,9 @@
       color: var(--muted);
     }
     details.rail-more {
-      margin-top: 1.15rem;
+      margin-top: 1rem;
       border-top: 1px solid var(--line);
-      padding-top: 0.75rem;
+      padding-top: 0.65rem;
     }
     details.rail-more > summary {
       cursor: pointer;
@@ -108,29 +111,25 @@
       <header class="rail-head">
         <p class="brand">Seed City</p>
         <p class="lede">
-          A neighborhood you can walk through as it goes up — land, then pads,
-          then buildings. Drag to look; scroll to zoom.
+          Start in the neighborhood. Step out to the city when you’re ready.
+          Drag to look; scroll to zoom.
         </p>
       </header>
 
       <section class="rail-section">
-        <h2>Show</h2>
-        <p class="soft" id="stage-note">Pick how far the build has gone.</p>
-        <div class="view-toggle" id="stage-list"></div>
-      </section>
-
-      <section class="rail-section">
-        <h2>Where</h2>
-        <div class="view-toggle">
-          <button type="button" class="chip is-active" data-mode="district" aria-pressed="true">Neighborhood</button>
+        <h2>Scale</h2>
+        <p class="soft">Same place — closer or wider.</p>
+        <div class="scale-row view-toggle" id="scale-list">
           <button type="button" class="chip" data-mode="house" aria-pressed="false">House A</button>
+          <button type="button" class="chip is-active" data-mode="neighborhood" aria-pressed="true">Neighborhood</button>
+          <button type="button" class="chip" data-mode="city" aria-pressed="false">City</button>
         </div>
       </section>
 
-      <section class="rail-section" id="patterns-section">
-        <h2>Patterns</h2>
-        <p class="soft">Highlight places a pattern cares about.</p>
-        <div id="pattern-list" class="pattern-list"></div>
+      <section class="rail-section">
+        <h2>Build</h2>
+        <p class="soft" id="stage-note">How far construction has gone.</p>
+        <div class="view-toggle" id="stage-list"></div>
       </section>
 
       <section class="rail-section">
@@ -141,11 +140,16 @@
       </section>
 
       <details class="rail-more">
-        <summary>Light &amp; more</summary>
+        <summary>Patterns &amp; light</summary>
+        <section class="rail-section" id="patterns-section">
+          <h2>Patterns</h2>
+          <p class="soft">Highlight places a pattern cares about.</p>
+          <div id="pattern-list" class="pattern-list"></div>
+        </section>
         <section class="rail-section" id="look-section">
           <h2>Sun</h2>
           <label class="look-label" for="sun-time"><span id="sun-time-label">midday</span></label>
-          <input id="sun-time" type="range" min="0" max="100" value="28" aria-valuemin="0" aria-valuemax="100" />
+          <input id="sun-time" type="range" min="0" max="100" value="28" />
           <label class="look-check">
             <input id="bloom-toggle" type="checkbox" />
             Soft glow
@@ -164,7 +168,7 @@
 
     <main class="webgl-stage">
       <canvas id="view" aria-label="Seed city in 3D"></canvas>
-      <div class="webgl-hud" id="hud">drag to look · scroll to zoom</div>
+      <div class="webgl-hud" id="hud">Neighborhood · drag to look</div>
     </main>
   </div>
   <script type="importmap">
@@ -175,6 +179,6 @@
     }
   }
   </script>
-  <script type="module" src="webgl.js?v=u23-kill"></script>
+  <script type="module" src="webgl.js?v=u23-scale"></script>
 </body>
 </html>

@@ -31,13 +31,20 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert 'id="sun-time"' in html
     assert 'id="bloom-toggle"' in html
     assert "Seed City" in html
-    assert "Neighborhood" in html
-    assert "Show" in html
+    assert 'data-mode="neighborhood"' in html
+    assert 'data-mode="city"' in html
+    assert 'data-mode="house"' in html
+    assert "Scale" in html
     assert "Semantic massing" not in html
     assert "pl sequence" not in html
     assert "Decided stage viewer" not in html
+    assert "unlocks" not in html.lower()
     assert "scene.fog = null" in source or "scene.fog=null" in source
     assert "new THREE.Fog" not in source
+    assert 'mode = "neighborhood"' in source or "mode = 'neighborhood'" in source
+    assert "placeInScale" in source
+    assert "unlocks ${unlocks}" not in source
+
 
     assert "addPorch" in source
     assert "addStair" in source
