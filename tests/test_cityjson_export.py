@@ -28,6 +28,9 @@ def test_cityjson_has_traffic_areas_and_lod0() -> None:
     assert objs["carriageway-cross"]["parents"] == ["street-cross"]
     assert objs["block-south"]["attributes"]["class"] == "block"
     assert objs["block-north"]["attributes"]["class"] == "block"
+    assert objs["block-east"]["attributes"]["class"] == "block"
+    assert objs["street-east"]["type"] == "Road"
+    assert objs["district-seed"]["attributes"]["class"] == "neighborhood"
 
     for oid in (
         "carriageway-main",

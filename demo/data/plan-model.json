@@ -13,8 +13,8 @@
   "extent": {
     "min_x": -2,
     "min_y": -2,
-    "max_x": 94,
-    "max_y": 72
+    "max_x": 124,
+    "max_y": 74
   },
   "places": [
     {
@@ -28,11 +28,11 @@
           0
         ],
         [
-          90,
+          120,
           0
         ],
         [
-          90,
+          120,
           8
         ],
         [
@@ -65,11 +65,11 @@
           0
         ],
         [
-          90,
+          120,
           0
         ],
         [
-          90,
+          120,
           5.5
         ],
         [
@@ -101,11 +101,11 @@
           5.5
         ],
         [
-          90,
+          120,
           5.5
         ],
         [
-          90,
+          120,
           8
         ],
         [
@@ -172,11 +172,11 @@
           48
         ],
         [
-          90,
+          120,
           48
         ],
         [
-          90,
+          120,
           52
         ],
         [
@@ -210,11 +210,11 @@
           48
         ],
         [
-          90,
+          120,
           48
         ],
         [
-          90,
+          120,
           50.5
         ],
         [
@@ -246,11 +246,11 @@
           50.5
         ],
         [
-          90,
+          120,
           50.5
         ],
         [
-          90,
+          120,
           52
         ],
         [
@@ -270,6 +270,44 @@
       ],
       "role": "North footway against the north block \u2014 1.5 m clear.",
       "parent": "street-cross",
+      "stage": "land"
+    },
+    {
+      "id": "street-east",
+      "label": "East Street ROW",
+      "component": "street",
+      "kind": "void",
+      "ring": [
+        [
+          74,
+          8
+        ],
+        [
+          78,
+          8
+        ],
+        [
+          78,
+          48
+        ],
+        [
+          74,
+          48
+        ]
+      ],
+      "roles": [
+        "street",
+        "public",
+        "row",
+        "local"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "North\u2013south local street between South Block and East Block.",
+      "parent": null,
+      "enclosure_hw": 0.5,
       "stage": "land"
     },
     {
@@ -303,7 +341,7 @@
         106
       ],
       "role": "Urban block south of the shared green \u2014 Lots A and B plot series on Main Street.",
-      "parent": null,
+      "parent": "district-seed",
       "stage": "land"
     },
     {
@@ -337,8 +375,77 @@
         106
       ],
       "role": "Urban block north of Cross Street \u2014 Lots C and D plot series on the local street.",
-      "parent": null,
+      "parent": "district-seed",
       "stage": "land"
+    },
+    {
+      "id": "block-east",
+      "label": "East Block",
+      "component": "block",
+      "kind": "land",
+      "ring": [
+        [
+          78,
+          10
+        ],
+        [
+          110,
+          10
+        ],
+        [
+          110,
+          36
+        ],
+        [
+          78,
+          36
+        ]
+      ],
+      "roles": [
+        "block"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Second block east of East Street \u2014 Lots E and F on Main Street.",
+      "parent": "district-seed",
+      "stage": "land"
+    },
+    {
+      "id": "district-seed",
+      "label": "Seed Neighborhood",
+      "component": "district",
+      "kind": "land",
+      "ring": [
+        [
+          0,
+          0
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          120,
+          72
+        ],
+        [
+          0,
+          72
+        ]
+      ],
+      "roles": [
+        "district",
+        "neighborhood"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Multi-block neighborhood container for the seed city fragment.",
+      "parent": null,
+      "stage": "survey"
     },
     {
       "id": "path-midblock",
@@ -510,7 +617,8 @@
       ],
       "roles": [
         "lot",
-        "parcel"
+        "parcel",
+        "living"
       ],
       "patterns": [],
       "role": "Surveyed parcel for House A \u2014 land before footprint.",
@@ -542,7 +650,8 @@
       ],
       "roles": [
         "lot",
-        "parcel"
+        "parcel",
+        "living"
       ],
       "patterns": [],
       "role": "Surveyed parcel east of House A on South Block.",
@@ -574,7 +683,8 @@
       ],
       "roles": [
         "lot",
-        "parcel"
+        "parcel",
+        "living"
       ],
       "patterns": [],
       "role": "Surveyed parcel on North Block facing Cross Street.",
@@ -606,7 +716,8 @@
       ],
       "roles": [
         "lot",
-        "parcel"
+        "parcel",
+        "living"
       ],
       "patterns": [],
       "role": "Surveyed NE parcel on North Block facing Cross Street.",
@@ -638,11 +749,78 @@
       ],
       "roles": [
         "lot",
-        "parcel"
+        "parcel",
+        "work"
       ],
       "patterns": [],
       "role": "Surveyed lane-side workshop parcel south of Cross Street.",
       "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "lot-e",
+      "label": "Lot E",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          78,
+          10
+        ],
+        [
+          94,
+          10
+        ],
+        [
+          94,
+          32
+        ],
+        [
+          78,
+          32
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel",
+        "living"
+      ],
+      "patterns": [],
+      "role": "East Block parcel on Main Street.",
+      "parent": "block-east",
+      "stage": "land"
+    },
+    {
+      "id": "lot-f",
+      "label": "Lot F",
+      "component": "parcel",
+      "kind": "land",
+      "ring": [
+        [
+          96,
+          10
+        ],
+        [
+          110,
+          10
+        ],
+        [
+          110,
+          32
+        ],
+        [
+          96,
+          32
+        ]
+      ],
+      "roles": [
+        "lot",
+        "parcel",
+        "living"
+      ],
+      "patterns": [],
+      "role": "East Block eastern parcel on Main Street.",
+      "parent": "block-east",
       "stage": "land"
     },
     {
@@ -808,6 +986,72 @@
       "patterns": [],
       "role": "Pad for workshop massing.",
       "parent": "lot-workshop",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "found-e",
+      "label": "Foundation E",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          80,
+          16
+        ],
+        [
+          92,
+          16
+        ],
+        [
+          92,
+          30
+        ],
+        [
+          80,
+          30
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for East Block massing E.",
+      "parent": "lot-e",
+      "height_m": 0.35,
+      "stage": "foundation"
+    },
+    {
+      "id": "found-f",
+      "label": "Foundation F",
+      "component": "pad",
+      "kind": "foundation",
+      "ring": [
+        [
+          98,
+          16
+        ],
+        [
+          108,
+          16
+        ],
+        [
+          108,
+          30
+        ],
+        [
+          98,
+          30
+        ]
+      ],
+      "roles": [
+        "foundation",
+        "pad"
+      ],
+      "patterns": [],
+      "role": "Pad for East Block massing F.",
+      "parent": "lot-f",
       "height_m": 0.35,
       "stage": "foundation"
     },
@@ -1436,6 +1680,224 @@
       "role": "Lane stub into the workshop address.",
       "parent": null,
       "stage": "land"
+    },
+    {
+      "id": "e-court",
+      "label": "Front Court E",
+      "component": "court",
+      "kind": "void",
+      "ring": [
+        [
+          80,
+          10
+        ],
+        [
+          92,
+          10
+        ],
+        [
+          92,
+          16
+        ],
+        [
+          80,
+          16
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Main Street front court on Lot E \u2014 East Block plot series.",
+      "parent": "lot-e",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "path-approach-e",
+      "label": "Approach Path E",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          84,
+          8
+        ],
+        [
+          88,
+          8
+        ],
+        [
+          88,
+          10
+        ],
+        [
+          84,
+          10
+        ]
+      ],
+      "roles": [
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Sidewalk stub into Court E.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "house-e",
+      "label": "Massing E",
+      "component": "massing",
+      "kind": "solid",
+      "ring": [
+        [
+          80,
+          16
+        ],
+        [
+          92,
+          16
+        ],
+        [
+          92,
+          30
+        ],
+        [
+          80,
+          30
+        ]
+      ],
+      "roles": [
+        "building",
+        "massing"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Frame-stage massing on Foundation E.",
+      "parent": "found-e",
+      "height_m": 6.0,
+      "stage": "frame"
+    },
+    {
+      "id": "f-court",
+      "label": "Front Court F",
+      "component": "court",
+      "kind": "void",
+      "ring": [
+        [
+          98,
+          10
+        ],
+        [
+          108,
+          10
+        ],
+        [
+          108,
+          16
+        ],
+        [
+          98,
+          16
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        105,
+        106,
+        112
+      ],
+      "role": "Main Street front court on Lot F \u2014 East Block plot series with E.",
+      "parent": "lot-f",
+      "enclosure_hw": 0.4,
+      "stage": "frame"
+    },
+    {
+      "id": "path-approach-f",
+      "label": "Approach Path F",
+      "component": "path",
+      "kind": "path",
+      "ring": [
+        [
+          101,
+          8
+        ],
+        [
+          105,
+          8
+        ],
+        [
+          105,
+          10
+        ],
+        [
+          101,
+          10
+        ]
+      ],
+      "roles": [
+        "transition",
+        "frontage"
+      ],
+      "patterns": [
+        110,
+        112
+      ],
+      "role": "Sidewalk stub into Court F.",
+      "parent": null,
+      "stage": "land"
+    },
+    {
+      "id": "house-f",
+      "label": "Massing F",
+      "component": "massing",
+      "kind": "solid",
+      "ring": [
+        [
+          98,
+          16
+        ],
+        [
+          108,
+          16
+        ],
+        [
+          108,
+          30
+        ],
+        [
+          98,
+          30
+        ]
+      ],
+      "roles": [
+        "building",
+        "massing"
+      ],
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Frame-stage massing on Foundation F.",
+      "parent": "found-f",
+      "height_m": 5.5,
+      "stage": "frame"
     }
   ],
   "walls": [
@@ -1786,6 +2248,78 @@
         48
       ],
       "thickness": 0.2
+    },
+    {
+      "id": "w-e-court-s",
+      "a": [
+        80,
+        10
+      ],
+      "b": [
+        92,
+        10
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-e-court-w",
+      "a": [
+        80,
+        10
+      ],
+      "b": [
+        80,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-e-court-e",
+      "a": [
+        92,
+        10
+      ],
+      "b": [
+        92,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-f-court-s",
+      "a": [
+        98,
+        10
+      ],
+      "b": [
+        108,
+        10
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-f-court-w",
+      "a": [
+        98,
+        10
+      ],
+      "b": [
+        98,
+        16
+      ],
+      "thickness": 0.2
+    },
+    {
+      "id": "w-f-court-e",
+      "a": [
+        108,
+        10
+      ],
+      "b": [
+        108,
+        16
+      ],
+      "thickness": 0.2
     }
   ],
   "openings": [
@@ -1866,6 +2400,38 @@
       ],
       "role": "Lane address into the workshop massing.",
       "parent": "workshop"
+    },
+    {
+      "id": "e-door-approach",
+      "label": "Court Gate E",
+      "component": "door",
+      "x": 86,
+      "y": 10,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "ccw",
+      "patterns": [
+        106,
+        112
+      ],
+      "role": "Street garden-wall gate into Front Court E.",
+      "parent": "e-court"
+    },
+    {
+      "id": "f-door-approach",
+      "label": "Court Gate F",
+      "component": "door",
+      "x": 103,
+      "y": 10,
+      "width": 1.2,
+      "wall_angle": 0,
+      "swing": "ccw",
+      "patterns": [
+        106,
+        112
+      ],
+      "role": "Street garden-wall gate into Front Court F.",
+      "parent": "f-court"
     },
     {
       "id": "a-door-main",
@@ -2126,8 +2692,15 @@
         "label": "Main@Approach"
       },
       {
+        "id": "n-main-east",
+        "x": 76,
+        "y": 2.75,
+        "kind": "intersection",
+        "label": "Main\u00d7East"
+      },
+      {
         "id": "n-e",
-        "x": 88,
+        "x": 118,
         "y": 2.75,
         "kind": "intersection",
         "label": "E"
@@ -2149,12 +2722,34 @@
         "label": "SW@Path"
       },
       {
+        "id": "n-sw-east",
+        "x": 76,
+        "y": 6.75,
+        "kind": "place",
+        "place": "sidewalk-main-n",
+        "label": "SW@East"
+      },
+      {
         "id": "n-sw-e",
-        "x": 88,
+        "x": 118,
         "y": 6.75,
         "kind": "place",
         "place": "sidewalk-main-n",
         "label": "SW E"
+      },
+      {
+        "id": "n-junc-east-cross",
+        "x": 76,
+        "y": 50,
+        "kind": "intersection",
+        "label": "East\u00d7Cross"
+      },
+      {
+        "id": "n-east-mid",
+        "x": 76,
+        "y": 28,
+        "kind": "intersection",
+        "label": "East St"
       },
       {
         "id": "n-lane-s",
@@ -2186,7 +2781,7 @@
       },
       {
         "id": "n-cross-e",
-        "x": 88,
+        "x": 118,
         "y": 49.25,
         "kind": "intersection",
         "label": "Cross E"
@@ -2358,6 +2953,70 @@
         "kind": "address",
         "place": "workshop",
         "label": "Address Workshop"
+      },
+      {
+        "id": "n-sw-lot-e",
+        "x": 86,
+        "y": 6.75,
+        "kind": "place",
+        "place": "sidewalk-main-n",
+        "label": "SW@E"
+      },
+      {
+        "id": "n-path-e",
+        "x": 86,
+        "y": 9,
+        "kind": "place",
+        "place": "path-approach-e",
+        "label": "Path E"
+      },
+      {
+        "id": "n-court-e",
+        "x": 86,
+        "y": 13,
+        "kind": "place",
+        "place": "e-court",
+        "label": "Court E"
+      },
+      {
+        "id": "n-addr-e",
+        "x": 86,
+        "y": 16,
+        "kind": "address",
+        "place": "house-e",
+        "label": "Address E"
+      },
+      {
+        "id": "n-sw-lot-f",
+        "x": 103,
+        "y": 6.75,
+        "kind": "place",
+        "place": "sidewalk-main-n",
+        "label": "SW@F"
+      },
+      {
+        "id": "n-path-f",
+        "x": 103,
+        "y": 9,
+        "kind": "place",
+        "place": "path-approach-f",
+        "label": "Path F"
+      },
+      {
+        "id": "n-court-f",
+        "x": 103,
+        "y": 13,
+        "kind": "place",
+        "place": "f-court",
+        "label": "Court F"
+      },
+      {
+        "id": "n-addr-f",
+        "x": 103,
+        "y": 16,
+        "kind": "address",
+        "place": "house-f",
+        "label": "Address F"
       }
     ],
     "edges": [
@@ -2384,7 +3043,7 @@
       {
         "id": "e-main-2",
         "a": "n-mid",
-        "b": "n-e",
+        "b": "n-main-east",
         "mode": "vehicle",
         "hierarchy": "arterial",
         "width_m": 5.5,
@@ -2396,7 +3055,27 @@
             2.75
           ],
           [
-            88,
+            76,
+            2.75
+          ]
+        ]
+      },
+      {
+        "id": "e-main-3",
+        "a": "n-main-east",
+        "b": "n-e",
+        "mode": "vehicle",
+        "hierarchy": "arterial",
+        "width_m": 5.5,
+        "directed": true,
+        "label": "Carriageway \u2192",
+        "polyline": [
+          [
+            76,
+            2.75
+          ],
+          [
+            118,
             2.75
           ]
         ]
@@ -2424,7 +3103,7 @@
       {
         "id": "e-sidewalk-2",
         "a": "n-sw-mid",
-        "b": "n-sw-e",
+        "b": "n-sw-east",
         "mode": "pedestrian",
         "hierarchy": "path",
         "width_m": 2.5,
@@ -2436,8 +3115,68 @@
             6.75
           ],
           [
-            88,
+            76,
             6.75
+          ]
+        ]
+      },
+      {
+        "id": "e-sidewalk-3",
+        "a": "n-sw-east",
+        "b": "n-sw-e",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 2.5,
+        "directed": false,
+        "label": "Sidewalk N",
+        "polyline": [
+          [
+            76,
+            6.75
+          ],
+          [
+            118,
+            6.75
+          ]
+        ]
+      },
+      {
+        "id": "e-east-s",
+        "a": "n-main-east",
+        "b": "n-east-mid",
+        "mode": "vehicle",
+        "hierarchy": "local",
+        "width_m": 4.0,
+        "directed": false,
+        "label": "East Street \u2191",
+        "polyline": [
+          [
+            76,
+            2.75
+          ],
+          [
+            76,
+            28
+          ]
+        ]
+      },
+      {
+        "id": "e-east-n",
+        "a": "n-east-mid",
+        "b": "n-junc-east-cross",
+        "mode": "vehicle",
+        "hierarchy": "local",
+        "width_m": 4.0,
+        "directed": false,
+        "label": "East Street \u2191",
+        "polyline": [
+          [
+            76,
+            28
+          ],
+          [
+            76,
+            50
           ]
         ]
       },
@@ -2504,7 +3243,7 @@
       {
         "id": "e-cross-2",
         "a": "n-cross-mid",
-        "b": "n-cross-e",
+        "b": "n-junc-east-cross",
         "mode": "vehicle",
         "hierarchy": "local",
         "width_m": 2.5,
@@ -2516,7 +3255,27 @@
             49.25
           ],
           [
-            88,
+            76,
+            50
+          ]
+        ]
+      },
+      {
+        "id": "e-cross-3",
+        "a": "n-junc-east-cross",
+        "b": "n-cross-e",
+        "mode": "vehicle",
+        "hierarchy": "local",
+        "width_m": 2.5,
+        "directed": false,
+        "label": "Cross Street \u2192",
+        "polyline": [
+          [
+            76,
+            50
+          ],
+          [
+            118,
             49.25
           ]
         ]
@@ -2944,6 +3703,126 @@
             51.25
           ]
         ]
+      },
+      {
+        "id": "e-approach-e-1",
+        "a": "n-sw-lot-e",
+        "b": "n-path-e",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 2.0,
+        "directed": true,
+        "label": "Sidewalk\u2192Path E",
+        "polyline": [
+          [
+            86,
+            6.75
+          ],
+          [
+            86,
+            9
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-e-2",
+        "a": "n-path-e",
+        "b": "n-court-e",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Path E\u2192Court E",
+        "polyline": [
+          [
+            86,
+            9
+          ],
+          [
+            86,
+            13
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-e-3",
+        "a": "n-court-e",
+        "b": "n-addr-e",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court E\u2192Address",
+        "polyline": [
+          [
+            86,
+            13
+          ],
+          [
+            86,
+            16
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-f-1",
+        "a": "n-sw-lot-f",
+        "b": "n-path-f",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 2.0,
+        "directed": true,
+        "label": "Sidewalk\u2192Path F",
+        "polyline": [
+          [
+            103,
+            6.75
+          ],
+          [
+            103,
+            9
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-f-2",
+        "a": "n-path-f",
+        "b": "n-court-f",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Path F\u2192Court F",
+        "polyline": [
+          [
+            103,
+            9
+          ],
+          [
+            103,
+            13
+          ]
+        ]
+      },
+      {
+        "id": "e-approach-f-3",
+        "a": "n-court-f",
+        "b": "n-addr-f",
+        "mode": "pedestrian",
+        "hierarchy": "approach",
+        "width_m": 1.2,
+        "directed": true,
+        "label": "Court F\u2192Address",
+        "polyline": [
+          [
+            103,
+            13
+          ],
+          [
+            103,
+            16
+          ]
+        ]
       }
     ]
   },
@@ -3252,6 +4131,83 @@
       "role": "Shared setback face for Lots C\u2013D plot series."
     },
     {
+      "id": "m-frontage-e",
+      "label": "Lot E street frontage",
+      "a": [
+        80,
+        10
+      ],
+      "b": [
+        92,
+        10
+      ],
+      "value_m": 12.0,
+      "kind": "frontage",
+      "of": "e-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-frontage-f",
+      "label": "Lot F street frontage",
+      "a": [
+        98,
+        10
+      ],
+      "b": [
+        108,
+        10
+      ],
+      "value_m": 10.0,
+      "kind": "frontage",
+      "of": "f-court",
+      "patterns": [
+        105,
+        106
+      ]
+    },
+    {
+      "id": "m-frontage-rhythm-east",
+      "label": "East Block frontage rhythm",
+      "a": [
+        80,
+        10
+      ],
+      "b": [
+        108,
+        10
+      ],
+      "value_m": 28.0,
+      "kind": "frontage",
+      "of": "block-east",
+      "patterns": [
+        105,
+        106
+      ],
+      "role": "Plot-series grain on East Block: 12 m + 4 m gap + 10 m (Lots E\u2013F)."
+    },
+    {
+      "id": "m-enclosure-main",
+      "label": "Main Street enclosure H:W",
+      "a": [
+        40,
+        0
+      ],
+      "b": [
+        40,
+        8
+      ],
+      "value_m": 0.35,
+      "kind": "width",
+      "of": "street-main",
+      "patterns": [
+        105
+      ],
+      "role": "Section ratio stub (enclosure_hw 0.35) for Main Street ROW."
+    },
+    {
       "id": "m-b-court-depth",
       "label": "Court B depth",
       "a": [
@@ -3425,6 +4381,24 @@
       "opening": "w-door-approach"
     },
     {
+      "id": "if-approach-e",
+      "kind": "door",
+      "between": [
+        "street-main",
+        "e-court"
+      ],
+      "opening": "e-door-approach"
+    },
+    {
+      "id": "if-approach-f",
+      "kind": "door",
+      "between": [
+        "street-main",
+        "f-court"
+      ],
+      "opening": "f-door-approach"
+    },
+    {
       "id": "if-main",
       "kind": "threshold",
       "between": [
@@ -3513,6 +4487,24 @@
       "length_m": 8.0
     },
     {
+      "id": "if-front-e",
+      "kind": "frontage",
+      "between": [
+        "e-court",
+        "street-main"
+      ],
+      "length_m": 12.0
+    },
+    {
+      "id": "if-front-f",
+      "kind": "frontage",
+      "between": [
+        "f-court",
+        "street-main"
+      ],
+      "length_m": 10.0
+    },
+    {
       "id": "if-overlook-liv",
       "kind": "overlook",
       "between": [
@@ -3553,6 +4545,18 @@
       "kind": "sit-on",
       "a": "found-workshop",
       "b": "lot-workshop"
+    },
+    {
+      "id": "ix-found-e-lot",
+      "kind": "sit-on",
+      "a": "found-e",
+      "b": "lot-e"
+    },
+    {
+      "id": "ix-found-f-lot",
+      "kind": "sit-on",
+      "a": "found-f",
+      "b": "lot-f"
     },
     {
       "id": "ix-hall-found",
@@ -3609,6 +4613,18 @@
       "b": "found-workshop"
     },
     {
+      "id": "ix-mass-e",
+      "kind": "sit-on",
+      "a": "house-e",
+      "b": "found-e"
+    },
+    {
+      "id": "ix-mass-f",
+      "kind": "sit-on",
+      "a": "house-f",
+      "b": "found-f"
+    },
+    {
       "id": "ix-b-court-mass",
       "kind": "outdoor-adjacency",
       "a": "b-court",
@@ -3627,12 +4643,32 @@
       "b": "house-d"
     },
     {
+      "id": "ix-e-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "e-court",
+      "b": "house-e"
+    },
+    {
+      "id": "ix-f-court-mass",
+      "kind": "outdoor-adjacency",
+      "a": "f-court",
+      "b": "house-f"
+    },
+    {
       "id": "ix-clear-ab",
       "kind": "clearance",
       "a": "found-a",
       "b": "found-b",
       "min_m": 4.0,
       "note": "Lot side clearance"
+    },
+    {
+      "id": "ix-clear-ef",
+      "kind": "clearance",
+      "a": "found-e",
+      "b": "found-f",
+      "min_m": 4.0,
+      "note": "East Block side clearance"
     },
     {
       "id": "ix-pond-green",

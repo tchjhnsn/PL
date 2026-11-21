@@ -101,3 +101,14 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "n-addr-w" in u18 or "workshop" in u18.lower()
     assert (repo_root / ".agents" / "skills" / "threejs-procedural-architecture" / "SKILL.md").is_file()
     assert (repo_root / ".agents" / "skills" / "threejs-procedural-buildings-and-cities" / "SKILL.md").is_file()
+
+    assert '"id": "block-east"' in plan
+    assert '"id": "street-east"' in plan
+    assert '"id": "district-seed"' in plan
+    assert '"id": "lot-e"' in plan
+    assert '"id": "n-addr-e"' in plan
+    assert '"id": "m-enclosure-main"' in plan
+    assert "component === \"district\"" in source or "component === 'district'" in source
+    u19 = (repo_root / "docs" / "design" / "U19-SECOND-BLOCK.md").read_text()
+    assert "block-east" in u19
+    assert "district-seed" in u19
