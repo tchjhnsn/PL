@@ -668,6 +668,44 @@
       "stage": "land"
     },
     {
+      "id": "a-porch",
+      "label": "Entrance Porch",
+      "component": "porch",
+      "kind": "void",
+      "ring": [
+        [
+          21,
+          20
+        ],
+        [
+          27,
+          20
+        ],
+        [
+          27,
+          22
+        ],
+        [
+          21,
+          22
+        ]
+      ],
+      "roles": [
+        "outdoor",
+        "transition",
+        "porch"
+      ],
+      "patterns": [
+        110,
+        112,
+        130
+      ],
+      "role": "Covered arrival between court and hall (2 m deep).",
+      "parent": "house-a",
+      "height_m": 2.4,
+      "stage": "frame"
+    },
+    {
       "id": "a-hall",
       "label": "Hall",
       "component": "room",
@@ -1156,6 +1194,30 @@
       ],
       "b": [
         42,
+        22
+      ],
+      "thickness": 0.25
+    },
+    {
+      "id": "w-porch-w",
+      "a": [
+        21,
+        20
+      ],
+      "b": [
+        21,
+        22
+      ],
+      "thickness": 0.25
+    },
+    {
+      "id": "w-porch-e",
+      "a": [
+        27,
+        20
+      ],
+      "b": [
+        27,
         22
       ],
       "thickness": 0.25
@@ -1912,6 +1974,25 @@
       ]
     },
     {
+      "id": "m-porch-depth",
+      "label": "Porch depth",
+      "a": [
+        24,
+        20
+      ],
+      "b": [
+        24,
+        22
+      ],
+      "value_m": 2.0,
+      "kind": "depth",
+      "of": "a-porch",
+      "patterns": [
+        112,
+        130
+      ]
+    },
+    {
       "id": "m-balcony-depth",
       "label": "Balcony depth",
       "a": [
@@ -2034,10 +2115,18 @@
       "id": "if-main",
       "kind": "threshold",
       "between": [
-        "a-court",
+        "a-porch",
         "a-hall"
       ],
       "opening": "a-door-main"
+    },
+    {
+      "id": "if-porch-court",
+      "kind": "threshold",
+      "between": [
+        "a-court",
+        "a-porch"
+      ]
     },
     {
       "id": "if-liv",
@@ -2124,6 +2213,12 @@
       "b": "found-a"
     },
     {
+      "id": "ix-porch-found",
+      "kind": "sit-on",
+      "a": "a-porch",
+      "b": "found-a"
+    },
+    {
       "id": "ix-liv-found",
       "kind": "sit-on",
       "a": "a-living",
@@ -2134,6 +2229,12 @@
       "kind": "sit-on",
       "a": "a-bedroom",
       "b": "found-a"
+    },
+    {
+      "id": "ix-porch-court",
+      "kind": "outdoor-adjacency",
+      "a": "a-porch",
+      "b": "a-court"
     },
     {
       "id": "ix-mass-b",
@@ -2293,6 +2394,7 @@
       "look_for": "Address on the movement network.",
       "feature_ids": [
         "a-door-main",
+        "a-porch",
         "path-approach",
         "e-approach-3",
         "n-door"
@@ -2310,7 +2412,8 @@
           }
         ],
         "zones": [
-          "a-hall"
+          "a-hall",
+          "a-porch"
         ],
         "edges": [
           "e-approach-3"
@@ -2320,13 +2423,15 @@
     {
       "number": 112,
       "name": "Entrance Transition",
-      "look_for": "Street \u2192 path \u2192 court \u2192 door (directed edges).",
+      "look_for": "Street \u2192 path \u2192 gate \u2192 court \u2192 porch \u2192 door.",
       "feature_ids": [
         "e-approach-1",
         "e-approach-2",
         "e-approach-3",
         "a-court",
-        "m-setback-a"
+        "a-porch",
+        "m-setback-a",
+        "m-porch-depth"
       ],
       "kind": "computed",
       "diagram": {
@@ -2361,14 +2466,15 @@
             ],
             "to": [
               24,
-              22
+              21
             ],
             "label": "3"
           }
         ],
         "zones": [
           "a-court",
-          "path-approach"
+          "path-approach",
+          "a-porch"
         ],
         "edges": [
           "e-approach-1",
@@ -2377,7 +2483,8 @@
         ],
         "measures": [
           "m-setback-a",
-          "m-approach-width"
+          "m-approach-width",
+          "m-porch-depth"
         ]
       }
     },
@@ -2475,13 +2582,15 @@
       "look_for": "Arrival is a room.",
       "feature_ids": [
         "a-hall",
+        "a-porch",
         "a-door-main"
       ],
       "kind": "computed",
       "diagram": {
         "kind": "zone",
         "zones": [
-          "a-hall"
+          "a-hall",
+          "a-porch"
         ]
       }
     },

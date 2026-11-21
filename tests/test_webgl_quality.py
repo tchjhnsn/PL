@@ -31,10 +31,15 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert 'id="sun-time"' in html
     assert 'id="bloom-toggle"' in html
 
+    assert "addPorch" in source
+
     plan = (repo_root / "demo" / "data" / "plan-model.json").read_text()
     assert '"id": "a-door-approach"' in plan
     assert "Court Gate" in plan
     assert '"id": "w-court-s"' in plan
+    assert '"id": "a-porch"' in plan
+    assert '"component": "porch"' in plan
+    assert '"id": "m-porch-depth"' in plan
 
     note = (repo_root / "docs" / "design" / "WEBGL-QUALITY.md").read_text()
     assert "threejs-archviz.vercel.app" in note
@@ -47,3 +52,9 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "buildWalls" in u13 or "plan.walls" in u13
     assert "110 Main Entrance" in u13
     assert "112" in u13
+
+    u14 = (repo_root / "docs" / "design" / "U14-ENTRANCE-PORCH.md").read_text()
+    assert "a-porch" in u14
+    assert "addPorch" in u14 or "canopy" in u14
+    assert "112" in u14
+    assert "130" in u14
