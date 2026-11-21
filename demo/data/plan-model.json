@@ -1164,18 +1164,18 @@
   "openings": [
     {
       "id": "a-door-approach",
-      "label": "Approach Door",
+      "label": "Court Gate",
       "component": "door",
       "x": 30,
       "y": 14,
-      "width": 1.0,
+      "width": 1.2,
       "wall_angle": 0,
       "swing": "ccw",
       "patterns": [
         106,
         112
       ],
-      "role": "Street edge into the south court.",
+      "role": "Garden-wall threshold: path into the south court (gate in w-court-s).",
       "parent": "a-court"
     },
     {

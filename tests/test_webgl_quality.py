@@ -21,6 +21,9 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert "UnrealBloomPass" in source
     assert "MeshPhysicalMaterial" in source
     assert "buildUnderstory" in source
+    assert "buildWalls" in source
+    assert "plan.walls" in source
+    assert "isGateOpening" in source
     assert "bpy" not in source
     assert "ifcopenshell" not in source
 
@@ -28,9 +31,19 @@ def test_webgl_quality_keeps_decided_stages_and_tone_mapping(repo_root: Path) ->
     assert 'id="sun-time"' in html
     assert 'id="bloom-toggle"' in html
 
+    plan = (repo_root / "demo" / "data" / "plan-model.json").read_text()
+    assert '"id": "a-door-approach"' in plan
+    assert "Court Gate" in plan
+    assert '"id": "w-court-s"' in plan
+
     note = (repo_root / "docs" / "design" / "WEBGL-QUALITY.md").read_text()
     assert "threejs-archviz.vercel.app" in note
     assert "Deferred" in note
     assert "midday" in note.lower() or "sunset" in note.lower()
     assert "110 Main Entrance" in note
     assert "180 Window Place" in note
+
+    u13 = (repo_root / "docs" / "design" / "U13-APPROACH-ENCLOSURE.md").read_text()
+    assert "buildWalls" in u13 or "plan.walls" in u13
+    assert "110 Main Entrance" in u13
+    assert "112" in u13

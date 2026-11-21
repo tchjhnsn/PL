@@ -1080,6 +1080,156 @@ function buildNetwork() {
   }
 }
 
+/** Garden / court enclosure vs building shell vs balcony rail. */
+function wallKind(wall) {
+  const id = wall.id || "";
+  if (id.includes("court") || id === "w-house-w" || id.includes("house-e-court")) return "garden";
+  if (id.includes("balc")) return "rail";
+  return "building";
+}
+
+function wallHeightM(wall) {
+  const kind = wallKind(wall);
+  if (kind === "garden") return 1.35;
+  if (kind === "rail") return 1.0;
+  return 2.7;
+}
+
+function distPointToSegment(px, py, ax, ay, bx, by) {
+  const dx = bx - ax;
+  const dy = by - ay;
+  const len2 = dx * dx + dy * dy;
+  if (len2 < 1e-12) return Math.hypot(px - ax, py - ay);
+  let t = ((px - ax) * dx + (py - ay) * dy) / len2;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+}
+
+function paramOnSegment(px, py, ax, ay, bx, by) {
+  const dx = bx - ax;
+  const dy = by - ay;
+  const len2 = dx * dx + dy * dy;
+  if (len2 < 1e-12) return 0;
+  return Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2));
+}
+
+function openingsOnWall(wall) {
+  const [ax, ay] = wall.a;
+  const [bx, by] = wall.b;
+  const tol = Math.max(0.35, (wall.thickness || 0.2) + 0.25);
+  const hits = [];
+  for (const o of plan.openings || []) {
+    const x = o.x ?? (o.at && o.at[0]);
+    const y = o.y ?? (o.at && o.at[1]);
+    if (x == null || y == null) continue;
+    if (distPointToSegment(x, y, ax, ay, bx, by) > tol) continue;
+    const width = o.width || 1.0;
+    const t = paramOnSegment(x, y, ax, ay, bx, by);
+    hits.push({ opening: o, t, width });
+  }
+  hits.sort((a, b) => a.t - b.t);
+  return hits;
+}
+
+function buildWalls() {
+  if (!stageAllowed("frame")) return;
+  const walls = plan.walls || [];
+  if (!walls.length) return;
+  const gardenMat = new THREE.MeshStandardMaterial({
+    color: 0x6a6258,
+    roughness: 0.9,
+    metalness: 0.02,
+    envMapIntensity: 0.35,
+  });
+  const buildingMat = new THREE.MeshStandardMaterial({
+    color: 0xcfc4b0,
+    map: plasterMap,
+    roughness: 0.82,
+    metalness: 0.02,
+    envMapIntensity: 0.45,
+  });
+  const railMat = new THREE.MeshStandardMaterial({
+    color: 0x6a756e,
+    roughness: 0.75,
+    metalness: 0.05,
+    envMapIntensity: 0.3,
+  });
+
+  for (const wall of walls) {
+    if (mode === "house") {
+      // Keep House A court + shell walls; skip neighbor-only later if needed.
+      const id = wall.id || "";
+      if (id.startsWith("w-") && !id.includes("court") && !id.includes("hall") && !id.includes("liv")
+        && !id.includes("bed") && !id.includes("balc") && !id.includes("house-w")
+        && !id.includes("house-e-court")) {
+        // still show all seed walls in house mode — they belong to House A
+      }
+    }
+    const [ax, ay] = wall.a;
+    const [bx, by] = wall.b;
+    const len = Math.hypot(bx - ax, by - ay);
+    if (len < 0.2) continue;
+    const height = wallHeightM(wall);
+    const thick = wall.thickness || 0.2;
+    const kind = wallKind(wall);
+    const mat = kind === "garden" ? gardenMat : kind === "rail" ? railMat : buildingMat;
+    const dx = (bx - ax) / len;
+    const dy = (by - ay) / len;
+    const angle = Math.atan2(-(by - ay), bx - ax); // plan Y → −Z
+    const gaps = stageAllowed("openings") ? openingsOnWall(wall) : [];
+    const spans = [];
+    let cursor = 0;
+    for (const g of gaps) {
+      const half = (g.width + 0.08) / (2 * len);
+      const t0 = Math.max(0, g.t - half);
+      const t1 = Math.min(1, g.t + half);
+      if (t0 > cursor + 0.01 / len) spans.push([cursor, t0]);
+      cursor = Math.max(cursor, t1);
+    }
+    if (cursor < 1 - 0.01 / len) spans.push([cursor, 1]);
+    if (!spans.length && !gaps.length) spans.push([0, 1]);
+
+    for (const [t0, t1] of spans) {
+      const segLen = (t1 - t0) * len;
+      if (segLen < 0.08) continue;
+      const mx = ax + dx * len * ((t0 + t1) / 2);
+      const my = ay + dy * len * ((t0 + t1) / 2);
+      const mesh = new THREE.Mesh(
+        new THREE.BoxGeometry(segLen, height, thick),
+        mat,
+      );
+      mesh.position.set(mx, height / 2, -my);
+      mesh.rotation.y = -angle;
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.name = wall.id || "wall";
+      mesh.userData.wallId = wall.id;
+      world.add(mesh);
+    }
+  }
+}
+
+function isGateOpening(o, wall) {
+  if (!wall) return false;
+  if ((o.id || "").includes("approach") || (o.label || "").toLowerCase().includes("gate")) return true;
+  return wallKind(wall) === "garden";
+}
+
+function hostWallForOpening(o) {
+  const x = o.x ?? (o.at && o.at[0]);
+  const y = o.y ?? (o.at && o.at[1]);
+  if (x == null || y == null) return null;
+  let best = null;
+  for (const wall of plan.walls || []) {
+    const [ax, ay] = wall.a;
+    const [bx, by] = wall.b;
+    const d = distPointToSegment(x, y, ax, ay, bx, by);
+    const tol = Math.max(0.35, (wall.thickness || 0.2) + 0.25);
+    if (d <= tol && (!best || d < best.d)) best = { wall, d };
+  }
+  return best?.wall || null;
+}
+
 function buildOpenings() {
   if (!stageAllowed("openings")) return;
   const openings = plan.openings || [];
@@ -1092,10 +1242,14 @@ function buildOpenings() {
     const y = o.y ?? (o.at && o.at[1]) ?? 0;
     const isDoor = (o.component || o.kind || "").includes("door") || o.swing != null;
     const w = o.width || (isDoor ? 0.9 : 1.2);
-    const geom = new THREE.BoxGeometry(w, isDoor ? 2.1 : 1.2, 0.18);
+    const wall = hostWallForOpening(o);
+    const gate = isDoor && isGateOpening(o, wall);
+    const leafH = gate ? 1.1 : isDoor ? 2.1 : 1.2;
+    const thick = wall ? Math.max(0.12, (wall.thickness || 0.2) * 0.85) : 0.18;
+    const geom = new THREE.BoxGeometry(w, leafH, thick);
     const mat = isDoor
       ? new THREE.MeshStandardMaterial({
-          color: 0x1c4333,
+          color: gate ? 0x4a4036 : 0x1c4333,
           roughness: 0.72,
           metalness: 0.02,
           envMapIntensity: 0.3,
@@ -1104,11 +1258,40 @@ function buildOpenings() {
     const host = plan.places.find((p) => p.id === parent);
     const elev = host ? placeElevation(host) : 0;
     const mesh = new THREE.Mesh(geom, mat);
-    mesh.position.set(x, elev + (isDoor ? 1.05 : 1.5), -y);
+    mesh.position.set(x, elev + leafH / 2, -y);
     const angle = o.wall_angle ?? o.angle_deg;
     if (angle != null) mesh.rotation.y = (-angle * Math.PI) / 180;
     mesh.userData.placeId = parent || o.id;
+    mesh.userData.openingId = o.id;
+    mesh.castShadow = true;
     world.add(mesh);
+
+    if (gate && wall) {
+      const postH = wallHeightM(wall);
+      const postMat = new THREE.MeshStandardMaterial({
+        color: 0x5a544c,
+        roughness: 0.88,
+        metalness: 0.02,
+      });
+      const [ax, ay] = wall.a;
+      const [bx, by] = wall.b;
+      const len = Math.hypot(bx - ax, by - ay) || 1;
+      const dx = (bx - ax) / len;
+      const dy = (by - ay) / len;
+      for (const side of [-1, 1]) {
+        const px = x + dx * side * (w / 2 + 0.08);
+        const py = y + dy * side * (w / 2 + 0.08);
+        const post = new THREE.Mesh(
+          new THREE.BoxGeometry(0.22, postH, Math.max(0.22, (wall.thickness || 0.2) + 0.06)),
+          postMat,
+        );
+        post.position.set(px, postH / 2, -py);
+        post.rotation.y = (-(angle ?? 0) * Math.PI) / 180;
+        post.castShadow = true;
+        post.userData.placeId = parent || o.id;
+        world.add(post);
+      }
+    }
   }
 }
 
@@ -1116,6 +1299,7 @@ function rebuild() {
   clearWorld();
   buildSurveyOverlays();
   buildPlaces();
+  buildWalls();
   buildTrees();
   if (stageAllowed("land")) buildNetwork();
   buildOpenings();
