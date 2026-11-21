@@ -904,13 +904,54 @@
     },
     {
       "type": "Feature",
+      "id": "a-stair",
+      "properties": {
+        "id": "a-stair",
+        "label": "Stair to Upper",
+        "component": "stair",
+        "kind": "void",
+        "role": "Living \u2192 upper bedroom (no door onto the living roof).",
+        "patterns": [
+          127
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -75.1632719,
+              39.9524156
+            ],
+            [
+              -75.1632309,
+              39.9524156
+            ],
+            [
+              -75.1632309,
+              39.9524515
+            ],
+            [
+              -75.1632719,
+              39.9524515
+            ],
+            [
+              -75.1632719,
+              39.9524156
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "id": "a-bedroom",
       "properties": {
         "id": "a-bedroom",
         "label": "Bedroom",
         "component": "room",
         "kind": "room",
-        "role": "Private end of the intimacy gradient (upper storey).",
+        "role": "Upper storey stacked on the living footprint \u2014 reached by stair.",
         "patterns": [
           127,
           159,
@@ -923,23 +964,23 @@
           [
             [
               -75.1632719,
-              39.9524695
+              39.9523976
+            ],
+            [
+              -75.1631078,
+              39.9523976
             ],
             [
               -75.1631078,
               39.9524695
             ],
             [
-              -75.1631078,
-              39.9525234
-            ],
-            [
-              -75.1632719,
-              39.9525234
-            ],
-            [
               -75.1632719,
               39.9524695
+            ],
+            [
+              -75.1632719,
+              39.9523976
             ]
           ]
         ]
@@ -953,7 +994,7 @@
         "label": "Balcony",
         "component": "balcony",
         "kind": "void",
-        "role": "Elevated outdoor edge \u22651.83 m deep (upper storey).",
+        "role": "Elevated outdoor edge east of the upper bedroom (\u22651.83 m deep).",
         "patterns": [
           167
         ]
@@ -964,23 +1005,23 @@
           [
             [
               -75.1631078,
-              39.9524695
+              39.9523976
+            ],
+            [
+              -75.1630375,
+              39.9523976
             ],
             [
               -75.1630375,
               39.9524695
             ],
             [
-              -75.1630375,
-              39.9525234
-            ],
-            [
-              -75.1631078,
-              39.9525234
-            ],
-            [
               -75.1631078,
               39.9524695
+            ],
+            [
+              -75.1631078,
+              39.9523976
             ]
           ]
         ]
@@ -1585,10 +1626,10 @@
     },
     {
       "type": "Feature",
-      "id": "e-liv-bed",
+      "id": "e-liv-stair",
       "properties": {
-        "id": "e-liv-bed",
-        "label": "Living\u2192private",
+        "id": "e-liv-stair",
+        "label": "Living\u2192stair",
         "component": "centerline",
         "hierarchy": "path",
         "mode": "pedestrian",
@@ -1603,8 +1644,34 @@
             39.9524336
           ],
           [
+            -75.1632543,
+            39.9524336
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "e-stair-bed",
+      "properties": {
+        "id": "e-stair-bed",
+        "label": "Stair\u2192upper bedroom",
+        "component": "centerline",
+        "hierarchy": "path",
+        "mode": "pedestrian",
+        "width_m": 0.9,
+        "directed": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -75.1632543,
+            39.9524336
+          ],
+          [
             -75.1631899,
-            39.9524964
+            39.9524336
           ]
         ]
       }

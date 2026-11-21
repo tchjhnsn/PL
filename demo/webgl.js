@@ -588,6 +588,7 @@ const HOUSE_A_IDS = new Set([
   "a-porch",
   "a-hall",
   "a-living",
+  "a-stair",
   "a-bedroom",
   "a-balcony",
   "green-shared",
@@ -614,14 +615,25 @@ function buildPlaces() {
       addPorch(place);
       continue;
     }
+    const isStair =
+      place.component === "stair" || (place.roles || []).includes("stair");
+    if (isStair) {
+      addStair(place);
+      continue;
+    }
+    const isBalcony = (place.roles || []).includes("balcony") || place.component === "balcony";
+    if (isBalcony) {
+      addBalconyDeck(place);
+      continue;
+    }
     const shape = ringToShape(place.ring);
     const depth = placeHeight(place);
     const elev = placeElevation(place);
-    const isBalcony = (place.roles || []).includes("balcony") || place.component === "balcony";
+    // Upper rooms sit on their floor elevation — do not extrude from grade through the roof below.
+    const elevated = elev > 0.05;
 
-    // Continuous shell from grade through elevated floors (no floating storey).
-    const shellBottom = isBalcony ? elev : 0;
-    const shellHeight = isBalcony ? depth : elev + depth;
+    const shellBottom = elevated ? elev : 0;
+    const shellHeight = elevated ? depth : elev + depth;
     const geom = new THREE.ExtrudeGeometry(shape, {
       depth: Math.max(shellHeight, 0.08),
       bevelEnabled: false,
@@ -644,12 +656,12 @@ function buildPlaces() {
               : 0;
     mesh.position.y = shellBottom + yBias;
     mesh.userData.placeId = place.id;
-    mesh.castShadow = isBuildingShell(place) || isBalcony;
+    mesh.castShadow = isBuildingShell(place) || elevated;
     mesh.receiveShadow = true;
     world.add(mesh);
     placeMeshes.set(place.id, mesh);
 
-    if (isBuildingShell(place) || isBalcony) {
+    if (isBuildingShell(place)) {
       const edges = new THREE.EdgesGeometry(geom);
       const line = new THREE.LineSegments(
         edges,
@@ -660,18 +672,111 @@ function buildPlaces() {
       world.add(line);
     }
 
-    if (isBalcony && elev > 0.05) {
-      addBalconyPosts(place, elev);
-    }
-
-    if (isBuildingShell(place) && !isBalcony && stageAllowed("frame")) {
-      if (stageAllowed("openings") || place.kind === "room") {
-        addGableRoof(place, elev + depth);
+    if (isBuildingShell(place) && stageAllowed("frame")) {
+      const hasUpper = plan.places.some(
+        (p) =>
+          p.id !== place.id
+          && placeElevation(p) > placeElevation(place) + 0.5
+          && ringsOverlapXY(p.ring, place.ring),
+      );
+      // Roof only on the top storey — never put a gable under an upper room (roof-door bug).
+      if (!hasUpper && (stageAllowed("openings") || place.kind === "room")) {
+        addGableRoof(place, shellBottom + depth);
       }
-      if (stageAllowed("openings")) {
+      if (stageAllowed("openings") && !elevated) {
         addFacadeOpenings(place, elev, depth + elev);
       }
     }
+  }
+}
+
+function ringsOverlapXY(a, b) {
+  if (!a || !b) return false;
+  const A = ringBounds(a);
+  const B = ringBounds(b);
+  return !(A.maxX <= B.minX || B.maxX <= A.minX || A.maxY <= B.minY || B.maxY <= A.minY);
+}
+
+/** Simple run of stair treads inside a stair place — vertical link, not a roof door. */
+function addStair(place) {
+  const b = ringBounds(place.ring);
+  const elev = placeElevation(place);
+  const rise = placeHeight(place) || 3.0;
+  const steps = 10;
+  const tread = rise / steps;
+  const mat = new THREE.MeshStandardMaterial({
+    color: 0x7a7064,
+    roughness: 0.85,
+    metalness: 0.02,
+  });
+  const run = Math.max(b.d, b.w) * 0.92;
+  const alongY = b.d >= b.w;
+  for (let i = 0; i < steps; i += 1) {
+    const t = (i + 0.5) / steps;
+    const h = elev + tread * (i + 1);
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(alongY ? b.w * 0.85 : run / steps, tread * 0.85, alongY ? run / steps : b.d * 0.85),
+      mat,
+    );
+    if (alongY) {
+      mesh.position.set((b.minX + b.maxX) / 2, h - tread * 0.4, -(b.minY + t * b.d));
+    } else {
+      mesh.position.set(b.minX + t * b.w, h - tread * 0.4, -((b.minY + b.maxY) / 2));
+    }
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.userData.placeId = place.id;
+    world.add(mesh);
+  }
+  placeMeshes.set(place.id, world.children[world.children.length - 1]);
+}
+
+/** Elevated outdoor edge: thin deck + posts — not a storey-tall green box. */
+function addBalconyDeck(place) {
+  const b = ringBounds(place.ring);
+  const elev = placeElevation(place);
+  const railH = Math.min(1.1, placeHeight(place) || 1.1);
+  const cx = (b.minX + b.maxX) / 2;
+  const cy = (b.minY + b.maxY) / 2;
+  const deckMat = new THREE.MeshStandardMaterial({
+    color: 0x8a7d68,
+    roughness: 0.88,
+    metalness: 0.02,
+  });
+  const postMat = new THREE.MeshStandardMaterial({ color: 0x5a5048, roughness: 0.85 });
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(b.w, 0.14, b.d), deckMat);
+  deck.position.set(cx, elev + 0.07, -cy);
+  deck.receiveShadow = true;
+  deck.castShadow = true;
+  deck.userData.placeId = place.id;
+  deck.userData.surface = "balcony";
+  world.add(deck);
+  placeMeshes.set(place.id, deck);
+
+  const inset = 0.15;
+  for (const [px, py] of [
+    [b.minX + inset, b.minY + inset],
+    [b.maxX - inset, b.minY + inset],
+    [b.minX + inset, b.maxY - inset],
+    [b.maxX - inset, b.maxY - inset],
+  ]) {
+    const post = new THREE.Mesh(new THREE.BoxGeometry(0.16, elev + 0.05, 0.16), postMat);
+    post.position.set(px, elev / 2, -py);
+    post.castShadow = true;
+    post.userData.placeId = place.id;
+    world.add(post);
+  }
+  // Open rail on free edges (skip wall against the house at minX).
+  const railMat = new THREE.MeshStandardMaterial({ color: 0x6a756e, roughness: 0.7 });
+  const rail = new THREE.Mesh(new THREE.BoxGeometry(0.08, railH, b.d), railMat);
+  rail.position.set(b.maxX - 0.06, elev + railH / 2, -cy);
+  rail.userData.placeId = place.id;
+  world.add(rail);
+  for (const yEdge of [b.minY, b.maxY]) {
+    const r = new THREE.Mesh(new THREE.BoxGeometry(b.w, railH, 0.08), railMat);
+    r.position.set(cx, elev + railH / 2, -yEdge);
+    r.userData.placeId = place.id;
+    world.add(r);
   }
 }
 
@@ -1190,15 +1295,35 @@ function paramOnSegment(px, py, ax, ay, bx, by) {
   return Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2));
 }
 
+function openingHostElevation(o) {
+  const parent = o.parent || o.host || "";
+  const host = plan.places.find((p) => p.id === parent);
+  return host ? placeElevation(host) : 0;
+}
+
+function wallBaseElev(wall) {
+  const id = wall.id || "";
+  if (id.includes("balc") || id.includes("bed")) {
+    const upper = plan.places.find(
+      (p) => p.id === "a-balcony" || p.id === "a-bedroom" || (p.roles || []).includes("balcony"),
+    );
+    return upper ? placeElevation(upper) : 0;
+  }
+  return 0;
+}
+
 function openingsOnWall(wall) {
   const [ax, ay] = wall.a;
   const [bx, by] = wall.b;
   const tol = Math.max(0.35, (wall.thickness || 0.2) + 0.25);
+  const wallElev = wallBaseElev(wall);
   const hits = [];
   for (const o of plan.openings || []) {
     const x = o.x ?? (o.at && o.at[0]);
     const y = o.y ?? (o.at && o.at[1]);
     if (x == null || y == null) continue;
+    // Do not punch a grade wall for an upper-storey opening (that made the roof-door bug).
+    if (Math.abs(openingHostElevation(o) - wallElev) > 0.6) continue;
     if (distPointToSegment(x, y, ax, ay, bx, by) > tol) continue;
     const width = o.width || 1.0;
     const t = paramOnSegment(x, y, ax, ay, bx, by);
@@ -1233,20 +1358,15 @@ function buildWalls() {
   });
 
   for (const wall of walls) {
-    if (mode === "house") {
-      // Keep House A court + shell walls; skip neighbor-only later if needed.
-      const id = wall.id || "";
-      if (id.startsWith("w-") && !id.includes("court") && !id.includes("hall") && !id.includes("liv")
-        && !id.includes("bed") && !id.includes("balc") && !id.includes("house-w")
-        && !id.includes("house-e-court")) {
-        // still show all seed walls in house mode — they belong to House A
-      }
-    }
+    const id = wall.id || "";
+    // Upper bedroom perimeter is the extruded room mesh; skip duplicate grade walls.
+    if (id.startsWith("w-bed")) continue;
     const [ax, ay] = wall.a;
     const [bx, by] = wall.b;
     const len = Math.hypot(bx - ax, by - ay);
     if (len < 0.2) continue;
     const height = wallHeightM(wall);
+    const base = wallBaseElev(wall);
     const thick = wall.thickness || 0.2;
     const kind = wallKind(wall);
     const mat = kind === "garden" ? gardenMat : kind === "rail" ? railMat : buildingMat;
@@ -1275,7 +1395,7 @@ function buildWalls() {
         new THREE.BoxGeometry(segLen, height, thick),
         mat,
       );
-      mesh.position.set(mx, height / 2, -my);
+      mesh.position.set(mx, base + height / 2, -my);
       mesh.rotation.y = -angle;
       mesh.castShadow = true;
       mesh.receiveShadow = true;
@@ -1620,12 +1740,37 @@ window.__plWebgl = {
   placeCount: () => placeMeshes.size,
   stage: () => currentStage().id,
   stageIndex: () => stageIndex,
+  setStage: (i) => {
+    stageIndex = Math.max(0, Math.min(STAGE_ORDER.length - 1, i));
+    renderStages();
+    renderPatterns();
+    rebuild();
+  },
+  setMode: (m) => {
+    mode = m === "house" ? "house" : "district";
+    document.querySelectorAll("[data-mode]").forEach((b) => {
+      b.classList.toggle("is-active", b.dataset.mode === mode);
+    });
+    rebuild();
+  },
   sunTime: () => sunTime,
   bloom: () => bloomEnabled,
   setSunTime: (t) => applySunTime(t),
+  setBloom: (on) => {
+    bloomEnabled = !!on;
+    bloomPass.enabled = bloomEnabled;
+    const el = document.getElementById("bloom-toggle");
+    if (el) el.checked = bloomEnabled;
+  },
   camera: () => ({
     pos: camera.position.toArray(),
     target: controls.target.toArray(),
   }),
+  setCamera: (pos, target) => {
+    if (pos) camera.position.fromArray(pos);
+    if (target) controls.target.fromArray(target);
+    controls.update();
+  },
   worldChildren: () => world.children.length,
+  openingIds: () => (plan.openings || []).map((o) => o.id),
 };

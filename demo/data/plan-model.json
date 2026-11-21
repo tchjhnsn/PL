@@ -786,6 +786,42 @@
       "stage": "frame"
     },
     {
+      "id": "a-stair",
+      "label": "Stair to Upper",
+      "component": "stair",
+      "kind": "void",
+      "ring": [
+        [
+          28,
+          24
+        ],
+        [
+          31.5,
+          24
+        ],
+        [
+          31.5,
+          28
+        ],
+        [
+          28,
+          28
+        ]
+      ],
+      "roles": [
+        "stair",
+        "transition",
+        "vertical"
+      ],
+      "patterns": [
+        127
+      ],
+      "role": "Living \u2192 upper bedroom (no door onto the living roof).",
+      "parent": "a-living",
+      "height_m": 3.0,
+      "stage": "frame"
+    },
+    {
       "id": "a-bedroom",
       "label": "Bedroom",
       "component": "room",
@@ -793,19 +829,19 @@
       "ring": [
         [
           28,
-          30
+          22
+        ],
+        [
+          42,
+          22
         ],
         [
           42,
           30
-        ],
-        [
-          42,
-          36
         ],
         [
           28,
-          36
+          30
         ]
       ],
       "roles": [
@@ -818,7 +854,7 @@
         159,
         167
       ],
-      "role": "Private end of the intimacy gradient (upper storey).",
+      "role": "Upper storey stacked on the living footprint \u2014 reached by stair.",
       "parent": "house-a",
       "height_m": 2.7,
       "floor_elevation_m": 3.0,
@@ -832,19 +868,19 @@
       "ring": [
         [
           42,
-          30
+          22
+        ],
+        [
+          48,
+          22
         ],
         [
           48,
           30
-        ],
-        [
-          48,
-          36
         ],
         [
           42,
-          36
+          30
         ]
       ],
       "roles": [
@@ -854,9 +890,9 @@
       "patterns": [
         167
       ],
-      "role": "Elevated outdoor edge \u22651.83 m deep (upper storey).",
+      "role": "Elevated outdoor edge east of the upper bedroom (\u22651.83 m deep).",
       "parent": "house-a",
-      "height_m": 3.0,
+      "height_m": 1.1,
       "floor_elevation_m": 3.0,
       "stage": "frame"
     },
@@ -1226,18 +1262,6 @@
       "thickness": 0.35
     },
     {
-      "id": "w-liv-bed",
-      "a": [
-        28,
-        30
-      ],
-      "b": [
-        42,
-        30
-      ],
-      "thickness": 0.3
-    },
-    {
       "id": "w-liv-e",
       "a": [
         42,
@@ -1250,14 +1274,26 @@
       "thickness": 0.35
     },
     {
-      "id": "w-bed-e",
+      "id": "w-liv-n",
       "a": [
-        42,
+        28,
         30
       ],
       "b": [
         42,
-        36
+        30
+      ],
+      "thickness": 0.35
+    },
+    {
+      "id": "w-bed-e",
+      "a": [
+        42,
+        22
+      ],
+      "b": [
+        42,
+        30
       ],
       "thickness": 0.25
     },
@@ -1265,11 +1301,11 @@
       "id": "w-bed-n",
       "a": [
         28,
-        36
+        30
       ],
       "b": [
         42,
-        36
+        30
       ],
       "thickness": 0.35
     },
@@ -1277,11 +1313,23 @@
       "id": "w-bed-w",
       "a": [
         28,
-        30
+        22
       ],
       "b": [
         28,
-        36
+        30
+      ],
+      "thickness": 0.35
+    },
+    {
+      "id": "w-bed-s",
+      "a": [
+        28,
+        22
+      ],
+      "b": [
+        42,
+        22
       ],
       "thickness": 0.35
     },
@@ -1289,11 +1337,11 @@
       "id": "w-balc-n",
       "a": [
         42,
-        36
+        30
       ],
       "b": [
         48,
-        36
+        30
       ],
       "thickness": 0.15
     },
@@ -1301,11 +1349,11 @@
       "id": "w-balc-e",
       "a": [
         48,
-        30
+        22
       ],
       "b": [
         48,
-        36
+        30
       ],
       "thickness": 0.15
     },
@@ -1313,11 +1361,11 @@
       "id": "w-balc-s",
       "a": [
         42,
-        30
+        22
       ],
       "b": [
         48,
-        30
+        22
       ],
       "thickness": 0.15
     },
@@ -1575,34 +1623,19 @@
       "parent": "a-living"
     },
     {
-      "id": "a-door-bed",
-      "label": "Living\u2013Bedroom",
-      "component": "door",
-      "x": 35,
-      "y": 30,
-      "width": 0.9,
-      "wall_angle": 0,
-      "swing": "ccw",
-      "patterns": [
-        127
-      ],
-      "role": "Toward the private wing.",
-      "parent": "a-bedroom"
-    },
-    {
       "id": "a-door-balc",
       "label": "Balcony Door",
       "component": "door",
       "x": 42,
-      "y": 33,
+      "y": 26,
       "width": 0.9,
       "wall_angle": 90,
       "swing": "cw",
       "patterns": [
         167
       ],
-      "role": "Onto the balcony.",
-      "parent": "a-balcony"
+      "role": "Upper bedroom onto the balcony (not onto the living roof).",
+      "parent": "a-bedroom"
     },
     {
       "id": "a-win-hall-s",
@@ -1674,13 +1707,13 @@
       "label": "Bedroom N",
       "component": "window",
       "x": 35,
-      "y": 36,
+      "y": 30,
       "width": 1.4,
       "wall_angle": 0,
       "patterns": [
         159
       ],
-      "role": "North light.",
+      "role": "North light on the upper storey.",
       "parent": "a-bedroom",
       "facing": "north"
     },
@@ -1689,7 +1722,7 @@
       "label": "Bedroom W",
       "component": "window",
       "x": 28,
-      "y": 33,
+      "y": 26,
       "width": 1.2,
       "wall_angle": 90,
       "patterns": [
@@ -1900,9 +1933,17 @@
         "label": "Living"
       },
       {
+        "id": "n-stair",
+        "x": 29.5,
+        "y": 26,
+        "kind": "place",
+        "place": "a-stair",
+        "label": "Stair"
+      },
+      {
         "id": "n-bed",
         "x": 35,
-        "y": 33,
+        "y": 26,
         "kind": "place",
         "place": "a-bedroom",
         "label": "Bedroom"
@@ -2182,22 +2223,42 @@
         ]
       },
       {
-        "id": "e-liv-bed",
+        "id": "e-liv-stair",
         "a": "n-liv",
-        "b": "n-bed",
+        "b": "n-stair",
         "mode": "pedestrian",
         "hierarchy": "path",
         "width_m": 0.9,
         "directed": true,
-        "label": "Living\u2192private",
+        "label": "Living\u2192stair",
         "polyline": [
           [
             35,
             26
           ],
           [
+            29.5,
+            26
+          ]
+        ]
+      },
+      {
+        "id": "e-stair-bed",
+        "a": "n-stair",
+        "b": "n-bed",
+        "mode": "pedestrian",
+        "hierarchy": "path",
+        "width_m": 0.9,
+        "directed": true,
+        "label": "Stair\u2192upper bedroom",
+        "polyline": [
+          [
+            29.5,
+            26
+          ],
+          [
             35,
-            33
+            26
           ]
         ]
       },
@@ -2506,6 +2567,26 @@
       ]
     },
     {
+      "id": "m-building-line-main",
+      "label": "Main street building line",
+      "a": [
+        18,
+        14
+      ],
+      "b": [
+        72,
+        16
+      ],
+      "value_m": 54.0,
+      "kind": "setback",
+      "of": "street-main",
+      "patterns": [
+        105,
+        112
+      ],
+      "role": "Shared setback face for Lots A\u2013B plot series."
+    },
+    {
       "id": "m-frontage-a",
       "label": "Lot A street frontage",
       "a": [
@@ -2604,11 +2685,11 @@
       "label": "Balcony depth",
       "a": [
         42,
-        33
+        26
       ],
       "b": [
         48,
-        33
+        26
       ],
       "value_m": 6.0,
       "kind": "depth",
@@ -2772,13 +2853,12 @@
       "opening": "a-door-living"
     },
     {
-      "id": "if-bed",
-      "kind": "door",
+      "id": "if-stair",
+      "kind": "threshold",
       "between": [
         "a-living",
         "a-bedroom"
-      ],
-      "opening": "a-door-bed"
+      ]
     },
     {
       "id": "if-balc",
@@ -3185,9 +3265,11 @@
       "look_for": "Public before private along the graph.",
       "feature_ids": [
         "e-hall-liv",
-        "e-liv-bed",
+        "e-liv-stair",
+        "e-stair-bed",
         "a-hall",
         "a-living",
+        "a-stair",
         "a-bedroom"
       ],
       "kind": "computed",
@@ -3211,20 +3293,22 @@
               26
             ],
             "to": [
-              35,
-              33
+              29.5,
+              26
             ],
-            "label": "private"
+            "label": "up"
           }
         ],
         "zones": [
           "a-hall",
           "a-living",
+          "a-stair",
           "a-bedroom"
         ],
         "edges": [
           "e-hall-liv",
-          "e-liv-bed"
+          "e-liv-stair",
+          "e-stair-bed"
         ]
       }
     },
@@ -3386,9 +3470,9 @@
           {
             "at": [
               35,
-              33
+              26
             ],
-            "text": "2.7 m"
+            "text": "upper 2.7 m"
           }
         ],
         "zones": [
