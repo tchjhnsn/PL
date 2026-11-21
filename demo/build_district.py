@@ -10,6 +10,8 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+from pattern_language.kits.frontage_lot import FrontageLotSpec, merge_kit, stamp_frontage_lot
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(__file__).resolve().parent / "data"
 SCHEMA = ROOT / "schema" / "spatial-structure.schema.json"
@@ -51,7 +53,7 @@ def build_plan() -> dict:
             "label": "Main Street ROW",
             "component": "street",
             "kind": "void",
-            "ring": [(0, 0), (120, 0), (120, 8), (0, 8)],
+            "ring": [(0, 0), (150, 0), (150, 8), (0, 8)],
             "roles": ["street", "public", "row"],
             "patterns": [105, 106],
             "role": "Right-of-way: carriageway + north sidewalk (CityGML Section stand-in).",
@@ -64,7 +66,7 @@ def build_plan() -> dict:
             "label": "Main Carriageway",
             "component": "carriageway",
             "kind": "void",
-            "ring": [(0, 0), (120, 0), (120, 5.5), (0, 5.5)],
+            "ring": [(0, 0), (150, 0), (150, 5.5), (0, 5.5)],
             "roles": ["street", "carriageway", "vehicle"],
             "patterns": [105],
             "role": "TrafficArea driving surface — 5.5 m clear (granularity way).",
@@ -77,7 +79,7 @@ def build_plan() -> dict:
             "label": "Main Sidewalk N",
             "component": "sidewalk",
             "kind": "path",
-            "ring": [(0, 5.5), (120, 5.5), (120, 8), (0, 8)],
+            "ring": [(0, 5.5), (150, 5.5), (150, 8), (0, 8)],
             "roles": ["sidewalk", "pedestrian", "public"],
             "patterns": [105, 106, 112],
             "role": "North footway against the block — 2.5 m clear width.",
@@ -102,7 +104,7 @@ def build_plan() -> dict:
             "label": "Cross Street ROW",
             "component": "street",
             "kind": "void",
-            "ring": [(0, 48), (120, 48), (120, 52), (0, 52)],
+            "ring": [(0, 48), (150, 48), (150, 52), (0, 52)],
             "roles": ["street", "public", "row", "local"],
             "patterns": [105, 106],
             "role": "East–west local street between south and north blocks; junctions with the lane.",
@@ -115,7 +117,7 @@ def build_plan() -> dict:
             "label": "Cross Carriageway",
             "component": "carriageway",
             "kind": "void",
-            "ring": [(0, 48), (120, 48), (120, 50.5), (0, 50.5)],
+            "ring": [(0, 48), (150, 48), (150, 50.5), (0, 50.5)],
             "roles": ["street", "carriageway", "vehicle"],
             "patterns": [105],
             "role": "Local driving surface — 2.5 m clear.",
@@ -128,7 +130,7 @@ def build_plan() -> dict:
             "label": "Cross Sidewalk N",
             "component": "sidewalk",
             "kind": "path",
-            "ring": [(0, 50.5), (120, 50.5), (120, 52), (0, 52)],
+            "ring": [(0, 50.5), (150, 50.5), (150, 52), (0, 52)],
             "roles": ["sidewalk", "pedestrian", "public"],
             "patterns": [105, 106, 112],
             "role": "North footway against the north block — 1.5 m clear.",
@@ -153,10 +155,10 @@ def build_plan() -> dict:
             "label": "North Street ROW",
             "component": "street",
             "kind": "void",
-            "ring": [(0, 70), (120, 70), (120, 74), (0, 74)],
+            "ring": [(0, 70), (150, 70), (150, 74), (0, 74)],
             "roles": ["street", "public", "row", "local"],
             "patterns": [105, 106],
-            "role": "East–west local street closing the north edge of the 2×2 city grid.",
+            "role": "East–west local street closing the north edge of the city grid.",
             "parent": None,
             "enclosure_hw": 0.45,
             "stage": "land",
@@ -210,14 +212,26 @@ def build_plan() -> dict:
             "stage": "land",
         },
         {
+            "id": "block-far-east",
+            "label": "Far East Block",
+            "component": "block",
+            "kind": "land",
+            "ring": [(114, 10), (144, 10), (144, 36), (114, 36)],
+            "roles": ["block"],
+            "patterns": [105, 106],
+            "role": "Fifth block east of East Block — stamped from the frontage-lot kit.",
+            "parent": "district-seed",
+            "stage": "land",
+        },
+        {
             "id": "district-seed",
             "label": "Seed City",
             "component": "district",
             "kind": "land",
-            "ring": [(0, 0), (120, 0), (120, 76), (0, 76)],
+            "ring": [(0, 0), (150, 0), (150, 76), (0, 76)],
             "roles": ["district", "neighborhood", "city"],
             "patterns": [105, 106],
-            "role": "2×2 block city fragment — four blocks, Main / Cross / East / North streets.",
+            "role": "Growing city fragment — block grid on Main / Cross / East / North.",
             "parent": None,
             "stage": "survey",
         },
@@ -1149,11 +1163,11 @@ def build_plan() -> dict:
         {"id": "n-w", "x": 2, "y": 2.75, "kind": "intersection", "label": "W"},
         {"id": "n-mid", "x": 30, "y": 2.75, "kind": "intersection", "label": "Main@Approach"},
         {"id": "n-main-east", "x": 76, "y": 2.75, "kind": "intersection", "label": "Main×East"},
-        {"id": "n-e", "x": 118, "y": 2.75, "kind": "intersection", "label": "E"},
+        {"id": "n-e", "x": 148, "y": 2.75, "kind": "intersection", "label": "E"},
         {"id": "n-sw-w", "x": 2, "y": 6.75, "kind": "place", "place": "sidewalk-main-n", "label": "SW W"},
         {"id": "n-sw-mid", "x": 30, "y": 6.75, "kind": "place", "place": "sidewalk-main-n", "label": "SW@Path"},
         {"id": "n-sw-east", "x": 76, "y": 6.75, "kind": "place", "place": "sidewalk-main-n", "label": "SW@East"},
-        {"id": "n-sw-e", "x": 118, "y": 6.75, "kind": "place", "place": "sidewalk-main-n", "label": "SW E"},
+        {"id": "n-sw-e", "x": 148, "y": 6.75, "kind": "place", "place": "sidewalk-main-n", "label": "SW E"},
         {"id": "n-junc-east-cross", "x": 76, "y": 50, "kind": "intersection", "label": "East×Cross"},
         {"id": "n-east-mid", "x": 76, "y": 28, "kind": "intersection", "label": "East St"},
         {"id": "n-junc-east-north", "x": 76, "y": 72, "kind": "intersection", "label": "East×North"},
@@ -1162,9 +1176,9 @@ def build_plan() -> dict:
         {"id": "n-lane-n", "x": 4, "y": 60, "kind": "intersection", "label": "Lane N"},
         {"id": "n-junc-lane-north", "x": 4, "y": 72, "kind": "intersection", "label": "Lane×North"},
         {"id": "n-north-mid", "x": 60, "y": 72, "kind": "intersection", "label": "North St"},
-        {"id": "n-north-e", "x": 118, "y": 72, "kind": "intersection", "label": "North E"},
+        {"id": "n-north-e", "x": 148, "y": 72, "kind": "intersection", "label": "North E"},
         {"id": "n-cross-mid", "x": 51, "y": 49.25, "kind": "intersection", "label": "Cross@Pass"},
-        {"id": "n-cross-e", "x": 118, "y": 49.25, "kind": "intersection", "label": "Cross E"},
+        {"id": "n-cross-e", "x": 148, "y": 49.25, "kind": "intersection", "label": "Cross E"},
         {"id": "n-sw-cross-c", "x": 29, "y": 51.25, "kind": "place", "place": "sidewalk-cross-n", "label": "SW@C"},
         {"id": "n-sw-cross-d", "x": 61, "y": 51.25, "kind": "place", "place": "sidewalk-cross-n", "label": "SW@D"},
         {"id": "n-sw-cross-g", "x": 86, "y": 51.25, "kind": "place", "place": "sidewalk-cross-n", "label": "SW@G"},
@@ -1234,7 +1248,7 @@ def build_plan() -> dict:
             "width_m": 5.5,
             "directed": True,
             "label": "Carriageway →",
-            "polyline": [[76, 2.75], [118, 2.75]],
+            "polyline": [[76, 2.75], [148, 2.75]],
         },
         {
             "id": "e-sidewalk-1",
@@ -1267,7 +1281,7 @@ def build_plan() -> dict:
             "width_m": 2.5,
             "directed": False,
             "label": "Sidewalk N",
-            "polyline": [[76, 6.75], [118, 6.75]],
+            "polyline": [[76, 6.75], [148, 6.75]],
         },
         {
             "id": "e-east-s",
@@ -1355,7 +1369,7 @@ def build_plan() -> dict:
             "width_m": 4.0,
             "directed": False,
             "label": "North Street →",
-            "polyline": [[76, 72], [118, 72]],
+            "polyline": [[76, 72], [148, 72]],
         },
         {
             "id": "e-east-ne",
@@ -1399,7 +1413,7 @@ def build_plan() -> dict:
             "width_m": 2.5,
             "directed": False,
             "label": "Cross Street →",
-            "polyline": [[76, 50], [118, 49.25]],
+            "polyline": [[76, 50], [148, 49.25]],
         },
         {
             "id": "e-midblock-1",
@@ -2008,12 +2022,12 @@ def build_plan() -> dict:
             "id": "m-city-span-x",
             "label": "City grid east–west span",
             "a": [0, 40],
-            "b": [120, 40],
-            "value_m": 120.0,
+            "b": [150, 40],
+            "value_m": 150.0,
             "kind": "width",
             "of": "district-seed",
             "patterns": [105],
-            "role": "2×2 grid width along Main / Cross.",
+            "role": "City width along Main / Cross.",
         },
         {
             "id": "m-city-span-y",
@@ -2189,8 +2203,50 @@ def build_plan() -> dict:
             }
         )
 
+    # Object library: stamp additional frontage lots (Far East Block).
+    kit_parts: dict[str, list] = {
+        "places": places,
+        "walls": walls,
+        "openings": openings,
+        "nodes": nodes,
+        "edges": edges,
+        "measures": measures,
+        "interfaces": interfaces,
+        "interactions": interactions,
+    }
+    for spec in (
+        FrontageLotSpec(
+            key="i",
+            label="I",
+            block_id="block-far-east",
+            street_id="street-main",
+            lot_ring=((114, 10), (128, 10), (128, 32), (114, 32)),
+            found_ring=((116, 16), (126, 16), (126, 30), (116, 30)),
+            court_ring=((116, 10), (126, 10), (126, 16), (116, 16)),
+            mass_ring=((116, 16), (126, 16), (126, 30), (116, 30)),
+            gate_xy=(121, 10),
+            path_ring=((119, 8), (123, 8), (123, 10), (119, 10)),
+            mass_height_m=6.0,
+        ),
+        FrontageLotSpec(
+            key="j",
+            label="J",
+            block_id="block-far-east",
+            street_id="street-main",
+            lot_ring=((130, 10), (144, 10), (144, 32), (130, 32)),
+            found_ring=((132, 16), (142, 16), (142, 30), (132, 30)),
+            court_ring=((132, 10), (142, 10), (142, 16), (132, 16)),
+            mass_ring=((132, 16), (142, 16), (142, 30), (132, 30)),
+            gate_xy=(137, 10),
+            path_ring=((135, 8), (139, 8), (139, 10), (135, 10)),
+            mass_height_m=5.5,
+        ),
+    ):
+        merge_kit(kit_parts, stamp_frontage_lot(spec))
+
     for p in places:
-        p["ring"] = [list(pt) for pt in p["ring"]]
+        if p.get("ring") and p["ring"] and isinstance(p["ring"][0], tuple):
+            p["ring"] = [list(pt) for pt in p["ring"]]
 
     return {
         "id": "seed-district",
@@ -2204,7 +2260,7 @@ def build_plan() -> dict:
             "origin_lon": ORIGIN_LON,
             "origin_lat": ORIGIN_LAT,
         },
-        "extent": {"min_x": -2, "min_y": -2, "max_x": 124, "max_y": 78},
+        "extent": {"min_x": -2, "min_y": -2, "max_x": 154, "max_y": 78},
         "places": places,
         "walls": walls,
         "openings": openings,

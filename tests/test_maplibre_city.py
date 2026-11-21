@@ -14,7 +14,9 @@ def test_maplibre_city_surface_files() -> None:
     js = (DEMO / "map.js").read_text(encoding="utf-8")
     assert "maplibre-gl" in html
     assert 'id="map"' in html
-    assert "figure" in html.lower() or "Seed District" in html
+    assert "City map" in html or "Seed City" in html
+    assert "SpatialStructure" not in html
+    assert "MapLibre figure" not in html
     assert "district.geojson" in js
     assert "maplibregl.Map" in js
     assert "__plMap" in js

@@ -1,6 +1,6 @@
 {
   "id": "seed-district-decided",
-  "title": "Seed District — Decided stages",
+  "title": "Seed City — build order",
   "stages": [
     {
       "id": "survey",
@@ -8,8 +8,8 @@
       "mode": "sync",
       "requires": [],
       "unlocks": ["survey.complete"],
-      "webgl": "Terrain, north rose, sun sector, contour stubs",
-      "note": "No orientation check is legally satisfied without this frame."
+      "webgl": "Ground, north, and sun",
+      "note": "Site frame only — no lots yet."
     },
     {
       "id": "land",
@@ -17,35 +17,35 @@
       "mode": "sync",
       "requires": ["survey.complete"],
       "unlocks": ["land.lots"],
-      "webgl": "Lot lines, ROW, grade plane",
-      "note": "Lots and ROW before any building footprint."
+      "webgl": "Streets, lots, and greens",
+      "note": "Streets and lots before any building."
     },
     {
       "id": "foundation",
-      "name": "Foundations",
+      "name": "Pads",
       "mode": "async",
       "requires": ["land.lots"],
       "unlocks": ["foundation.ready"],
-      "webgl": "Pads on lots; sit-on and clearance links",
-      "note": "Pads may proceed in parallel across lots."
+      "webgl": "Building pads on lots",
+      "note": "Pads can go up on many lots at once."
     },
     {
       "id": "frame",
-      "name": "Frames",
+      "name": "Buildings",
       "mode": "sync",
       "requires": ["foundation.ready"],
       "unlocks": ["frame.ready"],
-      "webgl": "Wall/storey shells — not pretty house skins",
-      "note": "Per-building sync after that lot's foundation."
+      "webgl": "Walls and floors",
+      "note": "Building shells after that lot’s pad."
     },
     {
       "id": "openings",
-      "name": "Openings",
+      "name": "Doors & windows",
       "mode": "sync",
       "requires": ["frame.ready"],
       "unlocks": ["openings.installed"],
-      "webgl": "Installed windows and doors",
-      "note": "Proposals may exist earlier; install needs frame."
+      "webgl": "Doors, gates, and windows",
+      "note": "Openings after the walls exist."
     },
     {
       "id": "patterns",
@@ -53,8 +53,8 @@
       "mode": "sync",
       "requires": ["survey.complete"],
       "unlocks": ["patterns.run"],
-      "webgl": "Pattern focus and measured evidence",
-      "note": "Language sequence remains pl sequence; Decided only gates process."
+      "webgl": "Pattern highlights",
+      "note": "Highlight places a pattern cares about."
     }
   ]
 }

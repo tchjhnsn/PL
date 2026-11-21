@@ -1,4 +1,4 @@
-/** Decided stage viewer: survey → land → foundation → frame → openings → patterns. */
+/** Seed City 3D viewer: survey → land → pads → buildings → openings → patterns. */
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -1561,9 +1561,9 @@ function frameCamera() {
 }
 
 function statusLabel(status) {
-  if (status === "satisfied") return "satisfied";
-  if (status === "violated") return "violated";
-  if (status === "needs_judgment") return "needs judgment";
+  if (status === "satisfied") return "passes";
+  if (status === "violated") return "fails";
+  if (status === "needs_judgment") return "needs a yes/no";
   return "—";
 }
 
@@ -1574,7 +1574,7 @@ function renderPatterns() {
   const clear = document.createElement("button");
   clear.type = "button";
   clear.className = "pattern-card" + (focusPattern == null ? " is-active" : "");
-  clear.innerHTML = `<strong>All places</strong><span class="status">no filter</span>`;
+  clear.innerHTML = `<strong>Show all</strong><span class="status">no filter</span>`;
   clear.addEventListener("click", () => {
     focusPattern = null;
     applyColors();

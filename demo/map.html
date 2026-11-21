@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Seed District — City map</title>
+  <title>Seed City — Map</title>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -48,34 +48,35 @@
   <div class="map-app">
     <aside class="rail">
       <header class="rail-header">
-        <p class="eyebrow">Pattern Language · City surface</p>
-        <h1>Seed District</h1>
+        <p class="eyebrow">Seed City</p>
+        <h1>City map</h1>
         <p class="lede">
-          MapLibre figure–ground over SpatialStructure GeoJSON. WebGL stays the Decided detail viewer.
+          Buildings dark, streets light — a figure–ground of the whole grid.
+          Open 3D for build order and House A.
         </p>
       </header>
       <section class="rail-section">
         <h2>Legend</h2>
         <ul class="map-legend">
-          <li><span class="swatch" style="background:#2a2a28"></span> Building / massing</li>
-          <li><span class="swatch" style="background:#5c5c58"></span> Street / ROW</li>
-          <li><span class="swatch" style="background:#8a9a7a"></span> Lot / block</li>
+          <li><span class="swatch" style="background:#2a2a28"></span> Building</li>
+          <li><span class="swatch" style="background:#5c5c58"></span> Street</li>
+          <li><span class="swatch" style="background:#8a9a7a"></span> Lot</li>
           <li><span class="swatch" style="background:#6f9a6a"></span> Green / court</li>
-          <li><span class="swatch" style="background:#c9b896"></span> Path / sidewalk</li>
+          <li><span class="swatch" style="background:#c9b896"></span> Path</li>
           <li><span class="swatch" style="background:#4a7a9a"></span> Water</li>
         </ul>
       </section>
       <section class="rail-section">
-        <h2>Also</h2>
+        <h2>More views</h2>
         <p class="soft">
-          <a href="index.html">WebGL Decided</a> ·
-          <a href="plan.html">2D plan</a> ·
-          <a href="concepts.html">Concepts</a>
+          <a href="index.html">3D city</a> ·
+          <a href="plan.html">Floor plan</a> ·
+          <a href="concepts.html">Ideas graph</a>
         </p>
       </section>
       <section class="rail-section">
-        <h2>Selected</h2>
-        <p class="soft" id="sel">Click a polygon.</p>
+        <h2>Selection</h2>
+        <p class="soft" id="sel">Click a place on the map.</p>
       </section>
     </aside>
     <main id="map" aria-label="Seed district city map"></main>
