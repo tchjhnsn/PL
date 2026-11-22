@@ -509,6 +509,7 @@
   ],
   "zones": [
     {
+      "floor_elevation_m": 3.0,
       "footprint": [
         [
           8.0,
@@ -530,13 +531,14 @@
       "height_m": 3.0,
       "kind": "Space",
       "name": "balcony",
-      "parent": "ground",
+      "parent": "upper",
       "tags": [
         "balcony",
         "outdoor"
       ]
     },
     {
+      "floor_elevation_m": 3.0,
       "footprint": [
         [
           4.0,
@@ -558,7 +560,7 @@
       "height_m": 2.7,
       "kind": "Space",
       "name": "bedroom",
-      "parent": "ground",
+      "parent": "upper",
       "tags": [
         "occupied",
         "private",
@@ -566,6 +568,7 @@
       ]
     },
     {
+      "floor_elevation_m": 0.0,
       "footprint": [
         [
           0.0,
@@ -594,6 +597,7 @@
       ]
     },
     {
+      "floor_elevation_m": 0.0,
       "footprint": [],
       "height_m": null,
       "kind": "Storey",
@@ -602,6 +606,7 @@
       "tags": []
     },
     {
+      "floor_elevation_m": 0.0,
       "footprint": [
         [
           0.0,
@@ -631,6 +636,7 @@
       ]
     },
     {
+      "floor_elevation_m": null,
       "footprint": [],
       "height_m": null,
       "kind": "Building",
@@ -639,6 +645,7 @@
       "tags": []
     },
     {
+      "floor_elevation_m": 0.0,
       "footprint": [
         [
           4.0,
@@ -669,6 +676,7 @@
       ]
     },
     {
+      "floor_elevation_m": null,
       "footprint": [],
       "height_m": null,
       "kind": "Site",
@@ -677,6 +685,7 @@
       "tags": []
     },
     {
+      "floor_elevation_m": 0.0,
       "footprint": [
         [
           0.0,
@@ -702,6 +711,15 @@
       "tags": [
         "street"
       ]
+    },
+    {
+      "floor_elevation_m": 3.0,
+      "footprint": [],
+      "height_m": null,
+      "kind": "Storey",
+      "name": "upper",
+      "parent": "house",
+      "tags": []
     }
   ]
 }

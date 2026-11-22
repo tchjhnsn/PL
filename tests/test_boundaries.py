@@ -15,9 +15,17 @@ WATCHED_IMPORTS = frozenset({"ifcopenshell", "bpy", "bonsai"})
 SCHEMA_FILES = (
     "schema/catalog.schema.json",
     "schema/check-report.schema.json",
+    "schema/ontology/terms.json",
+    "schema/ontology/terms.schema.json",
+    "schema/ontology/urban-typologies.json",
+    "schema/ontology/urban-typologies.schema.json",
+    "schema/orientation-frame.schema.json",
     "schema/pattern-instance.schema.json",
+    "schema/process-stage.schema.json",
     "schema/projects.schema.json",
+    "schema/spatial-structure.schema.json",  # mid-layer; not a catalog-gate directory
     "schema/step.schema.json",
+    "schema/survey.schema.json",
 )
 
 CATALOG_FILES = (
@@ -137,7 +145,7 @@ def test_lean_has_no_mathlib(repo_root: Path) -> None:
     assert manifest["packages"] == []
 
 
-def test_u1_ships_five_schemas_and_twelve_records(repo_root: Path) -> None:
+def test_u1_ships_schemas_and_twelve_records(repo_root: Path) -> None:
     schemas = sorted(
         path.relative_to(repo_root).as_posix()
         for path in (repo_root / "schema").rglob("*.json")

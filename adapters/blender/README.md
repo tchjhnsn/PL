@@ -14,7 +14,9 @@ Set the add-on preference Repository to this repository root when the folder was
 
 Until a stamp directory contains `report.json`, the panel draws `report unavailable`. After `drive_run.py` or Apply Next writes that file, the panel draws one line per instance from `report_lines`.
 
-`export_ifc` raises `RuntimeError("Bonsai export is not wired")`. Apply Next raises `BridgeError("Bonsai is not enabled")` when Bonsai cannot be imported, and it writes no step in that case.
+`export_ifc` calls `bpy.ops.bim.save_project` (save-as). It raises `RuntimeError("Bonsai export is not wired")` when the `bim` operator is missing. Apply Next raises `BridgeError("Bonsai is not enabled")` when Bonsai cannot be imported, and it writes no step in that case.
+
+End-to-end Effect CLI (headless + live): `docs/design/E2E-BONSAI-EFFECT.md` and `tools/e2e-effect/`.
 
 ## Commands
 

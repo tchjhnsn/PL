@@ -28,12 +28,18 @@ def check(topology: Topology, center: str, params: Mapping[str, Any]) -> Evidenc
     reference_zones = [
         zone for zone in zones if "occupied" in zone.tags and "daytime" not in zone.tags
     ]
+    frame = (
+        ("latitude_deg", dec(latitude)),
+        ("north_x", dec(topology.north[0])),
+        ("north_y", dec(topology.north[1])),
+    )
     if not daytime or not reference_zones:
         return make_evidence(
             CHECK_ID,
             passed=False,
             applicable=False,
             subjects=[zone.name for zone in daytime],
+            measured=frame,
         )
     direction = equator_direction(topology.north, latitude)
     reference = mean_centroid(reference_zones)
@@ -51,5 +57,5 @@ def check(topology: Topology, center: str, params: Mapping[str, Any]) -> Evidenc
         passed=passed,
         applicable=True,
         subjects=[zone.name for zone in daytime],
-        measured=(("dot", dec(dot)),),
+        measured=(*frame, ("dot", dec(dot))),
     )

@@ -1,4 +1,4 @@
-"""Stdio client calls the five MCP tools on the seed fixtures."""
+"""Stdio client calls the MCP tools on the seed fixtures."""
 
 from __future__ import annotations
 
@@ -16,11 +16,13 @@ from pattern_language.catalog import get, load_catalog, pattern_record
 from pattern_language.checker import report_json, run
 from pattern_language.parameters import load_project
 from pattern_language.sequence import sequence
+from pattern_language.spatial_structure import clear_width, load_spatial
 from pattern_language.step import build_step, step_json
 
 _LANGUAGE = "projects/seed-house.json"
 _PASS = "fixtures/pass-house.ifc"
 _FAIL = "fixtures/fail-house.ifc"
+_PLAN = "demo/data/plan-model.json"
 _COMPUTED = [105, 106, 107, 112, 127, 128, 130, 159, 167, 190]
 
 
@@ -74,6 +76,8 @@ async def _call_each(repo_root: Path) -> None:
             "language_sequence",
             "model_check",
             "model_step",
+            "spatial_get",
+            "model_measures",
         ]
         by_name = {tool.name: tool for tool in listed.tools}
         assert by_name["pattern_get"].output_schema == catalog_schema
@@ -109,6 +113,15 @@ async def _call_each(repo_root: Path) -> None:
                 "pattern": 105,
             },
         )
+        spatial = await client.call_tool("spatial_get", {"plan": _PLAN})
+        balcony = await client.call_tool(
+            "model_measures",
+            {"plan": _PLAN, "place": "a-balcony"},
+        )
+        missing_place = await client.call_tool(
+            "spatial_get",
+            {"plan": _PLAN, "place": "no-such-place"},
+        )
         missing = await client.call_tool("pattern_get", {"number": 200})
         outside = await client.call_tool(
             "model_step",
@@ -120,6 +133,18 @@ async def _call_each(repo_root: Path) -> None:
             },
         )
         zero = await client.call_tool("pattern_get", {"number": 0})
+
+    assert spatial.is_error is False
+    spatial_plan = json.loads(_text(spatial))
+    assert spatial_plan["id"] == load_spatial(repo_root / _PLAN)["id"]
+    assert len(spatial_plan["places"]) >= 10
+    assert balcony.is_error is False
+    balcony_payload = json.loads(_text(balcony))
+    assert balcony_payload["place"] == "a-balcony"
+    assert balcony_payload["clear_width_m"] == 6.0
+    assert clear_width(load_spatial(repo_root / _PLAN), "a-balcony") == 6.0
+    assert missing_place.is_error is True
+    assert "unknown place" in _text(missing_place)
 
     assert found.is_error is False
     records = json.loads(_text(found))

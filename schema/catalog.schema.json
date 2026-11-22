@@ -31,9 +31,34 @@
       "minItems": 1,
       "items": { "$ref": "#/$defs/condition" }
     },
-    "source": { "$ref": "#/$defs/source" }
+    "source": { "$ref": "#/$defs/source" },
+    "uses": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^term\\.[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    },
+    "references": {
+      "type": "array",
+      "minItems": 0,
+      "items": { "$ref": "#/$defs/reference" }
+    }
   },
   "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "title", "retrieved", "note"],
+      "properties": {
+        "url": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "retrieved": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "note": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    },
     "patternNumber": { "type": "integer", "minimum": 1, "maximum": 253 },
     "linkList": {
       "type": "array",

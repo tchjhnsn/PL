@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UrbanTypologyOntology",
+  "description": "Formal urban design typologies for Pattern Language SpatialStructure + kits. Cite pattern numbers only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "sources", "layers", "types", "components"],
+  "properties": {
+    "id": { "const": "pattern-language.urban-typology" },
+    "version": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "role"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "role": {
+            "type": "string",
+            "enum": ["foundation", "morphology", "taxonomy", "code", "interchange", "ours"]
+          },
+          "note": { "type": "string" },
+          "url": { "type": "string" }
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "definition"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "fabric",
+              "transect",
+              "street",
+              "block",
+              "plot",
+              "building",
+              "open_space",
+              "program"
+            ]
+          },
+          "name": { "type": "string" },
+          "definition": { "type": "string", "minLength": 1, "maxLength": 600 },
+          "conzen": {
+            "type": ["string", "null"],
+            "enum": ["street", "plot", "building", null]
+          }
+        }
+      }
+    },
+    "types": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "layer", "name", "definition", "spatial"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ut\\.[a-z0-9]+(\\.[a-z0-9]+(-[a-z0-9]+)*)+$"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "fabric",
+              "transect",
+              "street",
+              "block",
+              "plot",
+              "building",
+              "open_space",
+              "program"
+            ]
+          },
+          "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "definition": { "type": "string", "minLength": 1, "maxLength": 600 },
+          "sources": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "spatial": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["component"],
+            "properties": {
+              "component": { "type": "string", "minLength": 1 },
+              "roles": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "kind": {
+                "type": "string",
+                "enum": ["land", "void", "path", "foundation", "solid", "room"]
+              },
+              "network_hierarchy": {
+                "type": "string",
+                "enum": ["arterial", "local", "lane", "approach", "path"]
+              }
+            }
+          },
+          "cityjson": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "patterns": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 1 }
+          },
+          "parent": { "type": "string" },
+          "aliases": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "implements", "status"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^comp\\.[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "name": { "type": "string", "minLength": 1 },
+          "definition": { "type": "string" },
+          "kit": { "type": ["string", "null"] },
+          "implements": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^ut\\." }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["implemented", "stub", "planned"]
+          },
+          "mesh_hint": {
+            "type": "string",
+            "description": "Optional GLB/kit skin class for WebGL LoD2+"
+          }
+        }
+      }
+    }
+  }
+}
