@@ -17,6 +17,8 @@ SCHEMA_FILES = (
     "schema/check-report.schema.json",
     "schema/ontology/terms.json",
     "schema/ontology/terms.schema.json",
+    "schema/ontology/urban-typologies.json",
+    "schema/ontology/urban-typologies.schema.json",
     "schema/orientation-frame.schema.json",
     "schema/pattern-instance.schema.json",
     "schema/process-stage.schema.json",

@@ -84,6 +84,13 @@ Heavy client rendering on CityGML/Cesium demos is a product smell for *our* loop
 
 `demo/` ships an **owned plan-symbology** renderer (`pattern-language.plan-symbology`): SVG floor/site plan with flow centerlines, dimension strings, door swings, windows, canopy trees, figure–ground, and pattern diagrams. CityJSON remains interchange. SpatialStructure is the mid-layer those drawings read. See `docs/design/VISUAL-LANGUAGE.md` and [U8-SPATIAL-STRUCTURE.md](U8-SPATIAL-STRUCTURE.md). Marketing/Naive dogfood is deferred.
 
+## Urban typologies (U24)
+
+Street / plot / building / fabric / transect / program types live in
+[`schema/ontology/urban-typologies.json`](../../schema/ontology/urban-typologies.json).
+See [URBAN-TYPOLOGY.md](URBAN-TYPOLOGY.md). That ontology binds to the kit
+component library (`pattern_language.kits.registry`) without replacing CityGML or IFC.
+
 ## Next formalization pass
 
 Catalog existing formalisms (CityGML modules, IFC domains, LandInfra, BOT, bSDD, planning models) into a single **inventory** with adopt / adapt / ignore / later. This file is the adopt-map for *our* product; the inventory is the wider shelf we will sort next.

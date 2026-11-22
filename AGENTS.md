@@ -19,7 +19,7 @@ A pattern-language catalog with a schema gate and a Lean library. U0 proves the 
 | `adapters/blender/` | Blender add-on: panel, `Session`, and `export_ifc` (Bonsai save-as via `bpy.ops.bim`). `bpy` stays in this directory. |
 | `tools/e2e-effect/` | Effect-TS CLI wrapping `pl` / `drive_run` (headless + live). See `docs/design/E2E-BONSAI-EFFECT.md`. |
 | `demo/` | WebGL Decided stage viewer + SVG plan + concept browser (`python3 demo/serve.py` → http://127.0.0.1:8765/). Blender is optional; see `docs/design/WEBGL-ENTRY.md`. |
-| `schema/ontology/` | Shared term definitions (`term.*`) linked from catalog `uses`. |
+| `schema/ontology/` | Shared term definitions (`term.*`) plus urban typology ontology (`urban-typologies.json`) and kit component registry bindings. |
 | `docs/design/SATISFACTION.md` | When `satisfied` is legal: orientation frame, tags, elevation. |
 | `docs/design/DECIDED.md` | Survey → land → foundation → frame → openings; sync/async unlocks. |
 | `docs/design/U8-SPATIAL-STRUCTURE.md` | U8 contract: SpatialStructure mid-layer acceptance. |
@@ -242,6 +242,14 @@ uv run python scripts/lint_spatial.py
 uv run pytest tests/test_kits.py tests/test_spatial_structure.py tests/test_webgl_quality.py
 ```
 
+## U24
+
+Urban design typology ontology + component library: Conzen / Caniggia / Transect / Urban Taxonomy / CityGML mapped into `schema/ontology/urban-typologies.json`; kits bound via `implements`. Contract: `docs/design/U24-URBAN-TYPOLOGY.md`. No catalog / Lean / `pl` / MCP.
+
+```bash
+uv run pytest tests/test_urban_typology.py tests/test_kits.py
+```
+
 ## Commands
 
 ```bash
@@ -267,6 +275,6 @@ CI runs `uv sync --frozen`, `uv run pytest`, `uv run python scripts/validate_cat
 - Core Python must not import `bpy`. `bpy` may be imported only under `adapters/blender/`. `bonsai` may be imported only in `adapters/blender/bridge.py`. `ifcopenshell` may be imported only inside `read_ifc` and `write_ifc` in `topology.py`.
 - `lean/lake-manifest.json` keeps `packages` empty. Do not add Mathlib.
 - Do not add pattern records, schema documents, or a `pl` command in U0.
-- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only. U10 adds `spatial_get` / `model_measures` MCP tools and CI spatial lint. U11 expands CityJSON LoD0 + TrafficArea export. U12 adds plan-sheet judgment answers for 110 / 180. U13 draws approach enclosure walls / court gate in WebGL; no new `pl` command. U14 adds the entrance porch canopy between court and hall; no new `pl` command. U15 adds street frontage / plot-series courts on neighbor lots; no new `pl` command. U16 fixes stacked storeys / stair (no roof door) and adds a building-line measure; no new `pl` command. U17 adds block places + Cross Street junction; no new `pl` command. U18 adds frontage rhythm measures and workshop address; no new `pl` command. U19 adds East Block / multi-block district; no new `pl` command. U20 adds MapLibre city map surface; no new `pl` command. U21 closes a 2×2 city block grid; no new `pl` command. U22 rewrites demo chrome + stamps frontage-lot kits; no new `pl` command. U23 stamps city fabric with continuous green fingers + civic program (no fog in WebGL).
+- U4 adds `pl check`. U5 adds `pl sequence` and `pl step`. U6 adds the stdio server in `mcp/server.py`. U7 adds `scripts/drive_run.py` and the Blender add-on. U7 does not add a schema, a Lean edit, a `pl` command, or an MCP tool. U8 adds SpatialStructure mid-layer helpers and docs; no new `pl` command or MCP tool. U9 adds `meets_clear_width` for plan measures; `CHECKS` and `pl check` stay Topology-only. U10 adds `spatial_get` / `model_measures` MCP tools and CI spatial lint. U11 expands CityJSON LoD0 + TrafficArea export. U12 adds plan-sheet judgment answers for 110 / 180. U13 draws approach enclosure walls / court gate in WebGL; no new `pl` command. U14 adds the entrance porch canopy between court and hall; no new `pl` command. U15 adds street frontage / plot-series courts on neighbor lots; no new `pl` command. U16 fixes stacked storeys / stair (no roof door) and adds a building-line measure; no new `pl` command. U17 adds block places + Cross Street junction; no new `pl` command. U18 adds frontage rhythm measures and workshop address; no new `pl` command. U19 adds East Block / multi-block district; no new `pl` command. U20 adds MapLibre city map surface; no new `pl` command. U21 closes a 2×2 city block grid; no new `pl` command. U22 rewrites demo chrome + stamps frontage-lot kits; no new `pl` command. U23 stamps city fabric with continuous green fingers + civic program (no fog in WebGL). U24 adds urban typology ontology + component library registry; no new `pl` command.
 - Agents open draft pull requests and do not merge.
 - Agent skills for WebGL / city mesh work live under `.agents/skills/` (`three-best-practices`, `threejs-spatial-data`, `threejs-testing`, `threejs-procedural-architecture`, `threejs-procedural-buildings-and-cities`, `threejs-architecture-effects`).

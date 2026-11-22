@@ -1,0 +1,630 @@
+{
+  "id": "pattern-language.urban-typology",
+  "version": 1,
+  "title": "Urban design typology ontology",
+  "sources": [
+    {
+      "id": "conzen",
+      "name": "Conzen town-plan analysis",
+      "role": "foundation",
+      "note": "Street / plot / building as plan elements; plan units as coherent tissue.",
+      "url": "https://journal.urbanform.org/index.php/jum/article/view/3910"
+    },
+    {
+      "id": "caniggia",
+      "name": "Muratori–Caniggia typo-morphology",
+      "role": "morphology",
+      "note": "Building type as generative element; tissue as aggregate of types along streets."
+    },
+    {
+      "id": "kropf",
+      "name": "Kropf hierarchy of built form",
+      "role": "morphology",
+      "note": "Clarifies street–plot–building containment vs aggregation.",
+      "url": "https://journal.urbanform.org/index.php/jum/article/download/3995/3306/11614"
+    },
+    {
+      "id": "fleischmann",
+      "name": "Numerical taxonomy of urban form / Urban Taxonomy",
+      "role": "taxonomy",
+      "note": "Coherent vs incoherent fabric; dense / interconnected tissue clusters.",
+      "url": "https://urbantaxonomy.org/"
+    },
+    {
+      "id": "berghauser",
+      "name": "Building Types Online morphological types",
+      "role": "morphology",
+      "note": "Block edge, block infill, entire block, solitary, slab.",
+      "url": "https://bdt.degruyter.com/a-taxonomy-of-typological-classifications/"
+    },
+    {
+      "id": "transect",
+      "name": "Rural-to-urban Transect (Duany / CNU)",
+      "role": "code",
+      "note": "T1–T6 intensity zones + thoroughfare types (road, street, avenue, boulevard, lane).",
+      "url": "https://www.cnu.org/publicsquare/transect"
+    },
+    {
+      "id": "citygml",
+      "name": "CityGML / CityJSON thematic classes",
+      "role": "interchange",
+      "note": "Building, Road, TrafficArea, LandUse, WaterBody, SolitaryVegetationObject."
+    },
+    {
+      "id": "pl",
+      "name": "A Pattern Language (numbers/names only)",
+      "role": "ours",
+      "note": "Town-scale patterns cited on types; never book text."
+    }
+  ],
+  "layers": [
+    {
+      "id": "fabric",
+      "name": "Urban fabric / tissue",
+      "definition": "Coherent region of street–plot–building relations (Conzen plan unit; Caniggia tissue; Urban Taxonomy fabric clusters).",
+      "conzen": null
+    },
+    {
+      "id": "transect",
+      "name": "Transect zone",
+      "definition": "Rural-to-urban intensity band (T1–T6) that selects appropriate street, frontage, and building character.",
+      "conzen": null
+    },
+    {
+      "id": "street",
+      "name": "Street / thoroughfare",
+      "definition": "Public way that structures blocks and fronts plots. Hierarchy by mobility vs access (arterial → local → lane).",
+      "conzen": "street"
+    },
+    {
+      "id": "block",
+      "name": "Street block",
+      "definition": "Island of plots bounded by the street pattern; the unit of neighborhood grain.",
+      "conzen": "plot"
+    },
+    {
+      "id": "plot",
+      "name": "Plot / parcel",
+      "definition": "Cadastral cell that contains buildings and private open space; Conzen’s plot series faces a street.",
+      "conzen": "plot"
+    },
+    {
+      "id": "building",
+      "name": "Building morphology",
+      "definition": "Massing relation to the block: edge, infill, entire-block, solitary, slab — distinct from program (school, shop).",
+      "conzen": "building"
+    },
+    {
+      "id": "open_space",
+      "name": "Open space",
+      "definition": "Public or private outdoor void: street void, court, green finger, playground, fringe.",
+      "conzen": null
+    },
+    {
+      "id": "program",
+      "name": "Program / use",
+      "definition": "What the place does (living, shop, school, civic). Orthogonal to morphological type.",
+      "conzen": null
+    }
+  ],
+  "types": [
+    {
+      "id": "ut.fabric.coherent-dense",
+      "layer": "fabric",
+      "name": "Coherent dense fabric",
+      "definition": "Street-defined blocks with connected network; buildings adjacent or short-setback (row / urban villa). Typical walkable neighborhood tissue.",
+      "sources": ["fleischmann", "conzen"],
+      "spatial": {
+        "component": "district",
+        "roles": ["district", "neighborhood", "fabric", "coherent"],
+        "kind": "land"
+      },
+      "patterns": [8, 14]
+    },
+    {
+      "id": "ut.fabric.coherent-interconnected",
+      "layer": "fabric",
+      "name": "Coherent interconnected fabric",
+      "definition": "High built-up density and short streets; buildings enclose courtyards; narrow distance between blocks.",
+      "sources": ["fleischmann"],
+      "spatial": {
+        "component": "district",
+        "roles": ["district", "fabric", "coherent", "courtyard-block"],
+        "kind": "land"
+      },
+      "patterns": [14, 15]
+    },
+    {
+      "id": "ut.fabric.incoherent-large",
+      "layer": "fabric",
+      "name": "Incoherent large-scale fabric",
+      "definition": "Large buildings and utilitarian streets; open space between slabs; modernist / industrial grain.",
+      "sources": ["fleischmann"],
+      "spatial": {
+        "component": "district",
+        "roles": ["district", "fabric", "incoherent", "large"],
+        "kind": "land"
+      },
+      "patterns": [42]
+    },
+    {
+      "id": "ut.transect.t3",
+      "layer": "transect",
+      "name": "T3 Sub-urban",
+      "definition": "Neighborhood edge: lower intensity, houses with yards, limited mix; walkable but more auto-tolerant than T4–T6.",
+      "sources": ["transect"],
+      "spatial": {
+        "component": "district",
+        "roles": ["transect", "t3"],
+        "kind": "land"
+      },
+      "patterns": [14]
+    },
+    {
+      "id": "ut.transect.t4",
+      "layer": "transect",
+      "name": "T4 General urban",
+      "definition": "Mixed houses and shops; medium density; street frontages and courts; seed-neighborhood default.",
+      "sources": ["transect"],
+      "spatial": {
+        "component": "district",
+        "roles": ["transect", "t4", "neighborhood"],
+        "kind": "land"
+      },
+      "patterns": [14, 15]
+    },
+    {
+      "id": "ut.transect.t5",
+      "layer": "transect",
+      "name": "T5 Urban center",
+      "definition": "Higher intensity mixed use; shops at street; civic nodes; tighter building line.",
+      "sources": ["transect"],
+      "spatial": {
+        "component": "district",
+        "roles": ["transect", "t5", "center"],
+        "kind": "land"
+      },
+      "patterns": [30, 32]
+    },
+    {
+      "id": "ut.street.arterial",
+      "layer": "street",
+      "name": "Arterial / boulevard",
+      "definition": "Primary capacity thoroughfare; structures districts. Transect: boulevard. Network hierarchy: arterial.",
+      "sources": ["transect", "conzen"],
+      "spatial": {
+        "component": "street",
+        "roles": ["street", "public", "row", "arterial"],
+        "kind": "void",
+        "network_hierarchy": "arterial"
+      },
+      "cityjson": ["Road", "TrafficArea"],
+      "patterns": [14, 15],
+      "aliases": ["boulevard"]
+    },
+    {
+      "id": "ut.street.local",
+      "layer": "street",
+      "name": "Local street",
+      "definition": "Access-oriented walkable street fronting plots; default neighborhood street. Transect: street.",
+      "sources": ["transect", "conzen"],
+      "spatial": {
+        "component": "street",
+        "roles": ["street", "public", "row", "local"],
+        "kind": "void",
+        "network_hierarchy": "local"
+      },
+      "cityjson": ["Road", "TrafficArea"],
+      "patterns": [14, 15],
+      "aliases": ["street"]
+    },
+    {
+      "id": "ut.street.lane",
+      "layer": "street",
+      "name": "Lane / alley",
+      "definition": "Narrow low-speed access; mid-block or service. Network hierarchy: lane.",
+      "sources": ["transect"],
+      "spatial": {
+        "component": "street",
+        "roles": ["street", "public", "lane"],
+        "kind": "void",
+        "network_hierarchy": "lane"
+      },
+      "cityjson": ["Road", "TrafficArea"],
+      "patterns": [15]
+    },
+    {
+      "id": "ut.street.country",
+      "layer": "street",
+      "name": "Country road",
+      "definition": "Rural / fringe thoroughfare meeting the city edge; pairs with country fingers.",
+      "sources": ["transect", "pl"],
+      "spatial": {
+        "component": "street",
+        "roles": ["street", "public", "row", "country", "local"],
+        "kind": "void",
+        "network_hierarchy": "local"
+      },
+      "cityjson": ["Road"],
+      "patterns": [3, 14]
+    },
+    {
+      "id": "ut.street.carriageway",
+      "layer": "street",
+      "name": "Carriageway",
+      "definition": "Driving surface within a ROW (CityGML TrafficArea).",
+      "sources": ["citygml"],
+      "spatial": {
+        "component": "carriageway",
+        "roles": ["carriageway", "public"],
+        "kind": "void"
+      },
+      "cityjson": ["TrafficArea"],
+      "parent": "ut.street.local"
+    },
+    {
+      "id": "ut.street.sidewalk",
+      "layer": "street",
+      "name": "Sidewalk",
+      "definition": "Pedestrian clear way within the ROW.",
+      "sources": ["citygml", "transect"],
+      "spatial": {
+        "component": "sidewalk",
+        "roles": ["sidewalk", "public"],
+        "kind": "void",
+        "network_hierarchy": "path"
+      },
+      "cityjson": ["TrafficArea"],
+      "parent": "ut.street.local"
+    },
+    {
+      "id": "ut.block.perimeter",
+      "layer": "block",
+      "name": "Perimeter block",
+      "definition": "Plots and buildings along the street edge enclose a private or semi-private interior (court / yard).",
+      "sources": ["berghauser", "fleischmann"],
+      "spatial": {
+        "component": "block",
+        "roles": ["block", "perimeter"],
+        "kind": "land"
+      },
+      "patterns": [14, 15]
+    },
+    {
+      "id": "ut.block.open",
+      "layer": "block",
+      "name": "Open block",
+      "definition": "Street-bounded cell with freer building placement; less continuous street wall.",
+      "sources": ["berghauser", "fleischmann"],
+      "spatial": {
+        "component": "block",
+        "roles": ["block", "open"],
+        "kind": "land"
+      },
+      "patterns": [14]
+    },
+    {
+      "id": "ut.plot.frontage",
+      "layer": "plot",
+      "name": "Frontage plot",
+      "definition": "Parcel in a plot series facing a street with court or setback and address on the network.",
+      "sources": ["conzen", "kropf", "pl"],
+      "spatial": {
+        "component": "parcel",
+        "roles": ["lot", "parcel", "frontage"],
+        "kind": "land"
+      },
+      "cityjson": ["LandUse"],
+      "patterns": [105, 106, 112]
+    },
+    {
+      "id": "ut.plot.corner",
+      "layer": "plot",
+      "name": "Corner plot",
+      "definition": "Parcel at a street junction; two frontages; often shop or civic.",
+      "sources": ["berghauser", "pl"],
+      "spatial": {
+        "component": "parcel",
+        "roles": ["lot", "parcel", "corner"],
+        "kind": "land"
+      },
+      "patterns": [89, 30]
+    },
+    {
+      "id": "ut.building.block-edge",
+      "layer": "building",
+      "name": "Block-edge building",
+      "definition": "Massing that defines the street wall of a block; primary morphological type for frontage lots.",
+      "sources": ["berghauser"],
+      "spatial": {
+        "component": "massing",
+        "roles": ["building", "massing", "block-edge"],
+        "kind": "solid"
+      },
+      "cityjson": ["Building"],
+      "patterns": [105, 106]
+    },
+    {
+      "id": "ut.building.block-infill",
+      "layer": "building",
+      "name": "Block-infill building",
+      "definition": "Massing that occupies a remaining gap in an established street wall.",
+      "sources": ["berghauser"],
+      "spatial": {
+        "component": "massing",
+        "roles": ["building", "massing", "infill"],
+        "kind": "solid"
+      },
+      "cityjson": ["Building"]
+    },
+    {
+      "id": "ut.building.solitary",
+      "layer": "building",
+      "name": "Solitary building",
+      "definition": "Freestanding mass in open space; weak street wall (civic campus, villa, utility).",
+      "sources": ["berghauser"],
+      "spatial": {
+        "component": "massing",
+        "roles": ["building", "massing", "solitary"],
+        "kind": "solid"
+      },
+      "cityjson": ["Building"]
+    },
+    {
+      "id": "ut.building.slab",
+      "layer": "building",
+      "name": "Slab",
+      "definition": "Elongated multi-unit mass often set in open green; incoherent large-scale fabric.",
+      "sources": ["berghauser", "fleischmann"],
+      "spatial": {
+        "component": "massing",
+        "roles": ["building", "massing", "slab"],
+        "kind": "solid"
+      },
+      "cityjson": ["Building"]
+    },
+    {
+      "id": "ut.open.court-front",
+      "layer": "open_space",
+      "name": "Front court",
+      "definition": "Positive outdoor space between street gate and building; transition and south-facing outdoors.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "court",
+        "roles": ["outdoor", "transition", "frontage"],
+        "kind": "void"
+      },
+      "patterns": [105, 106, 112]
+    },
+    {
+      "id": "ut.open.green-finger",
+      "layer": "open_space",
+      "name": "Country finger / green finger",
+      "definition": "Continuous green corridor penetrating the city (3 City Country Fingers).",
+      "sources": ["pl", "fleischmann"],
+      "spatial": {
+        "component": "park",
+        "roles": ["park", "green", "grass", "outdoor", "public"],
+        "kind": "void"
+      },
+      "cityjson": ["PlantCover", "LandUse"],
+      "patterns": [3, 60, 67]
+    },
+    {
+      "id": "ut.open.playground",
+      "layer": "open_space",
+      "name": "Playground",
+      "definition": "Connected play open space near dwellings and schools.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "playground",
+        "roles": ["playground", "outdoor", "public", "play"],
+        "kind": "void"
+      },
+      "patterns": [68, 57]
+    },
+    {
+      "id": "ut.open.country-fringe",
+      "layer": "open_space",
+      "name": "Country fringe",
+      "definition": "Countryside belt meeting the metro edge along a country road.",
+      "sources": ["pl", "transect"],
+      "spatial": {
+        "component": "park",
+        "roles": ["park", "green", "country", "outdoor", "public"],
+        "kind": "void"
+      },
+      "patterns": [3, 60]
+    },
+    {
+      "id": "ut.program.living",
+      "layer": "program",
+      "name": "Living",
+      "definition": "Dwelling program on a frontage or upper storey.",
+      "sources": ["pl", "citygml"],
+      "spatial": {
+        "component": "parcel",
+        "roles": ["living", "lot"],
+        "kind": "land"
+      },
+      "patterns": [105, 127]
+    },
+    {
+      "id": "ut.program.shop",
+      "layer": "program",
+      "name": "Shop",
+      "definition": "Individually owned shop / storefront on a shopping street.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "shop",
+        "roles": ["shop", "public", "work"],
+        "kind": "solid"
+      },
+      "cityjson": ["Building"],
+      "patterns": [87, 32, 19]
+    },
+    {
+      "id": "ut.program.grocery",
+      "layer": "program",
+      "name": "Corner grocery",
+      "definition": "Local food shop on a corner or short walk from dwellings.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "shop",
+        "roles": ["shop", "grocery", "public", "work"],
+        "kind": "solid"
+      },
+      "patterns": [89, 87, 19]
+    },
+    {
+      "id": "ut.program.market",
+      "layer": "program",
+      "name": "Market",
+      "definition": "Market of many shops / stall cluster at an activity node.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "market",
+        "roles": ["market", "shop", "public"],
+        "kind": "solid"
+      },
+      "patterns": [46, 30]
+    },
+    {
+      "id": "ut.program.school",
+      "layer": "program",
+      "name": "Shopfront school",
+      "definition": "School as a neighborhood civic massing, not a remote campus.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "school",
+        "roles": ["civic", "school", "public"],
+        "kind": "solid"
+      },
+      "patterns": [85, 14]
+    },
+    {
+      "id": "ut.program.civic",
+      "layer": "program",
+      "name": "Civic / town hall",
+      "definition": "Local government or civic node (town hall, police, related services).",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "civic",
+        "roles": ["civic", "government", "public"],
+        "kind": "solid"
+      },
+      "patterns": [44, 30, 81]
+    },
+    {
+      "id": "ut.program.clinic",
+      "layer": "program",
+      "name": "Health center",
+      "definition": "Neighborhood health / clinic massing.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "clinic",
+        "roles": ["civic", "health", "public"],
+        "kind": "solid"
+      },
+      "patterns": [47]
+    },
+    {
+      "id": "ut.program.utility",
+      "layer": "program",
+      "name": "Utility / industrial edge",
+      "definition": "Service yard or industrial ribbon at the metro edge.",
+      "sources": ["pl"],
+      "spatial": {
+        "component": "utility",
+        "roles": ["utility", "work", "service"],
+        "kind": "solid"
+      },
+      "patterns": [42]
+    }
+  ],
+  "components": [
+    {
+      "id": "comp.frontage-lot",
+      "name": "Frontage lot kit",
+      "definition": "Stampable plot series cell: lot, pad, front court, optional garden walls/gate, massing, address.",
+      "kit": "pattern_language.kits.frontage_lot.stamp_frontage_lot",
+      "implements": [
+        "ut.plot.frontage",
+        "ut.building.block-edge",
+        "ut.open.court-front",
+        "ut.program.living"
+      ],
+      "status": "implemented",
+      "mesh_hint": "residential-bay"
+    },
+    {
+      "id": "comp.program-place",
+      "name": "Program place kit",
+      "definition": "School, shop, park, civic, utility parcel + optional massing.",
+      "kit": "pattern_language.kits.program_place.stamp_program_place",
+      "implements": [
+        "ut.program.shop",
+        "ut.program.grocery",
+        "ut.program.market",
+        "ut.program.school",
+        "ut.program.civic",
+        "ut.program.clinic",
+        "ut.program.utility",
+        "ut.open.green-finger",
+        "ut.open.playground",
+        "ut.open.country-fringe",
+        "ut.building.solitary"
+      ],
+      "status": "implemented",
+      "mesh_hint": "program-mass"
+    },
+    {
+      "id": "comp.city-fabric",
+      "name": "City fabric composer",
+      "definition": "Multi-block quarter: streets, continuous fingers, program cells, frontage stamps.",
+      "kit": "pattern_language.kits.city_fabric.generate_city_fabric",
+      "implements": [
+        "ut.fabric.coherent-dense",
+        "ut.transect.t4",
+        "ut.transect.t5",
+        "ut.block.perimeter",
+        "ut.street.arterial",
+        "ut.street.local",
+        "ut.open.green-finger"
+      ],
+      "status": "implemented"
+    },
+    {
+      "id": "comp.street-section",
+      "name": "Street section kit",
+      "definition": "ROW = carriageway + sidewalks + optional median; emits street place + TrafficAreas + network edge.",
+      "kit": null,
+      "implements": [
+        "ut.street.arterial",
+        "ut.street.local",
+        "ut.street.lane",
+        "ut.street.carriageway",
+        "ut.street.sidewalk"
+      ],
+      "status": "planned",
+      "mesh_hint": "street-section"
+    },
+    {
+      "id": "comp.block-face",
+      "name": "Block face kit",
+      "definition": "One street face of a perimeter block: ordered frontage lots + rhythm measure.",
+      "kit": null,
+      "implements": ["ut.block.perimeter", "ut.plot.frontage", "ut.building.block-edge"],
+      "status": "planned"
+    },
+    {
+      "id": "comp.corner-shop",
+      "name": "Corner shop kit",
+      "definition": "Corner plot with shop massing and two frontages.",
+      "kit": null,
+      "implements": ["ut.plot.corner", "ut.program.grocery", "ut.program.shop"],
+      "status": "planned",
+      "mesh_hint": "storefront-bay"
+    }
+  ]
+}
